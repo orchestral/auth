@@ -10,9 +10,11 @@
 	],
 	"require": {
 		"php": ">=5.3.3",
+		"illuminate/auth": "4.0.*@dev",
 		"orchestra/support": "dev-master"
 	},
 	"require-dev": {
+		"patchwork/utf8": "1.0.*",
 		"mockery/mockery": "0.8.0"
 	},
 	"suggest": {
