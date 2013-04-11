@@ -1,0 +1,28 @@
+{
+	"name": "orchestra/auth",
+	"description": "Orchestra Platform Auth Component",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Mior Muhammad Zaki",
+			"email": "crynobone@gmail.com"
+		}
+	],
+	"require": {
+		"php": ">=5.3.3",
+		"orchestra/support": "dev-master"
+	},
+	"require-dev": {
+		"mockery/mockery": "0.8.0"
+	},
+	"suggest": {
+		"laravel/framework": "Allow using orchestra/auth component outside of Orchestra Platform",
+		"orchestra/foundation": "Using orchestra/auth with Orchestra Platform"
+	},
+	"autoload": {
+		"psr-0": { 
+			"Orchestra\\Auth" : "src/" 
+		}
+	},
+	"minimum-stability": "dev"
+}
