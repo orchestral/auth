@@ -32,7 +32,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase {
 		);
 		\Illuminate\Support\Facades\Auth::swap($authMock->getMock());
 
-		$runtime = new \Orchestra\Support\Memory\Runtime('foo');
+		$runtime = new \Orchestra\Memory\Drivers\Runtime('foo');
 		$runtime->put('acl_foo', static::providerMemory());
 
 		$this->stub = new \Orchestra\Auth\Acl\Container('foo', $runtime);
@@ -83,7 +83,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase {
 
 		$this->assertInstanceOf('\Orchestra\Auth\Acl\Container', 
 			$this->stub);
-		$this->assertInstanceOf('\Orchestra\Support\Memory\Runtime', 
+		$this->assertInstanceOf('\Orchestra\Memory\Drivers\Runtime', 
 			$memory->getValue($this->stub));
 		$this->assertInstanceOf('\Orchestra\Auth\Acl\Fluent', 
 			$roles->getValue($this->stub));
@@ -100,7 +100,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testSyncMemoryAfterConstruct()
 	{
-		$runtime = new \Orchestra\Support\Memory\Runtime('foo');
+		$runtime = new \Orchestra\Memory\Drivers\Runtime('foo');
 		$runtime->put('acl_foo', static::providerMemory());
 
 		$stub    = new \Orchestra\Auth\Acl\Container('foo');
@@ -157,7 +157,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testAttachMethodThrowsExceptionWhenAttachMultipleMemory()
 	{
-		$runtime = new \Orchestra\Support\Memory\Runtime('foo');
+		$runtime = new \Orchestra\Memory\Drivers\Runtime('foo');
 		$runtime->put('acl_foo', static::providerMemory());
 
 		$stub = new \Orchestra\Auth\Acl\Container('foo', $runtime);
@@ -172,7 +172,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testAllowMethod()
 	{
-		$runtime = new \Orchestra\Support\Memory\Runtime('foo');
+		$runtime = new \Orchestra\Memory\Drivers\Runtime('foo');
 		$runtime->put('acl_foo', static::providerMemory());
 
 		$stub    = new \Orchestra\Auth\Acl\Container('foo', $runtime);
@@ -202,7 +202,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testDenyMethod()
 	{
-		$runtime = new \Orchestra\Support\Memory\Runtime('foo');
+		$runtime = new \Orchestra\Memory\Drivers\Runtime('foo');
 		$runtime->put('acl_foo', static::providerMemory());
 
 		$stub    = new \Orchestra\Auth\Acl\Container('foo', $runtime);
@@ -232,7 +232,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testCanMethod()
 	{
-		$runtime = new \Orchestra\Support\Memory\Runtime('foo');
+		$runtime = new \Orchestra\Memory\Drivers\Runtime('foo');
 		$runtime->put('acl_foo', static::providerMemory());
 
 		$stub = new \Orchestra\Auth\Acl\Container('foo', $runtime);
@@ -253,7 +253,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testCheckMethod()
 	{
-		$runtime = new \Orchestra\Support\Memory\Runtime('foo');
+		$runtime = new \Orchestra\Memory\Drivers\Runtime('foo');
 		$runtime->put('acl_foo', static::providerMemory());
 
 		$stub = new \Orchestra\Auth\Acl\Container('foo', $runtime);
@@ -319,7 +319,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase {
 		$roles->setAccessible(true);
 		$actions->setAccessible(true);
 
-		$this->assertInstanceOf('\Orchestra\Support\Memory\Runtime', $memory->getValue($stub));
+		$this->assertInstanceOf('\Orchestra\Memory\Drivers\Runtime', $memory->getValue($stub));
 
 		$this->assertInstanceOf('\Orchestra\Auth\Acl\Fluent', $roles->getValue($stub));
 
@@ -348,7 +348,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testAddDuplicates()
 	{
-		$runtime = new \Orchestra\Support\Memory\Runtime('foo');
+		$runtime = new \Orchestra\Memory\Drivers\Runtime('foo');
 		$runtime->put('acl_foo', static::providerMemory()); 
 
 		$stub    = new \Orchestra\Auth\Acl\Container('foo', $runtime);

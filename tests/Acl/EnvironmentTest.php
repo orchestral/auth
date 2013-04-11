@@ -21,7 +21,7 @@ class EnvironmentTest extends \PHPUnit_Framework_TestCase {
 
 		$this->assertInstanceOf('\Orchestra\Auth\Acl\Container', $stub->make('mock-one'));
 
-		$memoryMock = \Mockery::mock('\Orchestra\Support\Memory\Driver')
+		$memoryMock = \Mockery::mock('\Orchestra\Memory\Drivers\Driver')
 			->shouldReceive('get')
 				->once()
 				->andReturn(array())

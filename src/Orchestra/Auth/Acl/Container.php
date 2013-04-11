@@ -4,7 +4,7 @@ use InvalidArgumentException,
 	RuntimeException,
 	Illuminate\Support\Str,
 	Illuminate\Support\Facades\Auth,
-	Orchestra\Support\Memory\Driver as MemoryDriver;
+	Orchestra\Memory\Drivers\Driver as MemoryDriver;
 
 class Container {
 	
@@ -20,7 +20,7 @@ class Container {
 	 * Memory instance.
 	 * 
 	 * @access  protected
-	 * @var     Orchestra\Support\Memory\Driver
+	 * @var     Orchestra\Memory\Drivers\Driver
 	 */
 	protected $memory = null;
 
@@ -89,7 +89,7 @@ class Container {
 		if ($this->attached())
 		{
 			throw new RuntimeException(
-				"Unable to assign multiple Orchestra\Support\Memory instance."
+				"Unable to assign multiple Orchestra\Memory instance."
 			);
 		}
 
