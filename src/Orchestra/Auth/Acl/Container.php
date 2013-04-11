@@ -3,7 +3,7 @@
 use InvalidArgumentException,
 	RuntimeException,
 	Illuminate\Support\Str,
-	Orchestra\Auth\Facades\Auth,
+	Illuminate\Support\Facades\Auth,
 	Orchestra\Support\Memory\Driver as MemoryDriver;
 
 class Container {

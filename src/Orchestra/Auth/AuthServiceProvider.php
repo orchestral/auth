@@ -21,7 +21,7 @@ class AuthServiceProvider extends \Illuminate\Auth\AuthServiceProvider {
 
 		$this->app['orchestra.acl'] = $this->app->share(function($app)
 		{
-			return new Acl\Environment($app);
+			return new Acl\Environment;
 		});
 	}
 

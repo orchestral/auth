@@ -5,13 +5,6 @@ use Illuminate\Foundation\Application,
 	Orchestra\Support\Memory\Driver as MemoryDriver;
 
 class Environment {
-	
-	/**
-	 * Application instance.
-	 *
-	 * @var Illuminate\Foundation\Application
-	 */
-	protected $app = null;
 
 	/**
 	 * Cache ACL instance so we can reuse it on multiple request. 
@@ -24,12 +17,11 @@ class Environment {
 	 * Construct a new Acl Environment.
 	 *
 	 * @access public
-	 * @param  Illuminate\Foundation\Application    $app
 	 * @return void
 	 */
-	public function __construct(Application $app)
+	public function __construct()
 	{
-		$this->app = $app;
+		$this->instances = array();
 	}
 
 	/**
@@ -109,11 +101,10 @@ class Environment {
 	/**
 	 * Shutdown Orchestra\Support\Acl
 	 *
-	 * @static
 	 * @access public
 	 * @return void
 	 */
-	public static function shutdown()
+	public function shutdown()
 	{
 		// Re-sync before shutting down.
 		foreach($this->instances as $acl) $acl->sync();
