@@ -1,6 +1,6 @@
 <?php namespace Orchestra\Auth;
 
-class AuthManager extends \Illuminate\Auth\Manager {
+class AuthManager extends \Illuminate\Auth\AuthManager {
 
 	/**
 	 * Create an instance of the database driver.
