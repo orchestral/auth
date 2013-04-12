@@ -19,7 +19,7 @@
 	},
 	"suggest": {
 		"laravel/framework": "Allow using orchestra/auth component outside of Orchestra Platform",
-		"orchestra/foundation": "Using orchestra/auth with Orchestra Platform"
+		"orchestra/foundation": "Allow using orchestra/auth with Orchestra Platform"
 	},
 	"autoload": {
 		"psr-0": { 
