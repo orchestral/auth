@@ -24,11 +24,8 @@ class GuardTest extends \PHPUnit_Framework_TestCase {
 		$this->provider = \Mockery::mock('Illuminate\Auth\UserProviderInterface');
 		$this->session = \Mockery::mock('Illuminate\Session\Store');
 
-		$appMock = \Mockery::mock('Application')
-			->shouldReceive('instance')->andReturn(true);
-		\Illuminate\Support\Facades\Event::setFacadeApplication(
-			$appMock->getMock()
-		);
+		\Illuminate\Support\Facades\Event::setFacadeApplication($app = \Mockery::mock('Application'));
+		$app->shouldReceive('instance')->andReturn(true);
 	}
 
 	/**
@@ -46,13 +43,12 @@ class GuardTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testRolesMethod()
 	{
-		$eventMock = \Mockery::mock('Event')
-			->shouldReceive('until')
+		\Illuminate\Support\Facades\Event::swap($event = \Mockery::mock('Event'));
+
+		$event->shouldReceive('until')
 				->with('orchestra.auth: roles', \Mockery::any())
 				->once()
 				->andReturn(array('admin', 'editor'));
-		
-		\Illuminate\Support\Facades\Event::swap($eventMock->getMock());
 
 		$stub = new \Orchestra\Auth\Guard(
 			$this->provider,
@@ -73,13 +69,12 @@ class GuardTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testIsMethod()
 	{
-		$eventMock = \Mockery::mock('Event')
-			->shouldReceive('until')
+		\Illuminate\Support\Facades\Event::swap($event = \Mockery::mock('Event'));
+
+		$event->shouldReceive('until')
 				->with('orchestra.auth: roles', \Mockery::any())
 				->once()
 				->andReturn(array('admin', 'editor'));
-		
-		\Illuminate\Support\Facades\Event::swap($eventMock->getMock());
 
 		$stub = new \Orchestra\Auth\Guard(
 			$this->provider,

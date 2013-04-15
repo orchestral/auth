@@ -69,13 +69,10 @@ class EnvironmentTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testMagicMethods()
 	{
-		$memoryMock = \Mockery::mock()
-			->shouldReceive('shutdown')
-				->once()
-				->andReturn(true);
-
-		\Orchestra\Memory\Facade::swap($memoryMock->getMock());
-
+		\Orchestra\Support\Facades\Memory::swap($memory = \Mockery::mock('Memory'));
+		
+		$memory->shouldReceive('shutdown')->once()->andReturn(true);
+		
 		$stub = new \Orchestra\Auth\Acl\Environment;
 
 		$acl1 = $stub->make('mock-one');

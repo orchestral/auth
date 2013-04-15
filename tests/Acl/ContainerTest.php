@@ -14,23 +14,22 @@ class ContainerTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function setUp()
 	{ 
-		$appMock = \Mockery::mock('Application')
-			->shouldReceive('instance')->andReturn(true);
-		
-		$eventMock = \Mockery::mock('Event')
-			->shouldReceive('until')->andReturn(array('admin', 'editor'));
-		\Illuminate\Support\Facades\Event::setFacadeApplication(
-			$appMock->getMock()
-		);
-		\Illuminate\Support\Facades\Event::swap($eventMock->getMock());
+		$app = \Mockery::mock('Application');
+		$app->shouldReceive('instance')->andReturn(true);
 
-		$authMock = \Mockery::mock('Illuminate\Auth\Guard')
-			->shouldReceive('guest')->andReturn(true)
+		\Illuminate\Support\Facades\Auth::setFacadeApplication($app);
+		\Illuminate\Support\Facades\Config::setFacadeApplication($app);
+		\Illuminate\Support\Facades\Event::setFacadeApplication($app);
+		
+		\Illuminate\Support\Facades\Auth::swap($auth = \Mockery::mock('Auth'));
+		\Illuminate\Support\Facades\Config::swap($config = \Mockery::mock('Config'));
+		\Illuminate\Support\Facades\Event::swap($event = \Mockery::mock('Event'));
+
+		$auth->shouldReceive('guest')->andReturn(true)
 			->shouldReceive('user')->andReturnNull();
-		\Illuminate\Support\Facades\Auth::setFacadeApplication(
-			$appMock->getMock()
-		);
-		\Illuminate\Support\Facades\Auth::swap($authMock->getMock());
+
+		$config->shouldReceive('get')->andReturn(array());
+		$event->shouldReceive('until')->andReturn(array('admin', 'editor'));
 
 		$runtime = new \Orchestra\Memory\Drivers\Runtime('foo');
 		$runtime->put('acl_foo', static::providerMemory());
