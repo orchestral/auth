@@ -21,8 +21,8 @@ class EnvironmentTest extends \PHPUnit_Framework_TestCase {
 
 		$this->assertInstanceOf('\Orchestra\Auth\Acl\Container', $stub->make('mock-one'));
 
-		$memoryMock = \Mockery::mock('\Orchestra\Memory\Drivers\Driver')
-			->shouldReceive('get')
+		$memory = \Mockery::mock('\Orchestra\Memory\Drivers\Driver');
+		$memory->shouldReceive('get')
 				->once()
 				->andReturn(array())
 			->shouldReceive('put')
@@ -30,7 +30,7 @@ class EnvironmentTest extends \PHPUnit_Framework_TestCase {
 				->andReturn(array());
 
 		$this->assertInstanceOf('\Orchestra\Auth\Acl\Container', 
-			$stub->make('mock-two', $memoryMock->getMock()));
+			$stub->make('mock-two', $memory));
 	}
 
 	/**
@@ -69,10 +69,6 @@ class EnvironmentTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testMagicMethods()
 	{
-		\Orchestra\Support\Facades\Memory::swap($memory = \Mockery::mock('Memory'));
-		
-		$memory->shouldReceive('shutdown')->once()->andReturn(true);
-		
 		$stub = new \Orchestra\Auth\Acl\Environment;
 
 		$acl1 = $stub->make('mock-one');

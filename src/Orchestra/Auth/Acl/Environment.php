@@ -1,6 +1,7 @@
 <?php namespace Orchestra\Auth\Acl;
 
 use Illuminate\Foundation\Application,
+	Illuminate\Support\Str,
 	Orchestra\Support\Facades\Memory,
 	Orchestra\Memory\Drivers\Driver as MemoryDriver;
 
@@ -11,7 +12,7 @@ class Environment {
 	 * 
 	 * @var     array
 	 */
-	protected $instances = array();
+	protected $drivers = array();
 
 	/**
 	 * Construct a new Acl Environment.
@@ -21,7 +22,7 @@ class Environment {
 	 */
 	public function __construct()
 	{
-		$this->instances = array();
+		$this->drivers = array();
 	}
 
 	/**
@@ -36,12 +37,12 @@ class Environment {
 	{
 		if (is_null($name)) $name = 'default';
 
-		if ( ! isset($this->instances[$name]))
+		if ( ! isset($this->drivers[$name]))
 		{
-			$this->instances[$name] = new Container($name, $memory);
+			$this->drivers[$name] = new Container($name, $memory);
 		}
 
-		return $this->instances[$name];
+		return $this->drivers[$name];
 	}
 
 	/**
@@ -78,6 +79,7 @@ class Environment {
 	public function __call($method, $parameters)
 	{
 		$result = array();
+		$method = Str::snake($method, '_');
 
 		if (preg_match('/^(add|fill|rename|has|get|remove)_(role)(s?)$/', $method, $matches))
 		{
@@ -87,7 +89,7 @@ class Environment {
 
 			( !! $multi_add) and $operation = 'fill';
 
-			foreach ($this->instances as $acl)
+			foreach ($this->drivers as $acl)
 			{
 				$result[] = $acl->execute($type, $operation, $parameters);
 
@@ -107,11 +109,9 @@ class Environment {
 	public function shutdown()
 	{
 		// Re-sync before shutting down.
-		foreach($this->instances as $acl) $acl->sync();
+		foreach($this->drivers as $acl) $acl->sync();
 
-		Memory::shutdown();
-
-		$this->instances = array();
+		$this->drivers = array();
 	}
 
 	/**
@@ -122,6 +122,6 @@ class Environment {
 	 */
 	public function all()
 	{
-		return $this->instances;
+		return $this->drivers;
 	}
 }

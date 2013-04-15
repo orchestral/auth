@@ -338,8 +338,9 @@ class Container {
 		// the call to `$this->sync()`, this might cause issue when a request
 		// contain remove and add roles/actions.
 		if (in_array($method, $passthru)) return $this->{$method};
-		
+
 		// Preserve legacy CRUD structure for actions and roles.
+		$method  = Str::snake($method, '_');
 		$matcher = '/^(add|fill|rename|has|get|remove)_(role|action)(s?)$/';
 
 		if (preg_match($matcher, $method, $matches))
