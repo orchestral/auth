@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUserRoleTable extends Migration {
+class OrchestraAuthCreateUserRoleTable extends Migration {
 
 	/**
 	 * Run the migrations.

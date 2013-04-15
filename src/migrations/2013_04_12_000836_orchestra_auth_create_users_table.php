@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration,
 	Illuminate\Support\Facades\Event;
 
-class CreateUsersTable extends Migration {
+class OrchestraAuthCreateUsersTable extends Migration {
 
 	/**
 	 * Run the migrations.

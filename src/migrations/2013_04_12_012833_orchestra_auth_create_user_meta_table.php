@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUserMetaTable extends Migration {
+class OrchestraAuthCreateUserMetaTable extends Migration {
 
 	/**
 	 * Run the migrations.
