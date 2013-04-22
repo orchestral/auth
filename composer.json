@@ -2,29 +2,34 @@
 	"name": "orchestra/auth",
 	"description": "Orchestra Platform Auth Component",
 	"license": "MIT",
+	"keywords": ["orchestra-platform", "laravel", "auth", "acl", "rbac"],
 	"authors": [
 		{
 			"name": "Mior Muhammad Zaki",
 			"email": "crynobone@gmail.com"
 		}
 	],
+	"autoload": {
+		"psr-0": { 
+			"Orchestra\\Auth" : "src/" 
+		}
+	},
 	"require": {
 		"php": ">=5.3.3",
 		"illuminate/auth": "4.0.*@dev",
-		"orchestra/memory": "dev-master",
-		"orchestra/support": "dev-master"
+		"orchestra/memory": "2.0.*",
+		"orchestra/support": "2.0.*"
 	},
 	"require-dev": {
-		"patchwork/utf8": "1.0.*",
 		"mockery/mockery": "0.8.0"
 	},
 	"suggest": {
 		"laravel/framework": "Allow using orchestra/auth component outside of Orchestra Platform",
 		"orchestra/foundation": "Allow using orchestra/auth with Orchestra Platform"
 	},
-	"autoload": {
-		"psr-0": { 
-			"Orchestra\\Auth" : "src/" 
+	"extra": {
+		"branch-alias": {
+			"dev-master": "2.0.x-dev"
 		}
 	},
 	"minimum-stability": "dev"
