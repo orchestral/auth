@@ -1,7 +1,5 @@
 <?php namespace Orchestra\Auth;
 
-use Illuminate\Support\Facades\Event;
-
 class Guard extends \Illuminate\Auth\Guard {
 	
 	/**
@@ -30,7 +28,7 @@ class Guard extends \Illuminate\Auth\Guard {
 
 		if ( ! isset($this->userRoles[$user_id]) or is_null($this->userRoles[$user_id]))
 		{
-			$this->userRoles[$user_id] = Event::until('orchestra.auth: roles', array(
+			$this->userRoles[$user_id] = $this->events->until('orchestra.auth: roles', array(
 				$user, 
 				$roles,
 			));

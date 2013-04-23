@@ -17,15 +17,20 @@ class GuardTest extends \PHPUnit_Framework_TestCase {
 	private $session = null;
 
 	/**
+	 * Event dispatcher instance.
+	 * 
+	 * @var Illuminate\Event\Dispatcher
+	 */
+	private $events = null;
+
+	/**
 	 * Setup the test environment
 	 */
 	public function setUp()
 	{
-		$this->provider = \Mockery::mock('Illuminate\Auth\UserProviderInterface');
-		$this->session = \Mockery::mock('Illuminate\Session\Store');
-
-		\Illuminate\Support\Facades\Event::setFacadeApplication($app = \Mockery::mock('Application'));
-		$app->shouldReceive('instance')->andReturn(true);
+		$this->provider = \Mockery::mock('\Illuminate\Auth\UserProviderInterface');
+		$this->session  = \Mockery::mock('\Illuminate\Session\Store');
+		$this->events   = \Mockery::mock('\Illuminate\Events\Dispatcher');
 	}
 
 	/**
@@ -43,9 +48,9 @@ class GuardTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testRolesMethod()
 	{
-		\Illuminate\Support\Facades\Event::swap($event = \Mockery::mock('Event'));
+		$events = $this->events;
 
-		$event->shouldReceive('until')
+		$events->shouldReceive('until')
 				->with('orchestra.auth: roles', \Mockery::any())
 				->once()
 				->andReturn(array('admin', 'editor'));
@@ -54,6 +59,8 @@ class GuardTest extends \PHPUnit_Framework_TestCase {
 			$this->provider,
 			$this->session
 		);
+
+		$stub->setDispatcher($events);
 
 		$expected = array('admin', 'editor');
 		$output   = $stub->roles();
@@ -69,9 +76,9 @@ class GuardTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testIsMethod()
 	{
-		\Illuminate\Support\Facades\Event::swap($event = \Mockery::mock('Event'));
+		$events = $this->events;
 
-		$event->shouldReceive('until')
+		$events->shouldReceive('until')
 				->with('orchestra.auth: roles', \Mockery::any())
 				->once()
 				->andReturn(array('admin', 'editor'));
@@ -80,6 +87,8 @@ class GuardTest extends \PHPUnit_Framework_TestCase {
 			$this->provider,
 			$this->session
 		);
+
+		$stub->setDispatcher($events);
 
 		$this->assertTrue($stub->is('admin'));
 		$this->assertTrue($stub->is('editor'));
