@@ -18,31 +18,5 @@ class AuthServiceProvider extends \Illuminate\Auth\AuthServiceProvider {
 
 			return new AuthManager($app);
 		});
-
-		$this->app['orchestra.acl'] = $this->app->share(function($app)
-		{
-			return new Acl\Environment;
-		});
 	}
-
-	/**
-	 * Bootstrap the application events.
-	 *
-	 * @return void
-	 */
-	public function boot()
-	{
-		$this->package('orchestra/auth', 'orchestra/auth');
-	}
-
-	/**
-	 * Get the services provided by the provider.
-	 *
-	 * @return array
-	 */
-	public function provides()
-	{
-		return array('auth', 'orchestra.acl');
-	}
-
 }
