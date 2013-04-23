@@ -26,6 +26,16 @@ class AuthServiceProvider extends \Illuminate\Auth\AuthServiceProvider {
 	}
 
 	/**
+	 * Bootstrap the application events.
+	 *
+	 * @return void
+	 */
+	public function boot()
+	{
+		$this->package('orchestra/auth', 'orchestra/auth');
+	}
+
+	/**
 	 * Get the services provided by the provider.
 	 *
 	 * @return array
