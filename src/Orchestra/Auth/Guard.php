@@ -19,22 +19,24 @@ class Guard extends \Illuminate\Auth\Guard {
 	 */
 	public function roles()
 	{
-		$user    = $this->user;
-		$roles   = array();
-		$user_id = 0;
+		$roles  = array();
+		$userId = 0;
 
-		// only search for roles when user is logged
-		is_null($user) or $user_id = $user->id;
+		// This is a simple check to detect if the user is actually logged-in,
+		// otherwise it's just as the same as setting userId as 0.
+		is_null($this->user) or $userId = $this->user->id;
 
-		if ( ! isset($this->userRoles[$user_id]) or is_null($this->userRoles[$user_id]))
+		// This operation might be called more than once in a request, by 
+		// cached the event result we can avoid duplicate events being fired.
+		if ( ! isset($this->userRoles[$userId]) or is_null($this->userRoles[$userId]))
 		{
-			$this->userRoles[$user_id] = $this->events->until('orchestra.auth: roles', array(
-				$user, 
+			$this->userRoles[$userId] = $this->events->until('orchestra.auth: roles', array(
+				$this->user, 
 				$roles,
 			));
 		}
 
-		return $this->userRoles[$user_id];
+		return $this->userRoles[$userId];
 	}
 
 	/**
@@ -49,5 +51,16 @@ class Guard extends \Illuminate\Auth\Guard {
 		$roles = $this->roles();
 
 		return in_array($role, $roles);
+	}
+
+	/**
+	 * Log the user out of the application.
+	 *
+	 * @return void
+	 */
+	public function logout()
+	{
+		parent::logout();
+		$this->userRoles = null;
 	}
 }
