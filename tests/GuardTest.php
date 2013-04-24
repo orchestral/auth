@@ -48,7 +48,9 @@ class GuardTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testRolesMethod()
 	{
-		$events = $this->events;
+		$events   = $this->events;
+		$user     = \Mockery::mock('\Illuminate\Auth\UserInterface');
+		$user->id = 1;
 
 		$events->shouldReceive('until')
 				->with('orchestra.auth: roles', \Mockery::any())
@@ -61,6 +63,7 @@ class GuardTest extends \PHPUnit_Framework_TestCase {
 		);
 
 		$stub->setDispatcher($events);
+		$stub->setUser($user);
 
 		$expected = array('admin', 'editor');
 		$output   = $stub->roles();
@@ -75,7 +78,9 @@ class GuardTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testIsMethod()
 	{
-		$events = $this->events;
+		$events   = $this->events;
+		$user     = \Mockery::mock('\Illuminate\Auth\UserInterface');
+		$user->id = 1;
 
 		$events->shouldReceive('until')
 				->with('orchestra.auth: roles', \Mockery::any())
@@ -88,6 +93,7 @@ class GuardTest extends \PHPUnit_Framework_TestCase {
 		);
 
 		$stub->setDispatcher($events);
+		$stub->setUser($user);
 
 		$this->assertTrue($stub->is('admin'));
 		$this->assertTrue($stub->is('editor'));
