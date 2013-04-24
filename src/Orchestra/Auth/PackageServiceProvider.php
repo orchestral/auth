@@ -2,20 +2,14 @@
 
 use Illuminate\Support\ServiceProvider;
 
-class AclServiceProvider extends ServiceProvider {
+class PackageServiceProvider extends ServiceProvider {
 
 	/**
 	 * Register the service provider.
 	 *
 	 * @return void
 	 */
-	public function register() 
-	{
-		$this->app['orchestra.acl'] = $this->app->share(function($app)
-		{
-			return new Acl\Environment;
-		});
-	}
+	public function register() {}
 
 	/**
 	 * Bootstrap the application events.

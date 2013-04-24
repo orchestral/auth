@@ -1,6 +1,8 @@
 <?php namespace Orchestra\Auth;
 
-class AuthServiceProvider extends \Illuminate\Auth\AuthServiceProvider {
+use \Illuminate\Auth\AuthServiceProvider as ServiceProvider;
+
+class AuthServiceProvider extends ServiceProvider {
 
 	/**
 	 * Register the service provider.
@@ -9,8 +11,6 @@ class AuthServiceProvider extends \Illuminate\Auth\AuthServiceProvider {
 	 */
 	public function register()
 	{
-		$this->registerAuthEvent();
-		
 		$this->app['auth'] = $this->app->share(function($app)
 		{
 			// Once the authentication service has actually been requested by the developer
@@ -20,6 +20,13 @@ class AuthServiceProvider extends \Illuminate\Auth\AuthServiceProvider {
 
 			return new AuthManager($app);
 		});
+
+		$this->app['orchestra.acl'] = $this->app->share(function($app)
+		{
+			return new Acl\Environment;
+		});
+
+		$this->registerAuthEvent();
 	}
 
 	/**
@@ -43,5 +50,15 @@ class AuthServiceProvider extends \Illuminate\Auth\AuthServiceProvider {
 
 			return $roles;
 		});
+	}
+
+	/**
+	 * Get the services provided by the provider.
+	 *
+	 * @return array
+	 */
+	public function provides()
+	{
+		return array('auth', 'orchestra.acl');
 	}
 }
