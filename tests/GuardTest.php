@@ -1,5 +1,8 @@
 <?php namespace Orchestra\Auth\Tests;
 
+use Mockery as m;
+use Orchestra\Auth\Guard;
+
 class GuardTest extends \PHPUnit_Framework_TestCase {
 
 	/**
@@ -28,9 +31,9 @@ class GuardTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function setUp()
 	{
-		$this->provider = \Mockery::mock('\Illuminate\Auth\UserProviderInterface');
-		$this->session  = \Mockery::mock('\Illuminate\Session\Store');
-		$this->events   = \Mockery::mock('\Illuminate\Events\Dispatcher');
+		$this->provider = m::mock('\Illuminate\Auth\UserProviderInterface');
+		$this->session  = m::mock('\Illuminate\Session\Store');
+		$this->events   = m::mock('\Illuminate\Events\Dispatcher');
 	}
 
 	/**
@@ -38,7 +41,11 @@ class GuardTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function tearDown()
 	{
-		\Mockery::close();
+		unset($this->provider);
+		unset($this->session);
+		unset($this->events);
+
+		m::close();
 	}
 
 	/**
@@ -48,20 +55,15 @@ class GuardTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testRolesMethod()
 	{
-		$events   = $this->events;
-		$user     = \Mockery::mock('\Illuminate\Auth\UserInterface');
+		$events = $this->events;
+		$user   = m::mock('\Illuminate\Auth\UserInterface');
 		$user->id = 1;
 
 		$events->shouldReceive('until')
-				->with('orchestra.auth: roles', \Mockery::any())
-				->once()
+				->with('orchestra.auth: roles', m::any())->once()
 				->andReturn(array('admin', 'editor'));
 
-		$stub = new \Orchestra\Auth\Guard(
-			$this->provider,
-			$this->session
-		);
-
+		$stub = new Guard($this->provider, $this->session);
 		$stub->setDispatcher($events);
 		$stub->setUser($user);
 
@@ -78,20 +80,15 @@ class GuardTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testIsMethod()
 	{
-		$events   = $this->events;
-		$user     = \Mockery::mock('\Illuminate\Auth\UserInterface');
+		$events = $this->events;
+		$user   = m::mock('\Illuminate\Auth\UserInterface');
 		$user->id = 1;
 
 		$events->shouldReceive('until')
-				->with('orchestra.auth: roles', \Mockery::any())
-				->once()
+				->with('orchestra.auth: roles', m::any())->once()
 				->andReturn(array('admin', 'editor'));
 
-		$stub = new \Orchestra\Auth\Guard(
-			$this->provider,
-			$this->session
-		);
-
+		$stub = new Guard($this->provider, $this->session);
 		$stub->setDispatcher($events);
 		$stub->setUser($user);
 
@@ -107,24 +104,19 @@ class GuardTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testLogoutMethod()
 	{
-		$events = $this->events;
+		$events  = $this->events;
 		$session = $this->session;
+		$cookie  = m::mock('\Illuminate\Cookie\CookieJar');
 
 		$events->shouldReceive('until')
-				->with('orchestra.auth: roles', \Mockery::any())->never()
-				->andReturn(array('admin', 'editor'))
+				->with('orchestra.auth: roles', m::any())->never()->andReturn(array('admin', 'editor'))
 			->shouldReceive('fire')
-				->with('auth.logout', \Mockery::any())->once()
-				->andReturn(array('admin', 'editor'));
+				->with('auth.logout', m::any())->once()->andReturn(array('admin', 'editor'));
 		$session->shouldReceive('forget')->once()->andReturn(null);
 
-		$stub    = new \Orchestra\Auth\Guard(
-			$this->provider,
-			$this->session
-		);
-
+		$stub = new Guard($this->provider, $this->session);
 		$stub->setDispatcher($events);
-		$stub->setCookieJar($cookie = \Mockery::mock('\Illuminate\Cookie\CookieJar'));
+		$stub->setCookieJar($cookie);
 		$cookie->shouldReceive('forget')->once()->andReturn(null);
 
 		$refl      = new \ReflectionObject($stub);

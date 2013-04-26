@@ -1,5 +1,8 @@
 <?php namespace Orchestra\Auth\Tests\Acl;
 
+use Mockery as m;
+use Orchestra\Auth\Acl\Environment;
+
 class EnvironmentTest extends \PHPUnit_Framework_TestCase {
 
 	/**
@@ -7,7 +10,7 @@ class EnvironmentTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function tearDown()
 	{
-		\Mockery::close();
+		m::close();
 	}
 
 	/**
@@ -17,20 +20,15 @@ class EnvironmentTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testMakeMethod()
 	{
-		$stub = new \Orchestra\Auth\Acl\Environment;
+		$stub = new Environment;
 
 		$this->assertInstanceOf('\Orchestra\Auth\Acl\Container', $stub->make('mock-one'));
 
-		$memory = \Mockery::mock('\Orchestra\Memory\Drivers\Driver');
-		$memory->shouldReceive('get')
-				->once()
-				->andReturn(array())
-			->shouldReceive('put')
-				->times(3)
-				->andReturn(array());
+		$memory = m::mock('\Orchestra\Memory\Drivers\Driver');
+		$memory->shouldReceive('get')->once()->andReturn(array())
+			->shouldReceive('put')->times(3)->andReturn(array());
 
-		$this->assertInstanceOf('\Orchestra\Auth\Acl\Container', 
-			$stub->make('mock-two', $memory));
+		$this->assertInstanceOf('\Orchestra\Auth\Acl\Container', $stub->make('mock-two', $memory));
 	}
 
 	/**
@@ -40,26 +38,20 @@ class EnvironmentTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testRegisterMethod()
 	{
-		$stub = new \Orchestra\Auth\Acl\Environment;
+		$stub = new Environment;
 
 		$stub->register(function ($acl)
 		{
-			$acl->add_actions(array('view blog', 'view forum', 'view news'));
+			$acl->addActions(array('view blog', 'view forum', 'view news'));
 			$acl->allow('guest', array('view blog'));
 			$acl->deny('guest', 'view forum');
 		});
 
 		$acl = $stub->make(null);
 		$this->assertInstanceOf('\Orchestra\Auth\Acl\Container', $acl);
-
-		$output = $acl->can('view blog');
-		$this->assertTrue($output);
-		
-		$output = $acl->can('view forum');
-		$this->assertFalse($output);
-
-		$output = $acl->can('view news');
-		$this->assertFalse($output);
+		$this->assertTrue($acl->can('view blog'));
+		$this->assertFalse($acl->can('view forum'));
+		$this->assertFalse($acl->can('view news'));
 	}
 
 	/**
@@ -69,25 +61,25 @@ class EnvironmentTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testMagicMethods()
 	{
-		$stub = new \Orchestra\Auth\Acl\Environment;
+		$stub = new Environment;
 
 		$acl1 = $stub->make('mock-one');
 		$acl2 = $stub->make('mock-two');
 
-		$stub->add_role('admin');
-		$stub->add_role('manager');
+		$stub->addRole('admin');
+		$stub->addRole('manager');
 
-		$this->assertTrue($acl1->has_role('admin'));
-		$this->assertTrue($acl2->has_role('admin'));
-		$this->assertTrue($acl1->has_role('manager'));
-		$this->assertTrue($acl2->has_role('manager'));
+		$this->assertTrue($acl1->hasRole('admin'));
+		$this->assertTrue($acl2->hasRole('admin'));
+		$this->assertTrue($acl1->hasRole('manager'));
+		$this->assertTrue($acl2->hasRole('manager'));
 
-		$stub->remove_role('manager');
+		$stub->removeRole('manager');
 
-		$this->assertTrue($acl1->has_role('admin'));
-		$this->assertTrue($acl2->has_role('admin'));
-		$this->assertFalse($acl1->has_role('manager'));
-		$this->assertFalse($acl2->has_role('manager'));
+		$this->assertTrue($acl1->hasRole('admin'));
+		$this->assertTrue($acl2->hasRole('admin'));
+		$this->assertFalse($acl1->hasRole('manager'));
+		$this->assertFalse($acl2->hasRole('manager'));
 
 		$this->assertTrue(is_array($stub->all()));
 		$this->assertFalse(array() === $stub->all());
@@ -104,7 +96,7 @@ class EnvironmentTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testAllMethod()
 	{
-		$stub = new \Orchestra\Auth\Acl\Environment;
+		$stub = new Environment;
 		$stub->make('mock-one');
 		$stub->make('mock-two');
 		$stub->make('mock-three');

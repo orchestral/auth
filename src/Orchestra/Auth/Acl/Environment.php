@@ -1,7 +1,7 @@
 <?php namespace Orchestra\Auth\Acl;
 
-use Illuminate\Support\Str,
-	Orchestra\Memory\Drivers\Driver as MemoryDriver;
+use Illuminate\Support\Str;
+use Orchestra\Memory\Drivers\Driver as MemoryDriver;
 
 class Environment {
 
@@ -11,17 +11,6 @@ class Environment {
 	 * @var     array
 	 */
 	protected $drivers = array();
-
-	/**
-	 * Construct a new Acl Environment.
-	 *
-	 * @access public
-	 * @return void
-	 */
-	public function __construct()
-	{
-		$this->drivers = array();
-	}
 
 	/**
 	 * Initiate a new Acl instance.

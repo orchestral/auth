@@ -1,5 +1,7 @@
 <?php namespace Orchestra\Auth\Tests\Acl;
 
+use Orchestra\Auth\Acl\Fluent;
+
 class FluentTest extends \PHPUnit_Framework_TestCase {
 	
 	/**
@@ -14,17 +16,22 @@ class FluentTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function setUp()
 	{
-		$this->stub = new \Orchestra\Auth\Acl\Fluent('stub');
-		$this->stub->fill(array(
-			'Hello World'
-		));
+		$this->stub = new Fluent('stub');
+		$this->stub->fill(array('Hello World'));
+	}
+
+	/**
+	 * Teardown the test environment.
+	 */
+	public function tearDown()
+	{
+		unset($this->stub);
 	}
 
 	/**
 	 * Test instanceof stub.
 	 *
 	 * @test
-	 * @group support
 	 */
 	public function testInstanceOf()
 	{
@@ -41,11 +48,10 @@ class FluentTest extends \PHPUnit_Framework_TestCase {
 	 * Test Orchestra\Auth\Acl\Fluent::add() method.
 	 *
 	 * @test
-	 * @group support
 	 */
 	public function testAddMethod()
 	{
-		$stub = new \Orchestra\Auth\Acl\Fluent('foo');
+		$stub = new Fluent('foo');
 
 		$stub->add('foo');
 		$stub->add('foobar');
@@ -62,11 +68,10 @@ class FluentTest extends \PHPUnit_Framework_TestCase {
 	 * Test Orchestra\Auth\Acl\Fluent::add() method null throw an exception.
 	 *
 	 * @expectedException \InvalidArgumentException
-	 * @group support
 	 */
 	public function testAddMethodNullThrownException()
 	{
-		$stub = new \Orchestra\Auth\Acl\Fluent('foo');
+		$stub = new Fluent('foo');
 
 		$stub->add(null);
 	}
@@ -75,11 +80,10 @@ class FluentTest extends \PHPUnit_Framework_TestCase {
 	 * Test Orchestra\Auth\Acl\Fluent::fill() method.
 	 *
 	 * @test
-	 * @group support
 	 */
 	public function testFillMethod()
 	{
-		$stub = new \Orchestra\Auth\Acl\Fluent('foo');
+		$stub = new Fluent('foo');
 
 		$stub->fill(array('foo', 'foobar'));
 
@@ -95,11 +99,10 @@ class FluentTest extends \PHPUnit_Framework_TestCase {
 	 * Test Orchestra\Auth\Acl\Fluent::add() method null throw an exception.
 	 *
 	 * @expectedException \InvalidArgumentException
-	 * @group support
 	 */
 	public function testFillMethodNullThrownException()
 	{
-		$stub = new \Orchestra\Auth\Acl\Fluent('foo');
+		$stub = new Fluent('foo');
 
 		$stub->fill(array(null));
 	}
@@ -108,7 +111,6 @@ class FluentTest extends \PHPUnit_Framework_TestCase {
 	 * Test Orchestra\Auth\Acl\Fluent::has() method.
 	 *
 	 * @test
-	 * @group support
 	 */
 	public function testHasMethod()
 	{
@@ -120,11 +122,10 @@ class FluentTest extends \PHPUnit_Framework_TestCase {
 	 * Test Orchestra\Auth\Acl\Fluent::rename() method.
 	 *
 	 * @test
-	 * @group support
 	 */
 	public function testRenameMethod()
 	{
-		$stub = new \Orchestra\Auth\Acl\Fluent('foo');
+		$stub = new Fluent('foo');
 
 		$stub->fill(array('foo', 'foobar'));
 
@@ -142,28 +143,26 @@ class FluentTest extends \PHPUnit_Framework_TestCase {
 	 * Test Orchestra\Auth\Acl\Fluent::search() method.
 	 *
 	 * @test
-	 * @group support
 	 */
 	public function testSearchMethod()
 	{
-		$stub = new \Orchestra\Auth\Acl\Fluent('foo');
+		$stub = new Fluent('foo');
 
 		$stub->fill(array('foo', 'foobar'));
 
 		$this->assertEquals(0, $stub->search('foo'));
 		$this->assertEquals(1, $stub->search('foobar'));
-		$this->assertTrue(is_null($stub->search('laravel')));
+		$this->assertNull($stub->search('laravel'));
 	}
 
 	/**
 	 * Test Orchestra\Auth\Acl\Fluent::exist() method.
 	 *
 	 * @test
-	 * @group support
 	 */
 	public function testExistMethod()
 	{
-		$stub = new \Orchestra\Auth\Acl\Fluent('foo');
+		$stub = new Fluent('foo');
 
 		$stub->fill(array('foo', 'foobar'));
 
@@ -176,11 +175,10 @@ class FluentTest extends \PHPUnit_Framework_TestCase {
 	 * Test Orchestra\Auth\Acl\Fluent::remove() method.
 	 *
 	 * @test
-	 * @group support
 	 */
 	public function testRemoveMethod()
 	{
-		$stub = new \Orchestra\Auth\Acl\Fluent('foo');
+		$stub = new Fluent('foo');
 
 		$stub->fill(array('foo', 'foobar'));
 
@@ -210,24 +208,20 @@ class FluentTest extends \PHPUnit_Framework_TestCase {
 	 * Test Orchestra\Auth\Acl\Fluent::remove() method null throw an exception.
 	 *
 	 * @expectedException \InvalidArgumentException
-	 * @group support
 	 */
 	public function testRemoveMethodNullThrownException()
 	{
-		$stub = new \Orchestra\Auth\Acl\Fluent('foo');
-
-		$stub->remove(null);
+		with(new Fluent('foo'))->remove(null);
 	}
 
 	/**
 	 * Test Orchestra\Auth\Acl\Fluent::filter() method.
 	 *
 	 * @test
-	 * @group support
 	 */
 	public function testFilterMethod()
 	{
-		$stub = new \Orchestra\Auth\Acl\Fluent('foo');
+		$stub = new Fluent('foo');
 		$stub->fill(array('foo', 'foobar'));
 
 		$this->assertEquals(array('foo', 'foobar'), $stub->filter('*'));

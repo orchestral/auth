@@ -1,10 +1,10 @@
 <?php namespace Orchestra\Auth\Acl;
 
-use InvalidArgumentException,
-	RuntimeException,
-	Illuminate\Support\Str,
-	Illuminate\Support\Facades\Auth,
-	Orchestra\Memory\Drivers\Driver as MemoryDriver;
+use InvalidArgumentException;
+use RuntimeException;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
+use Orchestra\Memory\Drivers\Driver as MemoryDriver;
 
 class Container {
 	
@@ -97,11 +97,9 @@ class Container {
 		if (is_null($memory)) return;
 
 		$this->memory = $memory;
-		$data         = array_merge(array(
-			'acl'     => array(),
-			'actions' => array(),
-			'roles'   => array(),
-		), $this->memory->get("acl_".$this->name, array()));
+
+		$data = array('acl' => array(), 'actions' => array(), 'roles' => array());
+		$data = array_merge($data, $this->memory->get("acl_".$this->name, array()));
 
 		// Loop through all the roles in memory and add it to
 		// this ACL instance.
@@ -202,25 +200,25 @@ class Container {
 		}
 
 		$action     = Str::slug($action, '-');
-		$action_key = array_search($action, $actions);
+		$actionKey = array_search($action, $actions);
 
 		// array_search() will return false when no key is found based on 
 		// given haystack, therefore we should just ignore and return false
-		if ($action_key === false) return false;
+		if ($actionKey === false) return false;
 
 		foreach ((array) $roles as $role) 
 		{
-			$role     = Str::slug($role, '-');
-			$role_key = array_search($role, $this->roles->get());
+			$role    = Str::slug($role, '-');
+			$roleKey = array_search($role, $this->roles->get());
 
 			// array_search() will return false when no key is found based 
 			// on given haystack, therefore we should just ignore and 
 			// continue to the next role.
-			if ($role_key === false) continue;
+			if ($roleKey === false) continue;
 
-			if (isset($this->acl[$role_key.':'.$action_key]))
+			if (isset($this->acl[$roleKey.':'.$actionKey]))
 			{
-				return $this->acl[$role_key.':'.$action_key];
+				return $this->acl[$roleKey.':'.$actionKey];
 			}
 		}
 
@@ -291,7 +289,7 @@ class Container {
 
 		if ( ! is_null($role) and ! is_null($action))
 		{
-			$key             = $role.':'.$action;
+			$key = $role.':'.$action;
 			$this->acl[$key] = $allow;
 		}
 	}
@@ -317,7 +315,7 @@ class Container {
 	 * @param  string   $type           'roles' or 'actions'
 	 * @param  string   $operation
 	 * @param  array    $parameters
-	 * @return Acl\Fluent
+	 * @return Orchestra\Auth\Acl\Fluent
 	 */
 	public function execute($type, $operation, $parameters)
 	{
@@ -347,9 +345,9 @@ class Container {
 		{
 			$operation = $matches[1];
 			$type      = $matches[2].'s';
-			$multi_add = (isset($matches[3]) and $matches[3] === 's' and $operation === 'add');
+			$muliple   = (isset($matches[3]) and $matches[3] === 's' and $operation === 'add');
 
-			( !! $multi_add) and $operation = 'fill';
+			( !! $muliple) and $operation = 'fill';
 			
 			$result = $this->execute($type, $operation, $parameters);
 
