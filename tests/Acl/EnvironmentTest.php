@@ -20,7 +20,8 @@ class EnvironmentTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testMakeMethod()
 	{
-		$stub = new Environment;
+		$auth = m::mock('\Orchestra\Auth\Guard');
+		$stub = new Environment($auth);
 
 		$this->assertInstanceOf('\Orchestra\Auth\Acl\Container', $stub->make('mock-one'));
 
@@ -38,7 +39,10 @@ class EnvironmentTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testRegisterMethod()
 	{
-		$stub = new Environment;
+		$auth = m::mock('\Orchestra\Auth\Guard');
+		$stub = new Environment($auth);
+
+		$auth->shouldReceive('guest')->times(3)->andReturn(true);
 
 		$stub->register(function ($acl)
 		{
@@ -61,7 +65,8 @@ class EnvironmentTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testMagicMethods()
 	{
-		$stub = new Environment;
+		$auth = m::mock('\Orchestra\Auth\Guard');
+		$stub = new Environment($auth);
 
 		$acl1 = $stub->make('mock-one');
 		$acl2 = $stub->make('mock-two');
@@ -96,7 +101,9 @@ class EnvironmentTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testAllMethod()
 	{
-		$stub = new Environment;
+		$auth = m::mock('\Orchestra\Auth\Guard');
+		$stub = new Environment($auth);
+
 		$stub->make('mock-one');
 		$stub->make('mock-two');
 		$stub->make('mock-three');

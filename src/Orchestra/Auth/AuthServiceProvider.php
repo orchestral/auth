@@ -23,7 +23,7 @@ class AuthServiceProvider extends ServiceProvider {
 
 		$this->app['orchestra.acl'] = $this->app->share(function($app)
 		{
-			return new Acl\Environment;
+			return new Acl\Environment($app['auth']->driver());
 		});
 
 		$this->registerAuthEvent();

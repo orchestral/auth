@@ -3,10 +3,17 @@
 use InvalidArgumentException;
 use RuntimeException;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Auth;
+use Orchestra\Auth\Guard;
 use Orchestra\Memory\Drivers\Driver as MemoryDriver;
 
 class Container {
+
+	/**
+	 * Auth instance.
+	 *
+	 * @var Illuminate\Auth\Guard
+	 */
+	protected $auth = null;
 	
 	/**
 	 * Acl instance name.
@@ -52,11 +59,14 @@ class Container {
 	 * Construct a new object.
 	 *
 	 * @access  public
+	 * 
+	 * @param   string        $name
 	 * @param   string        $name
 	 * @param   MemoryDriver  $memory
 	 */
-	public function __construct($name, MemoryDriver $memory = null) 
+	public function __construct(Guard $auth, $name, MemoryDriver $memory = null) 
 	{
+		$this->auth    = $auth;
 		$this->name    = $name;
 		$this->roles   = new Fluent('roles');
 		$this->actions = new Fluent('actions');
@@ -168,7 +178,7 @@ class Container {
 	{
 		$roles = array();
 		
-		if ( ! Auth::guest()) $roles = Auth::roles();
+		if ( ! $this->auth->guest()) $roles = $this->auth->roles();
 		else
 		{
 			// only add guest if it's available

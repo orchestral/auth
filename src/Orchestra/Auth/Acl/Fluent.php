@@ -1,7 +1,7 @@
 <?php namespace Orchestra\Auth\Acl;
 
-use InvalidArgumentException,
-	Illuminate\Support\Str;
+use InvalidArgumentException;
+use Illuminate\Support\Str;
 
 class Fluent {
 

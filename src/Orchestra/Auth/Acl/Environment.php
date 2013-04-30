@@ -1,9 +1,17 @@
 <?php namespace Orchestra\Auth\Acl;
 
 use Illuminate\Support\Str;
+use Orchestra\Auth\Guard;
 use Orchestra\Memory\Drivers\Driver as MemoryDriver;
 
 class Environment {
+
+	/**
+	 * Auth instance.
+	 *
+	 * @var Illuminate\Auth\Guard
+	 */
+	protected $auth = null;
 
 	/**
 	 * Cache ACL instance so we can reuse it on multiple request. 
@@ -11,6 +19,18 @@ class Environment {
 	 * @var     array
 	 */
 	protected $drivers = array();
+
+	/**
+	 * Construct a new Environment
+	 *
+	 * @access public						
+	 * @param  Illuminate\Auth\Guard  $auth
+	 * @return void
+	 */
+	public function __construct(Guard $auth)
+	{
+		$this->auth = $auth;
+	}
 
 	/**
 	 * Initiate a new Acl instance.
@@ -26,7 +46,7 @@ class Environment {
 
 		if ( ! isset($this->drivers[$name]))
 		{
-			$this->drivers[$name] = new Container($name, $memory);
+			$this->drivers[$name] = new Container($this->auth, $name, $memory);
 		}
 
 		return $this->drivers[$name];

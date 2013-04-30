@@ -7,6 +7,13 @@ use Orchestra\Memory\Drivers\Runtime as Memory;
 class ContainerTest extends \PHPUnit_Framework_TestCase {
 
 	/**
+	 * Application mock instance.
+	 *
+	 * @var Illuminate\Foundation\Application
+	 */
+	private $app = null;
+
+	/**
 	 * Acl Container instance.
 	 *
 	 * @var Orchestra\Auth\Acl\Container
@@ -18,30 +25,21 @@ class ContainerTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function setUp()
 	{ 
-		$app    = m::mock('Application');
-		$auth   = m::mock('Auth');
-		$config = m::mock('Config');
-		$event  = m::mock('Event');
-
-		$app->shouldReceive('instance')->andReturn(true);
-
-		\Illuminate\Support\Facades\Auth::setFacadeApplication($app);
-		\Illuminate\Support\Facades\Config::setFacadeApplication($app);
-		\Illuminate\Support\Facades\Event::setFacadeApplication($app);
-		
-		\Illuminate\Support\Facades\Auth::swap($auth);
-		\Illuminate\Support\Facades\Config::swap($config);
-		\Illuminate\Support\Facades\Event::swap($event);
+		$this->app = array(
+			'auth'   => $auth = m::mock('\Orchestra\Auth\Guard'),
+			'config' => $config = m::mock('Config'),
+			'events' => $event = m::mock('Event'),
+		);
 
 		$auth->shouldReceive('guest')->andReturn(true)
 			->shouldReceive('user')->andReturnNull();
 		$config->shouldReceive('get')->andReturn(array());
 		$event->shouldReceive('until')->andReturn(array('admin', 'editor'));
 
-		$runtime = new Memory('foo');
+		$runtime = new Memory($this->app);
 		$runtime->put('acl_foo', static::providerMemory());
 
-		$this->stub = new Container('foo', $runtime);
+		$this->stub = new Container($this->app['auth'], 'foo', $runtime);
 	}
 
 	/**
@@ -100,10 +98,10 @@ class ContainerTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testSyncMemoryAfterConstruct()
 	{
-		$runtime = new Memory('foo');
+		$runtime = new Memory($this->app, 'foo');
 		$runtime->put('acl_foo', static::providerMemory());
 
-		$stub = new Container('foo');
+		$stub = new Container($this->app['auth'], 'foo');
 
 		$this->assertFalse($stub->attached());
 
@@ -150,10 +148,10 @@ class ContainerTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testAttachMethodThrowsExceptionWhenAttachMultipleMemory()
 	{
-		$runtime = new Memory('foo');
+		$runtime = new Memory($this->app, 'foo');
 		$runtime->put('acl_foo', static::providerMemory());
 
-		$stub = new Container('foo', $runtime);
+		$stub = new Container($this->app['auth'] ,'foo', $runtime);
 		$stub->attach($runtime);
 	}
 
@@ -164,10 +162,10 @@ class ContainerTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testAllowMethod()
 	{
-		$runtime = new Memory('foo');
+		$runtime = new Memory($this->app, 'foo');
 		$runtime->put('acl_foo', static::providerMemory());
 
-		$stub = new Container('foo', $runtime);
+		$stub = new Container($this->app['auth'], 'foo', $runtime);
 
 		$stub->allow('guest', 'manage-user');
 
@@ -191,10 +189,10 @@ class ContainerTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testDenyMethod()
 	{
-		$runtime = new Memory('foo');
+		$runtime = new Memory($this->app, 'foo');
 		$runtime->put('acl_foo', static::providerMemory());
 
-		$stub = new Container('foo', $runtime);
+		$stub = new Container($this->app['auth'], 'foo', $runtime);
 
 		$stub->deny('admin', 'manage-user');
 
@@ -218,10 +216,10 @@ class ContainerTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testCanMethod()
 	{
-		$runtime = new Memory('foo');
+		$runtime = new Memory($this->app, 'foo');
 		$runtime->put('acl_foo', static::providerMemory());
 
-		$stub = new Container('foo', $runtime);
+		$stub = new Container($this->app['auth'], 'foo', $runtime);
 
 		$stub->addActions(array('Manage Page', 'Manage Photo'));
 		$stub->allow('guest', 'Manage Page');
@@ -238,10 +236,10 @@ class ContainerTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testCheckMethod()
 	{
-		$runtime = new Memory('foo');
+		$runtime = new Memory($this->app, 'foo');
 		$runtime->put('acl_foo', static::providerMemory());
 
-		$stub = new Container('foo', $runtime);
+		$stub = new Container($this->app['auth'], 'foo', $runtime);
 
 		$stub->addActions(array('Manage Page', 'Manage Photo'));
 		$stub->allow('guest', 'Manage Page');
@@ -328,10 +326,10 @@ class ContainerTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testAddDuplicates()
 	{
-		$runtime = new Memory('foo');
+		$runtime = new Memory($this->app, 'foo');
 		$runtime->put('acl_foo', static::providerMemory()); 
 
-		$stub    = new Container('foo', $runtime);
+		$stub    = new Container($this->app['auth'], 'foo', $runtime);
 		$refl    = new \ReflectionObject($stub);
 		$actions = $refl->getProperty('actions');
 		$roles   = $refl->getProperty('roles');
