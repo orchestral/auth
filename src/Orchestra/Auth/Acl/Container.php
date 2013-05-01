@@ -2,8 +2,8 @@
 
 use InvalidArgumentException;
 use RuntimeException;
-use Illuminate\Support\Str;
 use Orchestra\Auth\Guard;
+use Orchestra\Support\Str;
 use Orchestra\Memory\Drivers\Driver as MemoryDriver;
 
 class Container {

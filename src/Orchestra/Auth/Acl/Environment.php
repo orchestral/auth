@@ -1,7 +1,7 @@
 <?php namespace Orchestra\Auth\Acl;
 
-use Illuminate\Support\Str;
 use Orchestra\Auth\Guard;
+use Orchestra\Support\Str;
 use Orchestra\Memory\Drivers\Driver as MemoryDriver;
 
 class Environment {
