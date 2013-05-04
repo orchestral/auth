@@ -1,6 +1,21 @@
 <?php namespace Orchestra\Auth;
 
 class Guard extends \Illuminate\Auth\Guard {
+
+	/**
+	 * Attempt to authenticate a user using the given credentials.
+	 *
+	 * @param  array  $credentials
+	 * @param  bool   $remember
+	 * @param  bool   $login
+	 * @return bool
+	 */
+	public function attempt(array $credentials = array(), $remember = false, $login = true)
+	{
+		$this->events->fire('auth.attempt', array($credentials));
+
+		return parent::attempt($credentials, $remember, $login);
+	}
 	
 	/**
 	 * Cached user to roles relationship
