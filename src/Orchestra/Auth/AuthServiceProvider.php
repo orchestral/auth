@@ -11,6 +11,19 @@ class AuthServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
+		$this->registerAuth();
+		$this->registerAcl();
+		$this->registerAuthEvent();
+		$this->registerAuthCommand();
+	}
+
+	/**
+	 * Register the service provider for Auth.
+	 *
+	 * @return void
+	 */
+	protected function registerAuth()
+	{
 		$this->app['auth'] = $this->app->share(function($app)
 		{
 			// Once the authentication service has actually been requested by the developer
@@ -20,13 +33,19 @@ class AuthServiceProvider extends ServiceProvider {
 
 			return new AuthManager($app);
 		});
+	}
 
+	/**
+	 * Register the service provider for Acl.
+	 *
+	 * @return void
+	 */
+	protected function registerAcl()
+	{
 		$this->app['orchestra.acl'] = $this->app->share(function($app)
 		{
 			return new Acl\Environment($app['auth']->driver());
 		});
-
-		$this->registerAuthEvent();
 	}
 
 	/**
@@ -51,6 +70,21 @@ class AuthServiceProvider extends ServiceProvider {
 			return $roles;
 		});
 	}
+
+	/**
+	 * Register the service provider for Auth command.
+	 *
+	 * @return void
+	 */
+	protected function registerAuthCommand()
+	{
+		$this->app['orchestra.commands.auth'] = $this->app->share(function($app)
+		{
+			return new Console\AuthCommand;
+		});
+
+		$this->commands('orchestra.commands.auth');
+	}
 	
 	/**
 	 * Bootstrap the application events.
@@ -69,6 +103,6 @@ class AuthServiceProvider extends ServiceProvider {
 	 */
 	public function provides()
 	{
-		return array('auth', 'orchestra.acl');
+		return array('auth', 'orchestra.acl', 'orchestra.commands.auth');
 	}
 }
