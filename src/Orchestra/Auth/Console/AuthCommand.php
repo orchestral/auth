@@ -37,10 +37,15 @@ class AuthCommand extends Command {
 	 */
 	public function fire()
 	{
-		if (in_array($this->argument('action'), array('install', 'upgrade')))
+		switch ($action = $this->argument('action'))
 		{
-			$this->fireMigration();
-			$this->info('orchestra/auth has been migrated');
+			case 'install' :
+			case 'upgrade' :
+				$this->fireMigration();
+				$this->info('orchestra/auth has been migrated');
+				break;
+			default :
+				$this->error("Invalid action [{$action}].");
 		}
 	}
 
