@@ -68,7 +68,7 @@ class AuthCommand extends Command {
 	protected function getArguments()
 	{
 		return array(
-			array('action', InputArgument::REQUIRED, "Type of action."),
+			array('action', InputArgument::REQUIRED, "Type of action. E.g: 'install', 'upgrade'."),
 		);
 	}
 
