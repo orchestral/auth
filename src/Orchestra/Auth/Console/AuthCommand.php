@@ -18,7 +18,7 @@ class AuthCommand extends Command {
 	 *
 	 * @var string
 	 */
-	protected $description = 'Orchestra\Auth commandline tool';
+	protected $description = 'Orchestra\Auth Command';
 
 	/**
 	 * Create a new command instance.
@@ -68,7 +68,7 @@ class AuthCommand extends Command {
 	protected function getArguments()
 	{
 		return array(
-			array('action', InputArgument::REQUIRED, "Type of action. E.g: 'install', 'upgrade'."),
+			array('action', InputArgument::REQUIRED, "Type of action, e.g: 'install', 'upgrade'."),
 		);
 	}
 

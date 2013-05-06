@@ -52,7 +52,7 @@ class AuthServiceProvider extends ServiceProvider {
 	 * We need to ensure that Orchestra\Acl is compliance with our Eloquent 
 	 * Model, This would overwrite the default configuration.
 	 *
-	 * @retun  void
+	 * @return void
 	 */
 	protected function registerAuthEvent()
 	{
