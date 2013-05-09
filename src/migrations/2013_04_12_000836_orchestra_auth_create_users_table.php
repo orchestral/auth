@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration,
-	Illuminate\Support\Facades\Event;
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Support\Facades\Event;
 
 class OrchestraAuthCreateUsersTable extends Migration {
 
@@ -19,7 +19,7 @@ class OrchestraAuthCreateUsersTable extends Migration {
 			$table->string('email', 100);
 			$table->string('password', 60);
 
-			Event::fire('orchestra.installer.schema: users', array($table));
+			Event::fire('orchestra.install.schema: users', array($table));
 
 			$table->string('fullname', 100)->nullable();
 			$table->integer('status')->nullable();
@@ -40,5 +40,4 @@ class OrchestraAuthCreateUsersTable extends Migration {
 	{
 		Schema::drop('users');
 	}
-
 }
