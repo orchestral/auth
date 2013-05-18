@@ -1,6 +1,7 @@
 <?php namespace Orchestra\Auth;
 
 use \Illuminate\Auth\AuthServiceProvider as ServiceProvider;
+use Illuminate\Foundation\AliasLoader;
 
 class AuthServiceProvider extends ServiceProvider {
 
@@ -45,6 +46,12 @@ class AuthServiceProvider extends ServiceProvider {
 		$this->app['orchestra.acl'] = $this->app->share(function($app)
 		{
 			return new Acl\Environment($app['auth']->driver());
+		});
+
+		$this->app->booting(function()
+		{
+			$loader = AliasLoader::getInstance();
+			$loader->alias('Orchestra\Acl', 'Orchestra\Support\Facades\Acl');
 		});
 	}
 

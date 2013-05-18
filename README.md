@@ -29,17 +29,6 @@ Next replace `Illuminate\Auth\AuthServiceProvider` with the following service pr
 ),
 ```
 
-You might want to add `Orchestra\Acl` to class aliases in `app/config/app.php`:
-
-```php
-'aliases' => array(
-
-	// ...
-
-	'Orchestra\Acl' => 'Orchestra\Support\Facades\Acl',
-),
-```
-
 ## Resources
 
 * [Documentation](http://docs.orchestraplatform.com/pages/components/auth)
