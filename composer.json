@@ -2,11 +2,13 @@
 	"name": "orchestra/auth",
 	"description": "Orchestra Platform Auth Component",
 	"license": "MIT",
-	"keywords": ["orchestra-platform", "laravel", "auth", "acl", "rbac"],
+	"homepage": "http://orchestraplatform.com/docs/2.0/components/auth/",
+	"keywords": ["orchestra-platform", "orchestral", "laravel", "auth", "acl", "rbac"],
 	"authors": [
 		{
 			"name": "Mior Muhammad Zaki",
-			"email": "crynobone@gmail.com"
+			"email": "crynobone@gmail.com",
+			"homepage": "https://github.com/crynobone"
 		}
 	],
 	"autoload": {
@@ -16,7 +18,7 @@
 	},
 	"require": {
 		"php": ">=5.3.3",
-		"orchestra/memory": "2.0.*"
+		"orchestra/memory": "self.version"
 	},
 	"require-dev": {
 		"mockery/mockery": "0.8.0",
