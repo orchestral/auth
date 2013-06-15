@@ -3,7 +3,7 @@
 class Guard extends \Illuminate\Auth\Guard {
 	
 	/**
-	 * Cached user to roles relationship
+	 * Cached user to roles relationship.
 	 * 
 	 * @var array
 	 */
@@ -41,17 +41,22 @@ class Guard extends \Illuminate\Auth\Guard {
 	}
 
 	/**
-	 * Determine if current user has the given role
+	 * Determine if current user has the given role.
 	 *
 	 * @access public
-	 * @param  string   $role
+	 * @param  string   $roles
 	 * @return boolean
 	 */
-	public function is($role)
+	public function is($roles)
 	{
-		$roles = $this->roles();
+		$userRoles = $this->roles();
 
-		return in_array($role, $roles);
+		foreach ((array) $roles as $role)
+		{
+			if ( ! in_array($role, $userRoles)) return false;
+		}
+
+		return true;
 	}
 
 	/**
