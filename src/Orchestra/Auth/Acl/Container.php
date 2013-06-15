@@ -11,58 +11,53 @@ class Container {
 	/**
 	 * Auth instance.
 	 *
-	 * @var Illuminate\Auth\Guard
+	 * @var \Illuminate\Auth\Guard
 	 */
 	protected $auth = null;
 	
 	/**
 	 * Acl instance name.
 	 * 
-	 * @access  protected
-	 * @var     string
+	 * @var string
 	 */
 	protected $name = null;
 
 	/**
 	 * Memory instance.
 	 * 
-	 * @access  protected
-	 * @var     Orchestra\Memory\Drivers\Driver
+	 * @var \Orchestra\Memory\Drivers\Driver
 	 */
 	protected $memory = null;
 
 	/**
-	 * List of roles
+	 * List of roles.
 	 * 
-	 * @access  protected
-	 * @var     Orchestra\Auth\Acl\Fluent
+	 * @var \Orchestra\Auth\Acl\Fluent
 	 */
 	protected $roles = null;
 	 
 	/**
-	 * List of actions
+	 * List of actions.
 	 * 
-	 * @access  protected
-	 * @var     Orchestra\Auth\Acl\Fluent
+	 * @var \Orchestra\Auth\Acl\Fluent
 	 */
 	protected $actions = null;
 	 
 	/**
-	 * List of ACL map between roles, action
+	 * List of ACL map between roles, action.
 	 * 
-	 * @access  protected
-	 * @var     array
+	 * @var array
 	 */
 	protected $acl = array();
 
 	/**
 	 * Construct a new object.
 	 *
-	 * @access  public
-	 * 
-	 * @param   string        $name
-	 * @param   string        $name
-	 * @param   MemoryDriver  $memory
+	 * @access public
+	 * @param  \Orchestra\Auth\Guard            $auth
+	 * @param  string                           $name
+	 * @param  \Orchestra\Memory\Drivers\Driver $memory
+	 * @return void
 	 */
 	public function __construct(Guard $auth, $name, MemoryDriver $memory = null) 
 	{
@@ -87,12 +82,13 @@ class Container {
 	}
 
 	/**
-	 * Bind current Acl instance with a Memory instance.
+	 * Bind current ACL instance with a Memory instance.
 	 *
-	 * @access  public				
-	 * @param   MemoryDriver    $memory
-	 * @return  self
-	 * @throws  Exception
+	 * @access public
+	 * @param  \Orchestra\Memory\Drivers\Driver $memory
+	 * @return self
+	 * @throws \RuntimeException if \Orchestra\Memory\Drivers\Driver has 
+	 *                           been attached.
 	 */
 	public function attach(MemoryDriver $memory = null)
 	{
@@ -103,7 +99,7 @@ class Container {
 			);
 		}
 
-		// since we already check instanceof, only check for NULL
+		// since we already check instanceof, only check for null.
 		if (is_null($memory)) return;
 
 		$this->memory = $memory;
@@ -111,22 +107,22 @@ class Container {
 		$data = array('acl' => array(), 'actions' => array(), 'roles' => array());
 		$data = array_merge($data, $this->memory->get("acl_".$this->name, array()));
 
-		// Loop through all the roles in memory and add it to
-		// this ACL instance.
+		// Loop through all the roles in memory and add it to this ACL 
+		// instance.
 		foreach ($data['roles'] as $role)
 		{
 			$this->roles->add($role);
 		}
 
-		// Loop through all the actions in memory and add it to 
-		// this ACL instance.
+		// Loop through all the actions in memory and add it to this ACL 
+		// instance.
 		foreach ($data['actions'] as $action)
 		{
 			$this->actions->add($action);
 		}
 
-		// Loop through all the acl in memory and add it to 
-		// this ACL instance.
+		// Loop through all the acl in memory and add it to this ACL 
+		// instance.
 		foreach ($data['acl'] as $id => $allow)
 		{
 			list($role, $action) = explode(':', $id);
@@ -141,7 +137,7 @@ class Container {
 	 * ->with($memory) got called is appended to memory as well.
 	 *
 	 * @access public
-	 * @return void
+	 * @return self
 	 */
 	public function sync()
 	{
@@ -169,10 +165,9 @@ class Container {
 	 * Verify whether current user has sufficient roles to access the 
 	 * actions based on available type of access.
 	 *
-	 * @access  public
-	 * @param   mixed   $action     A string of action name
-	 * @return  bool
-	 * @throws  Exception
+	 * @access public
+	 * @param  string|array     $action     A string of action name
+	 * @return boolean
 	 */
 	public function can($action) 
 	{
@@ -181,7 +176,7 @@ class Container {
 		if ( ! $this->auth->guest()) $roles = $this->auth->roles();
 		else
 		{
-			// only add guest if it's available
+			// only add guest if it's available.
 			if ($this->roles->has('guest')) array_push($roles, 'guest');
 		}
 
@@ -192,11 +187,11 @@ class Container {
 	 * Verify whether given roles has sufficient roles to access the 
 	 * actions based on available type of access.
 	 *
-	 * @access  public
-	 * @param   mixed   $roles      A string or an array of roles
-	 * @param   mixed   $action     A string of action name
-	 * @return  bool
-	 * @throws  InvalidArgumentException
+	 * @access public
+	 * @param  string|array     $roles      A string or an array of roles
+	 * @param  string|array     $action     A string of action name
+	 * @return boolean
+	 * @throws \InvalidArgumentException
 	 */
 	public function check($roles, $action) 
 	{
@@ -213,7 +208,7 @@ class Container {
 		$actionKey = array_search($action, $actions);
 
 		// array_search() will return false when no key is found based on 
-		// given haystack, therefore we should just ignore and return false
+		// given haystack, therefore we should just ignore and return false.
 		if ($actionKey === false) return false;
 
 		foreach ((array) $roles as $role) 
@@ -236,14 +231,14 @@ class Container {
 	}
 
 	/**
-	 * Assign single or multiple $roles + $actions to have access
+	 * Assign single or multiple $roles + $actions to have access.
 	 * 
-	 * @access  public
-	 * @param   mixed   $roles          A string or an array of roles
-	 * @param   mixed   $actions        A string or an array of action name
-	 * @param   bool    $allow
-	 * @return  self
-	 * @throws  Exception
+	 * @access public
+	 * @param  string|array     $roles      A string or an array of roles
+	 * @param  string|array     $actions    A string or an array of action name
+	 * @param  boolean          $allow
+	 * @return self
+	 * @throws \InvalidArgumentException
 	 */
 	public function allow($roles, $actions, $allow = true) 
 	{
@@ -277,13 +272,13 @@ class Container {
 	}
 
 	/**
-	 * Assign a key combination of $roles + $actions to have access
+	 * Assign a key combination of $roles + $actions to have access.
 	 * 
-	 * @access  protected
-	 * @param   mixed   $roles          A key or string representation of roles
-	 * @param   mixed   $actions        A key or string representation of action name
-	 * @param   bool    $allow
-	 * @return  void
+	 * @access protected
+	 * @param  string|array     $roles      A key or string representation of roles
+	 * @param  string|array     $actions    A key or string representation of action name
+	 * @param  boolean          $allow
+	 * @return void
 	 */
 	protected function assign($role = null, $action = null, $allow = true)
 	{
@@ -306,12 +301,12 @@ class Container {
 
 	/**
 	 * Shorthand function to deny access for single or multiple 
-	 * $roles and $actions
+	 * $roles and $actions.
 	 * 
-	 * @access  public
-	 * @param   mixed   $roles          A string or an array of roles
-	 * @param   mixed   $actions        A string or an array of action name
-	 * @return  bool
+	 * @access public
+	 * @param  string|array     $roles      A string or an array of roles
+	 * @param  string|array     $actions    A string or an array of action name
+	 * @return self
 	 */
 	public function deny($roles, $actions) 
 	{
@@ -325,7 +320,7 @@ class Container {
 	 * @param  string   $type           'roles' or 'actions'
 	 * @param  string   $operation
 	 * @param  array    $parameters
-	 * @return Orchestra\Auth\Acl\Fluent
+	 * @return \Orchestra\Auth\Acl\Fluent
 	 */
 	public function execute($type, $operation, $parameters)
 	{
@@ -333,7 +328,7 @@ class Container {
 	}
 
 	/**
-	 * Magic method to mimic roles and actions manipulation
+	 * Magic method to mimic roles and actions manipulation.
 	 */
 	public function __call($method, $parameters)
 	{

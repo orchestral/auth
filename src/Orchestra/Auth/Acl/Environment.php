@@ -9,22 +9,22 @@ class Environment {
 	/**
 	 * Auth instance.
 	 *
-	 * @var Illuminate\Auth\Guard
+	 * @var \Illuminate\Auth\Guard
 	 */
 	protected $auth = null;
 
 	/**
 	 * Cache ACL instance so we can reuse it on multiple request. 
 	 * 
-	 * @var     array
+	 * @var array
 	 */
 	protected $drivers = array();
 
 	/**
-	 * Construct a new Environment
+	 * Construct a new Environment.
 	 *
-	 * @access public						
-	 * @param  Illuminate\Auth\Guard  $auth
+	 * @access public				
+	 * @param  \Illuminate\Auth\Guard   $auth
 	 * @return void
 	 */
 	public function __construct(Guard $auth)
@@ -53,12 +53,12 @@ class Environment {
 	}
 
 	/**
-	 * Register an Acl instance with Closure.
+	 * Register an ACL Container instance with Closure.
 	 * 
-	 * @access  public
-	 * @param   string  $name
-	 * @param   Closure $callback
-	 * @return  self
+	 * @access public
+	 * @param  string   $name
+	 * @param  Closure  $callback
+	 * @return \Orchestra\Auth\Acl\Container
 	 */
 	public function register($name, $callback = null)
 	{
@@ -92,9 +92,9 @@ class Environment {
 		{
 			$operation = $matches[1];
 			$type      = $matches[2].'s';
-			$multi_add = (isset($matches[3]) and $matches[3] === 's' and $operation === 'add');
+			$multiple  = (isset($matches[3]) and $matches[3] === 's' and $operation === 'add');
 
-			( !! $multi_add) and $operation = 'fill';
+			( !! $multiple) and $operation = 'fill';
 
 			foreach ($this->drivers as $acl)
 			{
