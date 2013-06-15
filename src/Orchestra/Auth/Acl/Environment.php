@@ -111,7 +111,7 @@ class Environment {
 	 * Shutdown Orchestra\Support\Acl.
 	 *
 	 * @access public
-	 * @return void
+	 * @return self
 	 */
 	public function finish()
 	{
@@ -119,6 +119,8 @@ class Environment {
 		foreach($this->drivers as $acl) $acl->sync();
 
 		$this->drivers = array();
+
+		return $this;
 	}
 
 	/**
