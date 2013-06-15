@@ -33,12 +33,12 @@ class Environment {
 	}
 
 	/**
-	 * Initiate a new Acl instance.
+	 * Initiate a new ACL Container instance.
 	 * 
-	 * @access  public
-	 * @param   string        $name
-	 * @param   Memory\Driver $memory
-	 * @return  self
+	 * @access public
+	 * @param  string                           $name
+	 * @param  \Orchestra\Memory\Drivers\Driver $memory
+	 * @return \Orchestra\Auth\Acl\Container
 	 */
 	public function make($name = null, MemoryDriver $memory = null)
 	{
@@ -108,12 +108,12 @@ class Environment {
 	}
 
 	/**
-	 * Shutdown Orchestra\Support\Acl
+	 * Shutdown Orchestra\Support\Acl.
 	 *
 	 * @access public
 	 * @return void
 	 */
-	public function shutdown()
+	public function finish()
 	{
 		// Re-sync before shutting down.
 		foreach($this->drivers as $acl) $acl->sync();

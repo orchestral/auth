@@ -89,7 +89,7 @@ class EnvironmentTest extends \PHPUnit_Framework_TestCase {
 		$this->assertTrue(is_array($stub->all()));
 		$this->assertFalse(array() === $stub->all());
 
-		$stub->shutdown();
+		$stub->finish();
 
 		$this->assertEquals(array(), $stub->all());
 	}
