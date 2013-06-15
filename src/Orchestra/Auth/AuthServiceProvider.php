@@ -1,6 +1,6 @@
 <?php namespace Orchestra\Auth;
 
-use \Illuminate\Auth\AuthServiceProvider as ServiceProvider;
+use Illuminate\Auth\AuthServiceProvider as ServiceProvider;
 use Illuminate\Foundation\AliasLoader;
 
 class AuthServiceProvider extends ServiceProvider {

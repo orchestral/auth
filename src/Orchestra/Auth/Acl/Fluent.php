@@ -43,7 +43,7 @@ class Fluent {
 	}
 
 	/**
-	 * Determine whether a key exists in collection
+	 * Determine whether a key exists in collection.
 	 *
 	 * @access public
 	 * @param  string   $key
@@ -58,11 +58,11 @@ class Fluent {
 	}
 
 	/**
-	 * Add multiple key to collection
+	 * Add multiple key to collection.
 	 *
 	 * @access public
 	 * @param  array   $keys
-	 * @return bool
+	 * @return boolean
 	 */
 	public function fill(array $keys)
 	{
@@ -72,11 +72,11 @@ class Fluent {
 	}
 
 	/**
-	 * Add a key to collection
+	 * Add a key to collection.
 	 *
 	 * @access public
 	 * @param  string   $key
-	 * @return bool
+	 * @return boolean
 	 */
 	public function add($key)
 	{
@@ -95,12 +95,12 @@ class Fluent {
 	}
 
 	/**
-	 * Rename a key from collection
+	 * Rename a key from collection.
 	 *
 	 * @access public
 	 * @param  string   $from
 	 * @param  string   $to
-	 * @return bool
+	 * @return boolean
 	 */
 	public function rename($from, $to)
 	{
@@ -110,15 +110,16 @@ class Fluent {
 		if (false === ($key = $this->search($from))) return false;
 
 		$this->collections[$key] = $to;
+
 		return true;
 	}
 
 	/**
-	 * Remove a key from collection
+	 * Remove a key from collection.
 	 *
 	 * @access public
 	 * @param  string   $key
-	 * @return bool
+	 * @return boolean
 	 */
 	public function remove($key)
 	{
@@ -139,11 +140,11 @@ class Fluent {
 	}
 
 	/**
-	 * Get the ID from a key
+	 * Get the ID from a key.
 	 *
 	 * @access public
 	 * @param  string   $key
-	 * @return int
+	 * @return integer
 	 */
 	public function search($key)
 	{
