@@ -95,6 +95,9 @@ class GuardTest extends \PHPUnit_Framework_TestCase {
 		$this->assertTrue($stub->is('admin'));
 		$this->assertTrue($stub->is('editor'));
 		$this->assertFalse($stub->is('user'));
+
+		$this->assertTrue($stub->is(array('admin', 'editor')));
+		$this->assertFalse($stub->is(array('admin', 'user')));
 	}
 
 	/**
