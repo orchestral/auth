@@ -1,6 +1,6 @@
 The MIT License (MIT)
 
-Copyright (C) 2013 Mior Muhammad Zaki <http://git.io/crynobone>
+Copyright (C) 2012 Mior Muhammad Zaki <http://git.io/crynobone>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
