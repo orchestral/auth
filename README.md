@@ -35,4 +35,4 @@ Next replace `Illuminate\Auth\AuthServiceProvider` with the following service pr
 ## Resources
 
 * [Documentation](http://orchestraplatform.com/docs/2.0/components/auth)
-* [Change Logs](https://github.com/orchestral/auth/wiki/Change-Logs)
+* [Change Log](http://orchestraplatform.com/docs/2.0/components/auth/changes#v2.1)
