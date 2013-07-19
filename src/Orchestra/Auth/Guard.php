@@ -14,8 +14,7 @@ class Guard extends \Illuminate\Auth\Guard {
 	 *
 	 * If the user is a guest, empty array should be returned.
 	 *
-	 * @access  public
-	 * @return  array
+	 * @return array
 	 */
 	public function roles()
 	{
@@ -43,7 +42,6 @@ class Guard extends \Illuminate\Auth\Guard {
 	/**
 	 * Determine if current user has the given role.
 	 *
-	 * @access public
 	 * @param  string   $roles
 	 * @return boolean
 	 */
@@ -62,12 +60,12 @@ class Guard extends \Illuminate\Auth\Guard {
 	/**
 	 * Log the user out of the application.
 	 *
-	 * @access public
 	 * @return void
 	 */
 	public function logout()
 	{
 		parent::logout();
+		
 		$this->userRoles = null;
 	}
 }

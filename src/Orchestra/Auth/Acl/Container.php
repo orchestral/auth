@@ -53,7 +53,6 @@ class Container {
 	/**
 	 * Construct a new object.
 	 *
-	 * @access public
 	 * @param  \Orchestra\Auth\Guard            $auth
 	 * @param  string                           $name
 	 * @param  \Orchestra\Memory\Drivers\Driver $memory
@@ -73,7 +72,6 @@ class Container {
 	/**
 	 * Check whether a Memory instance is already attached to Acl.
 	 *
-	 * @access public
 	 * @return boolean
 	 */
 	public function attached()
@@ -84,7 +82,6 @@ class Container {
 	/**
 	 * Bind current ACL instance with a Memory instance.
 	 *
-	 * @access public
 	 * @param  \Orchestra\Memory\Drivers\Driver $memory
 	 * @return self
 	 * @throws \RuntimeException if \Orchestra\Memory\Drivers\Driver has 
@@ -136,7 +133,6 @@ class Container {
 	 * Sync memory with acl instance, make sure anything that added before 
 	 * ->with($memory) got called is appended to memory as well.
 	 *
-	 * @access public
 	 * @return self
 	 */
 	public function sync()
@@ -165,7 +161,6 @@ class Container {
 	 * Verify whether current user has sufficient roles to access the 
 	 * actions based on available type of access.
 	 *
-	 * @access public
 	 * @param  string|array     $action     A string of action name
 	 * @return boolean
 	 */
@@ -187,7 +182,6 @@ class Container {
 	 * Verify whether given roles has sufficient roles to access the 
 	 * actions based on available type of access.
 	 *
-	 * @access public
 	 * @param  string|array     $roles      A string or an array of roles
 	 * @param  string|array     $action     A string of action name
 	 * @return boolean
@@ -233,7 +227,6 @@ class Container {
 	/**
 	 * Assign single or multiple $roles + $actions to have access.
 	 * 
-	 * @access public
 	 * @param  string|array     $roles      A string or an array of roles
 	 * @param  string|array     $actions    A string or an array of action name
 	 * @param  boolean          $allow
@@ -274,7 +267,6 @@ class Container {
 	/**
 	 * Assign a key combination of $roles + $actions to have access.
 	 * 
-	 * @access protected
 	 * @param  string|array     $roles      A key or string representation of roles
 	 * @param  string|array     $actions    A key or string representation of action name
 	 * @param  boolean          $allow
@@ -303,7 +295,6 @@ class Container {
 	 * Shorthand function to deny access for single or multiple 
 	 * $roles and $actions.
 	 * 
-	 * @access public
 	 * @param  string|array     $roles      A string or an array of roles
 	 * @param  string|array     $actions    A string or an array of action name
 	 * @return self
@@ -316,7 +307,6 @@ class Container {
 	/**
 	 * Forward call to roles or actions.
 	 *
-	 * @access public
 	 * @param  string   $type           'roles' or 'actions'
 	 * @param  string   $operation
 	 * @param  array    $parameters
@@ -329,6 +319,10 @@ class Container {
 
 	/**
 	 * Magic method to mimic roles and actions manipulation.
+	 * 
+	 * @param  string   $method
+	 * @param  array    $parameters
+	 * @return mixed
 	 */
 	public function __call($method, $parameters)
 	{
