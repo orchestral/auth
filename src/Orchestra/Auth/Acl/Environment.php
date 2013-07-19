@@ -23,7 +23,6 @@ class Environment {
 	/**
 	 * Construct a new Environment.
 	 *
-	 * @access public				
 	 * @param  \Illuminate\Auth\Guard   $auth
 	 * @return void
 	 */
@@ -35,7 +34,6 @@ class Environment {
 	/**
 	 * Initiate a new ACL Container instance.
 	 * 
-	 * @access public
 	 * @param  string                           $name
 	 * @param  \Orchestra\Memory\Drivers\Driver $memory
 	 * @return \Orchestra\Auth\Acl\Container
@@ -55,7 +53,6 @@ class Environment {
 	/**
 	 * Register an ACL Container instance with Closure.
 	 * 
-	 * @access public
 	 * @param  string   $name
 	 * @param  Closure  $callback
 	 * @return \Orchestra\Auth\Acl\Container
@@ -78,7 +75,6 @@ class Environment {
 	/**
 	 * Manipulate and synchronize roles.
 	 *
-	 * @access public
 	 * @param  string   $method
 	 * @param  array    $parameters
 	 * @return mixed
@@ -110,7 +106,6 @@ class Environment {
 	/**
 	 * Shutdown Orchestra\Support\Acl.
 	 *
-	 * @access public
 	 * @return self
 	 */
 	public function finish()
@@ -126,7 +121,6 @@ class Environment {
 	/**
 	 * Get all Orchestra\Support\Acl instances.
 	 *
-	 * @access public
 	 * @return array
 	 */
 	public function all()
