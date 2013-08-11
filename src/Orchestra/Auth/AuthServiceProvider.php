@@ -14,7 +14,7 @@ class AuthServiceProvider extends ServiceProvider {
 	{
 		$this->registerAuth();
 		$this->registerAcl();
-		$this->registerAuthEvent();
+		$this->registerAuthListener();
 		$this->registerAuthCommand();
 	}
 
@@ -61,7 +61,7 @@ class AuthServiceProvider extends ServiceProvider {
 	 *
 	 * @return void
 	 */
-	protected function registerAuthEvent()
+	protected function registerAuthListener()
 	{
 		$this->app['events']->listen('orchestra.auth: roles', function ($user, $roles)
 		{
@@ -101,6 +101,8 @@ class AuthServiceProvider extends ServiceProvider {
 	public function boot()
 	{
 		$this->package('orchestra/auth', 'orchestra/auth');
+
+		parent::boot();
 	}
 
 	/**
