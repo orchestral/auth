@@ -22,7 +22,6 @@ class Fluent {
 	/**
 	 * Construct a new instance.
 	 *
-	 * @access public	
 	 * @param  string   $name
 	 * @return void
 	 */
@@ -34,7 +33,6 @@ class Fluent {
 	/**
 	 * Get the collections.
 	 *
-	 * @access public
 	 * @return array
 	 */
 	public function get()
@@ -45,7 +43,6 @@ class Fluent {
 	/**
 	 * Determine whether a key exists in collection.
 	 *
-	 * @access public
 	 * @param  string   $key
 	 * @return boolean
 	 */
@@ -60,11 +57,10 @@ class Fluent {
 	/**
 	 * Add multiple key to collection.
 	 *
-	 * @access public
 	 * @param  array   $keys
 	 * @return boolean
 	 */
-	public function fill(array $keys)
+	public function attach(array $keys)
 	{
 		foreach ($keys as $key) $this->add($key);
 
@@ -72,9 +68,19 @@ class Fluent {
 	}
 
 	/**
+	 * Add multiple key to collection.
+	 *
+	 * @param  array   $keys
+	 * @return boolean
+	 */
+	public function fill(array $keys)
+	{
+		return $this->attach($keys);
+	}
+
+	/**
 	 * Add a key to collection.
 	 *
-	 * @access public
 	 * @param  string   $key
 	 * @return boolean
 	 */
@@ -97,7 +103,6 @@ class Fluent {
 	/**
 	 * Rename a key from collection.
 	 *
-	 * @access public
 	 * @param  string   $from
 	 * @param  string   $to
 	 * @return boolean
@@ -117,7 +122,6 @@ class Fluent {
 	/**
 	 * Remove a key from collection.
 	 *
-	 * @access public
 	 * @param  string   $key
 	 * @return boolean
 	 */
@@ -140,9 +144,21 @@ class Fluent {
 	}
 
 	/**
+	 * Remove multiple key to collection.
+	 *
+	 * @param  array   $keys
+	 * @return boolean
+	 */
+	public function detach(array $keys)
+	{
+		foreach ($keys as $key) $this->remove($key);
+
+		return true;
+	}
+
+	/**
 	 * Get the ID from a key.
 	 *
-	 * @access public
 	 * @param  string   $key
 	 * @return integer
 	 */
@@ -158,7 +174,6 @@ class Fluent {
 	/**
 	 * Check if an id is set in the collection.
 	 *
-	 * @access public
 	 * @param  int      $id
 	 * @return bool
 	 */
@@ -170,7 +185,6 @@ class Fluent {
 	/**
 	 * Filter request.
 	 *
-	 * @access public
 	 * @param  mixed    $request
 	 * @return array
 	 */

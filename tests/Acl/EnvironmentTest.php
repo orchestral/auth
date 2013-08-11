@@ -71,8 +71,8 @@ class EnvironmentTest extends \PHPUnit_Framework_TestCase {
 		$acl1 = $stub->make('mock-one');
 		$acl2 = $stub->make('mock-two');
 
-		$stub->addRole('admin');
-		$stub->addRole('manager');
+		$stub->addRoles(array('admin', 'manager', 'moderator'));
+		$stub->removeRoles(array('moderator'));
 
 		$this->assertTrue($acl1->hasRole('admin'));
 		$this->assertTrue($acl2->hasRole('admin'));
