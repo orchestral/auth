@@ -338,12 +338,13 @@ class ContainerTest extends \PHPUnit_Framework_TestCase {
 		$roles->setAccessible(true);
 
 		$stub->roles()->add('admin');
-		$stub->roles()->fill(array('admin'));
+		$stub->roles()->attach(array('admin'));
 		$stub->addRole('admin');
-		$stub->addRoles(array('admin'));
+		$stub->addRoles(array('admin', 'moderator'));
+		$stub->removeRoles(array('moderator'));
 
 		$stub->actions()->add('manage');
-		$stub->actions()->fill(array('manage'));
+		$stub->actions()->attach(array('manage'));
 		$stub->addAction('manage');
 		$stub->addActions(array('manage'));
 

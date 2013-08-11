@@ -338,15 +338,27 @@ class Container {
 
 		// Preserve legacy CRUD structure for actions and roles.
 		$method  = Str::snake($method, '_');
-		$matcher = '/^(add|fill|rename|has|get|remove)_(role|action)(s?)$/';
+		$matcher = '/^(add|rename|has|get|remove|fill|attach|detach)_(role|action)(s?)$/';
 
 		if (preg_match($matcher, $method, $matches))
 		{
 			$operation = $matches[1];
 			$type      = $matches[2].'s';
-			$muliple   = (isset($matches[3]) and $matches[3] === 's' and $operation === 'add');
+			$muliple   = (isset($matches[3]) and $matches[3] === 's');
 
-			( !! $muliple) and $operation = 'fill';
+			if (!! $muliple)
+			{
+				switch (true)
+				{
+					case in_array($operation, array('fill', 'add')) :
+						$operation = 'attach';
+						break;
+					case $operation === 'remove' :
+						# passtru;
+					default :
+						$operation = 'detach';
+				}
+			}
 			
 			$result = $this->execute($type, $operation, $parameters);
 

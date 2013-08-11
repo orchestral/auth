@@ -17,7 +17,7 @@ class FluentTest extends \PHPUnit_Framework_TestCase {
 	public function setUp()
 	{
 		$this->stub = new Fluent('stub');
-		$this->stub->fill(array('Hello World'));
+		$this->stub->attach(array('Hello World'));
 	}
 
 	/**
@@ -77,6 +77,25 @@ class FluentTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	/**
+	 * Test Orchestra\Auth\Acl\Fluent::attach() method.
+	 *
+	 * @test
+	 */
+	public function testAttachMethod()
+	{
+		$stub = new Fluent('foo');
+
+		$stub->attach(array('foo', 'foobar'));
+
+		$refl = new \ReflectionObject($stub);
+		$collections = $refl->getProperty('collections');
+		$collections->setAccessible(true);
+
+		$this->assertEquals(array('foo', 'foobar'), $collections->getValue($stub));
+		$this->assertEquals(array('foo', 'foobar'), $stub->get());
+	}
+
+	/**
 	 * Test Orchestra\Auth\Acl\Fluent::fill() method.
 	 *
 	 * @test
@@ -96,15 +115,15 @@ class FluentTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * Test Orchestra\Auth\Acl\Fluent::add() method null throw an exception.
+	 * Test Orchestra\Auth\Acl\Fluent::attach() method null throw an exception.
 	 *
 	 * @expectedException \InvalidArgumentException
 	 */
-	public function testFillMethodNullThrownException()
+	public function testAttachMethodNullThrownException()
 	{
 		$stub = new Fluent('foo');
 
-		$stub->fill(array(null));
+		$stub->attach(array(null));
 	}
 
 	/**
@@ -127,7 +146,7 @@ class FluentTest extends \PHPUnit_Framework_TestCase {
 	{
 		$stub = new Fluent('foo');
 
-		$stub->fill(array('foo', 'foobar'));
+		$stub->attach(array('foo', 'foobar'));
 
 		$stub->rename('foo', 'laravel');
 
@@ -148,7 +167,7 @@ class FluentTest extends \PHPUnit_Framework_TestCase {
 	{
 		$stub = new Fluent('foo');
 
-		$stub->fill(array('foo', 'foobar'));
+		$stub->attach(array('foo', 'foobar'));
 
 		$this->assertEquals(0, $stub->search('foo'));
 		$this->assertEquals(1, $stub->search('foobar'));
@@ -164,7 +183,7 @@ class FluentTest extends \PHPUnit_Framework_TestCase {
 	{
 		$stub = new Fluent('foo');
 
-		$stub->fill(array('foo', 'foobar'));
+		$stub->attach(array('foo', 'foobar'));
 
 		$this->assertTrue($stub->exist(0));
 		$this->assertTrue($stub->exist(1));
@@ -180,7 +199,7 @@ class FluentTest extends \PHPUnit_Framework_TestCase {
 	{
 		$stub = new Fluent('foo');
 
-		$stub->fill(array('foo', 'foobar'));
+		$stub->attach(array('foo', 'foobar'));
 
 		$this->assertEquals(array('foo', 'foobar'), $stub->get());
 
@@ -190,7 +209,7 @@ class FluentTest extends \PHPUnit_Framework_TestCase {
 		$this->assertTrue($stub->exist(1));
 		$this->assertEquals(array(1 => 'foobar'), $stub->get());
 
-		$stub->fill(array('foo'));
+		$stub->attach(array('foo'));
 
 		$this->assertEquals(array(1 => 'foobar', 2 => 'foo'), $stub->get());
 
@@ -202,6 +221,37 @@ class FluentTest extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals(array(1 => 'foobar'), $stub->get());
 	
 		$this->assertFalse($stub->remove('hello'));
+	}
+
+	/**
+	 * Test Orchestra\Auth\Acl\Fluent::detach() method.
+	 *
+	 * @test
+	 */
+	public function testDetachMethod()
+	{
+		$stub = new Fluent('foo');
+
+		$stub->attach(array('foo', 'foobar'));
+
+		$this->assertEquals(array('foo', 'foobar'), $stub->get());
+
+		$stub->detach(array('foo'));
+
+		$this->assertFalse($stub->exist(0));
+		$this->assertTrue($stub->exist(1));
+		$this->assertEquals(array(1 => 'foobar'), $stub->get());
+
+		$stub->attach(array('foo'));
+
+		$this->assertEquals(array(1 => 'foobar', 2 => 'foo'), $stub->get());
+
+		$stub->detach(array('foo'));
+
+		$this->assertFalse($stub->exist(0));
+		$this->assertTrue($stub->exist(1));
+		$this->assertFalse($stub->exist(2));
+		$this->assertEquals(array(1 => 'foobar'), $stub->get());	
 	}
 
 	/**
@@ -222,7 +272,7 @@ class FluentTest extends \PHPUnit_Framework_TestCase {
 	public function testFilterMethod()
 	{
 		$stub = new Fluent('foo');
-		$stub->fill(array('foo', 'foobar'));
+		$stub->attach(array('foo', 'foobar'));
 
 		$this->assertEquals(array('foo', 'foobar'), $stub->filter('*'));
 		$this->assertEquals(array(1 => 'foobar'), $stub->filter('!foo'));
