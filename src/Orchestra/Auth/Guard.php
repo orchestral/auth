@@ -36,6 +36,14 @@ class Guard extends \Illuminate\Auth\Guard {
 			));
 		}
 
+		// It possible that after event are all propagated we don't have a 
+		// roles for the user, in this case we should properly append "Guest" 
+		// user role to the current user.
+		if (is_null($this->userRoles[$userId]))
+		{
+			$this->userRoles[$userId] = array('Guest');
+		}
+
 		return $this->userRoles[$userId];
 	}
 
@@ -48,6 +56,10 @@ class Guard extends \Illuminate\Auth\Guard {
 	public function is($roles)
 	{
 		$userRoles = $this->roles();
+
+		// In events where user roles return anything other than an array, 
+		// just as a pre-caution.
+		if ( ! is_array($userRoles)) return false;
 
 		foreach ((array) $roles as $role)
 		{
