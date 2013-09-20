@@ -3,10 +3,11 @@
 use InvalidArgumentException;
 use RuntimeException;
 use Orchestra\Auth\Guard;
-use Orchestra\Support\Str;
+use Orchestra\Memory\Abstractable\Container as AbstractableContainer;
 use Orchestra\Memory\Drivers\Driver as MemoryDriver;
+use Orchestra\Support\Str;
 
-class Container {
+class Container extends AbstractableContainer {
 
 	/**
 	 * Auth instance.
@@ -21,13 +22,6 @@ class Container {
 	 * @var string
 	 */
 	protected $name = null;
-
-	/**
-	 * Memory instance.
-	 * 
-	 * @var \Orchestra\Memory\Drivers\Driver
-	 */
-	protected $memory = null;
 
 	/**
 	 * List of roles.
@@ -70,16 +64,6 @@ class Container {
 	}
 
 	/**
-	 * Check whether a Memory instance is already attached to Acl.
-	 *
-	 * @return boolean
-	 */
-	public function attached()
-	{
-		return ( ! is_null($this->memory));
-	}
-
-	/**
 	 * Bind current ACL instance with a Memory instance.
 	 *
 	 * @param  \Orchestra\Memory\Drivers\Driver $memory
@@ -99,8 +83,17 @@ class Container {
 		// since we already check instanceof, only check for null.
 		if (is_null($memory)) return;
 
-		$this->memory = $memory;
+		parent::attach($memory);
+		$this->initiate();
+	}
 
+	/**
+	 * Initiate acl data from memory.
+	 *
+	 * @return self
+	 */
+	protected function initiate()
+	{
 		$data = array('acl' => array(), 'actions' => array(), 'roles' => array());
 		$data = array_merge($data, $this->memory->get("acl_".$this->name, array()));
 
