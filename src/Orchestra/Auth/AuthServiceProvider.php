@@ -85,7 +85,7 @@ class AuthServiceProvider extends ServiceProvider {
 	 */
 	protected function registerAuthCommand()
 	{
-		$this->app['orchestra.commands.auth'] = $this->app->share(function($app)
+		$this->app['orchestra.commands.auth'] = $this->app->share(function()
 		{
 			return new Console\AuthCommand;
 		});
