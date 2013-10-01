@@ -7,7 +7,7 @@ class AuthManager extends \Illuminate\Auth\AuthManager {
 	 *
 	 * @return \Orchestra\Auth\Guard
 	 */
-	protected function createDatabaseDriver()
+	public function createDatabaseDriver()
 	{
 		$provider = $this->createDatabaseProvider();
 
