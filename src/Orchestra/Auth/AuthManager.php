@@ -11,7 +11,7 @@ class AuthManager extends \Illuminate\Auth\AuthManager {
 	{
 		$provider = $this->createDatabaseProvider();
 
-		return new Guard($provider, $this->app['session']);
+		return new Guard($provider, $this->app['session.store']);
 	}
 
 	/**
@@ -23,6 +23,6 @@ class AuthManager extends \Illuminate\Auth\AuthManager {
 	{
 		$provider = $this->createEloquentProvider();
 
-		return new Guard($provider, $this->app['session']);
+		return new Guard($provider, $this->app['session.store']);
 	}
 }
