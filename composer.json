@@ -27,6 +27,7 @@
 	},
 	"suggest": {
 		"laravel/framework": "Allow using orchestra/auth component outside of Orchestra Platform 2",
+		"orchestra/model": "Allow using orchestra/auth component outside of Orchestra Platform 2",
 		"orchestra/foundation": "Allow using orchestra/auth with Orchestra Platform 2"
 	},
 	"extra": {
