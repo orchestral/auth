@@ -1,5 +1,6 @@
 <?php
 
+use Carbon\Carbon;
 use Illuminate\Database\Migrations\Migration;
 
 class OrchestraAuthBasicRoles extends Migration {
@@ -11,7 +12,7 @@ class OrchestraAuthBasicRoles extends Migration {
 	 */
 	public function up()
 	{
-		$datetime = new DateTime('now');
+		$datetime = Carbon::now();
 
 		DB::table('roles')->insert(array(
 			'name'       => 'Administrator',
