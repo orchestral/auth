@@ -56,7 +56,7 @@ class AuthServiceProvider extends ServiceProvider {
 	}
 
 	/**
-	 * We need to ensure that Orchestra\Acl is compliance with our Eloquent 
+	 * We need to ensure that Orchestra\Acl is compliance with our Eloquent
 	 * Model, This would overwrite the default configuration.
 	 *
 	 * @return void
@@ -92,7 +92,7 @@ class AuthServiceProvider extends ServiceProvider {
 
 		$this->commands('orchestra.commands.auth');
 	}
-	
+
 	/**
 	 * Bootstrap the application events.
 	 *
@@ -100,7 +100,9 @@ class AuthServiceProvider extends ServiceProvider {
 	 */
 	public function boot()
 	{
-		$this->package('orchestra/auth', 'orchestra/auth');
+	    $path = realpath(dirname(__DIR__).'/../../');
+
+		$this->package('orchestra/auth', 'orchestra/auth', $path);
 
 		parent::boot();
 	}
