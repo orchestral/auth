@@ -100,7 +100,7 @@ class AuthServiceProvider extends ServiceProvider {
 	 */
 	public function boot()
 	{
-	    $path = realpath(dirname(__DIR__).'/../../');
+		$path = realpath(dirname(__DIR__).'/../../');
 
 		$this->package('orchestra/auth', 'orchestra/auth', $path);
 
