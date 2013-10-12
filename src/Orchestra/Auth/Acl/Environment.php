@@ -24,7 +24,6 @@ class Environment {
 	 * Construct a new Environment.
 	 *
 	 * @param  \Illuminate\Auth\Guard   $auth
-	 * @return void
 	 */
 	public function __construct(Guard $auth)
 	{

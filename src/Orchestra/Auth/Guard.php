@@ -54,10 +54,12 @@ class Guard extends \Illuminate\Auth\Guard {
 	{
 		$userRoles = $this->roles();
 
-		// In events where user roles return anything other than an array, 
-		// just as a pre-caution.
+		// For a pre-caution, we should return false in events where user 
+		// roles not an array.
 		if ( ! is_array($userRoles)) return false;
 
+		// We should ensure that all given roles match the current user, 
+		// consider it as a AND condition instead of OR.
 		foreach ((array) $roles as $role)
 		{
 			if ( ! in_array($role, $userRoles)) return false;
@@ -75,6 +77,9 @@ class Guard extends \Illuminate\Auth\Guard {
 	{
 		parent::logout();
 		
+		// We should flush the cached user roles relationship so any 
+		// subsequent request would revalidate all information, instead of 
+		// refering to the cached value.
 		$this->userRoles = null;
 	}
 }

@@ -50,7 +50,6 @@ class Container extends AbstractableContainer {
 	 * @param  \Orchestra\Auth\Guard            $auth
 	 * @param  string                           $name
 	 * @param  \Orchestra\Memory\Drivers\Driver $memory
-	 * @return void
 	 */
 	public function __construct(Guard $auth, $name, MemoryDriver $memory = null) 
 	{

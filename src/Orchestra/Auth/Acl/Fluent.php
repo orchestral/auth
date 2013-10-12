@@ -23,7 +23,6 @@ class Fluent {
 	 * Construct a new instance.
 	 *
 	 * @param  string   $name
-	 * @return void
 	 */
 	public function __construct($name)
 	{
