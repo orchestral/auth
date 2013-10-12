@@ -98,6 +98,6 @@ class AuthServiceProvider extends ServiceProvider {
 	 */
 	public function provides()
 	{
-		return array('auth', 'orchestra.acl', 'orchestra.commands.auth');
+		return array('auth', 'orchestra.acl');
 	}
 }
