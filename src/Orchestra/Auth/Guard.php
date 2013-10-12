@@ -69,9 +69,7 @@ class Guard extends \Illuminate\Auth\Guard {
 	}
 
 	/**
-	 * Log the user out of the application.
-	 *
-	 * @return void
+	 * {@inheritdoc}
 	 */
 	public function logout()
 	{
