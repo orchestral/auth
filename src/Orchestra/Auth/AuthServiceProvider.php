@@ -15,7 +15,6 @@ class AuthServiceProvider extends ServiceProvider {
 		$this->registerAuth();
 		$this->registerAcl();
 		$this->registerAuthListener();
-		$this->registerAuthCommand();
 	}
 
 	/**
@@ -76,21 +75,6 @@ class AuthServiceProvider extends ServiceProvider {
 
 			return $roles;
 		});
-	}
-
-	/**
-	 * Register the service provider for Auth command.
-	 *
-	 * @return void
-	 */
-	protected function registerAuthCommand()
-	{
-		$this->app['orchestra.commands.auth'] = $this->app->share(function()
-		{
-			return new Console\AuthCommand;
-		});
-
-		$this->commands('orchestra.commands.auth');
 	}
 	
 	/**
