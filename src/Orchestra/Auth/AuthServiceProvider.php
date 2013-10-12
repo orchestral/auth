@@ -15,7 +15,6 @@ class AuthServiceProvider extends ServiceProvider {
 		$this->registerAuth();
 		$this->registerAcl();
 		$this->registerAuthListener();
-		$this->registerAuthCommand();
 	}
 
 	/**
@@ -56,7 +55,7 @@ class AuthServiceProvider extends ServiceProvider {
 	}
 
 	/**
-	 * We need to ensure that Orchestra\Acl is compliance with our Eloquent
+	 * We need to ensure that Orchestra\Acl is compliance with our Eloquent 
 	 * Model, This would overwrite the default configuration.
 	 *
 	 * @return void
@@ -77,22 +76,7 @@ class AuthServiceProvider extends ServiceProvider {
 			return $roles;
 		});
 	}
-
-	/**
-	 * Register the service provider for Auth command.
-	 *
-	 * @return void
-	 */
-	protected function registerAuthCommand()
-	{
-		$this->app['orchestra.commands.auth'] = $this->app->share(function()
-		{
-			return new Console\AuthCommand;
-		});
-
-		$this->commands('orchestra.commands.auth');
-	}
-
+	
 	/**
 	 * Bootstrap the application events.
 	 *
@@ -100,9 +84,7 @@ class AuthServiceProvider extends ServiceProvider {
 	 */
 	public function boot()
 	{
-		$path = realpath(__DIR__.'/../../');
-
-		$this->package('orchestra/auth', 'orchestra/auth', $path);
+		$this->package('orchestra/auth', 'orchestra/auth');
 
 		parent::boot();
 	}
