@@ -81,8 +81,9 @@ class Environment {
 	public function __call($method, $parameters)
 	{
 		$result = array();
-		$method = Str::snake($method, '_');
 
+		// Dynamically resolve operation name especially to resolve 
+		// attach and detach multiple actions or roles.
 		$resolveOperation = function ($operation, $multiple)
 		{
 			if ( ! $multiple) return $operation;
@@ -95,7 +96,10 @@ class Environment {
 			return 'detach';
 		};
 
-		if (preg_match('/^(add|rename|has|get|remove|fill|attach|detach)_(role)(s?)$/', $method, $matches))
+		$method = Str::snake($method, '_');
+		$matcher = '/^(add|rename|has|get|remove|fill|attach|detach)_(role|action)(s?)$/';
+
+		if (preg_match($matcher, $method, $matches))
 		{
 			$type      = $matches[2].'s';
 			$multiple  = (isset($matches[3]) and $matches[3] === 's');

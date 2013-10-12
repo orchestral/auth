@@ -318,9 +318,16 @@ class Container extends AbstractableContainer {
 	 */
 	public function __call($method, $parameters)
 	{
-		if ($method === 'acl') return $this->acl;
+		// Not sure whether these is a good approach, allowing a passthru 
+		// would allow more expressive structure but at the same time lack 
+		// the call to `$this->sync()`, this might cause issue when a request
+		// contain remove and add roles/actions.
+		$passthru = array('roles', 'actions', 'acl');
 		
-		$passthru  = array('roles', 'actions');
+		if (in_array($method, $passthru)) return $this->{$method};
+
+		// Dynamically resolve operation name especially to resolve 
+		// attach and detach multiple actions or roles.
 		$resolveOperation = function ($operation, $multiple)
 		{
 			if ( ! $multiple) return $operation;
@@ -332,12 +339,6 @@ class Container extends AbstractableContainer {
 
 			return 'detach';
 		};
-
-		// Not sure whether these is a good approach, allowing a passthru 
-		// would allow more expressive structure but at the same time lack 
-		// the call to `$this->sync()`, this might cause issue when a request
-		// contain remove and add roles/actions.
-		if (in_array($method, $passthru)) return $this->{$method};
 
 		// Preserve legacy CRUD structure for actions and roles.
 		$method  = Str::snake($method, '_');
