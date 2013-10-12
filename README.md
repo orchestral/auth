@@ -29,8 +29,13 @@ Next replace `Illuminate\Auth\AuthServiceProvider` with the following service pr
 	
 	'Orchestra\Auth\AuthServiceProvider',
 	'Orchestra\Memory\MemoryServiceProvider',
+
+	'Orchestra\Auth\CommandServiceProvider',
+	'Orchestra\Memory\CommandServiceProvider',
 ),
 ```
+
+> `CommandServiceProvider` are optional, useful for interaction using the Artisan command line tool.
 
 ## Resources
 
