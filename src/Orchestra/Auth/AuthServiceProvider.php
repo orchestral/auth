@@ -6,9 +6,7 @@ use Illuminate\Foundation\AliasLoader;
 class AuthServiceProvider extends ServiceProvider {
 
 	/**
-	 * Register the service provider.
-	 *
-	 * @return void
+	 * {@inheritdoc}
 	 */
 	public function register()
 	{
@@ -78,9 +76,7 @@ class AuthServiceProvider extends ServiceProvider {
 	}
 	
 	/**
-	 * Bootstrap the application events.
-	 *
-	 * @return void
+	 * {@inheritdoc}
 	 */
 	public function boot()
 	{
@@ -92,9 +88,7 @@ class AuthServiceProvider extends ServiceProvider {
 	}
 
 	/**
-	 * Get the services provided by the provider.
-	 *
-	 * @return array
+	 * {@inheritdoc}
 	 */
 	public function provides()
 	{

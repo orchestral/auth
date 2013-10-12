@@ -3,9 +3,7 @@
 class AuthManager extends \Illuminate\Auth\AuthManager {
 
 	/**
-	 * Create an instance of the database driver.
-	 *
-	 * @return \Orchestra\Auth\Guard
+	 * {@inheritdoc}
 	 */
 	public function createDatabaseDriver()
 	{
@@ -15,9 +13,7 @@ class AuthManager extends \Illuminate\Auth\AuthManager {
 	}
 
 	/**
-	 * Create an instance of the Eloquent driver.
-	 *
-	 * @return \Orchestra\Auth\Guard
+	 * {@inheritdoc}
 	 */
 	public function createEloquentDriver()
 	{

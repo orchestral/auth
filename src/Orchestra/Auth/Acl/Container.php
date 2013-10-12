@@ -50,7 +50,6 @@ class Container extends AbstractableContainer {
 	 * @param  \Orchestra\Auth\Guard            $auth
 	 * @param  string                           $name
 	 * @param  \Orchestra\Memory\Drivers\Driver $memory
-	 * @return void
 	 */
 	public function __construct(Guard $auth, $name, MemoryDriver $memory = null) 
 	{
@@ -319,15 +318,27 @@ class Container extends AbstractableContainer {
 	 */
 	public function __call($method, $parameters)
 	{
-		if ($method === 'acl') return $this->acl;
-		
-		$passthru  = array('roles', 'actions');
-
 		// Not sure whether these is a good approach, allowing a passthru 
 		// would allow more expressive structure but at the same time lack 
 		// the call to `$this->sync()`, this might cause issue when a request
 		// contain remove and add roles/actions.
+		$passthru = array('roles', 'actions', 'acl');
+		
 		if (in_array($method, $passthru)) return $this->{$method};
+
+		// Dynamically resolve operation name especially to resolve 
+		// attach and detach multiple actions or roles.
+		$resolveOperation = function ($operation, $multiple)
+		{
+			if ( ! $multiple) return $operation;
+
+			if (in_array($operation, array('fill', 'add')))
+			{
+				return 'attach';
+			}
+
+			return 'detach';
+		};
 
 		// Preserve legacy CRUD structure for actions and roles.
 		$method  = Str::snake($method, '_');
@@ -335,23 +346,9 @@ class Container extends AbstractableContainer {
 
 		if (preg_match($matcher, $method, $matches))
 		{
-			$operation = $matches[1];
 			$type      = $matches[2].'s';
-			$muliple   = (isset($matches[3]) and $matches[3] === 's');
-
-			if (!! $muliple)
-			{
-				switch (true)
-				{
-					case in_array($operation, array('fill', 'add')) :
-						$operation = 'attach';
-						break;
-					case $operation === 'remove' :
-						# passtru;
-					default :
-						$operation = 'detach';
-				}
-			}
+			$multiple  = (isset($matches[3]) and $matches[3] === 's');
+			$operation = $resolveOperation($matches[1], $multiple);
 			
 			$result = $this->execute($type, $operation, $parameters);
 

@@ -23,7 +23,6 @@ class Fluent {
 	 * Construct a new instance.
 	 *
 	 * @param  string   $name
-	 * @return void
 	 */
 	public function __construct($name)
 	{
@@ -190,22 +189,21 @@ class Fluent {
 	 */
 	public function filter($request)
 	{
-		if ( ! is_array($request)) 
+		if (is_array($request)) return $request;
+
+		if ($request === '*') 
 		{
-			switch (true)
-			{
-				case $request === '*' :
-					$request = $this->get();
-					break;
-				case $request[0] === '!' :
-					$request = array_diff($this->get(), array(substr($request, 1)));
-					break;
-				default :
-					$request = array($request);
-					break;
-			}
+			$request = $this->get();
 		}
-			
+		elseif ($request[0] === '!')
+		{
+			$request = array_diff($this->get(), array(substr($request, 1)));
+		}
+		elseif ( ! is_array($request))
+		{
+			$request = array($request);
+		}
+
 		return $request;
 	}
 }
