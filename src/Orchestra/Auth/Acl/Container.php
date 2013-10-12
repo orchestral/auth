@@ -321,6 +321,17 @@ class Container extends AbstractableContainer {
 		if ($method === 'acl') return $this->acl;
 		
 		$passthru  = array('roles', 'actions');
+		$resolveOperation = function ($operation, $multiple)
+		{
+			if ( ! $multiple) return $operation;
+
+			if (in_array($operation, array('fill', 'add')))
+			{
+				return 'attach';
+			}
+
+			return 'detach';
+		};
 
 		// Not sure whether these is a good approach, allowing a passthru 
 		// would allow more expressive structure but at the same time lack 
@@ -334,23 +345,9 @@ class Container extends AbstractableContainer {
 
 		if (preg_match($matcher, $method, $matches))
 		{
-			$operation = $matches[1];
 			$type      = $matches[2].'s';
-			$muliple   = (isset($matches[3]) and $matches[3] === 's');
-
-			if (!! $muliple)
-			{
-				switch (true)
-				{
-					case in_array($operation, array('fill', 'add')) :
-						$operation = 'attach';
-						break;
-					case $operation === 'remove' :
-						# passtru;
-					default :
-						$operation = 'detach';
-				}
-			}
+			$multiple  = (isset($matches[3]) and $matches[3] === 's');
+			$operation = $resolveOperation($matches[1], $multiple);
 			
 			$result = $this->execute($type, $operation, $parameters);
 

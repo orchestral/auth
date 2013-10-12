@@ -83,26 +83,24 @@ class Environment {
 		$result = array();
 		$method = Str::snake($method, '_');
 
-		if (preg_match('/^(add|rename|has|get|remove|fill|attach|detach)_(role)(s?)$/', $method, $matches))
+		$resolveOperation = function ($operation, $multiple)
 		{
-			$operation = $matches[1];
-			$type      = $matches[2].'s';
-			$multiple  = (isset($matches[3]) and $matches[3] === 's');
-			
-			if (!! $multiple)
+			if ( ! $multiple) return $operation;
+
+			if (in_array($operation, array('fill', 'add')))
 			{
-				switch (true)
-				{
-					case in_array($operation, array('fill', 'add')) :
-						$operation = 'attach';
-						break;
-					case $operation === 'remove' :
-						# passthru;
-					default :
-						$operation = 'detach';
-				}
+				return 'attach';
 			}
 
+			return 'detach';
+		};
+
+		if (preg_match('/^(add|rename|has|get|remove|fill|attach|detach)_(role)(s?)$/', $method, $matches))
+		{
+			$type      = $matches[2].'s';
+			$multiple  = (isset($matches[3]) and $matches[3] === 's');
+			$operation = $resolveOperation($matches[1], $multiple);
+			
 			foreach ($this->drivers as $acl)
 			{
 				$result[] = $acl->execute($type, $operation, $parameters);
