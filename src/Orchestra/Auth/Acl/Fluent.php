@@ -172,8 +172,8 @@ class Fluent {
 
 	/**
 	 * Check if an id is set in the collection.
-	 *
-	 * @param  int      $id
+	 * 
+	 * @param  integer  $id
 	 * @return bool
 	 */
 	public function exist($id)
@@ -183,8 +183,8 @@ class Fluent {
 
 	/**
 	 * Filter request.
-	 *
-	 * @param  mixed    $request
+	 * 
+	 * @param  string|array $request
 	 * @return array
 	 */
 	public function filter($request)
