@@ -35,7 +35,7 @@ class Environment {
 	 * 
 	 * @param  string                           $name
 	 * @param  \Orchestra\Memory\Drivers\Driver $memory
-	 * @return \Orchestra\Auth\Acl\Container
+	 * @return Container
 	 */
 	public function make($name = null, MemoryDriver $memory = null)
 	{
@@ -53,8 +53,8 @@ class Environment {
 	 * Register an ACL Container instance with Closure.
 	 * 
 	 * @param  string   $name
-	 * @param  Closure  $callback
-	 * @return \Orchestra\Auth\Acl\Container
+	 * @param  \Closure $callback
+	 * @return Container
 	 */
 	public function register($name, $callback = null)
 	{
@@ -119,7 +119,7 @@ class Environment {
 	/**
 	 * Shutdown Orchestra\Support\Acl.
 	 *
-	 * @return self
+	 * @return Environment
 	 */
 	public function finish()
 	{

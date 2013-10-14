@@ -7,7 +7,7 @@ class CommandServiceProvider extends ServiceProvider {
 	/**
 	 * Indicates if loading of the provider is deferred.
 	 *
-	 * @var bool
+	 * @var boolean
 	 */
 	protected $defer = true;
 

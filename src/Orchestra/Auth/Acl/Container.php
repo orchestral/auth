@@ -33,7 +33,7 @@ class Container extends AbstractableContainer {
 	/**
 	 * List of actions.
 	 * 
-	 * @var \Orchestra\Auth\Acl\Fluent
+	 * @var Fluent
 	 */
 	protected $actions = null;
 	 
@@ -66,8 +66,8 @@ class Container extends AbstractableContainer {
 	 * Bind current ACL instance with a Memory instance.
 	 *
 	 * @param  \Orchestra\Memory\Drivers\Driver $memory
-	 * @return self
-	 * @throws \RuntimeException if \Orchestra\Memory\Drivers\Driver has 
+	 * @return Container
+	 * @throws \RuntimeException if `\Orchestra\Memory\Drivers\Driver` has 
 	 *                           been attached.
 	 */
 	public function attach(MemoryDriver $memory = null)
@@ -89,7 +89,7 @@ class Container extends AbstractableContainer {
 	/**
 	 * Initiate acl data from memory.
 	 *
-	 * @return self
+	 * @return Container
 	 */
 	protected function initiate()
 	{
@@ -125,7 +125,7 @@ class Container extends AbstractableContainer {
 	 * Sync memory with acl instance, make sure anything that added before 
 	 * ->with($memory) got called is appended to memory as well.
 	 *
-	 * @return self
+	 * @return Container
 	 */
 	public function sync()
 	{
@@ -222,7 +222,7 @@ class Container extends AbstractableContainer {
 	 * @param  string|array     $roles      A string or an array of roles
 	 * @param  string|array     $actions    A string or an array of action name
 	 * @param  boolean          $allow
-	 * @return self
+	 * @return Container
 	 * @throws \InvalidArgumentException
 	 */
 	public function allow($roles, $actions, $allow = true) 
@@ -289,7 +289,7 @@ class Container extends AbstractableContainer {
 	 * 
 	 * @param  string|array     $roles      A string or an array of roles
 	 * @param  string|array     $actions    A string or an array of action name
-	 * @return self
+	 * @return Container
 	 */
 	public function deny($roles, $actions) 
 	{
@@ -302,7 +302,7 @@ class Container extends AbstractableContainer {
 	 * @param  string   $type           'roles' or 'actions'
 	 * @param  string   $operation
 	 * @param  array    $parameters
-	 * @return \Orchestra\Auth\Acl\Fluent
+	 * @return Fluent
 	 */
 	public function execute($type, $operation, $parameters)
 	{
