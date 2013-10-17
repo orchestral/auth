@@ -10,13 +10,17 @@ Essentially, the Auth class offered by Laravel 4 is already good enough for norm
 
 Retrieve user's roles is as simple as:
 
-	$roles = Auth::roles();
+```php
+$roles = Auth::roles();
+```
 
 ## Check Roles
 
 To check if user has a role.
 
-	if (Auth::is(['admin']))
-	{
-		echo "Is an admin";
-	}
+```php
+if (Auth::is(['admin']))
+{
+	echo "Is an admin";
+}
+```

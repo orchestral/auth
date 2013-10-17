@@ -10,27 +10,31 @@ Auth Component
 
 To install through composer, simply put the following in your `composer.json` file:
 
-	{
-		"require": {
-			"orchestra/auth": "2.1.*@dev"
-		}
+```json
+{
+	"require": {
+		"orchestra/auth": "2.1.*@dev"
 	}
+}
+```
 
 ## Configuration
 
 Next add the service provider in `app/config/app.php`.
 
-	'providers' => array(
-		
-		// ...
-		# Remove 'Illuminate\Auth\AuthServiceProvider' 
-		# and add 'Orchestra\Auth\AuthServiceProvider'
-		
-		'Orchestra\Auth\AuthServiceProvider',
-		'Orchestra\Memory\MemoryServiceProvider',
+```php
+'providers' => array(
+	
+	// ...
+	# Remove 'Illuminate\Auth\AuthServiceProvider' 
+	# and add 'Orchestra\Auth\AuthServiceProvider'
+	
+	'Orchestra\Auth\AuthServiceProvider',
+	'Orchestra\Memory\MemoryServiceProvider',
 
-		'Orchestra\Auth\CommandServiceProvider',
-	),
+	'Orchestra\Auth\CommandServiceProvider',
+), 
+```
 
 > `Orchestra\Auth\AuthServiceProvider` should replace `Illuminate\Auth\AuthServiceProvider`.
 
@@ -38,6 +42,8 @@ Next add the service provider in `app/config/app.php`.
 
 Before we can start using `Orchestra\Auth`, please run the following:
 
-	$ php artisan orchestra:auth install
+```bash
+php artisan orchestra:auth install
+```
 
 > The command utility is enabled via `Orchestra\Auth\CommandServiceProvider`.
