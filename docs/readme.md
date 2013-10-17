@@ -12,7 +12,7 @@ To install through composer, simply put the following in your `composer.json` fi
 
 	{
 		"require": {
-			"orchestra/auth": "2.0.*"
+			"orchestra/auth": "2.1.*@dev"
 		}
 	}
 
