@@ -19,9 +19,11 @@ acl      | Is a boolean mapping between actions and roles, which determine wheth
 
 ## Creating a New ACL Instance
 
-	<?php
-	
-    Orchestra\Acl::make('acme')->attach(Orchestra\Memory::make());
+```php
+<?php
+
+Orchestra\Acl::make('acme')->attach(Orchestra\Memory::make());
+```
 
 Imagine we have a **acme** extension, above configuration is all you need in your extension start file.
 
@@ -31,65 +33,72 @@ Imagine we have a **acme** extension, above configuration is all you need in you
 
 To verify the created ACL, you can use the following code.
 
-	$acl = Orchestra\Acl::make('acme');
-	
-	if ( ! $acl->can('manage acme')) 
+```php
+$acl = Orchestra\Acl::make('acme');
+
+if ( ! $acl->can('manage acme')) 
+{
+	return Redirect::to(
+		handles('orchestra/foundation::login')
+	);
+}
+```
+
+Or you can create a route filter.
+
+```php
+Route::filter('foo.manage', function ()
+{
+	if ( ! Orchestra\Acl::make('acme')->can('manage acme'))
 	{
 		return Redirect::to(
 			handles('orchestra/foundation::login')
 		);
 	}
-	
-Or you can create a route filter.
-
-	Route::filter('foo.manage', function ()
-	{
-		if ( ! Orchestra\Acl::make('acme')->can('manage acme'))
-		{
-			return Redirect::to(
-				handles('orchestra/foundation::login')
-			);
-		}
-	});
+});
+```
 
 ## Migration Example
 
 Since an ACL metric is defined for each extension, it is best to define ACL actions using a migration file.
 
-	<?php
+```php
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+
+class FooDefineAcl extends Migration {
 	
-	use Illuminate\Database\Migrations\Migration;
-
-	class FooDefineAcl extends Migration {
+	/**
+	 * Run the migrations.
+	 *
+	 * @return void
+	 */
+	public function up()
+	{
+		$role = Orchestra\Model\Role::admin();
+		$acl  = Orchestra\Acl::make('acme');
 		
-		/**
-	 	 * Run the migrations.
-	     *
-	 	 * @return void
-	 	 */
-		public function up()
-		{
-			$role = Orchestra\Model\Role::admin();
-			$acl  = Orchestra\Acl::make('acme');
-			
-			$actions = array(
-				'manage acme',
-				'view acme',
-			);
+		$actions = array(
+			'manage acme',
+			'view acme',
+		);
 
-			$acl->actions()->fill($actions);
-			$acl->roles()->add($role->name);
-			
-			$acl->allow($role->name, $actions);
-		}
+		$acl->actions()->fill($actions);
+		$acl->roles()->add($role->name);
 		
-		/**
-	 	 * Reverse the migrations.
-	     *
-	 	 * @return void
-	 	 */
-		public function down()
-		{
-			// nothing to do here.
-		}
+		$acl->allow($role->name, $actions);
 	}
+	
+	/**
+	 * Reverse the migrations.
+	 *
+	 * @return void
+	 */
+	public function down()
+	{
+		// nothing to do here.
+	}
+}
+```
+
