@@ -120,7 +120,8 @@ class GuardTest extends \PHPUnit_Framework_TestCase {
 		$stub = new Guard($this->provider, $this->session);
 		$stub->setDispatcher($events);
 		$stub->setCookieJar($cookie);
-		$cookie->shouldReceive('forget')->once()->andReturn(null);
+		$cookie->shouldReceive('queue')->once()->andReturn($cookie)
+			->shouldReceive('forget')->once()->andReturn(null);
 
 		$refl      = new \ReflectionObject($stub);
 		$user      = $refl->getProperty('user');
