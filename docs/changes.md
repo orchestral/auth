@@ -14,7 +14,7 @@ Auth Change Log
 
 ### v2.0.6@dev
 
-* Replace `DateTime` with `Carbon` on basic roles seeding migration to avoid exception to be thrown when using `php artisan debug`.
+* Replace `DateTime` with `Carbon` on basic roles seeding migration to avoid exception to be thrown when using `php artisan debug` (Laravel v4.1).
 * Move commands to it's own service provider.
 * Add indexs to `OrchestraAuthCreatePasswordRemindersTable` migration.
 * Internal refactor to reduce code complexity.
