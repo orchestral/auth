@@ -13,8 +13,8 @@ class OrchestraAuthCreatePasswordRemindersTable extends Migration {
 	{
 		Schema::create('password_reminders', function($t)
 		{
-			$t->string('email');
-			$t->string('token');
+			$t->string('email')->index();
+			$t->string('token')->index();
 			$t->timestamp('created_at');
 		});
 	}
