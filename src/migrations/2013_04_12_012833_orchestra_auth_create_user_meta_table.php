@@ -2,8 +2,8 @@
 
 use Illuminate\Database\Migrations\Migration;
 
-class OrchestraAuthCreateUserMetaTable extends Migration {
-
+class OrchestraAuthCreateUserMetaTable extends Migration
+{
 	/**
 	 * Run the migrations.
 	 *
@@ -11,8 +11,7 @@ class OrchestraAuthCreateUserMetaTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('user_meta', function($table) 
-		{
+		Schema::create('user_meta', function ($table) {
 			$table->increments('id');
 
 			$table->integer('user_id')->unsigned();
@@ -35,5 +34,4 @@ class OrchestraAuthCreateUserMetaTable extends Migration {
 	{
 		Schema::drop('user_meta');
 	}
-
 }

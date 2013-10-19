@@ -3,8 +3,8 @@
 use Mockery as m;
 use Orchestra\Auth\Acl\Environment;
 
-class EnvironmentTest extends \PHPUnit_Framework_TestCase {
-
+class EnvironmentTest extends \PHPUnit_Framework_TestCase
+{
 	/**
 	 * Teardown the test environment.
 	 */
@@ -44,8 +44,7 @@ class EnvironmentTest extends \PHPUnit_Framework_TestCase {
 
 		$auth->shouldReceive('guest')->times(3)->andReturn(true);
 
-		$stub->register(function ($acl)
-		{
+		$stub->register(function ($acl) {
 			$acl->addActions(array('view blog', 'view forum', 'view news'));
 			$acl->allow('guest', array('view blog'));
 			$acl->deny('guest', 'view forum');

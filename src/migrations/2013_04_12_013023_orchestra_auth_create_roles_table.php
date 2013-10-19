@@ -2,8 +2,8 @@
 
 use Illuminate\Database\Migrations\Migration;
 
-class OrchestraAuthCreateRolesTable extends Migration {
-
+class OrchestraAuthCreateRolesTable extends Migration
+{
 	/**
 	 * Run the migrations.
 	 *
@@ -11,8 +11,7 @@ class OrchestraAuthCreateRolesTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('roles', function($table) 
-		{
+		Schema::create('roles', function ($table) {
 			$table->increments('id');
 
 			$table->string('name', 255);
@@ -31,5 +30,4 @@ class OrchestraAuthCreateRolesTable extends Migration {
 	{
 		Schema::drop('roles');
 	}
-
 }

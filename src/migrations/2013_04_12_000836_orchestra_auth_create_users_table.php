@@ -3,8 +3,8 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Support\Facades\Event;
 
-class OrchestraAuthCreateUsersTable extends Migration {
-
+class OrchestraAuthCreateUsersTable extends Migration
+{
 	/**
 	 * Run the migrations.
 	 *
@@ -12,8 +12,7 @@ class OrchestraAuthCreateUsersTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('users', function($table) 
-		{
+		Schema::create('users', function ($table) {
 			$table->increments('id');
 
 			$table->string('email', 100);

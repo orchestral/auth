@@ -2,8 +2,8 @@
 
 use Illuminate\Support\ServiceProvider;
 
-class CommandServiceProvider extends ServiceProvider {
-
+class CommandServiceProvider extends ServiceProvider
+{
 	/**
 	 * Indicates if loading of the provider is deferred.
 	 *
@@ -18,8 +18,7 @@ class CommandServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
-		$this->app['orchestra.commands.auth'] = $this->app->share(function()
-		{
+		$this->app['orchestra.commands.auth'] = $this->app->share(function () {
 			return new Console\AuthCommand;
 		});
 

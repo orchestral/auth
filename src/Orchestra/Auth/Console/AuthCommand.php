@@ -4,8 +4,8 @@ use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 
-class AuthCommand extends Command {
-	
+class AuthCommand extends Command
+{
 	/**
 	 * The console command name.
 	 *
@@ -27,15 +27,13 @@ class AuthCommand extends Command {
 	 */
 	public function fire()
 	{
-		switch ($action = $this->argument('action'))
-		{
-			case 'install' :
-			case 'upgrade' :
-				$this->fireMigration();
-				$this->info('orchestra/auth has been migrated');
-				break;
-			default :
-				$this->error("Invalid action [{$action}].");
+		$action = $this->argument('action');
+
+		if (in_array($action, array('install', 'upgrade'))) {
+			$this->fireMigration();
+			$this->info('orchestra/auth has been migrated');
+		} else {
+			$this->error("Invalid action [{$action}].");
 		}
 	}
 

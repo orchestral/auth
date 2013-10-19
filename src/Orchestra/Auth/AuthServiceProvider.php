@@ -3,8 +3,8 @@
 use Illuminate\Auth\AuthServiceProvider as ServiceProvider;
 use Illuminate\Foundation\AliasLoader;
 
-class AuthServiceProvider extends ServiceProvider {
-
+class AuthServiceProvider extends ServiceProvider
+{
 	/**
 	 * {@inheritdoc}
 	 */
@@ -22,8 +22,7 @@ class AuthServiceProvider extends ServiceProvider {
 	 */
 	protected function registerAuth()
 	{
-		$this->app['auth'] = $this->app->share(function($app)
-		{
+		$this->app['auth'] = $this->app->share(function ($app) {
 			// Once the authentication service has actually been requested by the developer
 			// we will set a variable in the application indicating such. This helps us
 			// know that we need to set any queued cookies in the after event later.
@@ -40,41 +39,39 @@ class AuthServiceProvider extends ServiceProvider {
 	 */
 	protected function registerAcl()
 	{
-		$this->app['orchestra.acl'] = $this->app->share(function($app)
-		{
+		$this->app['orchestra.acl'] = $this->app->share(function ($app) {
 			return new Acl\Environment($app['auth']->driver());
 		});
 
-		$this->app->booting(function()
-		{
+		$this->app->booting(function () {
 			$loader = AliasLoader::getInstance();
 			$loader->alias('Orchestra\Acl', 'Orchestra\Support\Facades\Acl');
 		});
 	}
 
 	/**
-	 * We need to ensure that Orchestra\Acl is compliance with our Eloquent 
+	 * We need to ensure that Orchestra\Acl is compliance with our Eloquent
 	 * Model, This would overwrite the default configuration.
 	 *
 	 * @return void
 	 */
 	protected function registerAuthListener()
 	{
-		$this->app['events']->listen('orchestra.auth: roles', function ($user, $roles)
-		{
+		$this->app['events']->listen('orchestra.auth: roles', function ($user, $roles) {
 			// Check if user is null, where roles wouldn't be available,
 			// returning null would allow any other event listener (if any).
-			if (is_null($user)) return ;
+			if (is_null($user)) {
+				return ;
+			}
 
-			foreach ($user->roles()->get() as $role)
-			{
+			foreach ($user->roles()->get() as $role) {
 				array_push($roles, $role->name);
 			}
 
 			return $roles;
 		});
 	}
-	
+
 	/**
 	 * {@inheritdoc}
 	 */
