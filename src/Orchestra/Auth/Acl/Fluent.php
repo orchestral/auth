@@ -5,205 +5,205 @@ use Illuminate\Support\Str;
 
 class Fluent {
 
-	/**
-	 * Collection name.
-	 *
-	 * @var string
-	 */
-	protected $name = null;
-	
-	/**
-	 * Collection of this instance.
-	 *
-	 * @var array
-	 */
-	protected $collections = array();
+    /**
+     * Collection name.
+     *
+     * @var string
+     */
+    protected $name = null;
 
-	/**
-	 * Construct a new instance.
-	 *
-	 * @param  string   $name
-	 */
-	public function __construct($name)
-	{
-		$this->name = $name;
-	}
+    /**
+     * Collection of this instance.
+     *
+     * @var array
+     */
+    protected $collections = array();
 
-	/**
-	 * Get the collections.
-	 *
-	 * @return array
-	 */
-	public function get()
-	{
-		return $this->collections;
-	}
+    /**
+     * Construct a new instance.
+     *
+     * @param  string   $name
+     */
+    public function __construct($name)
+    {
+        $this->name = $name;
+    }
 
-	/**
-	 * Determine whether a key exists in collection.
-	 *
-	 * @param  string   $key
-	 * @return boolean
-	 */
-	public function has($key)
-	{
-		$key = strval($key);
-		$key = trim(Str::slug($key, '-'));
+    /**
+     * Get the collections.
+     *
+     * @return array
+     */
+    public function get()
+    {
+        return $this->collections;
+    }
 
-		return ( ! empty($key) and in_array($key, $this->collections));
-	}
+    /**
+     * Determine whether a key exists in collection.
+     *
+     * @param  string   $key
+     * @return boolean
+     */
+    public function has($key)
+    {
+        $key = strval($key);
+        $key = trim(Str::slug($key, '-'));
 
-	/**
-	 * Add multiple key to collection.
-	 *
-	 * @param  array   $keys
-	 * @return boolean
-	 */
-	public function attach(array $keys)
-	{
-		foreach ($keys as $key) $this->add($key);
+        return ( ! empty($key) and in_array($key, $this->collections));
+    }
 
-		return true;
-	}
+    /**
+     * Add multiple key to collection.
+     *
+     * @param  array   $keys
+     * @return boolean
+     */
+    public function attach(array $keys)
+    {
+        foreach ($keys as $key) $this->add($key);
 
-	/**
-	 * Add multiple key to collection.
-	 *
-	 * @param  array   $keys
-	 * @return boolean
-	 */
-	public function fill(array $keys)
-	{
-		return $this->attach($keys);
-	}
+        return true;
+    }
 
-	/**
-	 * Add a key to collection.
-	 *
-	 * @param  string   $key
-	 * @return boolean
-	 */
-	public function add($key)
-	{
-		if (is_null($key)) 
-		{
-			throw new InvalidArgumentException("Can't add NULL {$this->name}.");
-		}
+    /**
+     * Add multiple key to collection.
+     *
+     * @param  array   $keys
+     * @return boolean
+     */
+    public function fill(array $keys)
+    {
+        return $this->attach($keys);
+    }
 
-		$key = trim(Str::slug($key, '-'));
+    /**
+     * Add a key to collection.
+     *
+     * @param  string   $key
+     * @return boolean
+     */
+    public function add($key)
+    {
+        if (is_null($key))
+        {
+            throw new InvalidArgumentException("Can't add NULL {$this->name}.");
+        }
 
-		if ($this->has($key)) return false;
+        $key = trim(Str::slug($key, '-'));
 
-		array_push($this->collections, $key);
-		
-		return true;
-	}
+        if ($this->has($key)) return false;
 
-	/**
-	 * Rename a key from collection.
-	 *
-	 * @param  string   $from
-	 * @param  string   $to
-	 * @return boolean
-	 */
-	public function rename($from, $to)
-	{
-		$from = trim(Str::slug($from, '-'));
-		$to   = trim(Str::slug($to, '-'));
+        array_push($this->collections, $key);
 
-		if (false === ($key = $this->search($from))) return false;
+        return true;
+    }
 
-		$this->collections[$key] = $to;
+    /**
+     * Rename a key from collection.
+     *
+     * @param  string   $from
+     * @param  string   $to
+     * @return boolean
+     */
+    public function rename($from, $to)
+    {
+        $from = trim(Str::slug($from, '-'));
+        $to   = trim(Str::slug($to, '-'));
 
-		return true;
-	}
+        if (false === ($key = $this->search($from))) return false;
 
-	/**
-	 * Remove a key from collection.
-	 *
-	 * @param  string   $key
-	 * @return boolean
-	 */
-	public function remove($key)
-	{
-		if (is_null($key)) 
-		{
-			throw new InvalidArgumentException("Can't add NULL {$this->name}.");
-		}
+        $this->collections[$key] = $to;
 
-		$key = trim(Str::slug($key, '-'));
+        return true;
+    }
 
-		if ( ! is_null($id = $this->search($key))) 
-		{
-			unset($this->collections[$id]);
-			return true;
-		}
+    /**
+     * Remove a key from collection.
+     *
+     * @param  string   $key
+     * @return boolean
+     */
+    public function remove($key)
+    {
+        if (is_null($key))
+        {
+            throw new InvalidArgumentException("Can't add NULL {$this->name}.");
+        }
 
-		return false;
-	}
+        $key = trim(Str::slug($key, '-'));
 
-	/**
-	 * Remove multiple key to collection.
-	 *
-	 * @param  array   $keys
-	 * @return boolean
-	 */
-	public function detach(array $keys)
-	{
-		foreach ($keys as $key) $this->remove($key);
+        if ( ! is_null($id = $this->search($key)))
+        {
+            unset($this->collections[$id]);
+            return true;
+        }
 
-		return true;
-	}
+        return false;
+    }
 
-	/**
-	 * Get the ID from a key.
-	 *
-	 * @param  string   $key
-	 * @return integer
-	 */
-	public function search($key)
-	{
-		$id = array_search($key, $this->collections);
-		
-		if (false === $id) return null;
+    /**
+     * Remove multiple key to collection.
+     *
+     * @param  array   $keys
+     * @return boolean
+     */
+    public function detach(array $keys)
+    {
+        foreach ($keys as $key) $this->remove($key);
 
-		return $id;
-	}
+        return true;
+    }
 
-	/**
-	 * Check if an id is set in the collection.
-	 * 
-	 * @param  integer  $id
-	 * @return bool
-	 */
-	public function exist($id)
-	{
-		return isset($this->collections[$id]);
-	}
+    /**
+     * Get the ID from a key.
+     *
+     * @param  string   $key
+     * @return integer
+     */
+    public function search($key)
+    {
+        $id = array_search($key, $this->collections);
 
-	/**
-	 * Filter request.
-	 * 
-	 * @param  string|array $request
-	 * @return array
-	 */
-	public function filter($request)
-	{
-		if (is_array($request)) return $request;
+        if (false === $id) return null;
 
-		if ($request === '*') 
-		{
-			$request = $this->get();
-		}
-		elseif ($request[0] === '!')
-		{
-			$request = array_diff($this->get(), array(substr($request, 1)));
-		}
-		elseif ( ! is_array($request))
-		{
-			$request = array($request);
-		}
+        return $id;
+    }
 
-		return $request;
-	}
+    /**
+     * Check if an id is set in the collection.
+     *
+     * @param  integer  $id
+     * @return bool
+     */
+    public function exist($id)
+    {
+        return isset($this->collections[$id]);
+    }
+
+    /**
+     * Filter request.
+     *
+     * @param  string|array $request
+     * @return array
+     */
+    public function filter($request)
+    {
+        if (is_array($request)) return $request;
+
+        if ($request === '*')
+        {
+            $request = $this->get();
+        }
+        elseif ($request[0] === '!')
+        {
+            $request = array_diff($this->get(), array(substr($request, 1)));
+        }
+        elseif ( ! is_array($request))
+        {
+            $request = array($request);
+        }
+
+        return $request;
+    }
 }
