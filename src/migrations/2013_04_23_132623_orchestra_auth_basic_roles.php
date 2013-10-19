@@ -3,8 +3,8 @@
 use Carbon\Carbon;
 use Illuminate\Database\Migrations\Migration;
 
-class OrchestraAuthBasicRoles extends Migration {
-
+class OrchestraAuthBasicRoles extends Migration
+{
 	/**
 	 * Run the migrations.
 	 *
@@ -36,5 +36,4 @@ class OrchestraAuthBasicRoles extends Migration {
 	{
 		DB::table('roles')->delete();
 	}
-
 }

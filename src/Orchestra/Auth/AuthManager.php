@@ -1,7 +1,7 @@
 <?php namespace Orchestra\Auth;
 
-class AuthManager extends \Illuminate\Auth\AuthManager {
-
+class AuthManager extends \Illuminate\Auth\AuthManager
+{
 	/**
 	 * {@inheritdoc}
 	 */

@@ -4,8 +4,8 @@ use Mockery as m;
 use Orchestra\Auth\Acl\Container;
 use Orchestra\Memory\Drivers\Runtime as Memory;
 
-class ContainerTest extends \PHPUnit_Framework_TestCase {
-
+class ContainerTest extends \PHPUnit_Framework_TestCase
+{
 	/**
 	 * Application mock instance.
 	 *
@@ -24,7 +24,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase {
 	 * Setup the test environment.
 	 */
 	public function setUp()
-	{ 
+	{
 		$this->app = array(
 			'auth'   => $auth = m::mock('\Orchestra\Auth\Guard'),
 			'config' => $config = m::mock('Config'),
@@ -54,7 +54,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase {
 
 	/**
 	 * Add data provider
-	 * 
+	 *
 	 * @return array
 	 */
 	public static function providerMemory()
@@ -151,7 +151,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase {
 		$runtime = new Memory($this->app, 'foo');
 		$runtime->put('acl_foo', static::providerMemory());
 
-		$stub = new Container($this->app['auth'] ,'foo', $runtime);
+		$stub = new Container($this->app['auth'], 'foo', $runtime);
 		$stub->attach($runtime);
 	}
 
@@ -327,7 +327,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase {
 	public function testAddDuplicates()
 	{
 		$runtime = new Memory($this->app, 'foo');
-		$runtime->put('acl_foo', static::providerMemory()); 
+		$runtime->put('acl_foo', static::providerMemory());
 
 		$stub    = new Container($this->app['auth'], 'foo', $runtime);
 		$refl    = new \ReflectionObject($stub);

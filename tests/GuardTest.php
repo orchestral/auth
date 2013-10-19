@@ -3,25 +3,25 @@
 use Mockery as m;
 use Orchestra\Auth\Guard;
 
-class GuardTest extends \PHPUnit_Framework_TestCase {
-
+class GuardTest extends \PHPUnit_Framework_TestCase
+{
 	/**
 	 * Provider instance.
-	 * 
+	 *
 	 * @var Illuminate\Auth\UserProviderInterface
 	 */
 	private $provider = null;
 
 	/**
 	 * Session instance.
-	 * 
+	 *
 	 * @var Illuminate\Session\Store
 	 */
 	private $session = null;
 
 	/**
 	 * Event dispatcher instance.
-	 * 
+	 *
 	 * @var Illuminate\Event\Dispatcher
 	 */
 	private $events = null;
@@ -50,7 +50,7 @@ class GuardTest extends \PHPUnit_Framework_TestCase {
 
 	/**
 	 * Test Orchestra\Auth\Guard::roles() method returning valid roles.
-	 * 
+	 *
 	 * @test
 	 */
 	public function testRolesMethod()
@@ -75,7 +75,7 @@ class GuardTest extends \PHPUnit_Framework_TestCase {
 
 	/**
 	 * Test Orchestra\Support\Auth::is() method returning valid roles.
-	 * 
+	 *
 	 * @test
 	 */
 	public function testIsMethod()
@@ -102,7 +102,7 @@ class GuardTest extends \PHPUnit_Framework_TestCase {
 
 	/**
 	 * Test Orchestra\Support\Auth::logout() method.
-	 * 
+	 *
 	 * @test
 	 */
 	public function testLogoutMethod()
@@ -139,5 +139,4 @@ class GuardTest extends \PHPUnit_Framework_TestCase {
 
 		$this->assertNull($userRoles->getValue($stub));
 	}
-
 }

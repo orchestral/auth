@@ -2,11 +2,11 @@
 
 use Orchestra\Auth\Acl\Fluent;
 
-class FluentTest extends \PHPUnit_Framework_TestCase {
-	
+class FluentTest extends \PHPUnit_Framework_TestCase
+{
 	/**
 	 * Stub instance.
-	 * 
+	 *
 	 * @return Orchestra\Auth\Acl\Fluent
 	 */
 	private $stub = null;
@@ -219,7 +219,7 @@ class FluentTest extends \PHPUnit_Framework_TestCase {
 		$this->assertTrue($stub->exist(1));
 		$this->assertFalse($stub->exist(2));
 		$this->assertEquals(array(1 => 'foobar'), $stub->get());
-	
+
 		$this->assertFalse($stub->remove('hello'));
 	}
 
@@ -251,7 +251,7 @@ class FluentTest extends \PHPUnit_Framework_TestCase {
 		$this->assertFalse($stub->exist(0));
 		$this->assertTrue($stub->exist(1));
 		$this->assertFalse($stub->exist(2));
-		$this->assertEquals(array(1 => 'foobar'), $stub->get());	
+		$this->assertEquals(array(1 => 'foobar'), $stub->get());
 	}
 
 	/**
