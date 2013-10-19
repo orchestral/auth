@@ -147,7 +147,7 @@ class Container extends AbstractableContainer
      * Verify whether current user has sufficient roles to access the
      * actions based on available type of access.
      *
-     * @param  string|array     $action     A string of action name
+     * @param  string  $action     A string of action name
      * @return boolean
      */
     public function can($action)
@@ -168,27 +168,18 @@ class Container extends AbstractableContainer
      * actions based on available type of access.
      *
      * @param  string|array     $roles      A string or an array of roles
-     * @param  string|array     $action     A string of action name
+     * @param  string           $action     A string of action name
      * @return boolean
      * @throws \InvalidArgumentException
      */
     public function check($roles, $action)
     {
-        $actions = $this->actions->get();
-
-        if (! in_array(Str::slug($action, '-'), $actions)) {
-            throw new InvalidArgumentException(
-                "Unable to verify unknown action {$action}."
-            );
-        }
-
-        $action     = Str::slug($action, '-');
+        $actions   = $this->actions->get();
+        $action    = Str::slug($action, '-');
         $actionKey = array_search($action, $actions);
 
-        // array_search() will return false when no key is found based on
-        // given haystack, therefore we should just ignore and return false.
-        if ($actionKey === false) {
-            return false;
+        if (false === $actionKey) {
+            throw new InvalidArgumentException("Unable to verify unknown action {$action}.");
         }
 
         foreach ((array) $roles as $role) {
@@ -198,11 +189,7 @@ class Container extends AbstractableContainer
             // array_search() will return false when no key is found based
             // on given haystack, therefore we should just ignore and
             // continue to the next role.
-            if ($roleKey === false) {
-                continue;
-            }
-
-            if (isset($this->acl[$roleKey.':'.$actionKey])) {
+            if ($roleKey !== false and isset($this->acl[$roleKey.':'.$actionKey])) {
                 return $this->acl[$roleKey.':'.$actionKey];
             }
         }

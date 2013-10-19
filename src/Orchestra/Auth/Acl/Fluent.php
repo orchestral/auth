@@ -3,8 +3,8 @@
 use InvalidArgumentException;
 use Illuminate\Support\Str;
 
-class Fluent {
-
+class Fluent
+{
     /**
      * Collection name.
      *
@@ -61,7 +61,9 @@ class Fluent {
      */
     public function attach(array $keys)
     {
-        foreach ($keys as $key) $this->add($key);
+        foreach ($keys as $key) {
+            $this->add($key);
+        }
 
         return true;
     }
@@ -85,14 +87,15 @@ class Fluent {
      */
     public function add($key)
     {
-        if (is_null($key))
-        {
+        if (is_null($key)) {
             throw new InvalidArgumentException("Can't add NULL {$this->name}.");
         }
 
         $key = trim(Str::slug($key, '-'));
 
-        if ($this->has($key)) return false;
+        if ($this->has($key)) {
+            return false;
+        }
 
         array_push($this->collections, $key);
 
@@ -111,7 +114,9 @@ class Fluent {
         $from = trim(Str::slug($from, '-'));
         $to   = trim(Str::slug($to, '-'));
 
-        if (false === ($key = $this->search($from))) return false;
+        if (is_null($key = $this->search($from))) {
+            return false;
+        }
 
         $this->collections[$key] = $to;
 
@@ -126,15 +131,13 @@ class Fluent {
      */
     public function remove($key)
     {
-        if (is_null($key))
-        {
+        if (is_null($key)) {
             throw new InvalidArgumentException("Can't add NULL {$this->name}.");
         }
 
         $key = trim(Str::slug($key, '-'));
 
-        if ( ! is_null($id = $this->search($key)))
-        {
+        if (! is_null($id = $this->search($key))) {
             unset($this->collections[$id]);
             return true;
         }
@@ -150,7 +153,9 @@ class Fluent {
      */
     public function detach(array $keys)
     {
-        foreach ($keys as $key) $this->remove($key);
+        foreach ($keys as $key) {
+            $this->remove($key);
+        }
 
         return true;
     }
@@ -165,7 +170,9 @@ class Fluent {
     {
         $id = array_search($key, $this->collections);
 
-        if (false === $id) return null;
+        if (false === $id) {
+            return null;
+        }
 
         return $id;
     }
@@ -189,18 +196,13 @@ class Fluent {
      */
     public function filter($request)
     {
-        if (is_array($request)) return $request;
-
-        if ($request === '*')
-        {
+        if (is_array($request)) {
+            return $request;
+        } elseif ($request === '*') {
             $request = $this->get();
-        }
-        elseif ($request[0] === '!')
-        {
+        } elseif ($request[0] === '!') {
             $request = array_diff($this->get(), array(substr($request, 1)));
-        }
-        elseif ( ! is_array($request))
-        {
+        } elseif (! is_array($request)) {
             $request = array($request);
         }
 

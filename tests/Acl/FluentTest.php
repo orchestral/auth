@@ -156,6 +156,8 @@ class FluentTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(array('laravel', 'foobar'), $collections->getValue($stub));
         $this->assertEquals(array('laravel', 'foobar'), $stub->get());
+
+        $this->assertFalse($stub->rename('foo', 'hello'));
     }
 
     /**

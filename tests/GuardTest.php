@@ -74,6 +74,31 @@ class GuardTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Test Orchestra\Auth\Guard::roles() method when user is not logged in.
+     *
+     * @test
+     */
+    public function testRolesMethodWhenUserIsNotLoggedIn()
+    {
+        $events = $this->events;
+        $user   = m::mock('\Illuminate\Auth\UserInterface');
+        $user->id = 1;
+
+        $events->shouldReceive('until')
+                ->with('orchestra.auth: roles', m::any())->once()
+                ->andReturn(null);
+
+        $stub = new Guard($this->provider, $this->session);
+        $stub->setDispatcher($events);
+        $stub->setUser($user);
+
+        $expected = array('Guest');
+        $output   = $stub->roles();
+
+        $this->assertEquals($expected, $output);
+    }
+
+    /**
      * Test Orchestra\Support\Auth::is() method returning valid roles.
      *
      * @test
@@ -97,6 +122,34 @@ class GuardTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($stub->is('user'));
 
         $this->assertTrue($stub->is(array('admin', 'editor')));
+        $this->assertFalse($stub->is(array('admin', 'user')));
+    }
+
+    /**
+     * Test Orchestra\Support\Auth::is() method when invalid roles is
+     * returned.
+     *
+     * @test
+     */
+    public function testIsMethodWhenInvalidRolesIsReturned()
+    {
+        $events = $this->events;
+        $user   = m::mock('\Illuminate\Auth\UserInterface');
+        $user->id = 1;
+
+        $events->shouldReceive('until')
+                ->with('orchestra.auth: roles', m::any())->once()
+                ->andReturn('foo');
+
+        $stub = new Guard($this->provider, $this->session);
+        $stub->setDispatcher($events);
+        $stub->setUser($user);
+
+        $this->assertFalse($stub->is('admin'));
+        $this->assertFalse($stub->is('editor'));
+        $this->assertFalse($stub->is('user'));
+
+        $this->assertFalse($stub->is(array('admin', 'editor')));
         $this->assertFalse($stub->is(array('admin', 'user')));
     }
 
