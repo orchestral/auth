@@ -5,38 +5,38 @@ use Illuminate\Support\Facades\Event;
 
 class OrchestraAuthCreateUsersTable extends Migration
 {
-	/**
-	 * Run the migrations.
-	 *
-	 * @return void
-	 */
-	public function up()
-	{
-		Schema::create('users', function ($table) {
-			$table->increments('id');
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('users', function ($table) {
+            $table->increments('id');
 
-			$table->string('email', 100);
-			$table->string('password', 60);
+            $table->string('email', 100);
+            $table->string('password', 60);
 
-			Event::fire('orchestra.install.schema: users', array($table));
+            Event::fire('orchestra.install.schema: users', array($table));
 
-			$table->string('fullname', 100)->nullable();
-			$table->integer('status')->nullable();
+            $table->string('fullname', 100)->nullable();
+            $table->integer('status')->nullable();
 
-			$table->timestamps();
-			$table->softDeletes();
+            $table->timestamps();
+            $table->softDeletes();
 
-			$table->unique('email');
-		});
-	}
+            $table->unique('email');
+        });
+    }
 
-	/**
-	 * Reverse the migrations.
-	 *
-	 * @return void
-	 */
-	public function down()
-	{
-		Schema::drop('users');
-	}
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::drop('users');
+    }
 }
