@@ -1,7 +1,7 @@
-Using Role Based Access Control
+Using Resources Based Access Control
 ==============
 
-Orchestra Platform Role Based Access Control gives you the ability to create custom ACL metrics which is unique to each of your extensions. 
+Orchestra Platform Resources Based Access Control gives you the ability to create custom ACL metrics which is unique to each of your extensions.
 
 In most other solutions, you are either restrict to file based configuration for ACL or only allow to define a single metric for your entire application. This simplicity would later become an issue depends on how many extensions do you have within your application.
 
@@ -36,7 +36,7 @@ To verify the created ACL, you can use the following code.
 ```php
 $acl = Orchestra\Acl::make('acme');
 
-if ( ! $acl->can('manage acme')) 
+if ( ! $acl->can('manage acme'))
 {
 	return Redirect::to(
 		handles('orchestra/foundation::login')
@@ -68,7 +68,7 @@ Since an ACL metric is defined for each extension, it is best to define ACL acti
 use Illuminate\Database\Migrations\Migration;
 
 class FooDefineAcl extends Migration {
-	
+
 	/**
 	 * Run the migrations.
 	 *
@@ -78,7 +78,7 @@ class FooDefineAcl extends Migration {
 	{
 		$role = Orchestra\Model\Role::admin();
 		$acl  = Orchestra\Acl::make('acme');
-		
+
 		$actions = array(
 			'manage acme',
 			'view acme',
@@ -86,10 +86,10 @@ class FooDefineAcl extends Migration {
 
 		$acl->actions()->fill($actions);
 		$acl->roles()->add($role->name);
-		
+
 		$acl->allow($role->name, $actions);
 	}
-	
+
 	/**
 	 * Reverse the migrations.
 	 *
