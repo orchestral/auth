@@ -11,14 +11,14 @@ class AuthCommand extends Command
      *
      * @var string
      */
-    protected $name = 'orchestra:auth';
+    protected $name = 'auth:migrate';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Orchestra\Auth Command';
+    protected $description = 'Run migration for orchestra/auth package.';
 
     /**
      * Execute the console command.
@@ -27,45 +27,6 @@ class AuthCommand extends Command
      */
     public function fire()
     {
-        $action = $this->argument('action');
-
-        if (in_array($action, array('install', 'upgrade'))) {
-            $this->fireMigration();
-            $this->info('orchestra/auth has been migrated');
-        } else {
-            $this->error("Invalid action [{$action}].");
-        }
-    }
-
-    /**
-     * Fire migration process.
-     *
-     * @return void
-     */
-    protected function fireMigration()
-    {
         $this->call('migrate', array('--package' => 'orchestra/auth'));
-    }
-
-    /**
-     * Get the console command arguments.
-     *
-     * @return array
-     */
-    protected function getArguments()
-    {
-        return array(
-            array('action', InputArgument::REQUIRED, "Type of action, e.g: 'install', 'upgrade'."),
-        );
-    }
-
-    /**
-     * Get the console command options.
-     *
-     * @return array
-     */
-    protected function getOptions()
-    {
-        return array();
     }
 }
