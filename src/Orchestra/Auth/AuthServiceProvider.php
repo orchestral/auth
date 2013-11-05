@@ -42,11 +42,6 @@ class AuthServiceProvider extends ServiceProvider
         $this->app['orchestra.acl'] = $this->app->share(function ($app) {
             return new Acl\Environment($app['auth']->driver());
         });
-
-        $this->app->booting(function () {
-            $loader = AliasLoader::getInstance();
-            $loader->alias('Orchestra\Acl', 'Orchestra\Support\Facades\Acl');
-        });
     }
 
     /**
@@ -58,8 +53,9 @@ class AuthServiceProvider extends ServiceProvider
     protected function registerAuthListener()
     {
         $this->app['events']->listen('orchestra.auth: roles', function ($user, $roles) {
-            // Check if user is null, where roles wouldn't be available,
-            // returning null would allow any other event listener (if any).
+            // When user is null, we should expect the roles is not
+            // available. Therefore, returning null would propagate any
+            // other event listeners (if any) to try resolve the roles.
             if (is_null($user)) {
                 return ;
             }
