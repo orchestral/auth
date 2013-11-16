@@ -24,19 +24,31 @@ Next add the service provider in `app/config/app.php`.
 
 ```php
 'providers' => array(
-	
+
 	// ...
-	# Remove 'Illuminate\Auth\AuthServiceProvider' 
+	# Remove 'Illuminate\Auth\AuthServiceProvider'
 	# and add 'Orchestra\Auth\AuthServiceProvider'
-	
+
 	'Orchestra\Auth\AuthServiceProvider',
 	'Orchestra\Memory\MemoryServiceProvider',
 
 	'Orchestra\Auth\CommandServiceProvider',
-), 
+),
 ```
 
 > `Orchestra\Auth\AuthServiceProvider` should replace `Illuminate\Auth\AuthServiceProvider`.
+
+### Aliases
+
+To make development easier, you could add `Orchestra\Support\Facades\Acl` alias for easier reference:
+
+```php
+'aliases' => array(
+
+	'Orchestra\Acl' => 'Orchestra\Support\Facades\Acl',
+
+),
+```
 
 ### Migrations
 

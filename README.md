@@ -38,6 +38,18 @@ Next replace `Illuminate\Auth\AuthServiceProvider` with the following service pr
 
 > `CommandServiceProvider` are optional, useful for interaction using the Artisan command line tool.
 
+### Aliases
+
+To make development easier, you could add `Orchestra\Support\Facades\Acl` alias for easier reference:
+
+```php
+'aliases' => array(
+
+	'Orchestra\Acl' => 'Orchestra\Support\Facades\Acl',
+
+),
+```
+
 ## Resources
 
 * [Documentation](http://orchestraplatform.com/docs/2.0/components/auth)
