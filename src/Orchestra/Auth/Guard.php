@@ -1,5 +1,7 @@
 <?php namespace Orchestra\Auth;
 
+use Closure;
+
 class Guard extends \Illuminate\Auth\Guard
 {
     /**
@@ -8,6 +10,19 @@ class Guard extends \Illuminate\Auth\Guard
      * @var array
      */
     protected $userRoles = null;
+
+    /**
+     * Setup roles event listener.
+     *
+     * @param  Closure $event
+     * @return void
+     */
+    public function setup(Closure $event)
+    {
+        $this->userRoles = null;
+        $this->events->forget('orchestra.auth: roles');
+        $this->events->listen('orchestra.auth: roles', $event);
+    }
 
     /**
      * Get the current user's roles of the application.

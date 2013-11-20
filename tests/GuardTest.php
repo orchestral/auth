@@ -49,6 +49,27 @@ class GuardTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Test Orchestra\Auth\Guard::setup() method.
+     *
+     * @test
+     */
+    public function testSetupMethod()
+    {
+        $events   = $this->events;
+        $callback = function () {
+            return array('editor');
+        };
+
+        $events->shouldReceive('forget')->once()->with('orchestra.auth: roles')->andReturn(null)
+            ->shouldReceive('listen')->once()->with('orchestra.auth: roles', $callback)->andReturn(null);
+
+        $stub = new Guard($this->provider, $this->session);
+        $stub->setDispatcher($events);
+
+        $stub->setup($callback);
+    }
+
+    /**
      * Test Orchestra\Auth\Guard::roles() method returning valid roles.
      *
      * @test

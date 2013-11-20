@@ -10,6 +10,7 @@ Auth Change Log
 * `Orchestra\Auth\Acl\Container` should extend `Orchestra\Memory\Abstractable\Container`.
 * Predefined package path to avoid additional overhead to guest package path.
 * Rename command to `php artisan auth:migrate`.
+* Add `Auth::setup()` method to easily create roles event listener.
 
 ## Version 2.0
 
