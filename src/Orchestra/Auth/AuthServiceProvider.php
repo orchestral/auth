@@ -11,7 +11,6 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerAuth();
         $this->registerAcl();
-        $this->registerAuthListener();
     }
 
     /**
@@ -40,30 +39,6 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->app->bindShared('orchestra.acl', function ($app) {
             return new Acl\Environment($app['auth']->driver());
-        });
-    }
-
-    /**
-     * We need to ensure that Orchestra\Acl is compliance with our Eloquent
-     * Model, This would overwrite the default configuration.
-     *
-     * @return void
-     */
-    protected function registerAuthListener()
-    {
-        $this->app['events']->listen('orchestra.auth: roles', function ($user, $roles) {
-            // When user is null, we should expect the roles is not
-            // available. Therefore, returning null would propagate any
-            // other event listeners (if any) to try resolve the roles.
-            if (is_null($user)) {
-                return ;
-            }
-
-            foreach ($user->roles()->get() as $role) {
-                array_push($roles, $role->name);
-            }
-
-            return $roles;
         });
     }
 
