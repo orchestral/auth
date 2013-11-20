@@ -56,12 +56,12 @@ class GuardTest extends \PHPUnit_Framework_TestCase
     public function testRolesMethod()
     {
         $events = $this->events;
-        $user   = m::mock('\Illuminate\Auth\UserInterface');
+
+        $user = m::mock('\Illuminate\Auth\UserInterface');
         $user->id = 1;
 
-        $events->shouldReceive('until')
-                ->with('orchestra.auth: roles', m::any())->once()
-                ->andReturn(array('admin', 'editor'));
+        $events->shouldReceive('until')->once()
+                ->with('orchestra.auth: roles', m::any())->andReturn(array('admin', 'editor'));
 
         $stub = new Guard($this->provider, $this->session);
         $stub->setDispatcher($events);
@@ -81,12 +81,12 @@ class GuardTest extends \PHPUnit_Framework_TestCase
     public function testRolesMethodWhenUserIsNotLoggedIn()
     {
         $events = $this->events;
-        $user   = m::mock('\Illuminate\Auth\UserInterface');
+
+        $user = m::mock('\Illuminate\Auth\UserInterface');
         $user->id = 1;
 
-        $events->shouldReceive('until')
-                ->with('orchestra.auth: roles', m::any())->once()
-                ->andReturn(null);
+        $events->shouldReceive('until')->once()
+                ->with('orchestra.auth: roles', m::any())->andReturn(null);
 
         $stub = new Guard($this->provider, $this->session);
         $stub->setDispatcher($events);
@@ -106,12 +106,12 @@ class GuardTest extends \PHPUnit_Framework_TestCase
     public function testIsMethod()
     {
         $events = $this->events;
-        $user   = m::mock('\Illuminate\Auth\UserInterface');
+
+        $user = m::mock('\Illuminate\Auth\UserInterface');
         $user->id = 1;
 
-        $events->shouldReceive('until')
-                ->with('orchestra.auth: roles', m::any())->once()
-                ->andReturn(array('admin', 'editor'));
+        $events->shouldReceive('until')->once()
+                ->with('orchestra.auth: roles', m::any())->andReturn(array('admin', 'editor'));
 
         $stub = new Guard($this->provider, $this->session);
         $stub->setDispatcher($events);
@@ -164,10 +164,10 @@ class GuardTest extends \PHPUnit_Framework_TestCase
         $session = $this->session;
         $cookie  = m::mock('\Illuminate\Cookie\CookieJar');
 
-        $events->shouldReceive('until')
-                ->with('orchestra.auth: roles', m::any())->never()->andReturn(array('admin', 'editor'))
-            ->shouldReceive('fire')
-                ->with('auth.logout', m::any())->once()->andReturn(array('admin', 'editor'));
+        $events->shouldReceive('until')->never()
+                ->with('orchestra.auth: roles', m::any())->andReturn(array('admin', 'editor'))
+            ->shouldReceive('fire')->once()
+                ->with('auth.logout', m::any())->andReturn(array('admin', 'editor'));
         $session->shouldReceive('forget')->once()->andReturn(null);
 
         $stub = new Guard($this->provider, $this->session);
