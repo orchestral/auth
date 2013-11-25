@@ -71,6 +71,7 @@ class Fluent
     /**
      * Add multiple key to collection.
      *
+     * @deprecated
      * @param  array   $keys
      * @return boolean
      */
