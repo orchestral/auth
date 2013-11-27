@@ -1,7 +1,7 @@
 Setup Auth
 ==============
 
-Starting from 2.1, the default event listener `orchestra.auth: roles` is no longer setup by `Orchestra\Auth\AuthServiceProvider`. This would allow better configuration over convertion control for your application.
+Starting from 2.1, the default event listener `orchestra.auth: roles` is no longer registered in `Orchestra\Auth\AuthServiceProvider`. This would allow better configuration over convertion control for your application.
 
 An example setup code would be:
 
