@@ -1,9 +1,10 @@
-Auth Change Log
-==============
+---
+title: Auth Change Log
+---
 
-## Version 2.1
+## Version 2.1 {#v2-1}
 
-### v2.1.0@dev
+### v2.1.0@dev {#v2-1-0}
 
 * Add `Orchestra\Auth\Acl\Fluent::attach()` and `Orchestra\Auth\Acl\Fluent::detach()` method.
 * Call `Illuminate\Auth\AuthServiceProvider::boot()` during booting.
@@ -12,9 +13,9 @@ Auth Change Log
 * Rename command to `php artisan auth:migrate`.
 * Add `Auth::setup()` method to easily create roles event listener.
 
-## Version 2.0
+## Version 2.0 {#v2-0}
 
-### v2.0.6
+### v2.0.6 {#v2-0-6}
 
 * Replace `DateTime` with `Carbon` on basic roles seeding migration to avoid exception to be thrown when using `php artisan debug` (Laravel v4.1).
 * Move commands to it's own service provider.
@@ -22,31 +23,31 @@ Auth Change Log
 * Internal refactor to reduce code complexity.
 * Implement [PSR-2](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md) coding standard.
 
-### v2.0.5
+### v2.0.5 {#v2-0-5}
 
 * Change `Orchestra\Auth\AuthManager::createDatabaseDriver()` visibility based on upstream changes.
 * Directly inject `session.store` instance instead of `session` (Session Manager) instance
 based on upstream changes.
 * Suggest orchestra/model.
 
-### v2.0.4
+### v2.0.4 {#v2-0-4}
 
 * `Orchestra\Auth\Acl\Container` should extend `Orchestra\Memory\Abstractable\Container`.
 
-### v2.0.3
+### v2.0.3 {#v2-0-3}
 
 * Fixed a problem accessing `Auth::is()` when user is actually not logged in, and also append the default "Guest" role when accessing `Auth::roles()`.
 
-### v2.0.2
+### v2.0.2 {#v2-0-2}
 
 * Add `Orchestra\Auth\Acl\Fluent::attach()` and `Orchestra\Auth\Acl\Fluent::detach()` method.
 * Call `Illuminate\Auth\AuthServiceProvider::boot()` during booting.
 
-### v2.0.1
+### v2.0.1 {#v2-0-1}
 
 * Code improvements.
 
-### v2.0.0
+### v2.0.0 {#v2-0-0}
 
 * Migrate `Orchestra\Auth` from Orchestra Platform 1.2.
 * Move event `orchestra.auth: roles` to `Orchestra\Auth`. *Note that this would make it incompatible with any auth driver which is not based on `Eloquent`.*
