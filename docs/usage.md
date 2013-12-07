@@ -1,5 +1,6 @@
-Using Auth
-==============
+---
+title: Using Auth
+---
 
 * [Retrieving Roles](#retrieving-roles)
 * [Check Roles](#check-roles)
