@@ -11,11 +11,11 @@ title: Auth Component
 
 To install through composer, simply put the following in your `composer.json` file:
 
-{
-	"require": {
-		"orchestra/auth": "2.0.*"
+	{
+		"require": {
+			"orchestra/auth": "2.0.*"
+		}
 	}
-}
 
 ## Configuration {#configuration}
 
