@@ -1,6 +1,7 @@
 <?php namespace Orchestra\Auth\Tests\Acl;
 
 use Mockery as m;
+use Illuminate\Container\Container as IlluminateContainer;
 use Orchestra\Auth\Acl\Container;
 use Orchestra\Memory\Drivers\Runtime as Memory;
 
@@ -25,11 +26,10 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        $this->app = array(
-            'auth'   => $auth = m::mock('\Orchestra\Auth\Guard'),
-            'config' => $config = m::mock('Config'),
-            'events' => $event = m::mock('Event'),
-        );
+        $this->app = new IlluminateContainer;
+        $this->app['auth'] = $auth = m::mock('\Orchestra\Auth\Guard');
+        $this->app['config'] = $config = m::mock('Config');
+        $this->app['events'] = $event = m::mock('Event');
 
         $auth->shouldReceive('guest')->andReturn(true)
             ->shouldReceive('user')->andReturn(null);
