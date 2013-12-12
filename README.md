@@ -52,5 +52,5 @@ To make development easier, you could add `Orchestra\Support\Facades\Acl` alias 
 
 ## Resources
 
-* [Documentation](http://orchestraplatform.com/docs/2.0/components/auth)
-* [Change Log](http://orchestraplatform.com/docs/2.0/components/auth/changes#v2.1)
+* [Documentation](http://orchestraplatform.com/docs/latest/components/auth)
+* [Change Log](http://orchestraplatform.com/docs/latest/components/auth/changes#v2-1)

@@ -2,7 +2,7 @@
 	"name": "orchestra/auth",
 	"description": "Orchestra Platform 2 Auth Component",
 	"license": "MIT",
-	"homepage": "http://orchestraplatform.com/docs/2.0/components/auth/",
+	"homepage": "http://orchestraplatform.com/docs/latest/components/auth/",
 	"keywords": ["orchestra-platform", "orchestral", "laravel", "auth", "acl", "rbac"],
 	"authors": [
 		{
@@ -12,8 +12,8 @@
 		}
 	],
 	"autoload": {
-		"psr-0": { 
-			"Orchestra\\Auth" : "src/" 
+		"psr-0": {
+			"Orchestra\\Auth" : "src/"
 		}
 	},
 	"require": {
