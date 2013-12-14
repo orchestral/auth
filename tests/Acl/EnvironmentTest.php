@@ -103,13 +103,16 @@ class EnvironmentTest extends \PHPUnit_Framework_TestCase
         $auth = m::mock('\Orchestra\Auth\Guard');
         $stub = new Environment($auth);
 
-        $stub->make('mock-one');
-        $stub->make('mock-two');
-        $stub->make('mock-three');
+        $mock1 = $stub->make('mock-one');
+        $mock2 = $stub->make('mock-two');
+        $mock3 = $stub->make('mock-three');
 
         $expect = array('mock-one', 'mock-two', 'mock-three');
-        $output = $stub->all();
+        $this->assertEquals($expect, array_keys($stub->all()));
 
-        $this->assertEquals($expect, array_keys($output));
+        $this->assertEquals($mock1, $stub->get('mock-one'));
+        $this->assertEquals($mock2, $stub->get('mock-two'));
+        $this->assertEquals($mock3, $stub->get('mock-three'));
+        $this->assertNull($stub->get('mock-four'));
     }
 }
