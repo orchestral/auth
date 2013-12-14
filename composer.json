@@ -18,12 +18,12 @@
 	},
 	"require": {
 		"php": ">=5.3.3",
-		"orchestra/memory": "2.1.*"
+		"orchestra/memory": "2.2.*"
 	},
 	"require-dev": {
-		"mockery/mockery": "0.8.0",
+		"mockery/mockery": "0.8.*",
 		"patchwork/utf8": "1.1.*",
-		"illuminate/auth": "4.1.*"
+		"illuminate/auth": "4.2.*"
 	},
 	"suggest": {
 		"laravel/framework": "Allow using orchestra/auth component outside of Orchestra Platform 2",
