@@ -115,7 +115,7 @@ class Environment
     }
 
     /**
-     * Shutdown Orchestra\Support\Acl.
+     * Shutdown/finish all ACL.
      *
      * @return Environment
      */
@@ -132,7 +132,7 @@ class Environment
     }
 
     /**
-     * Get all Orchestra\Support\Acl instances.
+     * Get all ACL instances.
      *
      * @return array
      */
