@@ -140,4 +140,14 @@ class Environment
     {
         return $this->drivers;
     }
+
+    /**
+     * Get ACL instance by name.
+     *
+     * @return Container
+     */
+    public function get($name)
+    {
+        return array_get($this->drivers, $name);
+    }
 }
