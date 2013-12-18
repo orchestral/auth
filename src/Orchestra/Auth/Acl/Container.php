@@ -315,7 +315,7 @@ class Container extends AbstractableContainer
      */
     public function __call($method, $parameters)
     {
-        list($type, $operation) = $execution = $this->resolveOperationExecution($method);
+        list($type, $operation) = $this->resolveDynamicExecution($method);
 
         $response = $this->execute($type, $operation, $parameters);
 
@@ -334,7 +334,7 @@ class Container extends AbstractableContainer
      * @return array
      * @throws \InvalidArgumentException
      */
-    protected function resolveOperationExecution($method)
+    protected function resolveDynamicExecution($method)
     {
         // Dynamically resolve operation name especially to resolve
         // attach and detach multiple actions or roles.
