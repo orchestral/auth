@@ -17,7 +17,7 @@ class Fluent
      *
      * @var array
      */
-    protected $collections = array();
+    protected $items = array();
 
     /**
      * Construct a new instance.
@@ -30,13 +30,13 @@ class Fluent
     }
 
     /**
-     * Get the collections.
+     * Get the items.
      *
      * @return array
      */
     public function get()
     {
-        return $this->collections;
+        return $this->items;
     }
 
     /**
@@ -50,7 +50,7 @@ class Fluent
         $key = strval($key);
         $key = trim(Str::slug($key, '-'));
 
-        return ( ! empty($key) and in_array($key, $this->collections));
+        return ( ! empty($key) and in_array($key, $this->items));
     }
 
     /**
@@ -98,7 +98,7 @@ class Fluent
             return false;
         }
 
-        array_push($this->collections, $key);
+        array_push($this->items, $key);
 
         return true;
     }
@@ -119,7 +119,7 @@ class Fluent
             return false;
         }
 
-        $this->collections[$key] = $to;
+        $this->items[$key] = $to;
 
         return true;
     }
@@ -139,7 +139,7 @@ class Fluent
         $key = trim(Str::slug($key, '-'));
 
         if (! is_null($id = $this->search($key))) {
-            unset($this->collections[$id]);
+            unset($this->items[$id]);
             return true;
         }
 
@@ -169,7 +169,7 @@ class Fluent
      */
     public function search($key)
     {
-        $id = array_search($key, $this->collections);
+        $id = array_search($key, $this->items);
 
         if (false === $id) {
             return null;
@@ -186,7 +186,7 @@ class Fluent
      */
     public function exist($id)
     {
-        return isset($this->collections[$id]);
+        return isset($this->items[$id]);
     }
 
     /**

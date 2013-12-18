@@ -57,10 +57,10 @@ class FluentTest extends \PHPUnit_Framework_TestCase
         $stub->add('foobar');
 
         $refl = new \ReflectionObject($stub);
-        $collections = $refl->getProperty('collections');
-        $collections->setAccessible(true);
+        $items = $refl->getProperty('items');
+        $items->setAccessible(true);
 
-        $this->assertEquals(array('foo', 'foobar'), $collections->getValue($stub));
+        $this->assertEquals(array('foo', 'foobar'), $items->getValue($stub));
         $this->assertEquals(array('foo', 'foobar'), $stub->get());
     }
 
@@ -88,10 +88,10 @@ class FluentTest extends \PHPUnit_Framework_TestCase
         $stub->attach(array('foo', 'foobar'));
 
         $refl = new \ReflectionObject($stub);
-        $collections = $refl->getProperty('collections');
-        $collections->setAccessible(true);
+        $items = $refl->getProperty('items');
+        $items->setAccessible(true);
 
-        $this->assertEquals(array('foo', 'foobar'), $collections->getValue($stub));
+        $this->assertEquals(array('foo', 'foobar'), $items->getValue($stub));
         $this->assertEquals(array('foo', 'foobar'), $stub->get());
     }
 
@@ -107,10 +107,10 @@ class FluentTest extends \PHPUnit_Framework_TestCase
         $stub->fill(array('foo', 'foobar'));
 
         $refl = new \ReflectionObject($stub);
-        $collections = $refl->getProperty('collections');
-        $collections->setAccessible(true);
+        $items = $refl->getProperty('items');
+        $items->setAccessible(true);
 
-        $this->assertEquals(array('foo', 'foobar'), $collections->getValue($stub));
+        $this->assertEquals(array('foo', 'foobar'), $items->getValue($stub));
         $this->assertEquals(array('foo', 'foobar'), $stub->get());
     }
 
@@ -151,10 +151,10 @@ class FluentTest extends \PHPUnit_Framework_TestCase
         $stub->rename('foo', 'laravel');
 
         $refl = new \ReflectionObject($stub);
-        $collections = $refl->getProperty('collections');
-        $collections->setAccessible(true);
+        $items = $refl->getProperty('items');
+        $items->setAccessible(true);
 
-        $this->assertEquals(array('laravel', 'foobar'), $collections->getValue($stub));
+        $this->assertEquals(array('laravel', 'foobar'), $items->getValue($stub));
         $this->assertEquals(array('laravel', 'foobar'), $stub->get());
 
         $this->assertFalse($stub->rename('foo', 'hello'));
