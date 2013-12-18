@@ -236,9 +236,9 @@ class Container extends AbstractableContainer
     /**
      * Assign a key combination of $roles + $actions to have access.
      *
-     * @param  string|array     $roles      A key or string representation of roles
-     * @param  string|array     $actions    A key or string representation of action name
-     * @param  boolean          $allow
+     * @param  string      $roles      A key or string representation of roles
+     * @param  string      $actions    A key or string representation of action name
+     * @param  boolean     $allow
      * @return void
      */
     protected function assign($role = null, $action = null, $allow = true)
