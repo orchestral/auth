@@ -315,6 +315,27 @@ class Container extends AbstractableContainer
      */
     public function __call($method, $parameters)
     {
+        list($type, $operation) = $execution = $this->resolveOperationExecution($method);
+
+        $response = $this->execute($type, $operation, $parameters);
+
+        if ($operation === 'has') {
+            return $response;
+        }
+
+        return $this->sync();
+    }
+
+    /**
+     * Dynamically resolve operation name especially to resolve attach and
+     * detach multiple actions or roles.
+     *
+     * @param  string  $method
+     * @return array
+     * @throws \InvalidArgumentException
+     */
+    protected function resolveOperationExecution($method)
+    {
         // Dynamically resolve operation name especially to resolve
         // attach and detach multiple actions or roles.
         $resolveOperation = function ($operation, $multiple) {
@@ -331,18 +352,14 @@ class Container extends AbstractableContainer
         $method  = Str::snake($method, '_');
         $matcher = '/^(add|rename|has|get|remove|fill|attach|detach)_(role|action)(s?)$/';
 
-        if (preg_match($matcher, $method, $matches)) {
-            $type      = $matches[2].'s';
-            $multiple  = (isset($matches[3]) and $matches[3] === 's');
-            $operation = $resolveOperation($matches[1], $multiple);
-
-            $result = $this->execute($type, $operation, $parameters);
-
-            if ($operation === 'has') {
-                return $result;
-            }
+        if (! preg_match($matcher, $method, $matches)) {
+            throw new InvalidArgumentException("Invalid keyword [$method]");
         }
 
-        return $this->sync();
+        $type      = $matches[2].'s';
+        $multiple  = (isset($matches[3]) and $matches[3] === 's');
+        $operation = $resolveOperation($matches[1], $multiple);
+
+        return array($type, $operation);
     }
 }

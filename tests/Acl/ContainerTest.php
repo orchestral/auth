@@ -281,7 +281,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
     /**
      * Test Orchestra\Auth\Acl\Container::check() method throws exception.
      *
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function testCheckMethodUsingMockOneThrowsException()
     {
@@ -292,7 +292,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
      * Test Orchestra\Auth\Acl\Container::allow() method throws exception
      * for roles.
      *
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function testAllowMethodUsingMockOneThrowsExceptionForRoles()
     {
@@ -303,11 +303,23 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
      * Test Orchestra\Auth\Acl\Container::allow() method throws exception
      * for actions.
      *
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function testAllowMethodUsingMockOneThrowsExceptionForActions()
     {
         $this->stub->allow('guest', 'view foo');
+    }
+
+    /**
+     * Test Orchestra\Auth\Acl\Container::__call() method when execution is
+     * not supported.
+     *
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage Invalid keyword [add_foos]
+     */
+    public function testCallMagicMethodUsingMockOneThrowsExceptionForInvalidExecution()
+    {
+        $this->stub->addFoos('boss');
     }
 
     /**
