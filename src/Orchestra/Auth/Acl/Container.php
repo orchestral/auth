@@ -95,17 +95,10 @@ class Container extends AbstractableContainer
         $data = array('acl' => array(), 'actions' => array(), 'roles' => array());
         $data = array_merge($data, $this->memory->get("acl_".$this->name, array()));
 
-        // Loop through all the roles in memory and add it to this ACL
-        // instance.
-        foreach ($data['roles'] as $role) {
-            $this->roles->add($role);
-        }
-
-        // Loop through all the actions in memory and add it to this ACL
-        // instance.
-        foreach ($data['actions'] as $action) {
-            $this->actions->add($action);
-        }
+        // Loop through all the roles and actions in memory and add it to
+        // this ACL instance.
+        $this->roles->attach($data['roles']);
+        $this->actions->attach($data['actions']);
 
         // Loop through all the acl in memory and add it to this ACL
         // instance.
