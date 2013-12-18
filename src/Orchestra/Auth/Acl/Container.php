@@ -167,23 +167,20 @@ class Container extends AbstractableContainer
      */
     public function check($roles, $action)
     {
-        $actions   = $this->actions->get();
-        $action    = Str::slug($action, '-');
-        $actionKey = array_search($action, $actions);
+        $action = $this->actions->search(Str::slug($action, '-'));
 
-        if (false === $actionKey) {
+        if (is_null($action)) {
             throw new InvalidArgumentException("Unable to verify unknown action {$action}.");
         }
 
         foreach ((array) $roles as $role) {
-            $role    = Str::slug($role, '-');
-            $roleKey = array_search($role, $this->roles->get());
+            $role = $this->roles->search(Str::slug($role, '-'));
 
             // array_search() will return false when no key is found based
             // on given haystack, therefore we should just ignore and
             // continue to the next role.
-            if ($roleKey !== false and isset($this->acl[$roleKey.':'.$actionKey])) {
-                return $this->acl[$roleKey.':'.$actionKey];
+            if (! is_null($role) and isset($this->acl[$role.':'.$action])) {
+                return $this->acl[$role.':'.$action];
             }
         }
 
@@ -211,19 +208,34 @@ class Container extends AbstractableContainer
                 throw new InvalidArgumentException("Role {$role} does not exist.");
             }
 
-            foreach ($actions as $action) {
-                $action = Str::slug($action, '-');
-
-                if (! $this->actions->has($action)) {
-                    throw new InvalidArgumentException("Action {$action} does not exist.");
-                }
-
-                $this->assign($role, $action, $allow);
-                $this->sync();
-            }
+            $this->groupedAssignAction($role, $actions, $allow);
         }
 
-        return $this;
+        return $this->sync();
+    }
+
+    /**
+     * Grouped assign actions to have access.
+     *
+     * @param  string  $role
+     * @param  array   $actions
+     * @param  boolean $allow
+     * @return boolean
+     * @throws \InvalidArgumentException
+     */
+    protected function groupedAssignAction($role, array $actions, $allow = true)
+    {
+        foreach ($actions as $action) {
+            $action = Str::slug($action, '-');
+
+            if (! $this->actions->has($action)) {
+                throw new InvalidArgumentException("Action {$action} does not exist.");
+            }
+
+            $this->assign($role, $action, $allow);
+        }
+
+        return true;
     }
 
     /**
@@ -271,7 +283,7 @@ class Container extends AbstractableContainer
      * @param  array    $parameters
      * @return Fluent
      */
-    public function execute($type, $operation, $parameters)
+    public function execute($type, $operation, array $parameters = array())
     {
         return call_user_func_array(array($this->{$type}, $operation), $parameters);
     }
@@ -313,7 +325,7 @@ class Container extends AbstractableContainer
      * @param  array    $parameters
      * @return mixed
      */
-    public function __call($method, $parameters)
+    public function __call($method, array $parameters = array())
     {
         list($type, $operation) = $this->resolveDynamicExecution($method);
 
