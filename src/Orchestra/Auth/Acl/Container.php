@@ -284,6 +284,36 @@ class Container extends AbstractableContainer
     }
 
     /**
+     * Get the `acl` collection.
+     *
+     * @return array
+     */
+    public function acl()
+    {
+        return $this->acl;
+    }
+
+    /**
+     * Get the `actions` instance.
+     *
+     * @return Fluent
+     */
+    public function actions()
+    {
+        return $this->actions;
+    }
+
+    /**
+     * Get the `roles` instance.
+     *
+     * @return Fluent
+     */
+    public function roles()
+    {
+        return $this->roles;
+    }
+
+    /**
      * Magic method to mimic roles and actions manipulation.
      *
      * @param  string   $method
@@ -292,16 +322,6 @@ class Container extends AbstractableContainer
      */
     public function __call($method, $parameters)
     {
-        // Not sure whether these is a good approach, allowing a passthru
-        // would allow more expressive structure but at the same time lack
-        // the call to `$this->sync()`, this might cause issue when a request
-        // contain remove and add roles/actions.
-        $passthru = array('roles', 'actions', 'acl');
-
-        if (in_array($method, $passthru)) {
-            return $this->{$method};
-        }
-
         // Dynamically resolve operation name especially to resolve
         // attach and detach multiple actions or roles.
         $resolveOperation = function ($operation, $multiple) {

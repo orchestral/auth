@@ -80,38 +80,13 @@ class Environment
      */
     public function __call($method, $parameters)
     {
-        $result = array();
+        $response = array();
 
-        // Dynamically resolve operation name especially to resolve
-        // attach and detach multiple actions or roles.
-        $resolveOperation = function ($operation, $multiple) {
-            if (! $multiple) {
-                return $operation;
-            } elseif (in_array($operation, array('fill', 'add'))) {
-                return 'attach';
-            }
-
-            return 'detach';
-        };
-
-        $method = Str::snake($method, '_');
-        $matcher = '/^(add|rename|has|get|remove|fill|attach|detach)_(role|action)(s?)$/';
-
-        if (preg_match($matcher, $method, $matches)) {
-            $type      = $matches[2].'s';
-            $multiple  = (isset($matches[3]) and $matches[3] === 's');
-            $operation = $resolveOperation($matches[1], $multiple);
-
-            foreach ($this->drivers as $acl) {
-                $result[] = $acl->execute($type, $operation, $parameters);
-
-                if ('has' !== $operation) {
-                    $acl->sync();
-                }
-            }
+        foreach ($this->drivers as $acl) {
+            $response[] = call_user_func_array(array($acl, $method), $parameters);
         }
 
-        return $result;
+        return $response;
     }
 
     /**
