@@ -128,16 +128,20 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $roles->getValue($stub)->get());
         $this->assertEquals($expected, $memory->getValue($stub)->get('acl_foo.roles'));
         $this->assertEquals($expected, $runtime->get('acl_foo.roles'));
+        $this->assertInstanceOf('\Orchestra\Auth\Acl\Fluent', $stub->roles());
 
         $expected = array('manage-user', 'manage', 'foobar');
         $this->assertEquals($expected, $actions->getValue($stub)->get());
         $this->assertEquals($expected, $memory->getValue($stub)->get('acl_foo.actions'));
         $this->assertEquals($expected, $runtime->get('acl_foo.actions'));
+        $this->assertInstanceOf('\Orchestra\Auth\Acl\Fluent', $stub->actions());
 
         $expected = array('0:0' => false, '0:1' => false, '1:0' => true, '1:1' => true, '2:2' => true);
         $this->assertEquals($expected, $acl->getValue($stub));
         $this->assertEquals($expected, $memory->getValue($stub)->get('acl_foo.acl'));
         $this->assertEquals($expected, $runtime->get('acl_foo.acl'));
+        $this->assertEquals($expected, $stub->acl());
+
     }
 
     /**
