@@ -283,7 +283,6 @@ class Container extends AbstractableContainer
         return call_user_func_array(array($this->{$type}, $operation), $parameters);
     }
 
-
     /**
      * Get the `acl` collection.
      *

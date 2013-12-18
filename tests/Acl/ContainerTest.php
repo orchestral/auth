@@ -141,7 +141,6 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $memory->getValue($stub)->get('acl_foo.acl'));
         $this->assertEquals($expected, $runtime->get('acl_foo.acl'));
         $this->assertEquals($expected, $stub->acl());
-
     }
 
     /**
