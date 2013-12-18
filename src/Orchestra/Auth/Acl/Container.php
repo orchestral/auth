@@ -95,17 +95,10 @@ class Container extends AbstractableContainer
         $data = array('acl' => array(), 'actions' => array(), 'roles' => array());
         $data = array_merge($data, $this->memory->get("acl_".$this->name, array()));
 
-        // Loop through all the roles in memory and add it to this ACL
-        // instance.
-        foreach ($data['roles'] as $role) {
-            $this->roles->add($role);
-        }
-
-        // Loop through all the actions in memory and add it to this ACL
-        // instance.
-        foreach ($data['actions'] as $action) {
-            $this->actions->add($action);
-        }
+        // Loop through all the roles and actions in memory and add it to
+        // this ACL instance.
+        $this->roles->attach($data['roles']);
+        $this->actions->attach($data['actions']);
 
         // Loop through all the acl in memory and add it to this ACL
         // instance.
@@ -236,9 +229,9 @@ class Container extends AbstractableContainer
     /**
      * Assign a key combination of $roles + $actions to have access.
      *
-     * @param  string|array     $roles      A key or string representation of roles
-     * @param  string|array     $actions    A key or string representation of action name
-     * @param  boolean          $allow
+     * @param  string      $roles      A key or string representation of roles
+     * @param  string      $actions    A key or string representation of action name
+     * @param  boolean     $allow
      * @return void
      */
     protected function assign($role = null, $action = null, $allow = true)
@@ -322,6 +315,27 @@ class Container extends AbstractableContainer
      */
     public function __call($method, $parameters)
     {
+        list($type, $operation) = $execution = $this->resolveOperationExecution($method);
+
+        $response = $this->execute($type, $operation, $parameters);
+
+        if ($operation === 'has') {
+            return $response;
+        }
+
+        return $this->sync();
+    }
+
+    /**
+     * Dynamically resolve operation name especially to resolve attach and
+     * detach multiple actions or roles.
+     *
+     * @param  string  $method
+     * @return array
+     * @throws \InvalidArgumentException
+     */
+    protected function resolveOperationExecution($method)
+    {
         // Dynamically resolve operation name especially to resolve
         // attach and detach multiple actions or roles.
         $resolveOperation = function ($operation, $multiple) {
@@ -338,18 +352,14 @@ class Container extends AbstractableContainer
         $method  = Str::snake($method, '_');
         $matcher = '/^(add|rename|has|get|remove|fill|attach|detach)_(role|action)(s?)$/';
 
-        if (preg_match($matcher, $method, $matches)) {
-            $type      = $matches[2].'s';
-            $multiple  = (isset($matches[3]) and $matches[3] === 's');
-            $operation = $resolveOperation($matches[1], $multiple);
-
-            $result = $this->execute($type, $operation, $parameters);
-
-            if ($operation === 'has') {
-                return $result;
-            }
+        if (! preg_match($matcher, $method, $matches)) {
+            throw new InvalidArgumentException("Invalid keyword [$method]");
         }
 
-        return $this->sync();
+        $type      = $matches[2].'s';
+        $multiple  = (isset($matches[3]) and $matches[3] === 's');
+        $operation = $resolveOperation($matches[1], $multiple);
+
+        return array($type, $operation);
     }
 }
