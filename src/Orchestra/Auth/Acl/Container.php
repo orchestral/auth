@@ -4,7 +4,7 @@ use InvalidArgumentException;
 use RuntimeException;
 use Orchestra\Auth\Guard;
 use Orchestra\Memory\Abstractable\Container as AbstractableContainer;
-use Orchestra\Memory\Drivers\Driver as MemoryDriver;
+use Orchestra\Memory\Provider;
 use Orchestra\Support\Str;
 
 class Container extends AbstractableContainer
@@ -47,11 +47,11 @@ class Container extends AbstractableContainer
     /**
      * Construct a new object.
      *
-     * @param  \Orchestra\Auth\Guard            $auth
-     * @param  string                           $name
-     * @param  \Orchestra\Memory\Drivers\Driver $memory
+     * @param  \Orchestra\Auth\Guard        $auth
+     * @param  string                       $name
+     * @param  \Orchestra\Memory\Provider   $memory
      */
-    public function __construct(Guard $auth, $name, MemoryDriver $memory = null)
+    public function __construct(Guard $auth, $name, Provider $memory = null)
     {
         $this->auth    = $auth;
         $this->name    = $name;
@@ -65,12 +65,12 @@ class Container extends AbstractableContainer
     /**
      * Bind current ACL instance with a Memory instance.
      *
-     * @param  \Orchestra\Memory\Drivers\Driver $memory
+     * @param  \Orchestra\Memory\Provider  $memory
      * @return Container
      * @throws \RuntimeException if `\Orchestra\Memory\Drivers\Driver` has
      *                           been attached.
      */
-    public function attach(MemoryDriver $memory = null)
+    public function attach(Provider $memory = null)
     {
         if ($this->attached()) {
             throw new RuntimeException(

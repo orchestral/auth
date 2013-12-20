@@ -1,7 +1,7 @@
 <?php namespace Orchestra\Auth\Acl;
 
 use Orchestra\Auth\Guard;
-use Orchestra\Memory\Drivers\Driver as MemoryDriver;
+use Orchestra\Memory\Provider;
 
 class Environment
 {
@@ -32,11 +32,11 @@ class Environment
     /**
      * Initiate a new ACL Container instance.
      *
-     * @param  string                           $name
-     * @param  \Orchestra\Memory\Drivers\Driver $memory
+     * @param  string                      $name
+     * @param  \Orchestra\Memory\Provider  $memory
      * @return Container
      */
-    public function make($name = null, MemoryDriver $memory = null)
+    public function make($name = null, Provider $memory = null)
     {
         if (is_null($name)) {
             $name = 'default';
