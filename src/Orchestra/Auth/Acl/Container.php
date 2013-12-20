@@ -325,7 +325,7 @@ class Container extends AbstractableContainer
      * @param  array    $parameters
      * @return mixed
      */
-    public function __call($method, array $parameters = array())
+    public function __call($method, array $parameters)
     {
         list($type, $operation) = $this->resolveDynamicExecution($method);
 
