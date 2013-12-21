@@ -77,7 +77,7 @@ class Environment
      * @param  array    $parameters
      * @return mixed
      */
-    public function __call($method, $parameters)
+    public function __call($method, array $parameters)
     {
         $response = array();
 
