@@ -5,14 +5,22 @@ title: Auth Change Log
 
 ## Version 2.1 {#v2-1}
 
-### v2.1.0@dev {#v2-1-0}
+### v2.1.0 {#v2-1-0}
 
 * Add `Orchestra\Auth\Acl\Fluent::attach()` and `Orchestra\Auth\Acl\Fluent::detach()` method.
 * Call `Illuminate\Auth\AuthServiceProvider::boot()` during booting.
 * `Orchestra\Auth\Acl\Container` should extend `Orchestra\Memory\Abstractable\Container`.
 * Predefined package path to avoid additional overhead to guest package path.
+* Change `Orchestra\Auth\AuthManager::createDatabaseDriver()` visibility based on upstream changes.
+* Directly inject `session.store` instance instead of `session` (Session Manager) instance
+based on upstream changes.
+* Suggest orchestra/model.
 * Rename command to `php artisan auth:migrate`.
 * Add `Auth::setup()` method to easily create roles event listener.
+* Replace `DateTime` with `Carbon` on basic roles seeding migration to avoid exception to be thrown when using `php artisan debug` (Laravel v4.1).
+* Move commands to it's own service provider.
+* Internal refactor to reduce code complexity.
+* Implement [PSR-2](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md) coding standard.
 
 ## Version 2.0 {#v2-0}
 
