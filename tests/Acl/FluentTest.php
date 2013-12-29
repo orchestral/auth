@@ -1,5 +1,6 @@
 <?php namespace Orchestra\Auth\Tests\Acl;
 
+use Mockery as m;
 use Orchestra\Auth\Acl\Fluent;
 
 class FluentTest extends \PHPUnit_Framework_TestCase
@@ -26,6 +27,7 @@ class FluentTest extends \PHPUnit_Framework_TestCase
     public function tearDown()
     {
         unset($this->stub);
+        m::close();
     }
 
     /**
@@ -52,16 +54,21 @@ class FluentTest extends \PHPUnit_Framework_TestCase
     public function testAddMethod()
     {
         $stub = new Fluent('foo');
+        $model = m::mock('\Illuminate\Database\Eloquent\Model');
+
+        $model->shouldReceive('getAttribute')->once()->with('name')->andReturn('eloquent');
 
         $stub->add('foo');
         $stub->add('foobar');
+        $stub->add($model);
 
         $refl = new \ReflectionObject($stub);
         $items = $refl->getProperty('items');
         $items->setAccessible(true);
 
-        $this->assertEquals(array('foo', 'foobar'), $items->getValue($stub));
-        $this->assertEquals(array('foo', 'foobar'), $stub->get());
+        $expected = array('foo', 'foobar', 'eloquent');
+        $this->assertEquals($expected, $items->getValue($stub));
+        $this->assertEquals($expected, $stub->get());
     }
 
     /**

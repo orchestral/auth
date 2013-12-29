@@ -1,6 +1,7 @@
 <?php namespace Orchestra\Auth\Acl;
 
 use InvalidArgumentException;
+use Illuminate\Database\Eloquent\Model as Eloquent;
 use Illuminate\Support\Str;
 
 class Fluent
@@ -90,6 +91,12 @@ class Fluent
     {
         if (is_null($key)) {
             throw new InvalidArgumentException("Can't add NULL {$this->name}.");
+        }
+
+        // Typehint the attribute value of an Eloquent result, if it was
+        // given instead of a string.
+        if ($key instanceof Eloquent) {
+            $key = $key->getAttribute('name');
         }
 
         $key = trim(Str::slug($key, '-'));

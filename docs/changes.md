@@ -5,6 +5,10 @@ title: Auth Change Log
 
 ## Version 2.1 {#v2-1}
 
+### v2.1.1@dev {#v2-1-1}
+
+* Add ability to append `Eloquent` result directly to assign roles. E.g: `$acl->roles()->add(Orchestra\Model\Role::admin())`.
+
 ### v2.1.0 {#v2-1-0}
 
 * Add `Orchestra\Auth\Acl\Fluent::attach()` and `Orchestra\Auth\Acl\Fluent::detach()` method.
