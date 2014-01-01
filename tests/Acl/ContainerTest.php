@@ -162,6 +162,24 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
      */
     public function testAttachMethodThrowsExceptionWhenAttachMultipleMemory()
     {
+        $runtime1 = $this->getRuntimeMemoryProvider();
+        $runtime1->put('acl_foo', $this->memoryProvider());
+
+        $runtime2 = new Provider(new RuntimeMemoryHandler('foobar', array()));
+
+        $stub = new Container($this->app['auth'], 'foo', $runtime1);
+        $stub->attach($runtime2);
+    }
+
+     /**
+     * Test Orchestra\Auth\Acl\Container::attach() method don't throw
+     * exception when attaching multiple memory instance using the same
+     * instance.
+     *
+     * @test
+     */
+    public function testAttachMethodWhenAttachMultipleMemoryUsingTheSameInstance()
+    {
         $runtime = $this->getRuntimeMemoryProvider();
         $runtime->put('acl_foo', $this->memoryProvider());
 

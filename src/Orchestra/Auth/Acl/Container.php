@@ -67,12 +67,12 @@ class Container extends AbstractableContainer
      *
      * @param  \Orchestra\Memory\Provider  $memory
      * @return Container
-     * @throws \RuntimeException if `\Orchestra\Memory\Drivers\Driver` has
+     * @throws \RuntimeException if `\Orchestra\Memory\Provider` has
      *                           been attached.
      */
     public function attach(Provider $memory = null)
     {
-        if ($this->attached()) {
+        if ($this->attached() and $memory !== $this->memory) {
             throw new RuntimeException(
                 "Unable to assign multiple Orchestra\Memory instance."
             );
