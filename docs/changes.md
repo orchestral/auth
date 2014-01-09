@@ -8,6 +8,7 @@ title: Auth Change Log
 ### v2.1.1@dev {#v2-1-1}
 
 * Add ability to append `Eloquent` result directly to assign roles. E.g: `$acl->roles()->add(Orchestra\Model\Role::admin())`.
+* Avoid throwing `RuntimeException` when trying to attach the same Memory instance to ACL.
 
 ### v2.1.0 {#v2-1-0}
 
