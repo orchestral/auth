@@ -175,6 +175,157 @@ class GuardTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Test Orchestra\Support\Auth::isAny() method returning valid roles.
+     *
+     * @test
+     */
+    public function testIsAnyMethod()
+    {
+        $events = $this->events;
+
+        $user = m::mock('\Illuminate\Auth\UserInterface');
+        $user->id = 1;
+
+        $events->shouldReceive('until')->once()
+                ->with('orchestra.auth: roles', m::any())->andReturn(array('admin', 'editor'));
+
+        $stub = new Guard($this->provider, $this->session);
+        $stub->setDispatcher($events);
+        $stub->setUser($user);
+
+        $this->assertTrue($stub->isAny(array('admin', 'user')));
+        $this->assertTrue($stub->isAny(array('user', 'editor')));
+        $this->assertFalse($stub->isAny(array('superadmin', 'user')));
+    }
+
+    /**
+     * Test Orchestra\Support\Auth::isAny() method when invalid roles is
+     * returned.
+     *
+     * @test
+     */
+    public function testIsAnyMethodWhenInvalidRolesIsReturned()
+    {
+        $events = $this->events;
+        $user   = m::mock('\Illuminate\Auth\UserInterface');
+        $user->id = 1;
+
+        $events->shouldReceive('until')
+                ->with('orchestra.auth: roles', m::any())->once()
+                ->andReturn('foo');
+
+        $stub = new Guard($this->provider, $this->session);
+        $stub->setDispatcher($events);
+        $stub->setUser($user);
+
+        $this->assertFalse($stub->isAny(array('admin', 'editor')));
+        $this->assertFalse($stub->isAny(array('admin', 'user')));
+    }
+
+    /**
+     * Test Orchestra\Support\Auth::isNot() method returning valid roles.
+     *
+     * @test
+     */
+    public function testIsNotMethod()
+    {
+        $events = $this->events;
+
+        $user = m::mock('\Illuminate\Auth\UserInterface');
+        $user->id = 1;
+
+        $events->shouldReceive('until')->once()
+                ->with('orchestra.auth: roles', m::any())->andReturn(array('admin', 'editor'));
+
+        $stub = new Guard($this->provider, $this->session);
+        $stub->setDispatcher($events);
+        $stub->setUser($user);
+
+        $this->assertTrue($stub->isNot('superadmin'));
+        $this->assertTrue($stub->isNot('user'));
+        $this->assertFalse($stub->isNot('admin'));
+
+        $this->assertTrue($stub->isNot(array('superadmin', 'user')));
+        $this->assertFalse($stub->isNot(array('admin', 'editor')));
+    }
+
+    /**
+     * Test Orchestra\Support\Auth::isNot() method when invalid roles is
+     * returned.
+     *
+     * @test
+     */
+    public function testIsNotMethodWhenInvalidRolesIsReturned()
+    {
+        $events = $this->events;
+        $user   = m::mock('\Illuminate\Auth\UserInterface');
+        $user->id = 1;
+
+        $events->shouldReceive('until')
+                ->with('orchestra.auth: roles', m::any())->once()
+                ->andReturn('foo');
+
+        $stub = new Guard($this->provider, $this->session);
+        $stub->setDispatcher($events);
+        $stub->setUser($user);
+
+        $this->assertFalse($stub->isNot('admin'));
+        $this->assertFalse($stub->isNot('editor'));
+        $this->assertFalse($stub->isNot('user'));
+
+        $this->assertFalse($stub->isNot(array('admin', 'editor')));
+        $this->assertFalse($stub->isNot(array('admin', 'user')));
+    }
+
+    /**
+     * Test Orchestra\Support\Auth::isAny() method returning valid roles.
+     *
+     * @test
+     */
+    public function testIsNotAnyMethod()
+    {
+        $events = $this->events;
+
+        $user = m::mock('\Illuminate\Auth\UserInterface');
+        $user->id = 1;
+
+        $events->shouldReceive('until')->once()
+                ->with('orchestra.auth: roles', m::any())->andReturn(array('admin', 'editor'));
+
+        $stub = new Guard($this->provider, $this->session);
+        $stub->setDispatcher($events);
+        $stub->setUser($user);
+
+        $this->assertTrue($stub->isNotAny(array('admin', 'user')));
+        $this->assertTrue($stub->isNotAny(array('user', 'editor')));
+        $this->assertFalse($stub->isNotAny(array('admin', 'editor')));
+    }
+
+    /**
+     * Test Orchestra\Support\Auth::isNotAny() method when invalid roles is
+     * returned.
+     *
+     * @test
+     */
+    public function testIsNotAnyMethodWhenInvalidRolesIsReturned()
+    {
+        $events = $this->events;
+        $user   = m::mock('\Illuminate\Auth\UserInterface');
+        $user->id = 1;
+
+        $events->shouldReceive('until')
+                ->with('orchestra.auth: roles', m::any())->once()
+                ->andReturn('foo');
+
+        $stub = new Guard($this->provider, $this->session);
+        $stub->setDispatcher($events);
+        $stub->setUser($user);
+
+        $this->assertFalse($stub->isNotAny(array('admin', 'editor')));
+        $this->assertFalse($stub->isNotAny(array('admin', 'user')));
+    }
+
+    /**
      * Test Orchestra\Support\Auth::logout() method.
      *
      * @test
