@@ -269,12 +269,12 @@ class GuardTest extends \PHPUnit_Framework_TestCase
         $stub->setDispatcher($events);
         $stub->setUser($user);
 
-        $this->assertFalse($stub->isNot('admin'));
-        $this->assertFalse($stub->isNot('editor'));
-        $this->assertFalse($stub->isNot('user'));
+        $this->assertTrue($stub->isNot('admin'));
+        $this->assertTrue($stub->isNot('editor'));
+        $this->assertTrue($stub->isNot('user'));
 
-        $this->assertFalse($stub->isNot(array('admin', 'editor')));
-        $this->assertFalse($stub->isNot(array('admin', 'user')));
+        $this->assertTrue($stub->isNot(array('admin', 'editor')));
+        $this->assertTrue($stub->isNot(array('admin', 'user')));
     }
 
     /**
@@ -296,8 +296,8 @@ class GuardTest extends \PHPUnit_Framework_TestCase
         $stub->setDispatcher($events);
         $stub->setUser($user);
 
-        $this->assertTrue($stub->isNotAny(array('admin', 'user')));
-        $this->assertTrue($stub->isNotAny(array('user', 'editor')));
+        $this->assertTrue($stub->isNotAny(array('administrator', 'user')));
+        $this->assertFalse($stub->isNotAny(array('user', 'editor')));
         $this->assertFalse($stub->isNotAny(array('admin', 'editor')));
     }
 
@@ -321,8 +321,8 @@ class GuardTest extends \PHPUnit_Framework_TestCase
         $stub->setDispatcher($events);
         $stub->setUser($user);
 
-        $this->assertFalse($stub->isNotAny(array('admin', 'editor')));
-        $this->assertFalse($stub->isNotAny(array('admin', 'user')));
+        $this->assertTrue($stub->isNotAny(array('admin', 'editor')));
+        $this->assertTrue($stub->isNotAny(array('admin', 'user')));
     }
 
     /**

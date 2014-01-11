@@ -120,23 +120,7 @@ class Guard extends \Illuminate\Auth\Guard
      */
     public function isNot($roles)
     {
-        $userRoles = $this->roles();
-
-        // For a pre-caution, we should return false in events where user
-        // roles not an array.
-        if (! is_array($userRoles)) {
-            return false;
-        }
-
-        // We should ensure that any given roles does not match the current
-        // user, consider it as OR condition.
-        foreach ((array) $roles as $role) {
-            if (in_array($role, $userRoles)) {
-                return false;
-            }
-        }
-
-        return true;
+        return ! $this->is($roles);
     }
 
     /**
@@ -147,23 +131,7 @@ class Guard extends \Illuminate\Auth\Guard
      */
     public function isNotAny(array $roles)
     {
-        $userRoles = $this->roles();
-
-        // For a pre-caution, we should return false in events where user
-        // roles not an array.
-        if (! is_array($userRoles)) {
-            return false;
-        }
-
-        // We should ensure that any given roles does not match the current user,
-        // consider it as OR condition.
-        foreach ($roles as $role) {
-            if (! in_array($role, $userRoles)) {
-                return true;
-            }
-        }
-
-        return false;
+        return ! $this->isAny($roles);
     }
 
     /**
