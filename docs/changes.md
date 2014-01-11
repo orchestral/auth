@@ -5,6 +5,10 @@ title: Auth Change Log
 
 ## Version 2.1 {#v2-1}
 
+### v2.1.2 {#v2-1-2}
+
+* Fixes invalid result when using `Auth::isNot()` and `Auth::isNotAny()` helper class.
+
 ### v2.1.1 {#v2-1-1}
 
 * Add ability to append `Eloquent` result directly to assign roles. E.g: `$acl->roles()->add(Orchestra\Model\Role::admin())`.
