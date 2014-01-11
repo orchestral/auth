@@ -5,10 +5,11 @@ title: Auth Change Log
 
 ## Version 2.1 {#v2-1}
 
-### v2.1.1@dev {#v2-1-1}
+### v2.1.1 {#v2-1-1}
 
 * Add ability to append `Eloquent` result directly to assign roles. E.g: `$acl->roles()->add(Orchestra\Model\Role::admin())`.
 * Avoid throwing `RuntimeException` when trying to attach the same Memory instance to ACL.
+* Add `Auth::isAny()`, `Auth::isNot()` and `Auth::isNotAny()` helper class.
 
 ### v2.1.0 {#v2-1-0}
 
