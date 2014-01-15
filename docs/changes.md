@@ -5,9 +5,13 @@ title: Auth Change Log
 
 ## Version 2.1 {#v2-1}
 
+### v2.1.3@dev {#v2-1-3}
+
+* Add `Orchestra\Auth\Acl\Fluent::getSlugFromName()` helper method.
+
 ### v2.1.2 {#v2-1-2}
 
-* Fixes invalid result when using `Auth::isNot()` and `Auth::isNotAny()` helper class.
+* Fixes invalid result when using `Auth::isNot()` and `Auth::isNotAny()` helper method.
 
 ### v2.1.1 {#v2-1-1}
 
