@@ -49,7 +49,7 @@ class Fluent
     public function has($key)
     {
         $key = strval($key);
-        $key = trim(Str::slug($key, '-'));
+        $key = $this->getSlugFromName($key);
 
         return ( ! empty($key) and in_array($key, $this->items));
     }
@@ -99,13 +99,11 @@ class Fluent
             $key = $key->getAttribute('name');
         }
 
-        $key = trim(Str::slug($key, '-'));
-
         if ($this->has($key)) {
             return false;
         }
 
-        array_push($this->items, $key);
+        array_push($this->items, $this->getSlugFromName($key));
 
         return true;
     }
@@ -119,8 +117,8 @@ class Fluent
      */
     public function rename($from, $to)
     {
-        $from = trim(Str::slug($from, '-'));
-        $to   = trim(Str::slug($to, '-'));
+        $from = $this->getSlugFromName($from);
+        $to   = $this->getSlugFromName($to);
 
         if (is_null($key = $this->search($from))) {
             return false;
@@ -143,7 +141,7 @@ class Fluent
             throw new InvalidArgumentException("Can't add NULL {$this->name}.");
         }
 
-        $key = trim(Str::slug($key, '-'));
+        $key = $this->getSlugFromName($key);
 
         if (! is_null($id = $this->search($key))) {
             unset($this->items[$id]);
@@ -215,5 +213,15 @@ class Fluent
         }
 
         return $request;
+    }
+
+    /**
+     * Get slug name.
+     *
+     * @param  string  $name
+     */
+    protected function getSlugFromName($name)
+    {
+        return trim(Str::slug($name, '-'));
     }
 }

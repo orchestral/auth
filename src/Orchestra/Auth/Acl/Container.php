@@ -12,30 +12,30 @@ class Container extends AbstractableContainer
     /**
      * Auth instance.
      *
-     * @var \Illuminate\Auth\Guard
+     * @var \Orchestra\Auth\Guard
      */
-    protected $auth = null;
+    protected $auth;
 
     /**
      * Acl instance name.
      *
      * @var string
      */
-    protected $name = null;
+    protected $name;
 
     /**
      * List of roles.
      *
-     * @var \Orchestra\Auth\Acl\Fluent
+     * @var Fluent
      */
-    protected $roles = null;
+    protected $roles;
 
     /**
      * List of actions.
      *
      * @var Fluent
      */
-    protected $actions = null;
+    protected $actions;
 
     /**
      * List of ACL map between roles, action.
