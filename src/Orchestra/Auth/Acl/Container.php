@@ -12,30 +12,30 @@ class Container extends AbstractableContainer
     /**
      * Auth instance.
      *
-     * @var \Illuminate\Auth\Guard
+     * @var \Orchestra\Auth\Guard
      */
-    protected $auth = null;
+    protected $auth;
 
     /**
      * Acl instance name.
      *
      * @var string
      */
-    protected $name = null;
+    protected $name;
 
     /**
      * List of roles.
      *
-     * @var \Orchestra\Auth\Acl\Fluent
+     * @var Fluent
      */
-    protected $roles = null;
+    protected $roles;
 
     /**
      * List of actions.
      *
      * @var Fluent
      */
-    protected $actions = null;
+    protected $actions;
 
     /**
      * List of ACL map between roles, action.
@@ -78,7 +78,8 @@ class Container extends AbstractableContainer
             );
         }
 
-        // since we already check instanceof, only check for null.
+        // since we already check instanceof Orchestra\Memory\Provider,
+        // It safe to just check for not NULL.
         if (! is_null($memory)) {
             parent::attach($memory);
             $this->initiate();
@@ -92,8 +93,9 @@ class Container extends AbstractableContainer
      */
     protected function initiate()
     {
+        $name = $this->name;
         $data = array('acl' => array(), 'actions' => array(), 'roles' => array());
-        $data = array_merge($data, $this->memory->get("acl_".$this->name, array()));
+        $data = array_merge($data, $this->memory->get("acl_{$name}", array()));
 
         // Loop through all the roles and actions in memory and add it to
         // this ACL instance.
@@ -125,12 +127,14 @@ class Container extends AbstractableContainer
             $this->assign($role, $action, $allow);
         }
 
-        if (! is_null($this->memory)) {
+        if ($this->attached()) {
             $name = $this->name;
 
-            $this->memory->put("acl_{$name}.actions", $this->actions->get());
-            $this->memory->put("acl_{$name}.roles", $this->roles->get());
-            $this->memory->put("acl_{$name}.acl", $this->acl);
+            $this->memory->put("acl_{$name}", array(
+                "acl"     => $this->acl,
+                "actions" => $this->actions->get(),
+                "roles"   => $this->roles->get(),
+            ));
         }
 
         return $this;
