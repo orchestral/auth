@@ -120,13 +120,6 @@ class Container extends AbstractableContainer
      */
     public function sync()
     {
-        // Loop through all the acl in memory and add it to this ACL
-        // instance.
-        foreach ($this->acl as $id => $allow) {
-            list($role, $action) = explode(':', $id);
-            $this->assign($role, $action, $allow);
-        }
-
         if ($this->attached()) {
             $name = $this->name;
 
