@@ -8,6 +8,7 @@ title: Auth Change Log
 ### v2.1.3@dev {#v2-1-3}
 
 * Add `Orchestra\Auth\Acl\Fluent::getSlugFromName()` helper method.
+* Ensure only ACL metric information is synced to `orchestra/memory`.
 
 ### v2.1.2 {#v2-1-2}
 
