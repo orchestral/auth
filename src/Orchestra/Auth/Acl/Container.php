@@ -348,18 +348,6 @@ class Container extends AbstractableContainer
      */
     protected function resolveDynamicExecution($method)
     {
-        // Dynamically resolve operation name especially to resolve
-        // attach and detach multiple actions or roles.
-        $resolveOperation = function ($operation, $multiple) {
-            if (! $multiple) {
-                return $operation;
-            } elseif (in_array($operation, array('fill', 'add'))) {
-                return 'attach';
-            }
-
-            return 'detach';
-        };
-
         // Preserve legacy CRUD structure for actions and roles.
         $method  = Str::snake($method, '_');
         $matcher = '/^(add|rename|has|get|remove|fill|attach|detach)_(role|action)(s?)$/';
@@ -370,8 +358,27 @@ class Container extends AbstractableContainer
 
         $type      = $matches[2].'s';
         $multiple  = (isset($matches[3]) and $matches[3] === 's');
-        $operation = $resolveOperation($matches[1], $multiple);
+        $operation = $this->resolveOperationName($matches[1], $multiple);
 
         return array($type, $operation);
+    }
+
+    /**
+     * Dynamically resolve operation name especially when multiple
+     * operation was used.
+     *
+     * @param  string   $operation
+     * @param  boolean  $multiple
+     * @return string
+     */
+    protected function resolveOperationName($operation, $multiple = true)
+    {
+        if (! $multiple) {
+            return $operation;
+        } elseif (in_array($operation, array('fill', 'add'))) {
+            return 'attach';
+        }
+
+        return 'detach';
     }
 }

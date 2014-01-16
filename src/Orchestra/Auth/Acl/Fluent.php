@@ -169,8 +169,9 @@ class Fluent
      */
     public function search($key)
     {
-        $key = $this->getSlugFromName($key);
-        $id  = array_search($key, $this->items);
+        is_string($key) and $key = $this->getSlugFromName($key);
+
+        $id = array_search($key, $this->items);
 
         if (false === $id) {
             return null;
