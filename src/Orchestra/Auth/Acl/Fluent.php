@@ -31,57 +31,6 @@ class Fluent
     }
 
     /**
-     * Get the items.
-     *
-     * @return array
-     */
-    public function get()
-    {
-        return $this->items;
-    }
-
-    /**
-     * Determine whether a key exists in collection.
-     *
-     * @param  string   $key
-     * @return boolean
-     */
-    public function has($key)
-    {
-        $key = strval($key);
-        $key = $this->getSlugFromName($key);
-
-        return ( ! empty($key) and in_array($key, $this->items));
-    }
-
-    /**
-     * Add multiple key to collection.
-     *
-     * @param  array   $keys
-     * @return boolean
-     */
-    public function attach(array $keys)
-    {
-        foreach ($keys as $key) {
-            $this->add($key);
-        }
-
-        return true;
-    }
-
-    /**
-     * Add multiple key to collection.
-     *
-     * @deprecated
-     * @param  array   $keys
-     * @return boolean
-     */
-    public function fill(array $keys)
-    {
-        return $this->attach($keys);
-    }
-
-    /**
      * Add a key to collection.
      *
      * @param  string   $key
@@ -109,21 +58,118 @@ class Fluent
     }
 
     /**
-     * Rename a key from collection.
+     * Add multiple key to collection.
      *
-     * @param  string   $from
-     * @param  string   $to
+     * @param  array   $keys
      * @return boolean
      */
-    public function rename($from, $to)
+    public function attach(array $keys)
     {
-        if (is_null($key = $this->search($from))) {
-            return false;
+        foreach ($keys as $key) {
+            $this->add($key);
         }
 
-        $this->items[$key] = $this->getSlugFromName($to);
+        return true;
+    }
+
+    /**
+     * Remove multiple key to collection.
+     *
+     * @param  array   $keys
+     * @return boolean
+     */
+    public function detach(array $keys)
+    {
+        foreach ($keys as $key) {
+            $this->remove($key);
+        }
 
         return true;
+    }
+
+    /**
+     * Check if an id is set in the collection.
+     *
+     * @param  integer  $id
+     * @return bool
+     */
+    public function exist($id)
+    {
+        is_string($id) and $id = $this->getSlugFromName($id);
+
+        return isset($this->items[$id]);
+    }
+
+    /**
+     * Add multiple key to collection.
+     *
+     * @deprecated
+     * @param  array   $keys
+     * @return boolean
+     */
+    public function fill(array $keys)
+    {
+        return $this->attach($keys);
+    }
+
+    /**
+     * Filter request.
+     *
+     * @param  string|array $request
+     * @return array
+     */
+    public function filter($request)
+    {
+        if (is_array($request)) {
+            return $request;
+        } elseif ($request === '*') {
+            $request = $this->get();
+        } elseif ($request[0] === '!') {
+            $request = array_diff($this->get(), array(substr($request, 1)));
+        } elseif (! is_array($request)) {
+            $request = array($request);
+        }
+
+        return $request;
+    }
+
+    /**
+     * Find collection key from a name.
+     *
+     * @param  mixed   $name
+     * @return integer|null
+     */
+    public function findKey($name)
+    {
+        if (! (is_numeric($name) and $this->exist($name))) {
+            $name = $this->search($name);
+        }
+
+        return $name;
+    }
+
+    /**
+     * Get the items.
+     *
+     * @return array
+     */
+    public function get()
+    {
+        return $this->items;
+    }
+
+    /**
+     * Determine whether a key exists in collection.
+     *
+     * @param  string   $key
+     * @return boolean
+     */
+    public function has($key)
+    {
+        $key = strval($key);
+        $key = $this->getSlugFromName($key);
+
+        return ( ! empty($key) and in_array($key, $this->items));
     }
 
     /**
@@ -147,16 +193,19 @@ class Fluent
     }
 
     /**
-     * Remove multiple key to collection.
+     * Rename a key from collection.
      *
-     * @param  array   $keys
+     * @param  string   $from
+     * @param  string   $to
      * @return boolean
      */
-    public function detach(array $keys)
+    public function rename($from, $to)
     {
-        foreach ($keys as $key) {
-            $this->remove($key);
+        if (is_null($key = $this->search($from))) {
+            return false;
         }
+
+        $this->items[$key] = $this->getSlugFromName($to);
 
         return true;
     }
@@ -169,48 +218,15 @@ class Fluent
      */
     public function search($key)
     {
-        $key = $this->getSlugFromName($key);
-        $id  = array_search($key, $this->items);
+        is_string($key) and $key = $this->getSlugFromName($key);
+
+        $id = array_search($key, $this->items);
 
         if (false === $id) {
             return null;
         }
 
         return $id;
-    }
-
-    /**
-     * Check if an id is set in the collection.
-     *
-     * @param  integer  $id
-     * @return bool
-     */
-    public function exist($id)
-    {
-        is_string($id) and $id = $this->getSlugFromName($id);
-
-        return isset($this->items[$id]);
-    }
-
-    /**
-     * Filter request.
-     *
-     * @param  string|array $request
-     * @return array
-     */
-    public function filter($request)
-    {
-        if (is_array($request)) {
-            return $request;
-        } elseif ($request === '*') {
-            $request = $this->get();
-        } elseif ($request[0] === '!') {
-            $request = array_diff($this->get(), array(substr($request, 1)));
-        } elseif (! is_array($request)) {
-            $request = array($request);
-        }
-
-        return $request;
     }
 
     /**
