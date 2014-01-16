@@ -171,14 +171,14 @@ class Container extends AbstractableContainer
      */
     public function check($roles, $action)
     {
-        $action = $this->actions->search(Str::slug($action, '-'));
+        $action = $this->actions->search($action);
 
         if (is_null($action)) {
             throw new InvalidArgumentException("Unable to verify unknown action {$action}.");
         }
 
         foreach ((array) $roles as $role) {
-            $role = $this->roles->search(Str::slug($role, '-'));
+            $role = $this->roles->search($role);
 
             // array_search() will return false when no key is found based
             // on given haystack, therefore we should just ignore and
@@ -206,8 +206,6 @@ class Container extends AbstractableContainer
         $actions = $this->actions->filter($actions);
 
         foreach ($roles as $role) {
-            $role = Str::slug($role, '-');
-
             if (! $this->roles->has($role)) {
                 throw new InvalidArgumentException("Role {$role} does not exist.");
             }
@@ -230,8 +228,6 @@ class Container extends AbstractableContainer
     protected function groupedAssignAction($role, array $actions, $allow = true)
     {
         foreach ($actions as $action) {
-            $action = Str::slug($action, '-');
-
             if (! $this->actions->has($action)) {
                 throw new InvalidArgumentException("Action {$action} does not exist.");
             }
