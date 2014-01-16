@@ -134,6 +134,21 @@ class Fluent
     }
 
     /**
+     * Find collection key from a name.
+     *
+     * @param  mixed   $name
+     * @return integer|null
+     */
+    public function findKey($name)
+    {
+        if (! (is_numeric($name) and $this->exist($name))) {
+            $name = $this->search($name);
+        }
+
+        return $name;
+    }
+
+    /**
      * Get the items.
      *
      * @return array

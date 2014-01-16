@@ -248,13 +248,8 @@ class Container extends AbstractableContainer
      */
     protected function assign($role = null, $action = null, $allow = true)
     {
-        if (! (is_numeric($role) and $this->roles->exist($role))) {
-            $role = $this->roles->search($role);
-        }
-
-        if (! (is_numeric($action) and $this->actions->exist($action))) {
-            $action = $this->actions->search($action);
-        }
+        $role = $this->roles->findKey($role);
+        $action = $this->actions->findKey($action);
 
         if (! is_null($role) and ! is_null($action)) {
             $key = $role.':'.$action;
