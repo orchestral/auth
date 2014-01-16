@@ -117,14 +117,11 @@ class Fluent
      */
     public function rename($from, $to)
     {
-        $from = $this->getSlugFromName($from);
-        $to   = $this->getSlugFromName($to);
-
         if (is_null($key = $this->search($from))) {
             return false;
         }
 
-        $this->items[$key] = $to;
+        $this->items[$key] = $this->getSlugFromName($to);
 
         return true;
     }
@@ -140,8 +137,6 @@ class Fluent
         if (is_null($key)) {
             throw new InvalidArgumentException("Can't add NULL {$this->name}.");
         }
-
-        $key = $this->getSlugFromName($key);
 
         if (! is_null($id = $this->search($key))) {
             unset($this->items[$id]);
@@ -174,7 +169,8 @@ class Fluent
      */
     public function search($key)
     {
-        $id = array_search($key, $this->items);
+        $key = $this->getSlugFromName($key);
+        $id  = array_search($key, $this->items);
 
         if (false === $id) {
             return null;
@@ -191,6 +187,8 @@ class Fluent
      */
     public function exist($id)
     {
+        is_string($id) and $id = $this->getSlugFromName($id);
+
         return isset($this->items[$id]);
     }
 
