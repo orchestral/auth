@@ -37,11 +37,11 @@ class Guard extends \Illuminate\Auth\Guard
 
         // This is a simple check to detect if the user is actually logged-in,
         // otherwise it's just as the same as setting userId as 0.
-        is_null($user) or $userId = $user->id;
+        is_null($user) || $userId = $user->id;
 
         // This operation might be called more than once in a request, by
         // cached the event result we can avoid duplicate events being fired.
-        if (! isset($this->userRoles[$userId]) or is_null($this->userRoles[$userId])) {
+        if (! isset($this->userRoles[$userId]) || is_null($this->userRoles[$userId])) {
             $this->userRoles[$userId] = $this->events->until('orchestra.auth: roles', array(
                 $user,
                 $roles,

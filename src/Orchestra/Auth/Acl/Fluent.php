@@ -95,7 +95,7 @@ class Fluent
      */
     public function exist($id)
     {
-        is_string($id) and $id = $this->getSlugFromName($id);
+        is_string($id) && $id = $this->getSlugFromName($id);
 
         return isset($this->items[$id]);
     }
@@ -141,7 +141,7 @@ class Fluent
      */
     public function findKey($name)
     {
-        if (! (is_numeric($name) and $this->exist($name))) {
+        if (! (is_numeric($name) && $this->exist($name))) {
             $name = $this->search($name);
         }
 
@@ -169,7 +169,7 @@ class Fluent
         $key = strval($key);
         $key = $this->getSlugFromName($key);
 
-        return ( ! empty($key) and in_array($key, $this->items));
+        return ( ! empty($key) && in_array($key, $this->items));
     }
 
     /**
@@ -218,7 +218,7 @@ class Fluent
      */
     public function search($key)
     {
-        is_string($key) and $key = $this->getSlugFromName($key);
+        is_string($key) && $key = $this->getSlugFromName($key);
 
         $id = array_search($key, $this->items);
 

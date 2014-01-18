@@ -72,7 +72,7 @@ class Container extends AbstractableContainer
      */
     public function attach(Provider $memory = null)
     {
-        if ($this->attached() and $memory !== $this->memory) {
+        if ($this->attached() && $memory !== $this->memory) {
             throw new RuntimeException(
                 "Unable to assign multiple Orchestra\Memory instance."
             );
@@ -176,7 +176,7 @@ class Container extends AbstractableContainer
             // array_search() will return false when no key is found based
             // on given haystack, therefore we should just ignore and
             // continue to the next role.
-            if (! is_null($role) and isset($this->acl[$role.':'.$action])) {
+            if (! is_null($role) && isset($this->acl[$role.':'.$action])) {
                 return $this->acl[$role.':'.$action];
             }
         }
@@ -244,7 +244,7 @@ class Container extends AbstractableContainer
         $role = $this->roles->findKey($role);
         $action = $this->actions->findKey($action);
 
-        if (! is_null($role) and ! is_null($action)) {
+        if (! is_null($role) && ! is_null($action)) {
             $key = $role.':'.$action;
             $this->acl[$key] = $allow;
         }
@@ -345,7 +345,7 @@ class Container extends AbstractableContainer
         }
 
         $type      = $matches[2].'s';
-        $multiple  = (isset($matches[3]) and $matches[3] === 's');
+        $multiple  = (isset($matches[3]) && $matches[3] === 's');
         $operation = $this->resolveOperationName($matches[1], $multiple);
 
         return array($type, $operation);
