@@ -3,6 +3,13 @@ title: Auth Change Log
 
 ---
 
+## Version 2.2 {#v2-2}
+
+### v2.2.0@dev {#v2-2-0}
+
+* Bump minimum version to PHP v5.4.0.
+* Rename `Orchestra\Auth\Acl\Environment` to `Orchestra\Auth\Acl\Factory`.
+
 ## Version 2.1 {#v2-1}
 
 ### v2.1.3@dev {#v2-1-3}

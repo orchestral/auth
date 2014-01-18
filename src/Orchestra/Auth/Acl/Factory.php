@@ -3,7 +3,7 @@
 use Orchestra\Auth\Guard;
 use Orchestra\Memory\Provider;
 
-class Environment
+class Factory
 {
     /**
      * Auth instance.

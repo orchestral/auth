@@ -1,9 +1,9 @@
 <?php namespace Orchestra\Auth\Tests\Acl;
 
 use Mockery as m;
-use Orchestra\Auth\Acl\Environment;
+use Orchestra\Auth\Acl\Factory;
 
-class EnvironmentTest extends \PHPUnit_Framework_TestCase
+class FactoryTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * Teardown the test environment.
@@ -14,14 +14,14 @@ class EnvironmentTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test Orchestra\Auth\Acl\Environment::make()
+     * Test Orchestra\Auth\Acl\Factory::make()
      *
      * @test
      */
     public function testMakeMethod()
     {
         $auth = m::mock('\Orchestra\Auth\Guard');
-        $stub = new Environment($auth);
+        $stub = new Factory($auth);
 
         $this->assertInstanceOf('\Orchestra\Auth\Acl\Container', $stub->make('mock-one'));
 
@@ -33,14 +33,14 @@ class EnvironmentTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test Orchestra\Auth\Acl\Environment::register() method.
+     * Test Orchestra\Auth\Acl\Factory::register() method.
      *
      * @test
      */
     public function testRegisterMethod()
     {
         $auth = m::mock('\Orchestra\Auth\Guard');
-        $stub = new Environment($auth);
+        $stub = new Factory($auth);
 
         $auth->shouldReceive('guest')->times(3)->andReturn(true);
 
@@ -58,14 +58,14 @@ class EnvironmentTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test Orchestra\Auth\Acl\Environment magic methods.
+     * Test Orchestra\Auth\Acl\Factory magic methods.
      *
      * @test
      */
     public function testMagicMethods()
     {
         $auth = m::mock('\Orchestra\Auth\Guard');
-        $stub = new Environment($auth);
+        $stub = new Factory($auth);
 
         $acl1 = $stub->make('mock-one');
         $acl2 = $stub->make('mock-two');
@@ -94,14 +94,14 @@ class EnvironmentTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test Orchestra\Auth\Acl\Environment::all() method.
+     * Test Orchestra\Auth\Acl\Factory::all() method.
      *
      * @test
      */
     public function testAllMethod()
     {
         $auth = m::mock('\Orchestra\Auth\Guard');
-        $stub = new Environment($auth);
+        $stub = new Factory($auth);
 
         $mock1 = $stub->make('mock-one');
         $mock2 = $stub->make('mock-two');
