@@ -38,7 +38,7 @@ class AuthServiceProvider extends ServiceProvider
     protected function registerAcl()
     {
         $this->app->bindShared('orchestra.acl', function ($app) {
-            return new Acl\Environment($app['auth']->driver());
+            return new Acl\Factory($app['auth']->driver());
         });
     }
 
