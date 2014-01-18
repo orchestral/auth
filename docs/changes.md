@@ -5,6 +5,10 @@ title: Auth Change Log
 
 ## Version 2.1 {#v2-1}
 
+### v2.1.4@dev {#v2-1-4}
+
+* Allow custom auth driver to resolve `Orchestra\Auth\Guard`.
+
 ### v2.1.3 {#v2-1-3}
 
 * Add `Orchestra\Auth\Acl\Fluent::getSlugFromName()` helper method.
