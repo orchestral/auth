@@ -2,18 +2,18 @@
 
 class AuthManager extends \Illuminate\Auth\AuthManager
 {
-	/**
+    /**
      * {@inheritdoc}
-	 */
-	protected function callCustomCreator($driver)
-	{
-		$custom = parent::callCustomCreator($driver);
+     */
+    protected function callCustomCreator($driver)
+    {
+        $custom = parent::callCustomCreator($driver);
 
         if ($custom instanceof Guard) {
             return $custom;
         }
 
-		return new Guard($custom, $this->app['session.store']);
+        return new Guard($custom, $this->app['session.store']);
     }
 
     /**
