@@ -10,7 +10,7 @@ class Environment
      *
      * @var \Illuminate\Auth\Guard
      */
-    protected $auth = null;
+    protected $auth;
 
     /**
      * Cache ACL instance so we can reuse it on multiple request.
