@@ -11,7 +11,7 @@ class Fluent
      *
      * @var string
      */
-    protected $name = null;
+    protected $name;
 
     /**
      * Collection of this instance.
