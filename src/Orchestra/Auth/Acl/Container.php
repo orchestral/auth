@@ -3,12 +3,13 @@
 use InvalidArgumentException;
 use RuntimeException;
 use Orchestra\Auth\Guard;
-use Orchestra\Memory\Abstractable\Container as AbstractableContainer;
+use Orchestra\Memory\ContainerTrait;
 use Orchestra\Memory\Provider;
 use Orchestra\Support\Str;
 
-class Container extends AbstractableContainer
+class Container
 {
+    use ContainerTrait;
     /**
      * Auth instance.
      *
@@ -81,7 +82,7 @@ class Container extends AbstractableContainer
         // since we already check instanceof Orchestra\Memory\Provider,
         // It safe to just check for not NULL.
         if (! is_null($memory)) {
-            parent::attach($memory);
+            $this->setMemoryProvider($memory);
             $this->initiate();
         }
     }
