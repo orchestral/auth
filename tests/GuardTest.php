@@ -1,4 +1,4 @@
-<?php namespace Orchestra\Auth\Tests;
+<?php namespace Orchestra\Auth\TestCase;
 
 use Mockery as m;
 use Orchestra\Auth\Guard;
