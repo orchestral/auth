@@ -12,8 +12,8 @@
 		}
 	],
 	"autoload": {
-		"psr-0": {
-			"Orchestra\\Auth" : "src/"
+		"psr-4": {
+			"Orchestra\\Auth\\" : "src/Auth/"
 		}
 	},
 	"require": {
