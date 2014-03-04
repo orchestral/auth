@@ -5,7 +5,7 @@ title: Auth Change Log
 
 ## Version 2.1 {#v2-1}
 
-### v2.1.4@dev {#v2-1-4}
+### v2.1.4 {#v2-1-4}
 
 * Allow custom auth driver to resolve `Orchestra\Auth\Guard`.
 * Implement [PSR-4](https://github.com/php-fig/fig-standards/blob/master/proposed/psr-4-autoloader/psr-4-autoloader.md) autoloading structure.
