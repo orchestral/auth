@@ -332,17 +332,19 @@ class GuardTest extends \PHPUnit_Framework_TestCase
      */
     public function testLogoutMethod()
     {
-        $events  = $this->events;
-        $session = $this->session;
-        $cookie  = m::mock('\Illuminate\Cookie\CookieJar');
+        $events   = $this->events;
+        $provider = $this->provider;
+        $session  = $this->session;
+        $cookie   = m::mock('\Illuminate\Cookie\CookieJar');
 
         $events->shouldReceive('until')->never()
                 ->with('orchestra.auth: roles', m::any())->andReturn(array('admin', 'editor'))
             ->shouldReceive('fire')->once()
                 ->with('auth.logout', m::any())->andReturn(array('admin', 'editor'));
+        $provider->shouldReceive('updateRememberToken')->once();
         $session->shouldReceive('forget')->once()->andReturn(null);
 
-        $stub = new Guard($this->provider, $this->session);
+        $stub = new Guard($provider, $session);
         $stub->setDispatcher($events);
         $stub->setCookieJar($cookie);
         $cookie->shouldReceive('queue')->once()->andReturn($cookie)
@@ -355,7 +357,12 @@ class GuardTest extends \PHPUnit_Framework_TestCase
         $user->setAccessible(true);
         $userRoles->setAccessible(true);
 
-        $user->setValue($stub, (object) array('id' => 1));
+        $userStub = m::mock('\Illuminate\Auth\UserInterface');
+        $userStub->id = 1;
+
+        $userStub->shouldReceive('setRememberToken')->once();
+
+        $user->setValue($stub, $userStub);
         $userRoles->setValue($stub, array(1 => array('admin', 'editor')));
 
         $this->assertEquals(array('admin', 'editor'), $stub->roles());

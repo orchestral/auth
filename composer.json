@@ -12,6 +12,9 @@
 		}
 	],
 	"autoload": {
+		"classmap": [
+			"src/migrations"
+		],
 		"psr-4": {
 			"Orchestra\\Auth\\" : "src/Auth/"
 		}
