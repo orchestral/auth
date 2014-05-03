@@ -13,7 +13,7 @@ class OrchestraAuthAddRememberTokenToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('remember_token')->after('status');
+            $table->string('remember_token')->nullable()->after('status');
         });
     }
 

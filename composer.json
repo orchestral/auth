@@ -12,8 +12,11 @@
 		}
 	],
 	"autoload": {
-		"psr-0": { 
-			"Orchestra\\Auth" : "src/" 
+		"classmap": [
+			"src/migrations"
+		],
+		"psr-0": {
+			"Orchestra\\Auth" : "src/"
 		}
 	},
 	"require": {
@@ -21,7 +24,7 @@
 		"orchestra/memory": "2.0.*"
 	},
 	"require-dev": {
-		"mockery/mockery": "0.8.0",
+		"mockery/mockery": "0.9.*",
 		"patchwork/utf8": "1.1.*",
 		"illuminate/auth": "4.0.*"
 	},
