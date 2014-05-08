@@ -57,6 +57,10 @@ based on upstream changes.
 
 ## Version 2.0 {#v2-0}
 
+### v2.0.7@dev {#v2-0-7}
+
+* Add migration to add `remember_token` to `users` table.
+
 ### v2.0.6 {#v2-0-6}
 
 * Replace `DateTime` with `Carbon` on basic roles seeding migration to avoid exception to be thrown when using `php artisan debug` (Laravel v4.1).
