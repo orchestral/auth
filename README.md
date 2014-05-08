@@ -5,8 +5,8 @@ Orchestra\Auth extends the functionality of Illuminate\Auth with the extra funct
 
 [![Latest Stable Version](https://poser.pugx.org/orchestra/auth/v/stable.png)](https://packagist.org/packages/orchestra/auth) 
 [![Total Downloads](https://poser.pugx.org/orchestra/auth/downloads.png)](https://packagist.org/packages/orchestra/auth) 
-[![Build Status](https://travis-ci.org/orchestral/auth.png?branch=master)](https://travis-ci.org/orchestral/auth) 
-[![Coverage Status](https://coveralls.io/repos/orchestral/auth/badge.png?branch=master)](https://coveralls.io/r/orchestral/auth?branch=master) 
+[![Build Status](https://travis-ci.org/orchestral/auth.png?branch=2.2)](https://travis-ci.org/orchestral/auth) 
+[![Coverage Status](https://coveralls.io/repos/orchestral/auth/badge.png?branch=2.2)](https://coveralls.io/r/orchestral/auth?branch=2.2) 
 [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/orchestral/auth/badges/quality-score.png?s=5618935a11f17373602073e6d1388e61acaa7085)](https://scrutinizer-ci.com/g/orchestral/auth/) 
 
 ## Quick Installation
@@ -16,7 +16,7 @@ To install through composer, simply put the following in your `composer.json` fi
 ```json
 {
 	"require": {
-		"orchestra/auth": "2.1.*"
+		"orchestra/auth": "2.2.*"
 	}
 }
 ```
@@ -53,4 +53,4 @@ To make development easier, you could add `Orchestra\Support\Facades\Acl` alias 
 ## Resources
 
 * [Documentation](http://orchestraplatform.com/docs/latest/components/auth)
-* [Change Log](http://orchestraplatform.com/docs/latest/components/auth/changes#v2-1)
+* [Change Log](http://orchestraplatform.com/docs/latest/components/auth/changes#v2-2)
