@@ -16,7 +16,7 @@ To install through composer, simply put the following in your `composer.json` fi
 ```json
 {
 	"require": {
-		"orchestra/auth": "2.1.*"
+		"orchestra/auth": "2.2.*"
 	}
 }
 ```
@@ -53,4 +53,4 @@ To make development easier, you could add `Orchestra\Support\Facades\Acl` alias 
 ## Resources
 
 * [Documentation](http://orchestraplatform.com/docs/latest/components/auth)
-* [Change Log](http://orchestraplatform.com/docs/latest/components/auth/changes#v2-1)
+* [Change Log](http://orchestraplatform.com/docs/latest/components/auth/changes#v2-2)
