@@ -5,6 +5,10 @@ title: Auth Change Log
 
 ## Version 2.1 {#v2-1}
 
+### v2.1.6@dev {#v2-1-6}
+
+* Remove `users.email` and `users.password` field length to maximize future compatible.
+
 ### v2.1.5 {#v2-1-5}
 
 * Add migration to add `remember_token` to `users` table.
@@ -53,6 +57,7 @@ based on upstream changes.
 ### v2.0.7@dev {#v2-0-7}
 
 * Add migration to add `remember_token` to `users` table.
+* Remove `users.email` and `users.password` field length to maximize future compatible.
 
 ### v2.0.6 {#v2-0-6}
 
