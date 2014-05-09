@@ -15,8 +15,8 @@ class OrchestraAuthCreateUsersTable extends Migration
         Schema::create('users', function ($table) {
             $table->increments('id');
 
-            $table->string('email', 100);
-            $table->string('password', 60);
+            $table->string('email');
+            $table->string('password');
 
             Event::fire('orchestra.install.schema: users', array($table));
 
