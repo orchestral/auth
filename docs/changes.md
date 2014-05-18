@@ -5,12 +5,17 @@ title: Auth Change Log
 
 ## Version 2.2 {#v2-2}
 
-### v2.2.0@dev {#v2-2-0}
+### v2.2.0 {#v2-2-0}
 
 * Bump minimum version to PHP v5.4.0.
 * Rename `Orchestra\Auth\Acl\Environment` to `Orchestra\Auth\Acl\Factory`.
+* Remove `users.email` and `users.password` field length to maximize future compatible.
 
 ## Version 2.1 {#v2-1}
+
+### v2.1.6 {#v2-1-6}
+
+* Remove `users.email` and `users.password` field length to maximize future compatible.
 
 ### v2.1.5 {#v2-1-5}
 
@@ -60,6 +65,7 @@ based on upstream changes.
 ### v2.0.7@dev {#v2-0-7}
 
 * Add migration to add `remember_token` to `users` table.
+* Remove `users.email` and `users.password` field length to maximize future compatible.
 
 ### v2.0.6 {#v2-0-6}
 
