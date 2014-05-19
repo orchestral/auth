@@ -10,6 +10,7 @@ use Orchestra\Support\Str;
 class Container
 {
     use ContainerTrait;
+
     /**
      * Auth instance.
      *
