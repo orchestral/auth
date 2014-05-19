@@ -123,14 +123,12 @@ class Fluent
         if (is_array($request)) {
             return $request;
         } elseif ($request === '*') {
-            $request = $this->get();
+            return $this->get();
         } elseif ($request[0] === '!') {
-            $request = array_diff($this->get(), array(substr($request, 1)));
-        } elseif (! is_array($request)) {
-            $request = array($request);
+            return array_diff($this->get(), array(substr($request, 1)));
         }
 
-        return $request;
+        return array($request);
     }
 
     /**
