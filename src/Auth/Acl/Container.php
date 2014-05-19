@@ -9,14 +9,7 @@ use Orchestra\Support\Str;
 
 class Container
 {
-    use ContainerTrait;
-
-    /**
-     * Auth instance.
-     *
-     * @var \Orchestra\Auth\Guard
-     */
-    protected $auth;
+    use AuthorizationTrait, ContainerTrait;
 
     /**
      * Acl instance name.
@@ -24,27 +17,6 @@ class Container
      * @var string
      */
     protected $name;
-
-    /**
-     * List of roles.
-     *
-     * @var Fluent
-     */
-    protected $roles;
-
-    /**
-     * List of actions.
-     *
-     * @var Fluent
-     */
-    protected $actions;
-
-    /**
-     * List of ACL map between roles, action.
-     *
-     * @var array
-     */
-    protected $acl = array();
 
     /**
      * Construct a new object.
@@ -115,6 +87,35 @@ class Container
     }
 
     /**
+     * Assign single or multiple $roles + $actions to have access.
+     *
+     * @param  string|array     $roles      A string or an array of roles
+     * @param  string|array     $actions    A string or an array of action name
+     * @param  boolean          $allow
+     * @return Container
+     * @throws \InvalidArgumentException
+     */
+    public function allow($roles, $actions, $allow = true)
+    {
+        $this->setAuthorization($roles, $actions, $allow);
+
+        return $this->sync();
+    }
+
+    /**
+     * Shorthand function to deny access for single or multiple
+     * $roles and $actions.
+     *
+     * @param  string|array     $roles      A string or an array of roles
+     * @param  string|array     $actions    A string or an array of action name
+     * @return Container
+     */
+    public function deny($roles, $actions)
+    {
+        return $this->allow($roles, $actions, false);
+    }
+
+    /**
      * Sync memory with acl instance, make sure anything that added before
      * ->with($memory) got called is appended to memory as well.
      *
@@ -136,136 +137,6 @@ class Container
     }
 
     /**
-     * Verify whether current user has sufficient roles to access the
-     * actions based on available type of access.
-     *
-     * @param  string  $action     A string of action name
-     * @return boolean
-     */
-    public function can($action)
-    {
-        $roles = array();
-
-        if (! $this->auth->guest()) {
-            $roles = $this->auth->roles();
-        } elseif ($this->roles->has('guest')) {
-            array_push($roles, 'guest');
-        }
-
-        return $this->check($roles, $action);
-    }
-
-    /**
-     * Verify whether given roles has sufficient roles to access the
-     * actions based on available type of access.
-     *
-     * @param  string|array     $roles      A string or an array of roles
-     * @param  string           $action     A string of action name
-     * @return boolean
-     * @throws \InvalidArgumentException
-     */
-    public function check($roles, $action)
-    {
-        $action = $this->actions->search($action);
-
-        if (is_null($action)) {
-            throw new InvalidArgumentException("Unable to verify unknown action {$action}.");
-        }
-
-        foreach ((array) $roles as $role) {
-            $role = $this->roles->search($role);
-
-            // array_search() will return false when no key is found based
-            // on given haystack, therefore we should just ignore and
-            // continue to the next role.
-            if (! is_null($role) && isset($this->acl[$role.':'.$action])) {
-                return $this->acl[$role.':'.$action];
-            }
-        }
-
-        return false;
-    }
-
-    /**
-     * Assign single or multiple $roles + $actions to have access.
-     *
-     * @param  string|array     $roles      A string or an array of roles
-     * @param  string|array     $actions    A string or an array of action name
-     * @param  boolean          $allow
-     * @return Container
-     * @throws \InvalidArgumentException
-     */
-    public function allow($roles, $actions, $allow = true)
-    {
-        $roles   = $this->roles->filter($roles);
-        $actions = $this->actions->filter($actions);
-
-        foreach ($roles as $role) {
-            if (! $this->roles->has($role)) {
-                throw new InvalidArgumentException("Role {$role} does not exist.");
-            }
-
-            $this->groupedAssignAction($role, $actions, $allow);
-        }
-
-        return $this->sync();
-    }
-
-    /**
-     * Grouped assign actions to have access.
-     *
-     * @param  string  $role
-     * @param  array   $actions
-     * @param  boolean $allow
-     * @return boolean
-     * @throws \InvalidArgumentException
-     */
-    protected function groupedAssignAction($role, array $actions, $allow = true)
-    {
-        foreach ($actions as $action) {
-            if (! $this->actions->has($action)) {
-                throw new InvalidArgumentException("Action {$action} does not exist.");
-            }
-
-            $this->assign($role, $action, $allow);
-        }
-
-        return true;
-    }
-
-    /**
-     * Assign a key combination of $roles + $actions to have access.
-     *
-     * @param  string      $roles      A key or string representation of roles
-     * @param  string      $actions    A key or string representation of action name
-     * @param  boolean     $allow
-     * @return void
-     */
-    protected function assign($role = null, $action = null, $allow = true)
-    {
-        $role = $this->roles->findKey($role);
-        $action = $this->actions->findKey($action);
-
-        if (! is_null($role) && ! is_null($action)) {
-            $key = $role.':'.$action;
-            $this->acl[$key] = $allow;
-        }
-    }
-
-    /**
-     * Shorthand function to deny access for single or multiple
-     * $roles and $actions.
-     *
-     * @param  string|array     $roles      A string or an array of roles
-     * @param  string|array     $actions    A string or an array of action name
-     * @return Container
-     */
-    public function deny($roles, $actions)
-    {
-        return $this->allow($roles, $actions, false);
-    }
-
-    /**
      * Forward call to roles or actions.
      *
      * @param  string   $type           'roles' or 'actions'
@@ -276,36 +147,6 @@ class Container
     public function execute($type, $operation, array $parameters = array())
     {
         return call_user_func_array(array($this->{$type}, $operation), $parameters);
-    }
-
-    /**
-     * Get the `acl` collection.
-     *
-     * @return array
-     */
-    public function acl()
-    {
-        return $this->acl;
-    }
-
-    /**
-     * Get the `actions` instance.
-     *
-     * @return Fluent
-     */
-    public function actions()
-    {
-        return $this->actions;
-    }
-
-    /**
-     * Get the `roles` instance.
-     *
-     * @return Fluent
-     */
-    public function roles()
-    {
-        return $this->roles;
     }
 
     /**
