@@ -26,31 +26,11 @@ trait AuthorizationTrait
     protected $actions;
 
     /**
-     * List of ACL map between roles, action.
+     * List of ACL map between roles and action.
      *
      * @var array
      */
     protected $acl = [];
-
-    /**
-     * Verify whether current user has sufficient roles to access the
-     * actions based on available type of access.
-     *
-     * @param  string  $action     A string of action name
-     * @return boolean
-     */
-    public function can($action)
-    {
-        $roles = array();
-
-        if (! $this->auth->guest()) {
-            $roles = $this->auth->roles();
-        } elseif ($this->roles->has('guest')) {
-            array_push($roles, 'guest');
-        }
-
-        return $this->check($roles, $action);
-    }
 
     /**
      * Verify whether given roles has sufficient roles to access the
@@ -61,7 +41,7 @@ trait AuthorizationTrait
      * @return boolean
      * @throws \InvalidArgumentException
      */
-    public function check($roles, $action)
+    public function checkAuthorization($roles, $action)
     {
         $action = $this->actions->search($action);
 
@@ -92,7 +72,7 @@ trait AuthorizationTrait
      * @return void
      * @throws \InvalidArgumentException
      */
-    protected function setAuthorization($roles, $actions, $allow = true)
+    public function setAuthorization($roles, $actions, $allow = true)
     {
         $roles   = $this->roles->filter($roles);
         $actions = $this->actions->filter($actions);
@@ -176,5 +156,19 @@ trait AuthorizationTrait
     public function roles()
     {
         return $this->roles;
+    }
+
+    /**
+     * Get all possible user roles.
+     *
+     * @return array
+     */
+    protected function getUserRoles()
+    {
+        if (! $this->auth->guest()) {
+            return $this->auth->roles();
+        }
+
+        return $this->roles->has('guest') ? ['guest'] : [];
     }
 }

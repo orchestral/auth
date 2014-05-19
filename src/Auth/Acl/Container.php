@@ -103,6 +103,34 @@ class Container
     }
 
     /**
+     * Verify whether current user has sufficient roles to access the
+     * actions based on available type of access.
+     *
+     * @param  string  $action     A string of action name
+     * @return boolean
+     */
+    public function can($action)
+    {
+        $roles = $this->getUserRoles();
+
+        return $this->checkAuthorization($roles, $action);
+    }
+
+    /**
+     * Verify whether given roles has sufficient roles to access the
+     * actions based on available type of access.
+     *
+     * @param  string|array     $roles      A string or an array of roles
+     * @param  string           $action     A string of action name
+     * @return boolean
+     * @throws \InvalidArgumentException
+     */
+    public function check($roles, $action)
+    {
+        return $this->checkAuthorization($roles, $action);
+    }
+
+    /**
      * Shorthand function to deny access for single or multiple
      * $roles and $actions.
      *
