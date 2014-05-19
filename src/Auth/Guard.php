@@ -34,14 +34,23 @@ class Guard extends \Illuminate\Auth\Guard
     public function roles()
     {
         $user   = $this->user();
-        $roles  = array();
         $userId = 0;
 
         // This is a simple check to detect if the user is actually logged-in,
         // otherwise it's just as the same as setting userId as 0.
         is_null($user) || $userId = $user->id;
 
-        return $this->getUserRolesFromEventDispatcher($userId, $user, $roles);
+        $roles = array_get($this->userRoles, "{$userId}", array());
+
+        // This operation might be called more than once in a request, by
+        // cached the event result we can avoid duplicate events being fired.
+        if (empty($roles)) {
+            $roles = $this->getUserRolesFromEventDispatcher($user, $roles);
+        }
+
+        array_set($this->userRoles, "{$userId}", $roles);
+
+        return $roles;
     }
 
     /**
@@ -136,32 +145,21 @@ class Guard extends \Illuminate\Auth\Guard
     /**
      * Ger user roles from event dispatcher.
      *
-     * @param  integer                          $userId
      * @param  \Illuminate\Auth\UserInterface   $user
      * @param  array                            $roles
      * @return array
      */
-    protected function getUserRolesFromEventDispatcher($userId, UserInterface $user = null, array $roles)
+    protected function getUserRolesFromEventDispatcher(UserInterface $user = null, $roles = array())
     {
-        // This operation might be called more than once in a request, by
-        // cached the event result we can avoid duplicate events being fired.
-        if (! isset($this->userRoles[$userId]) || is_null($this->userRoles[$userId])) {
-            $this->userRoles[$userId] = $this->events->until(
-                'orchestra.auth: roles',
-                array(
-                    $user,
-                    $roles,
-                )
-            );
-        }
+        $roles = $this->events->until('orchestra.auth: roles', array($user, (array) $roles));
 
         // It possible that after event are all propagated we don't have a
         // roles for the user, in this case we should properly append "Guest"
         // user role to the current user.
-        if (is_null($this->userRoles[$userId])) {
-            $this->userRoles[$userId] = array('Guest');
+        if (is_null($roles)) {
+            return array('Guest');
         }
 
-        return $this->userRoles[$userId];
+        return $roles;
     }
 }
