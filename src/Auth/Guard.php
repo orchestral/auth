@@ -135,13 +135,13 @@ class Guard extends \Illuminate\Auth\Guard
 
     /**
      * Ger user roles from event dispatcher.
-     * 
+     *
      * @param  integer                          $userId
      * @param  \Illuminate\Auth\UserInterface   $user
      * @param  array                            $roles
      * @return array
      */
-    protected function getUserRolesFromEventDispatcher($userId, UserInterface $user, array $roles)
+    protected function getUserRolesFromEventDispatcher($userId, UserInterface $user = null, array $roles)
     {
         // This operation might be called more than once in a request, by
         // cached the event result we can avoid duplicate events being fired.
