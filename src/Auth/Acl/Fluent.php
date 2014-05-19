@@ -126,11 +126,9 @@ class Fluent
             return $this->get();
         } elseif ($request[0] === '!') {
             return array_diff($this->get(), array(substr($request, 1)));
-        } elseif (! is_array($request)) {
-            return array($request);
         }
 
-        return $request;
+        return array($request);
     }
 
     /**
