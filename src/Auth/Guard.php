@@ -1,5 +1,7 @@
 <?php namespace Orchestra\Auth;
 
+use Illuminate\Auth\UserInterface;
+
 class Guard extends \Illuminate\Auth\Guard
 {
     /**
@@ -39,23 +41,7 @@ class Guard extends \Illuminate\Auth\Guard
         // otherwise it's just as the same as setting userId as 0.
         is_null($user) || $userId = $user->id;
 
-        // This operation might be called more than once in a request, by
-        // cached the event result we can avoid duplicate events being fired.
-        if (! isset($this->userRoles[$userId]) || is_null($this->userRoles[$userId])) {
-            $this->userRoles[$userId] = $this->events->until('orchestra.auth: roles', array(
-                $user,
-                $roles,
-            ));
-        }
-
-        // It possible that after event are all propagated we don't have a
-        // roles for the user, in this case we should properly append "Guest"
-        // user role to the current user.
-        if (is_null($this->userRoles[$userId])) {
-            $this->userRoles[$userId] = array('Guest');
-        }
-
-        return $this->userRoles[$userId];
+        return $this->getUserRolesFromEventDispatcher($userId, $user, $roles);
     }
 
     /**
@@ -142,8 +128,40 @@ class Guard extends \Illuminate\Auth\Guard
         parent::logout();
 
         // We should flush the cached user roles relationship so any
-        // subsequent request would revalidate all information, instead of
-        // refering to the cached value.
+        // subsequent request would re-validate all information,
+        // instead of referring to the cached value.
         $this->userRoles = null;
+    }
+
+    /**
+     * Ger user roles from event dispatcher.
+     * 
+     * @param  integer                          $userId
+     * @param  \Illuminate\Auth\UserInterface   $user
+     * @param  array                            $roles
+     * @return array
+     */
+    protected function getUserRolesFromEventDispatcher($userId, UserInterface $user, array $roles)
+    {
+        // This operation might be called more than once in a request, by
+        // cached the event result we can avoid duplicate events being fired.
+        if (! isset($this->userRoles[$userId]) || is_null($this->userRoles[$userId])) {
+            $this->userRoles[$userId] = $this->events->until(
+                'orchestra.auth: roles',
+                array(
+                    $user,
+                    $roles,
+                )
+            );
+        }
+
+        // It possible that after event are all propagated we don't have a
+        // roles for the user, in this case we should properly append "Guest"
+        // user role to the current user.
+        if (is_null($this->userRoles[$userId])) {
+            $this->userRoles[$userId] = array('Guest');
+        }
+
+        return $this->userRoles[$userId];
     }
 }
