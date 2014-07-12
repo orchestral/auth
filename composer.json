@@ -3,7 +3,7 @@
 	"description": "Orchestra Platform 2 Auth Component",
 	"license": "MIT",
 	"homepage": "http://orchestraplatform.com/docs/latest/components/auth/",
-	"keywords": ["orchestra-platform", "orchestral", "laravel", "auth", "acl", "rbac"],
+	"keywords": ["orchestra-platform", "orchestral", "laravel", "auth", "acl", "rbac", "permission"],
 	"authors": [
 		{
 			"name": "Mior Muhammad Zaki",
