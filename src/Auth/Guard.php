@@ -1,6 +1,7 @@
 <?php namespace Orchestra\Auth;
 
 use Illuminate\Auth\UserInterface;
+use Illuminate\Support\Arr;
 
 class Guard extends \Illuminate\Auth\Guard
 {
@@ -40,7 +41,7 @@ class Guard extends \Illuminate\Auth\Guard
         // otherwise it's just as the same as setting userId as 0.
         is_null($user) || $userId = $user->id;
 
-        $roles = array_get($this->userRoles, "{$userId}", array());
+        $roles = Arr::get($this->userRoles, "{$userId}", array());
 
         // This operation might be called more than once in a request, by
         // cached the event result we can avoid duplicate events being fired.
@@ -48,7 +49,7 @@ class Guard extends \Illuminate\Auth\Guard
             $roles = $this->getUserRolesFromEventDispatcher($user, $roles);
         }
 
-        array_set($this->userRoles, "{$userId}", $roles);
+        Arr::set($this->userRoles, "{$userId}", $roles);
 
         return $roles;
     }

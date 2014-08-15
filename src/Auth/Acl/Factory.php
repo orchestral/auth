@@ -1,5 +1,6 @@
 <?php namespace Orchestra\Auth\Acl;
 
+use Illuminate\Support\Arr;
 use Orchestra\Auth\Guard;
 use Orchestra\Memory\Provider;
 
@@ -122,6 +123,6 @@ class Factory
      */
     public function get($name)
     {
-        return array_get($this->drivers, $name);
+        return Arr::get($this->drivers, $name);
     }
 }
