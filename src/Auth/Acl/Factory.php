@@ -23,7 +23,7 @@ class Factory
     /**
      * Construct a new Environment.
      *
-     * @param  \Illuminate\Auth\Guard   $auth
+     * @param  \Orchestra\Auth\Guard|\Illuminate\Auth\Guard   $auth
      */
     public function __construct(Guard $auth)
     {
@@ -35,7 +35,7 @@ class Factory
      *
      * @param  string                      $name
      * @param  \Orchestra\Memory\Provider  $memory
-     * @return Container
+     * @return \Orchestra\Auth\Acl\Container
      */
     public function make($name = null, Provider $memory = null)
     {
@@ -55,7 +55,7 @@ class Factory
      *
      * @param  string   $name
      * @param  \Closure $callback
-     * @return Container
+     * @return \Orchestra\Auth\Acl\Container
      */
     public function register($name, $callback = null)
     {
@@ -92,7 +92,7 @@ class Factory
     /**
      * Shutdown/finish all ACL.
      *
-     * @return Environment
+     * @return $this
      */
     public function finish()
     {
@@ -119,7 +119,8 @@ class Factory
     /**
      * Get ACL instance by name.
      *
-     * @return Container
+     * @param  string   $name
+     * @return \Orchestra\Auth\Acl\Container
      */
     public function get($name)
     {
