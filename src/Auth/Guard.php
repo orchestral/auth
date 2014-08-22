@@ -1,6 +1,6 @@
 <?php namespace Orchestra\Auth;
 
-use Illuminate\Auth\UserInterface;
+use Illuminate\Contract\Auth\User as UserContract;
 use Illuminate\Support\Arr;
 
 class Guard extends \Illuminate\Auth\Guard
@@ -146,11 +146,11 @@ class Guard extends \Illuminate\Auth\Guard
     /**
      * Ger user roles from event dispatcher.
      *
-     * @param  \Illuminate\Auth\UserInterface   $user
+     * @param  \Illuminate\Contracts\Auth\User  $user
      * @param  array                            $roles
      * @return array
      */
-    protected function getUserRolesFromEventDispatcher(UserInterface $user = null, $roles = array())
+    protected function getUserRolesFromEventDispatcher(UserContract $user = null, $roles = array())
     {
         $roles = $this->events->until('orchestra.auth: roles', array($user, (array) $roles));
 

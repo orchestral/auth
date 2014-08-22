@@ -78,7 +78,7 @@ class GuardTest extends \PHPUnit_Framework_TestCase
     {
         $events = $this->events;
 
-        $user = m::mock('\Illuminate\Auth\UserInterface');
+        $user = m::mock('\Illuminate\Contracts\Auth\User');
         $user->id = 1;
 
         $events->shouldReceive('until')->once()
@@ -103,7 +103,7 @@ class GuardTest extends \PHPUnit_Framework_TestCase
     {
         $events = $this->events;
 
-        $user = m::mock('\Illuminate\Auth\UserInterface');
+        $user = m::mock('\Illuminate\Contracts\Auth\User');
         $user->id = 1;
 
         $events->shouldReceive('until')->once()
@@ -128,7 +128,7 @@ class GuardTest extends \PHPUnit_Framework_TestCase
     {
         $events = $this->events;
 
-        $user = m::mock('\Illuminate\Auth\UserInterface');
+        $user = m::mock('\Illuminate\Contracts\Auth\User');
         $user->id = 1;
 
         $events->shouldReceive('until')->once()
@@ -155,7 +155,7 @@ class GuardTest extends \PHPUnit_Framework_TestCase
     public function testIsMethodWhenInvalidRolesIsReturned()
     {
         $events = $this->events;
-        $user   = m::mock('\Illuminate\Auth\UserInterface');
+        $user   = m::mock('\Illuminate\Contracts\Auth\User');
         $user->id = 1;
 
         $events->shouldReceive('until')
@@ -183,7 +183,7 @@ class GuardTest extends \PHPUnit_Framework_TestCase
     {
         $events = $this->events;
 
-        $user = m::mock('\Illuminate\Auth\UserInterface');
+        $user = m::mock('\Illuminate\Contracts\Auth\User');
         $user->id = 1;
 
         $events->shouldReceive('until')->once()
@@ -207,7 +207,7 @@ class GuardTest extends \PHPUnit_Framework_TestCase
     public function testIsAnyMethodWhenInvalidRolesIsReturned()
     {
         $events = $this->events;
-        $user   = m::mock('\Illuminate\Auth\UserInterface');
+        $user   = m::mock('\Illuminate\Contracts\Auth\User');
         $user->id = 1;
 
         $events->shouldReceive('until')
@@ -231,7 +231,7 @@ class GuardTest extends \PHPUnit_Framework_TestCase
     {
         $events = $this->events;
 
-        $user = m::mock('\Illuminate\Auth\UserInterface');
+        $user = m::mock('\Illuminate\Contracts\Auth\User');
         $user->id = 1;
 
         $events->shouldReceive('until')->once()
@@ -258,7 +258,7 @@ class GuardTest extends \PHPUnit_Framework_TestCase
     public function testIsNotMethodWhenInvalidRolesIsReturned()
     {
         $events = $this->events;
-        $user   = m::mock('\Illuminate\Auth\UserInterface');
+        $user   = m::mock('\Illuminate\Contracts\Auth\User');
         $user->id = 1;
 
         $events->shouldReceive('until')
@@ -286,7 +286,7 @@ class GuardTest extends \PHPUnit_Framework_TestCase
     {
         $events = $this->events;
 
-        $user = m::mock('\Illuminate\Auth\UserInterface');
+        $user = m::mock('\Illuminate\Contracts\Auth\User');
         $user->id = 1;
 
         $events->shouldReceive('until')->once()
@@ -310,7 +310,7 @@ class GuardTest extends \PHPUnit_Framework_TestCase
     public function testIsNotAnyMethodWhenInvalidRolesIsReturned()
     {
         $events = $this->events;
-        $user   = m::mock('\Illuminate\Auth\UserInterface');
+        $user   = m::mock('\Illuminate\Contracts\Auth\User');
         $user->id = 1;
 
         $events->shouldReceive('until')
@@ -357,7 +357,7 @@ class GuardTest extends \PHPUnit_Framework_TestCase
         $user->setAccessible(true);
         $userRoles->setAccessible(true);
 
-        $userStub = m::mock('\Illuminate\Auth\UserInterface');
+        $userStub = m::mock('\Illuminate\Contracts\Auth\User');
         $userStub->id = 1;
 
         $userStub->shouldReceive('setRememberToken')->once();
