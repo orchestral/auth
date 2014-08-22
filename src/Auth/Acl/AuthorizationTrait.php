@@ -111,8 +111,8 @@ trait AuthorizationTrait
     /**
      * Assign a key combination of $roles + $actions to have access.
      *
-     * @param  string      $roles      A key or string representation of roles
-     * @param  string      $actions    A key or string representation of action name
+     * @param  string      $role       A key or string representation of roles
+     * @param  string      $action     A key or string representation of action name
      * @param  boolean     $allow
      * @return void
      */
