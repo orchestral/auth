@@ -33,7 +33,7 @@ class GuardTest extends \PHPUnit_Framework_TestCase
     {
         $this->provider = m::mock('\Illuminate\Auth\UserProviderInterface');
         $this->session  = m::mock('\Illuminate\Session\Store');
-        $this->events   = m::mock('\Illuminate\Events\Dispatcher');
+        $this->events   = m::mock('\Illuminate\Contracts\Events\Dispatcher');
     }
 
     /**
@@ -335,7 +335,7 @@ class GuardTest extends \PHPUnit_Framework_TestCase
         $events   = $this->events;
         $provider = $this->provider;
         $session  = $this->session;
-        $cookie   = m::mock('\Illuminate\Cookie\CookieJar');
+        $cookie   = m::mock('\Illuminate\Contracts\Cookie\QueueingFactory');
 
         $events->shouldReceive('until')->never()
                 ->with('orchestra.auth: roles', m::any())->andReturn(array('admin', 'editor'))

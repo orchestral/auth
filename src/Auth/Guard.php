@@ -1,6 +1,6 @@
 <?php namespace Orchestra\Auth;
 
-use Illuminate\Contract\Auth\User as UserContract;
+use Illuminate\Contracts\Auth\User as UserContract;
 use Illuminate\Support\Arr;
 
 class Guard extends \Illuminate\Auth\Guard
