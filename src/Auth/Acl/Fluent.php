@@ -43,7 +43,7 @@ class Fluent
             throw new InvalidArgumentException("Can't add NULL {$this->name}.");
         }
 
-        // Typehint the attribute value of an Eloquent result, if it was
+        // Type-hint the attribute value of an Eloquent result, if it was
         // given instead of a string.
         if ($key instanceof Eloquent) {
             $key = $key->getAttribute('name');

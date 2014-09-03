@@ -38,7 +38,7 @@ trait AuthorizationTrait
      *
      * @param  string|array     $roles      A string or an array of roles
      * @param  string           $action     A string of action name
-     * @return boolean
+     * @return bool
      * @throws \InvalidArgumentException
      */
     public function checkAuthorization($roles, $action)
@@ -68,7 +68,7 @@ trait AuthorizationTrait
      *
      * @param  string|array     $roles      A string or an array of roles
      * @param  string|array     $actions    A string or an array of action name
-     * @param  boolean          $allow
+     * @param  bool             $allow
      * @return void
      * @throws \InvalidArgumentException
      */
@@ -91,8 +91,8 @@ trait AuthorizationTrait
      *
      * @param  string  $role
      * @param  array   $actions
-     * @param  boolean $allow
-     * @return boolean
+     * @param  bool    $allow
+     * @return bool
      * @throws \InvalidArgumentException
      */
     protected function groupedAssignAction($role, array $actions, $allow = true)
@@ -113,7 +113,7 @@ trait AuthorizationTrait
      *
      * @param  string      $role       A key or string representation of roles
      * @param  string      $action     A key or string representation of action name
-     * @param  boolean     $allow
+     * @param  bool        $allow
      * @return void
      */
     protected function assign($role = null, $action = null, $allow = true)
