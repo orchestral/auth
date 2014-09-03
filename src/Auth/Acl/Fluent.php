@@ -91,7 +91,7 @@ class Fluent
     /**
      * Check if an id is set in the collection.
      *
-     * @param  integer  $id
+     * @param  int  $id
      * @return bool
      */
     public function exist($id)
@@ -214,7 +214,7 @@ class Fluent
      * Get the ID from a key.
      *
      * @param  string   $key
-     * @return integer
+     * @return int
      */
     public function search($key)
     {
