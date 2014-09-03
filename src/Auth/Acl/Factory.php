@@ -23,7 +23,7 @@ class Factory
     /**
      * Construct a new Environment.
      *
-     * @param  \Orchestra\Auth\Guard|\Illuminate\Auth\Guard   $auth
+     * @param  \Orchestra\Auth\Guard    $auth
      */
     public function __construct(Guard $auth)
     {
