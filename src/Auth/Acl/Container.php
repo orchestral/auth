@@ -21,9 +21,9 @@ class Container
     /**
      * Construct a new object.
      *
-     * @param  \Orchestra\Auth\Guard        $auth
-     * @param  string                       $name
-     * @param  \Orchestra\Memory\Provider   $memory
+     * @param  \Orchestra\Auth\Guard            $auth
+     * @param  string                           $name
+     * @param  \Orchestra\Memory\Provider|null  $memory
      */
     public function __construct(Guard $auth, $name, Provider $memory = null)
     {
@@ -40,7 +40,7 @@ class Container
      * Bind current ACL instance with a Memory instance.
      *
      * @param  \Orchestra\Memory\Provider  $memory
-     * @return Container
+     * @return void
      * @throws \RuntimeException if `\Orchestra\Memory\Provider` has
      *                           been attached.
      */
@@ -63,7 +63,7 @@ class Container
     /**
      * Initiate acl data from memory.
      *
-     * @return Container
+     * @return $this
      */
     protected function initiate()
     {
@@ -91,8 +91,8 @@ class Container
      *
      * @param  string|array     $roles      A string or an array of roles
      * @param  string|array     $actions    A string or an array of action name
-     * @param  boolean          $allow
-     * @return Container
+     * @param  bool             $allow
+     * @return $this
      * @throws \InvalidArgumentException
      */
     public function allow($roles, $actions, $allow = true)
@@ -107,7 +107,7 @@ class Container
      * actions based on available type of access.
      *
      * @param  string  $action     A string of action name
-     * @return boolean
+     * @return bool
      */
     public function can($action)
     {
@@ -122,7 +122,7 @@ class Container
      *
      * @param  string|array     $roles      A string or an array of roles
      * @param  string           $action     A string of action name
-     * @return boolean
+     * @return bool
      * @throws \InvalidArgumentException
      */
     public function check($roles, $action)
@@ -136,7 +136,7 @@ class Container
      *
      * @param  string|array     $roles      A string or an array of roles
      * @param  string|array     $actions    A string or an array of action name
-     * @return Container
+     * @return $this
      */
     public function deny($roles, $actions)
     {
@@ -147,7 +147,7 @@ class Container
      * Sync memory with acl instance, make sure anything that added before
      * ->with($memory) got called is appended to memory as well.
      *
-     * @return Container
+     * @return $this
      */
     public function sync()
     {
@@ -227,7 +227,7 @@ class Container
      * operation was used.
      *
      * @param  string   $operation
-     * @param  boolean  $multiple
+     * @param  bool     $multiple
      * @return string
      */
     protected function resolveOperationName($operation, $multiple = true)
