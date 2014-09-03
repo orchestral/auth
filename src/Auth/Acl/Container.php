@@ -66,7 +66,7 @@ class Container extends AbstractableContainer
      * Bind current ACL instance with a Memory instance.
      *
      * @param  \Orchestra\Memory\Provider  $memory
-     * @return Container
+     * @return void
      * @throws \RuntimeException if `\Orchestra\Memory\Provider` has
      *                           been attached.
      */
@@ -89,7 +89,7 @@ class Container extends AbstractableContainer
     /**
      * Initiate acl data from memory.
      *
-     * @return Container
+     * @return $this
      */
     protected function initiate()
     {
@@ -116,7 +116,7 @@ class Container extends AbstractableContainer
      * Sync memory with acl instance, make sure anything that added before
      * ->with($memory) got called is appended to memory as well.
      *
-     * @return Container
+     * @return $this
      */
     public function sync()
     {
@@ -138,7 +138,7 @@ class Container extends AbstractableContainer
      * actions based on available type of access.
      *
      * @param  string  $action     A string of action name
-     * @return boolean
+     * @return bool
      */
     public function can($action)
     {
@@ -157,9 +157,9 @@ class Container extends AbstractableContainer
      * Verify whether given roles has sufficient roles to access the
      * actions based on available type of access.
      *
-     * @param  string|array     $roles      A string or an array of roles
-     * @param  string           $action     A string of action name
-     * @return boolean
+     * @param  string|array $roles      A string or an array of roles
+     * @param  string       $action     A string of action name
+     * @return bool
      * @throws \InvalidArgumentException
      */
     public function check($roles, $action)
@@ -189,8 +189,8 @@ class Container extends AbstractableContainer
      *
      * @param  string|array     $roles      A string or an array of roles
      * @param  string|array     $actions    A string or an array of action name
-     * @param  boolean          $allow
-     * @return Container
+     * @param  bool             $allow
+     * @return $this
      * @throws \InvalidArgumentException
      */
     public function allow($roles, $actions, $allow = true)
@@ -212,10 +212,10 @@ class Container extends AbstractableContainer
     /**
      * Grouped assign actions to have access.
      *
-     * @param  string  $role
-     * @param  array   $actions
-     * @param  boolean $allow
-     * @return boolean
+     * @param  string   $role
+     * @param  array    $actions
+     * @param  bool     $allow
+     * @return bool
      * @throws \InvalidArgumentException
      */
     protected function groupedAssignAction($role, array $actions, $allow = true)
@@ -234,9 +234,9 @@ class Container extends AbstractableContainer
     /**
      * Assign a key combination of $roles + $actions to have access.
      *
-     * @param  string      $roles      A key or string representation of roles
-     * @param  string      $actions    A key or string representation of action name
-     * @param  boolean     $allow
+     * @param  string   $role       A key or string representation of roles
+     * @param  string   $action     A key or string representation of action name
+     * @param  bool     $allow
      * @return void
      */
     protected function assign($role = null, $action = null, $allow = true)
@@ -256,7 +256,7 @@ class Container extends AbstractableContainer
      *
      * @param  string|array     $roles      A string or an array of roles
      * @param  string|array     $actions    A string or an array of action name
-     * @return Container
+     * @return $this
      */
     public function deny($roles, $actions)
     {
@@ -356,7 +356,7 @@ class Container extends AbstractableContainer
      * operation was used.
      *
      * @param  string   $operation
-     * @param  boolean  $multiple
+     * @param  bool     $multiple
      * @return string
      */
     protected function resolveOperationName($operation, $multiple = true)

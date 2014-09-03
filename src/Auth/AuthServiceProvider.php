@@ -1,6 +1,7 @@
 <?php namespace Orchestra\Auth;
 
 use Illuminate\Auth\AuthServiceProvider as ServiceProvider;
+use Orchestra\Auth\Acl\Environment;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -38,7 +39,7 @@ class AuthServiceProvider extends ServiceProvider
     protected function registerAcl()
     {
         $this->app->bindShared('orchestra.acl', function ($app) {
-            return new Acl\Environment($app['auth']->driver());
+            return new Environment($app['auth']->driver());
         });
     }
 

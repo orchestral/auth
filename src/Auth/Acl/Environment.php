@@ -22,7 +22,7 @@ class Environment
     /**
      * Construct a new Environment.
      *
-     * @param  \Illuminate\Auth\Guard   $auth
+     * @param  \Orchestra\Auth\Guard   $auth
      */
     public function __construct(Guard $auth)
     {
@@ -91,7 +91,7 @@ class Environment
     /**
      * Shutdown/finish all ACL.
      *
-     * @return Environment
+     * @return $this
      */
     public function finish()
     {
@@ -118,6 +118,7 @@ class Environment
     /**
      * Get ACL instance by name.
      *
+     * @param  string   $name
      * @return Container
      */
     public function get($name)
