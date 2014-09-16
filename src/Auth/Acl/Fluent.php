@@ -102,18 +102,6 @@ class Fluent
     }
 
     /**
-     * Add multiple key to collection.
-     *
-     * @deprecated
-     * @param  array   $keys
-     * @return bool
-     */
-    public function fill(array $keys)
-    {
-        return $this->attach($keys);
-    }
-
-    /**
      * Filter request.
      *
      * @param  string|array $request

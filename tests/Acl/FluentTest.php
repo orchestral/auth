@@ -103,25 +103,6 @@ class FluentTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test Orchestra\Auth\Acl\Fluent::fill() method.
-     *
-     * @test
-     */
-    public function testFillMethod()
-    {
-        $stub = new Fluent('foo');
-
-        $stub->fill(array('foo', 'foobar'));
-
-        $refl = new \ReflectionObject($stub);
-        $items = $refl->getProperty('items');
-        $items->setAccessible(true);
-
-        $this->assertEquals(array('foo', 'foobar'), $items->getValue($stub));
-        $this->assertEquals(array('foo', 'foobar'), $stub->get());
-    }
-
-    /**
      * Test Orchestra\Auth\Acl\Fluent::attach() method null throw an exception.
      *
      * @expectedException \InvalidArgumentException

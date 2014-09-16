@@ -3,6 +3,12 @@ title: Auth Change Log
 
 ---
 
+## Version 3.0 {#v3-0}
+
+### v3.0.0@dev {#3-3-0}
+
+* Remove deprecated `Orchestra\Auth\Acl\Fluent::fill()` method.
+
 ## Version 2.2 {#v2-2}
 
 ### v2.2.0 {#v2-2-0}
