@@ -10,8 +10,13 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->registerAuth();
-        $this->registerAcl();
+        $this->registerAuthenticator();
+
+        $this->registerUserResolver();
+
+        $this->registerRequestRebindHandler();
+
+        $this->registerAuthorizator();
     }
 
     /**
@@ -19,7 +24,7 @@ class AuthServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function registerAuth()
+    protected function registerAuthenticator()
     {
         $this->app->bindShared('auth', function ($app) {
             // Once the authentication service has actually been requested by the developer
@@ -29,6 +34,10 @@ class AuthServiceProvider extends ServiceProvider
 
             return new AuthManager($app);
         });
+
+        $this->app->bindShared('auth.driver', function ($app) {
+            return $app['auth']->driver();
+        });
     }
 
     /**
@@ -36,7 +45,7 @@ class AuthServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function registerAcl()
+    protected function registerAuthorizator()
     {
         $this->app->bindShared('orchestra.acl', function ($app) {
             return new Factory($app['auth']->driver());
@@ -53,13 +62,5 @@ class AuthServiceProvider extends ServiceProvider
         $this->package('orchestra/auth', 'orchestra/auth', $path);
 
         parent::boot();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function provides()
-    {
-        return array('auth', 'orchestra.acl');
     }
 }
