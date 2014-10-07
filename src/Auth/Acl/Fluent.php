@@ -1,8 +1,8 @@
 <?php namespace Orchestra\Auth\Acl;
 
+use Illuminate\Support\Str;
 use InvalidArgumentException;
 use Illuminate\Database\Eloquent\Model as Eloquent;
-use Illuminate\Support\Str;
 
 class Fluent
 {

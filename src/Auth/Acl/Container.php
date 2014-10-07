@@ -1,11 +1,11 @@
 <?php namespace Orchestra\Auth\Acl;
 
-use InvalidArgumentException;
 use RuntimeException;
 use Orchestra\Auth\Guard;
-use Orchestra\Memory\Abstractable\Container as AbstractableContainer;
-use Orchestra\Memory\Provider;
 use Orchestra\Support\Str;
+use InvalidArgumentException;
+use Orchestra\Memory\Provider;
+use Orchestra\Memory\Abstractable\Container as AbstractableContainer;
 
 class Container extends AbstractableContainer
 {
