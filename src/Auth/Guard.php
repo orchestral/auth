@@ -1,7 +1,7 @@
 <?php namespace Orchestra\Auth;
 
-use Illuminate\Auth\UserInterface;
 use Illuminate\Support\Arr;
+use Illuminate\Auth\UserInterface;
 
 class Guard extends \Illuminate\Auth\Guard
 {

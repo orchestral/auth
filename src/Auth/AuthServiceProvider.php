@@ -1,7 +1,7 @@
 <?php namespace Orchestra\Auth;
 
-use Illuminate\Auth\AuthServiceProvider as ServiceProvider;
 use Orchestra\Auth\Acl\Factory;
+use Illuminate\Auth\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
 {

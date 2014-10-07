@@ -1,11 +1,11 @@
 <?php namespace Orchestra\Auth\Acl;
 
-use InvalidArgumentException;
 use RuntimeException;
 use Orchestra\Auth\Guard;
-use Orchestra\Memory\ContainerTrait;
-use Orchestra\Memory\Provider;
 use Orchestra\Support\Str;
+use InvalidArgumentException;
+use Orchestra\Memory\Provider;
+use Orchestra\Memory\ContainerTrait;
 
 class Container
 {
