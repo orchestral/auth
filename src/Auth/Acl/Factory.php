@@ -1,7 +1,7 @@
 <?php namespace Orchestra\Auth\Acl;
 
-use Illuminate\Support\Arr;
 use Orchestra\Auth\Guard;
+use Illuminate\Support\Arr;
 use Orchestra\Memory\Provider;
 
 class Factory
