@@ -6,8 +6,8 @@ use Orchestra\Notifier\NotifierInterface;
 use Illuminate\Auth\UserProviderInterface;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Auth\Passwords\PasswordBroker as Broker;
-use Illuminate\Auth\Passwords\ReminderRepositoryInterface;
-use Illuminate\Contracts\Auth\Remindable as RemindableContract;
+use Illuminate\Auth\Passwords\TokenRepositoryInterface;
+use Illuminate\Contracts\Auth\CanResetPassword as RemindableContract;
 use Illuminate\Contracts\Auth\PasswordBroker as PasswordBrokerContract;
 
 class PasswordBroker extends Broker
@@ -15,20 +15,20 @@ class PasswordBroker extends Broker
     /**
      * Create a new password broker instance.
      *
-     * @param  \Illuminate\Auth\Passwords\ReminderRepositoryInterface  $reminders
-     * @param  \Illuminate\Auth\UserProviderInterface                  $users
-     * @param  \Orchestra\Notifier\NotifierInterface                   $mailer
-     * @param  string                                                  $reminderView
+     * @param  \Illuminate\Auth\Passwords\TokenRepositoryInterface  $tokens
+     * @param  \Illuminate\Auth\UserProviderInterface               $users
+     * @param  \Orchestra\Notifier\NotifierInterface                $mailer
+     * @param  string                                               $reminderView
      */
     public function __construct(
-        ReminderRepositoryInterface $reminders,
+        TokenRepositoryInterface $tokens,
         UserProviderInterface $users,
         NotifierInterface $mailer,
         $reminderView
     ) {
         $this->users = $users;
         $this->mailer = $mailer;
-        $this->reminders = $reminders;
+        $this->tokens = $tokens;
         $this->reminderView = $reminderView;
     }
 
@@ -39,7 +39,7 @@ class PasswordBroker extends Broker
      * @param  Closure  $callback
      * @return string
      */
-    public function remind(array $credentials, Closure $callback = null)
+    public function sendResetLink(array $credentials, Closure $callback = null)
     {
         // First we will check to see if we found a user at the given credentials and
         // if we did not we will redirect back to this current URI with a piece of
@@ -53,11 +53,11 @@ class PasswordBroker extends Broker
         // Once we have the reminder token, we are ready to send a message out to the
         // user with a link to reset their password. We will then redirect back to
         // the current URI having nothing set in the session to indicate errors.
-        $token = $this->reminders->create($user);
+        $token = $this->tokens->create($user);
 
-        $this->sendReminder($user, $token, $callback);
+        $this->emailResetLink($user, $token, $callback);
 
-        return PasswordBrokerContract::REMINDER_SENT;
+        return PasswordBrokerContract::RESET_LINK_SENT;
     }
 
     /**
@@ -68,7 +68,7 @@ class PasswordBroker extends Broker
      * @param  Closure                                  $callback
      * @return \Orchestra\Notifier\Receipt
      */
-    public function sendReminder(RemindableContract $user, $token, Closure $callback = null)
+    public function emailResetLink(RemindableContract $user, $token, Closure $callback = null)
     {
         // We will use the reminder view that was given to the broker to display the
         // password reminder e-mail. We'll pass a "token" variable into the views
