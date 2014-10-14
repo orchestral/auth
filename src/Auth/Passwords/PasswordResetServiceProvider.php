@@ -16,22 +16,22 @@ class PasswordResetServiceProvider extends \Illuminate\Auth\Passwords\PasswordRe
      */
     protected function registerPasswordBroker()
     {
-        $this->app->bindShared('auth.reminder', function ($app) {
-            // The reminder repository is responsible for storing the user e-mail addresses
+        $this->app->bindShared('auth.password', function ($app) {
+            // The password token repository is responsible for storing the email addresses
             // and password reset tokens. It will be used to verify the tokens are valid
             // for the given e-mail addresses. We will resolve an implementation here.
-            $reminders = $app['auth.reminder.repository'];
+            $tokens = $app['auth.password.tokens'];
 
             $users = $app['auth']->driver()->getProvider();
 
             $notifier = $app['orchestra.notifier']->driver();
 
-            $view = $app['config']['auth.reminder.email'];
+            $view = $app['config']['auth.password.email'];
 
-            // The password broker uses the reminder repository to validate tokens and send
-            // reminder e-mails, as well as validating that password reset process as an
+            // The password broker uses a token repository to validate tokens and send user
+            // password e-mails, as well as validating that password reset process as an
             // aggregate service of sorts providing a convenient interface for resets.
-            return new PasswordBroker($reminders, $users, $notifier, $view);
+            return new PasswordBroker($tokens, $users, $notifier, $view);
         });
     }
 }
