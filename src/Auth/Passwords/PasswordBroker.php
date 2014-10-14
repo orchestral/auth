@@ -2,9 +2,9 @@
 
 use Closure;
 use Orchestra\Notifier\Message;
-use Orchestra\Notifier\NotifierInterface;
 use Illuminate\Auth\UserProviderInterface;
 use Illuminate\Contracts\Support\Arrayable;
+use Orchestra\Contracts\Notification\Notification;
 use Illuminate\Auth\Passwords\PasswordBroker as Broker;
 use Illuminate\Auth\Passwords\TokenRepositoryInterface;
 use Illuminate\Contracts\Auth\CanResetPassword as RemindableContract;
@@ -16,14 +16,14 @@ class PasswordBroker extends Broker
      * Create a new password broker instance.
      *
      * @param  \Illuminate\Auth\Passwords\TokenRepositoryInterface  $tokens
-     * @param  \Illuminate\Auth\UserProviderInterface               $users
-     * @param  \Orchestra\Notifier\NotifierInterface                $mailer
-     * @param  string                                               $reminderView
+     * @param  \Illuminate\Auth\UserProviderInterface  $users
+     * @param  \Orchestra\Contracts\Notification\Notification  $mailer
+     * @param  string  $reminderView
      */
     public function __construct(
         TokenRepositoryInterface $tokens,
         UserProviderInterface $users,
-        NotifierInterface $mailer,
+        Notification $mailer,
         $reminderView
     ) {
         $this->users = $users;
@@ -36,7 +36,7 @@ class PasswordBroker extends Broker
      * Send a password reminder to a user.
      *
      * @param  array    $credentials
-     * @param  Closure  $callback
+     * @param  \Closure $callback
      * @return string
      */
     public function sendResetLink(array $credentials, Closure $callback = null)
@@ -63,20 +63,20 @@ class PasswordBroker extends Broker
     /**
      * Send the password reminder e-mail.
      *
-     * @param  \Illuminate\Contracts\Auth\Remindable    $user
-     * @param  string                                   $token
-     * @param  Closure                                  $callback
-     * @return \Orchestra\Notifier\Receipt
+     * @param  \Illuminate\Contracts\Auth\Remindable  $user
+     * @param  string  $token
+     * @param  \Closure  $callback
+     * @return \Orchestra\Contracts\Notification\Receipt
      */
     public function emailResetLink(RemindableContract $user, $token, Closure $callback = null)
     {
         // We will use the reminder view that was given to the broker to display the
         // password reminder e-mail. We'll pass a "token" variable into the views
         // so that it may be displayed for an user to click for password reset.
-        $data = array(
+        $data = [
             'user'  => ($user instanceof Arrayable ? $user->toArray() : $user),
             'token' => $token,
-        );
+        ];
 
         $message = Message::create($this->reminderView, $data);
 

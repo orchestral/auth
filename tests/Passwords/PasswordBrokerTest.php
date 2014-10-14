@@ -42,7 +42,7 @@ class PasswordBrokerTest extends \PHPUnit_Framework_TestCase
             $view = 'foo'
         );
 
-        $userReminderable = m::mock('\Illuminate\Contracts\Auth\CanResetPassword, \Orchestra\Notifier\RecipientInterface');
+        $userReminderable = m::mock('\Illuminate\Contracts\Auth\CanResetPassword, \Orchestra\Contracts\Notification\Recipient');
 
         $callback = function () {
             //
@@ -97,7 +97,7 @@ class PasswordBrokerTest extends \PHPUnit_Framework_TestCase
             $view = 'foo'
         );
 
-        $userReminderable = m::mock('\Illuminate\Contracts\Auth\CanResetPassword, \Orchestra\Notifier\RecipientInterface');
+        $userReminderable = m::mock('\Illuminate\Contracts\Auth\CanResetPassword, \Orchestra\Contracts\Notification\Recipient');
 
         $callback = function ($user, $pass) {
             return 'foo';
@@ -178,7 +178,7 @@ class PasswordBrokerTest extends \PHPUnit_Framework_TestCase
 
         $user->shouldReceive('retrieveByCredentials')->once()
                 ->with(array_except($credentials, array('token')))
-                ->andReturn($userReminderable = m::mock('\Illuminate\Contracts\Auth\CanResetPassword, \Orchestra\Notifier\RecipientInterface'));
+                ->andReturn($userReminderable = m::mock('\Illuminate\Contracts\Auth\CanResetPassword, \Orchestra\Contracts\Notification\Recipient'));
         $reminders->shouldReceive('exists')->once()->with($userReminderable, 'someuniquetokenkey')->andReturn(false);
 
         $this->assertEquals('reminders.token', $stub->reset($credentials, $callback));
@@ -212,7 +212,7 @@ class PasswordBrokerTest extends \PHPUnit_Framework_TestCase
 
         $user->shouldReceive('retrieveByCredentials')->once()
                 ->with(array_except($credentials, array('token')))
-                ->andReturn($userReminderable = m::mock('\Illuminate\Contracts\Auth\CanResetPassword, \Orchestra\Notifier\RecipientInterface'));
+                ->andReturn($userReminderable = m::mock('\Illuminate\Contracts\Auth\CanResetPassword, \Orchestra\Contracts\Notification\Recipient'));
         $reminders->shouldReceive('exists')->once()->with($userReminderable, 'someuniquetokenkey')->andReturn(false);
 
         $this->assertEquals('reminders.token', $stub->reset($credentials, $callback));
