@@ -23,13 +23,13 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
         $auth = m::mock('\Orchestra\Auth\Guard');
         $stub = new Factory($auth);
 
-        $this->assertInstanceOf('\Orchestra\Auth\Acl\Container', $stub->make('mock-one'));
+        $this->assertInstanceOf('\Orchestra\Auth\Acl\Acl', $stub->make('mock-one'));
 
         $memory = m::mock('\Orchestra\Memory\Provider');
         $memory->shouldReceive('get')->once()->andReturn(array())
             ->shouldReceive('put')->once()->andReturn(array());
 
-        $this->assertInstanceOf('\Orchestra\Auth\Acl\Container', $stub->make('mock-two', $memory));
+        $this->assertInstanceOf('\Orchestra\Auth\Acl\Acl', $stub->make('mock-two', $memory));
     }
 
     /**
@@ -51,7 +51,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
         });
 
         $acl = $stub->make(null);
-        $this->assertInstanceOf('\Orchestra\Auth\Acl\Container', $acl);
+        $this->assertInstanceOf('\Orchestra\Auth\Acl\Acl', $acl);
         $this->assertTrue($acl->can('view blog'));
         $this->assertFalse($acl->can('view forum'));
         $this->assertFalse($acl->can('view news'));

@@ -2,7 +2,7 @@
 
 use Orchestra\Auth\Guard;
 use Illuminate\Support\Arr;
-use Orchestra\Memory\Provider;
+use Orchestra\Contracts\Memory\Provider;
 
 class Factory
 {
@@ -33,9 +33,9 @@ class Factory
     /**
      * Initiate a new ACL Container instance.
      *
-     * @param  string                      $name
-     * @param  \Orchestra\Memory\Provider  $memory
-     * @return \Orchestra\Auth\Acl\Container
+     * @param  string  $name
+     * @param  \Orchestra\Contracts\Memory\Provider  $memory
+     * @return \Orchestra\Auth\Acl\Acl
      */
     public function make($name = null, Provider $memory = null)
     {
@@ -44,7 +44,7 @@ class Factory
         }
 
         if (! isset($this->drivers[$name])) {
-            $this->drivers[$name] = new Container($this->auth, $name, $memory);
+            $this->drivers[$name] = new Acl($this->auth, $name, $memory);
         }
 
         return $this->drivers[$name];
@@ -55,7 +55,7 @@ class Factory
      *
      * @param  string   $name
      * @param  \Closure $callback
-     * @return \Orchestra\Auth\Acl\Container
+     * @return \Orchestra\Auth\Acl\Acl
      */
     public function register($name, $callback = null)
     {
@@ -120,7 +120,7 @@ class Factory
      * Get ACL instance by name.
      *
      * @param  string   $name
-     * @return \Orchestra\Auth\Acl\Container
+     * @return \Orchestra\Auth\Acl\Acl
      */
     public function get($name)
     {

@@ -4,10 +4,10 @@ use RuntimeException;
 use Orchestra\Auth\Guard;
 use Orchestra\Support\Str;
 use InvalidArgumentException;
-use Orchestra\Memory\Provider;
 use Orchestra\Memory\ContainerTrait;
+use Orchestra\Contracts\Memory\Provider;
 
-class Container
+class Acl
 {
     use AuthorizationTrait, ContainerTrait;
 
@@ -21,9 +21,9 @@ class Container
     /**
      * Construct a new object.
      *
-     * @param  \Orchestra\Auth\Guard            $auth
-     * @param  string                           $name
-     * @param  \Orchestra\Memory\Provider|null  $memory
+     * @param  \Orchestra\Auth\Guard  $auth
+     * @param  string  $name
+     * @param  \Orchestra\Contracts\Memory\Provider|null  $memory
      */
     public function __construct(Guard $auth, $name, Provider $memory = null)
     {
@@ -39,10 +39,9 @@ class Container
     /**
      * Bind current ACL instance with a Memory instance.
      *
-     * @param  \Orchestra\Memory\Provider  $memory
+     * @param  \Orchestra\Contracts\Memory\Provider  $memory
      * @return void
-     * @throws \RuntimeException if `\Orchestra\Memory\Provider` has
-     *                           been attached.
+     * @throws \RuntimeException if $memory has been attached.
      */
     public function attach(Provider $memory = null)
     {
