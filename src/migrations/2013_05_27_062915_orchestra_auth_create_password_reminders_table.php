@@ -1,10 +1,27 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 class OrchestraAuthCreatePasswordRemindersTable extends Migration
 {
+    /**
+     * Table name.
+     *
+     * @var string
+     */
+    protected $table;
+
+    /**
+     * Construct a new password reminder schema.
+     */
+    public function __construct()
+    {
+        $this->table = Config::get('auth.reminder.table');
+    }
+
     /**
      * Run the migrations.
      *
@@ -12,7 +29,7 @@ class OrchestraAuthCreatePasswordRemindersTable extends Migration
      */
     public function up()
     {
-        Schema::create('password_reminders', function (Blueprint $table) {
+        Schema::create($this->table, function (Blueprint $table) {
             $table->string('email')->index();
             $table->string('token')->index();
             $table->timestamp('created_at');
@@ -26,6 +43,6 @@ class OrchestraAuthCreatePasswordRemindersTable extends Migration
      */
     public function down()
     {
-        Schema::drop('password_reminders');
+        Schema::drop($this->table);
     }
 }
