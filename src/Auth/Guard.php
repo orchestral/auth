@@ -2,8 +2,9 @@
 
 use Illuminate\Support\Arr;
 use Illuminate\Contracts\Auth\User as UserContract;
+use Orchestra\Contracts\Auth\Guard as GuardContract;
 
-class Guard extends \Illuminate\Auth\Guard
+class Guard extends \Illuminate\Auth\Guard implements GuardContract
 {
     /**
      * Cached user to roles relationship.
@@ -57,8 +58,8 @@ class Guard extends \Illuminate\Auth\Guard
     /**
      * Determine if current user has the given role.
      *
-     * @param  string   $roles
-     * @return boolean
+     * @param  string|array  $roles
+     * @return bool
      */
     public function is($roles)
     {

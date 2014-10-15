@@ -7,7 +7,7 @@ trait AuthorizationTrait
     /**
      * Auth instance.
      *
-     * @var \Orchestra\Auth\Guard
+     * @var \Orchestra\Contracts\Auth\Guard
      */
     protected $auth;
 

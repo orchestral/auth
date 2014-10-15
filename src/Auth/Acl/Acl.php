@@ -1,13 +1,14 @@
 <?php namespace Orchestra\Auth\Acl;
 
 use RuntimeException;
-use Orchestra\Auth\Guard;
 use Orchestra\Support\Str;
 use InvalidArgumentException;
+use Orchestra\Contracts\Auth\Guard;
 use Orchestra\Memory\ContainerTrait;
 use Orchestra\Contracts\Memory\Provider;
+use Orchestra\Contracts\Auth\Acl\Acl as AclContract;
 
-class Acl
+class Acl implements AclContract
 {
     use AuthorizationTrait, ContainerTrait;
 
@@ -21,7 +22,7 @@ class Acl
     /**
      * Construct a new object.
      *
-     * @param  \Orchestra\Auth\Guard  $auth
+     * @param  \Orchestra\Contracts\Auth\Guard  $auth
      * @param  string  $name
      * @param  \Orchestra\Contracts\Memory\Provider|null  $memory
      */
