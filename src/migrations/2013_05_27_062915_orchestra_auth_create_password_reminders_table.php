@@ -19,7 +19,7 @@ class OrchestraAuthCreatePasswordRemindersTable extends Migration
      */
     public function __construct()
     {
-        $this->table = Config::get('auth.reminder.table');
+        $this->table = Config::get('auth.password.table');
     }
 
     /**
