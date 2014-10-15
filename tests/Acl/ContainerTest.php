@@ -1,10 +1,10 @@
 <?php namespace Orchestra\Auth\Tests\Acl;
 
 use Mockery as m;
-use Illuminate\Container\Container as IlluminateContainer;
-use Orchestra\Auth\Acl\Container;
 use Orchestra\Memory\Provider;
-use Orchestra\Memory\RuntimeMemoryHandler;
+use Orchestra\Auth\Acl\Container;
+use Orchestra\Memory\Handlers\Runtime;
+use Illuminate\Container\Container as IlluminateContainer;
 
 class ContainerTest extends \PHPUnit_Framework_TestCase
 {
@@ -37,7 +37,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
         $config->shouldReceive('get')->andReturn(array());
         $event->shouldReceive('until')->andReturn(array('admin', 'editor'));
 
-        $memory  = new Provider(new RuntimeMemoryHandler('foo', array()));
+        $memory  = new Provider(new Runtime('foo', array()));
         $memory->put('acl_foo', $this->memoryProvider());
 
         $this->stub = new Container($this->app['auth'], 'foo', $memory);
@@ -60,7 +60,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
      */
     protected function getRuntimeMemoryProvider()
     {
-        return new Provider(new RuntimeMemoryHandler('foo', array()));
+        return new Provider(new Runtime('foo', array()));
     }
 
     /**
@@ -165,7 +165,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
         $runtime1 = $this->getRuntimeMemoryProvider();
         $runtime1->put('acl_foo', $this->memoryProvider());
 
-        $runtime2 = new Provider(new RuntimeMemoryHandler('foobar', array()));
+        $runtime2 = new Provider(new Runtime('foobar', array()));
 
         $stub = new Container($this->app['auth'], 'foo', $runtime1);
         $stub->attach($runtime2);
