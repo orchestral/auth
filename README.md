@@ -45,7 +45,7 @@ To make development easier, you could add `Orchestra\Support\Facades\Acl` alias 
 ```php
 'aliases' => array(
 
-	'Orchestra\Acl' => 'Orchestra\Support\Facades\Acl',
+	'Orchestra\Acl' => 'Orchestra\Support\Facades\ACL',
 
 ),
 ```
