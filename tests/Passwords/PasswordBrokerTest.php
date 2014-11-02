@@ -59,7 +59,7 @@ class PasswordBrokerTest extends \PHPUnit_Framework_TestCase
                     return true;
                 });
 
-        $this->assertEquals('reset.sent', $stub->sendResetLink(array('username' => 'user-foo'), $callback));
+        $this->assertEquals('passwords.sent', $stub->sendResetLink(array('username' => 'user-foo'), $callback));
     }
 
     /**
@@ -80,7 +80,7 @@ class PasswordBrokerTest extends \PHPUnit_Framework_TestCase
         $user->shouldReceive('retrieveByCredentials')->once()
             ->with(array('username' => 'user-foo'))->andReturnNull();
 
-        $this->assertEquals('reminders.user', $stub->sendResetLink(array('username' => 'user-foo')));
+        $this->assertEquals('passwords.user', $stub->sendResetLink(array('username' => 'user-foo')));
     }
 
     /**
@@ -115,7 +115,7 @@ class PasswordBrokerTest extends \PHPUnit_Framework_TestCase
         $reminders->shouldReceive('exists')->once()->with($userReminderable, 'someuniquetokenkey')->andReturn(true)
             ->shouldReceive('delete')->once()->with('someuniquetokenkey')->andReturn(true);
 
-        $this->assertEquals('reset.done', $stub->reset($credentials, $callback));
+        $this->assertEquals('passwords.reset', $stub->reset($credentials, $callback));
     }
 
     /**
@@ -147,7 +147,7 @@ class PasswordBrokerTest extends \PHPUnit_Framework_TestCase
         $user->shouldReceive('retrieveByCredentials')->once()
             ->with(array_except($credentials, array('token')))->andReturnNull();
 
-        $this->assertEquals('reminders.user', $stub->reset($credentials, $callback));
+        $this->assertEquals('passwords.user', $stub->reset($credentials, $callback));
     }
 
     /**
@@ -181,7 +181,7 @@ class PasswordBrokerTest extends \PHPUnit_Framework_TestCase
                 ->andReturn($userReminderable = m::mock('\Illuminate\Contracts\Auth\CanResetPassword, \Orchestra\Contracts\Notification\Recipient'));
         $reminders->shouldReceive('exists')->once()->with($userReminderable, 'someuniquetokenkey')->andReturn(false);
 
-        $this->assertEquals('reminders.token', $stub->reset($credentials, $callback));
+        $this->assertEquals('passwords.token', $stub->reset($credentials, $callback));
     }
 
     /**
@@ -215,7 +215,7 @@ class PasswordBrokerTest extends \PHPUnit_Framework_TestCase
                 ->andReturn($userReminderable = m::mock('\Illuminate\Contracts\Auth\CanResetPassword, \Orchestra\Contracts\Notification\Recipient'));
         $reminders->shouldReceive('exists')->once()->with($userReminderable, 'someuniquetokenkey')->andReturn(false);
 
-        $this->assertEquals('reminders.token', $stub->reset($credentials, $callback));
+        $this->assertEquals('passwords.token', $stub->reset($credentials, $callback));
     }
 
     /**
