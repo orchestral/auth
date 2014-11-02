@@ -1,7 +1,7 @@
 <?php namespace Orchestra\Auth\Acl;
 
-use Orchestra\Auth\Guard;
 use Illuminate\Support\Arr;
+use Orchestra\Contracts\Auth\Guard;
 use Orchestra\Contracts\Memory\Provider;
 
 class Factory
@@ -9,7 +9,7 @@ class Factory
     /**
      * Auth instance.
      *
-     * @var \Illuminate\Auth\Guard
+     * @var \Orchestra\Contracts\Auth\Guard
      */
     protected $auth;
 
@@ -23,7 +23,7 @@ class Factory
     /**
      * Construct a new Environment.
      *
-     * @param  \Orchestra\Auth\Guard    $auth
+     * @param  \Orchestra\Contracts\Auth\Guard  $auth
      */
     public function __construct(Guard $auth)
     {
