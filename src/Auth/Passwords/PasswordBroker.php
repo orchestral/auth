@@ -13,6 +13,13 @@ use Illuminate\Contracts\Auth\PasswordBroker as PasswordBrokerContract;
 class PasswordBroker extends Broker
 {
     /**
+     * The mailer instance.
+     *
+     * @var \Orchestra\Contracts\Notification\Notification
+     */
+    protected $mailer;
+
+    /**
      * Create a new password broker instance.
      *
      * @param  \Illuminate\Auth\Passwords\TokenRepositoryInterface  $tokens
@@ -65,7 +72,7 @@ class PasswordBroker extends Broker
      *
      * @param  \Illuminate\Contracts\Auth\CanResetPassword  $user
      * @param  string  $token
-     * @param  \Closure  $callback
+     * @param  \Closure|null  $callback
      * @return \Orchestra\Contracts\Notification\Receipt
      */
     public function emailResetLink(RemindableContract $user, $token, Closure $callback = null)
