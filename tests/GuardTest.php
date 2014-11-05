@@ -342,7 +342,7 @@ class GuardTest extends \PHPUnit_Framework_TestCase
             ->shouldReceive('fire')->once()
                 ->with('auth.logout', m::any())->andReturn(array('admin', 'editor'));
         $provider->shouldReceive('updateRememberToken')->once();
-        $session->shouldReceive('forget')->once()->andReturn(null);
+        $session->shouldReceive('remove')->once()->andReturn(null);
 
         $stub = new Guard($provider, $session);
         $stub->setDispatcher($events);

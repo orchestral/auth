@@ -18,7 +18,7 @@ class Factory
      *
      * @var array
      */
-    protected $drivers = array();
+    protected $drivers = [];
 
     /**
      * Construct a new Environment.
@@ -83,7 +83,7 @@ class Factory
         $response = array();
 
         foreach ($this->drivers as $acl) {
-            $response[] = call_user_func_array(array($acl, $method), $parameters);
+            $response[] = call_user_func_array([$acl, $method], $parameters);
         }
 
         return $response;
@@ -101,7 +101,7 @@ class Factory
             $acl->sync();
         }
 
-        $this->drivers = array();
+        $this->drivers = [];
 
         return $this;
     }

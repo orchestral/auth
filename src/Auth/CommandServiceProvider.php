@@ -19,7 +19,7 @@ class CommandServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bindShared('orchestra.commands.auth', function () {
+        $this->app->singleton('orchestra.commands.auth', function () {
             return new AuthCommand;
         });
 
@@ -33,6 +33,6 @@ class CommandServiceProvider extends ServiceProvider
      */
     public function provides()
     {
-        return array('orchestra.commands.auth');
+        return ['orchestra.commands.auth'];
     }
 }

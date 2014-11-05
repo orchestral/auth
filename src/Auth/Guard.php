@@ -42,7 +42,7 @@ class Guard extends \Illuminate\Auth\Guard implements GuardContract
         // otherwise it's just as the same as setting userId as 0.
         is_null($user) || $userId = $user->id;
 
-        $roles = Arr::get($this->userRoles, "{$userId}", array());
+        $roles = Arr::get($this->userRoles, "{$userId}", []);
 
         // This operation might be called more than once in a request, by
         // cached the event result we can avoid duplicate events being fired.
@@ -86,7 +86,7 @@ class Guard extends \Illuminate\Auth\Guard implements GuardContract
      * Determine if current user has any of the given role.
      *
      * @param  array   $roles
-     * @return boolean
+     * @return bool
      */
     public function isAny(array $roles)
     {
@@ -113,7 +113,7 @@ class Guard extends \Illuminate\Auth\Guard implements GuardContract
      * Determine if current user does not has any of the given role.
      *
      * @param  string   $roles
-     * @return boolean
+     * @return bool
      */
     public function isNot($roles)
     {
@@ -124,7 +124,7 @@ class Guard extends \Illuminate\Auth\Guard implements GuardContract
      * Determine if current user does not has any of the given role.
      *
      * @param  array   $roles
-     * @return boolean
+     * @return bool
      */
     public function isNotAny(array $roles)
     {
@@ -148,18 +148,18 @@ class Guard extends \Illuminate\Auth\Guard implements GuardContract
      * Ger user roles from event dispatcher.
      *
      * @param  \Illuminate\Contracts\Auth\User  $user
-     * @param  array                            $roles
+     * @param  array  $roles
      * @return array
      */
-    protected function getUserRolesFromEventDispatcher(UserContract $user = null, $roles = array())
+    protected function getUserRolesFromEventDispatcher(UserContract $user = null, $roles = [])
     {
-        $roles = $this->events->until('orchestra.auth: roles', array($user, (array) $roles));
+        $roles = $this->events->until('orchestra.auth: roles', [$user, (array) $roles]);
 
         // It possible that after event are all propagated we don't have a
         // roles for the user, in this case we should properly append "Guest"
         // user role to the current user.
         if (is_null($roles)) {
-            return array('Guest');
+            return ['Guest'];
         }
 
         return $roles;

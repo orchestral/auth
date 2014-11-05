@@ -38,7 +38,7 @@ class PasswordBrokerTest extends \PHPUnit_Framework_TestCase
         $stub = new PasswordBroker(
             $reminders = m::mock('\Illuminate\Auth\Passwords\TokenRepositoryInterface'),
             $user = m::mock('\Illuminate\Auth\UserProviderInterface'),
-            $mailer = m::mock('\Orchestra\Notifier\OrchestraNotifier'),
+            $mailer = m::mock('\Orchestra\Notifier\Handlers\Orchestra'),
             $view = 'foo'
         );
 
@@ -73,7 +73,7 @@ class PasswordBrokerTest extends \PHPUnit_Framework_TestCase
         $stub = new PasswordBroker(
             $reminders = m::mock('\Illuminate\Auth\Passwords\TokenRepositoryInterface'),
             $user = m::mock('\Illuminate\Auth\UserProviderInterface'),
-            $mailer = m::mock('\Orchestra\Notifier\OrchestraNotifier'),
+            $mailer = m::mock('\Orchestra\Notifier\Handlers\Orchestra'),
             $view = 'foo'
         );
 
@@ -93,7 +93,7 @@ class PasswordBrokerTest extends \PHPUnit_Framework_TestCase
         $stub = new PasswordBroker(
             $reminders = m::mock('\Illuminate\Auth\Passwords\TokenRepositoryInterface'),
             $user = m::mock('\Illuminate\Auth\UserProviderInterface'),
-            $mailer = m::mock('\Orchestra\Notifier\OrchestraNotifier'),
+            $mailer = m::mock('\Orchestra\Notifier\Handlers\Orchestra'),
             $view = 'foo'
         );
 
@@ -129,7 +129,7 @@ class PasswordBrokerTest extends \PHPUnit_Framework_TestCase
         $stub = new PasswordBroker(
             $reminders = m::mock('\Illuminate\Auth\Passwords\TokenRepositoryInterface'),
             $user = m::mock('\Illuminate\Auth\UserProviderInterface'),
-            $mailer = m::mock('\Orchestra\Notifier\OrchestraNotifier'),
+            $mailer = m::mock('\Orchestra\Notifier\Handlers\Orchestra'),
             $view = 'foo'
         );
 
@@ -161,7 +161,7 @@ class PasswordBrokerTest extends \PHPUnit_Framework_TestCase
         $stub = new PasswordBroker(
             $reminders = m::mock('\Illuminate\Auth\Passwords\TokenRepositoryInterface'),
             $user = m::mock('\Illuminate\Auth\UserProviderInterface'),
-            $mailer = m::mock('\Orchestra\Notifier\OrchestraNotifier'),
+            $mailer = m::mock('\Orchestra\Notifier\Handlers\Orchestra'),
             $view = 'foo'
         );
 
@@ -195,7 +195,7 @@ class PasswordBrokerTest extends \PHPUnit_Framework_TestCase
         $stub = new PasswordBroker(
             $reminders = m::mock('\Illuminate\Auth\Passwords\TokenRepositoryInterface'),
             $user = m::mock('\Illuminate\Auth\UserProviderInterface'),
-            $mailer = m::mock('\Orchestra\Notifier\OrchestraNotifier'),
+            $mailer = m::mock('\Orchestra\Notifier\Handlers\Orchestra'),
             $view = 'foo'
         );
 
@@ -229,7 +229,7 @@ class PasswordBrokerTest extends \PHPUnit_Framework_TestCase
         $stub = new PasswordBroker(
             $reminders = m::mock('\Illuminate\Auth\Passwords\TokenRepositoryInterface'),
             $user = m::mock('\Illuminate\Auth\UserProviderInterface'),
-            $mailer = m::mock('\Orchestra\Notifier\OrchestraNotifier'),
+            $mailer = m::mock('\Orchestra\Notifier\Handlers\Orchestra'),
             $view = 'foo'
         );
 

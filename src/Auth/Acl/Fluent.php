@@ -18,7 +18,7 @@ class Fluent
      *
      * @var array
      */
-    protected $items = array();
+    protected $items = [];
 
     /**
      * Construct a new instance.
@@ -114,10 +114,10 @@ class Fluent
         } elseif ($request === '*') {
             return $this->get();
         } elseif ($request[0] === '!') {
-            return array_diff($this->get(), array(substr($request, 1)));
+            return array_diff($this->get(), [substr($request, 1)]);
         }
 
-        return array($request);
+        return [$request];
     }
 
     /**

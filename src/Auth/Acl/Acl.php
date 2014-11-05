@@ -1,7 +1,7 @@
 <?php namespace Orchestra\Auth\Acl;
 
 use RuntimeException;
-use Orchestra\Support\Str;
+use Illuminate\Support\Str;
 use InvalidArgumentException;
 use Orchestra\Contracts\Auth\Guard;
 use Orchestra\Memory\ContainerTrait;

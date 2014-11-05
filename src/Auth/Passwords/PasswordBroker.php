@@ -63,7 +63,7 @@ class PasswordBroker extends Broker
     /**
      * Send the password reminder e-mail.
      *
-     * @param  \Illuminate\Contracts\Auth\Remindable  $user
+     * @param  \Illuminate\Contracts\Auth\CanResetPassword  $user
      * @param  string  $token
      * @param  \Closure  $callback
      * @return \Orchestra\Contracts\Notification\Receipt

@@ -25,6 +25,6 @@ class AuthCommand extends Command
      */
     public function fire()
     {
-        $this->call('migrate', array('--package' => 'orchestra/auth'));
+        $this->call('migrate', ['--package' => 'orchestra/auth']);
     }
 }
