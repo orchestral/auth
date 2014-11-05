@@ -18,18 +18,18 @@ class PasswordBroker extends Broker
      * @param  \Illuminate\Auth\Passwords\TokenRepositoryInterface  $tokens
      * @param  \Illuminate\Auth\UserProviderInterface  $users
      * @param  \Orchestra\Contracts\Notification\Notification  $mailer
-     * @param  string  $reminderView
+     * @param  string  $emailView
      */
     public function __construct(
         TokenRepositoryInterface $tokens,
         UserProviderInterface $users,
         Notification $mailer,
-        $reminderView
+        $emailView
     ) {
         $this->users = $users;
         $this->mailer = $mailer;
         $this->tokens = $tokens;
-        $this->reminderView = $reminderView;
+        $this->emailView = $emailView;
     }
 
     /**
@@ -78,7 +78,7 @@ class PasswordBroker extends Broker
             'token' => $token,
         ];
 
-        $message = Message::create($this->reminderView, $data);
+        $message = Message::create($this->emailView, $data);
 
         return $this->mailer->send($user, $message, $callback);
     }
