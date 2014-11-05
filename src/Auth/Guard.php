@@ -40,7 +40,7 @@ class Guard extends \Illuminate\Auth\Guard implements GuardContract
 
         // This is a simple check to detect if the user is actually logged-in,
         // otherwise it's just as the same as setting userId as 0.
-        is_null($user) || $userId = $user->id;
+        is_null($user) || $userId = $user->getAuthIdentifier();
 
         $roles = Arr::get($this->userRoles, "{$userId}", []);
 

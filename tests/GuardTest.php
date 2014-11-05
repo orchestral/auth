@@ -79,7 +79,8 @@ class GuardTest extends \PHPUnit_Framework_TestCase
         $events = $this->events;
 
         $user = m::mock('\Illuminate\Contracts\Auth\User');
-        $user->id = 1;
+
+        $user->shouldReceive('getAuthIdentifier')->once()->andReturn(1);
 
         $events->shouldReceive('until')->once()
                 ->with('orchestra.auth: roles', m::any())->andReturn(array('admin', 'editor'));
@@ -104,7 +105,8 @@ class GuardTest extends \PHPUnit_Framework_TestCase
         $events = $this->events;
 
         $user = m::mock('\Illuminate\Contracts\Auth\User');
-        $user->id = 1;
+
+        $user->shouldReceive('getAuthIdentifier')->once()->andReturn(1);
 
         $events->shouldReceive('until')->once()
                 ->with('orchestra.auth: roles', m::any())->andReturn(null);
@@ -129,7 +131,8 @@ class GuardTest extends \PHPUnit_Framework_TestCase
         $events = $this->events;
 
         $user = m::mock('\Illuminate\Contracts\Auth\User');
-        $user->id = 1;
+
+        $user->shouldReceive('getAuthIdentifier')->times(5)->andReturn(1);
 
         $events->shouldReceive('until')->once()
                 ->with('orchestra.auth: roles', m::any())->andReturn(array('admin', 'editor'));
@@ -156,7 +159,8 @@ class GuardTest extends \PHPUnit_Framework_TestCase
     {
         $events = $this->events;
         $user   = m::mock('\Illuminate\Contracts\Auth\User');
-        $user->id = 1;
+
+        $user->shouldReceive('getAuthIdentifier')->times(5)->andReturn(1);
 
         $events->shouldReceive('until')
                 ->with('orchestra.auth: roles', m::any())->once()
@@ -184,7 +188,8 @@ class GuardTest extends \PHPUnit_Framework_TestCase
         $events = $this->events;
 
         $user = m::mock('\Illuminate\Contracts\Auth\User');
-        $user->id = 1;
+
+        $user->shouldReceive('getAuthIdentifier')->times(3)->andReturn(1);
 
         $events->shouldReceive('until')->once()
                 ->with('orchestra.auth: roles', m::any())->andReturn(array('admin', 'editor'));
@@ -208,7 +213,8 @@ class GuardTest extends \PHPUnit_Framework_TestCase
     {
         $events = $this->events;
         $user   = m::mock('\Illuminate\Contracts\Auth\User');
-        $user->id = 1;
+
+        $user->shouldReceive('getAuthIdentifier')->twice()->andReturn(1);
 
         $events->shouldReceive('until')
                 ->with('orchestra.auth: roles', m::any())->once()
@@ -232,7 +238,8 @@ class GuardTest extends \PHPUnit_Framework_TestCase
         $events = $this->events;
 
         $user = m::mock('\Illuminate\Contracts\Auth\User');
-        $user->id = 1;
+
+        $user->shouldReceive('getAuthIdentifier')->times(5)->andReturn(1);
 
         $events->shouldReceive('until')->once()
                 ->with('orchestra.auth: roles', m::any())->andReturn(array('admin', 'editor'));
@@ -259,7 +266,8 @@ class GuardTest extends \PHPUnit_Framework_TestCase
     {
         $events = $this->events;
         $user   = m::mock('\Illuminate\Contracts\Auth\User');
-        $user->id = 1;
+
+        $user->shouldReceive('getAuthIdentifier')->times(5)->andReturn(1);
 
         $events->shouldReceive('until')
                 ->with('orchestra.auth: roles', m::any())->once()
@@ -287,7 +295,8 @@ class GuardTest extends \PHPUnit_Framework_TestCase
         $events = $this->events;
 
         $user = m::mock('\Illuminate\Contracts\Auth\User');
-        $user->id = 1;
+
+        $user->shouldReceive('getAuthIdentifier')->times(3)->andReturn(1);
 
         $events->shouldReceive('until')->once()
                 ->with('orchestra.auth: roles', m::any())->andReturn(array('admin', 'editor'));
@@ -311,7 +320,8 @@ class GuardTest extends \PHPUnit_Framework_TestCase
     {
         $events = $this->events;
         $user   = m::mock('\Illuminate\Contracts\Auth\User');
-        $user->id = 1;
+
+        $user->shouldReceive('getAuthIdentifier')->twice()->andReturn(1);
 
         $events->shouldReceive('until')
                 ->with('orchestra.auth: roles', m::any())->once()
@@ -358,9 +368,9 @@ class GuardTest extends \PHPUnit_Framework_TestCase
         $userRoles->setAccessible(true);
 
         $userStub = m::mock('\Illuminate\Contracts\Auth\User');
-        $userStub->id = 1;
 
-        $userStub->shouldReceive('setRememberToken')->once();
+        $userStub->shouldReceive('getAuthIdentifier')->once()->andReturn(1)
+            ->shouldReceive('setRememberToken')->once();
 
         $user->setValue($stub, $userStub);
         $userRoles->setValue($stub, array(1 => array('admin', 'editor')));
