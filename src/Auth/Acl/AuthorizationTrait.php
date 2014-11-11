@@ -14,14 +14,14 @@ trait AuthorizationTrait
     /**
      * List of roles.
      *
-     * @var Fluent
+     * @var \Orchestra\Auth\Acl\Fluent
      */
     protected $roles;
 
     /**
      * List of actions.
      *
-     * @var Fluent
+     * @var \Orchestra\Auth\Acl\Fluent
      */
     protected $actions;
 
@@ -36,8 +36,8 @@ trait AuthorizationTrait
      * Verify whether given roles has sufficient roles to access the
      * actions based on available type of access.
      *
-     * @param  string|array     $roles      A string or an array of roles
-     * @param  string           $action     A string of action name
+     * @param  string|array  $roles      A string or an array of roles
+     * @param  string        $action     A string of action name
      * @return bool
      * @throws \InvalidArgumentException
      */
@@ -66,9 +66,9 @@ trait AuthorizationTrait
     /**
      * Assign single or multiple $roles + $actions to have access.
      *
-     * @param  string|array     $roles      A string or an array of roles
-     * @param  string|array     $actions    A string or an array of action name
-     * @param  bool             $allow
+     * @param  string|array  $roles      A string or an array of roles
+     * @param  string|array  $actions    A string or an array of action name
+     * @param  bool          $allow
      * @return void
      * @throws \InvalidArgumentException
      */
@@ -111,9 +111,9 @@ trait AuthorizationTrait
     /**
      * Assign a key combination of $roles + $actions to have access.
      *
-     * @param  string      $role       A key or string representation of roles
-     * @param  string      $action     A key or string representation of action name
-     * @param  bool        $allow
+     * @param  string  $role       A key or string representation of roles
+     * @param  string  $action     A key or string representation of action name
+     * @param  bool    $allow
      * @return void
      */
     protected function assign($role = null, $action = null, $allow = true)
@@ -141,7 +141,7 @@ trait AuthorizationTrait
     /**
      * Get the `actions` instance.
      *
-     * @return Fluent
+     * @return \Orchestra\Auth\Acl\Fluent
      */
     public function actions()
     {
@@ -151,7 +151,7 @@ trait AuthorizationTrait
     /**
      * Get the `roles` instance.
      *
-     * @return Fluent
+     * @return \Orchestra\Auth\Acl\Fluent
      */
     public function roles()
     {

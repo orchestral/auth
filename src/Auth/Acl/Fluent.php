@@ -23,7 +23,7 @@ class Fluent
     /**
      * Construct a new instance.
      *
-     * @param  string   $name
+     * @param  string  $name
      */
     public function __construct($name)
     {
@@ -33,7 +33,7 @@ class Fluent
     /**
      * Add a key to collection.
      *
-     * @param  string   $key
+     * @param  string  $key
      * @return bool
      * @throws \InvalidArgumentException
      */
@@ -61,7 +61,7 @@ class Fluent
     /**
      * Add multiple key to collection.
      *
-     * @param  array   $keys
+     * @param  array  $keys
      * @return bool
      */
     public function attach(array $keys)
@@ -76,7 +76,7 @@ class Fluent
     /**
      * Remove multiple key to collection.
      *
-     * @param  array   $keys
+     * @param  array  $keys
      * @return bool
      */
     public function detach(array $keys)
@@ -104,7 +104,7 @@ class Fluent
     /**
      * Filter request.
      *
-     * @param  string|array $request
+     * @param  string|array  $request
      * @return array
      */
     public function filter($request)
@@ -123,7 +123,7 @@ class Fluent
     /**
      * Find collection key from a name.
      *
-     * @param  mixed   $name
+     * @param  mixed  $name
      * @return integer|null
      */
     public function findKey($name)
@@ -148,7 +148,7 @@ class Fluent
     /**
      * Determine whether a key exists in collection.
      *
-     * @param  string   $key
+     * @param  string  $key
      * @return bool
      */
     public function has($key)
@@ -162,7 +162,7 @@ class Fluent
     /**
      * Remove a key from collection.
      *
-     * @param  string   $key
+     * @param  string  $key
      * @return bool
      * @throws \InvalidArgumentException
      */
@@ -183,8 +183,8 @@ class Fluent
     /**
      * Rename a key from collection.
      *
-     * @param  string   $from
-     * @param  string   $to
+     * @param  string  $from
+     * @param  string  $to
      * @return bool
      */
     public function rename($from, $to)

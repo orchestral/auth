@@ -89,9 +89,9 @@ class Acl implements AclContract
     /**
      * Assign single or multiple $roles + $actions to have access.
      *
-     * @param  string|array    $roles      A string or an array of roles
-     * @param  string|array    $actions    A string or an array of action name
-     * @param  bool            $allow
+     * @param  string|array  $roles      A string or an array of roles
+     * @param  string|array  $actions    A string or an array of action name
+     * @param  bool          $allow
      * @return $this
      */
     public function allow($roles, $actions, $allow = true)
@@ -119,8 +119,8 @@ class Acl implements AclContract
      * Verify whether given roles has sufficient roles to access the
      * actions based on available type of access.
      *
-     * @param  string|array $roles      A string or an array of roles
-     * @param  string       $action     A string of action name
+     * @param  string|array  $roles      A string or an array of roles
+     * @param  string        $action     A string of action name
      * @return bool
      * @throws \InvalidArgumentException
      */
@@ -133,8 +133,8 @@ class Acl implements AclContract
      * Shorthand function to deny access for single or multiple
      * $roles and $actions.
      *
-     * @param  string|array     $roles      A string or an array of roles
-     * @param  string|array     $actions    A string or an array of action name
+     * @param  string|array  $roles      A string or an array of roles
+     * @param  string|array  $actions    A string or an array of action name
      * @return $this
      */
     public function deny($roles, $actions)
@@ -166,10 +166,10 @@ class Acl implements AclContract
     /**
      * Forward call to roles or actions.
      *
-     * @param  string   $type           'roles' or 'actions'
-     * @param  string   $operation
-     * @param  array    $parameters
-     * @return Fluent
+     * @param  string  $type           'roles' or 'actions'
+     * @param  string  $operation
+     * @param  array   $parameters
+     * @return \Orchestra\Auth\Acl\Fluent
      */
     public function execute($type, $operation, array $parameters = array())
     {
@@ -179,8 +179,8 @@ class Acl implements AclContract
     /**
      * Magic method to mimic roles and actions manipulation.
      *
-     * @param  string   $method
-     * @param  array    $parameters
+     * @param  string  $method
+     * @param  array   $parameters
      * @return mixed
      */
     public function __call($method, array $parameters)
@@ -225,8 +225,8 @@ class Acl implements AclContract
      * Dynamically resolve operation name especially when multiple
      * operation was used.
      *
-     * @param  string   $operation
-     * @param  bool     $multiple
+     * @param  string  $operation
+     * @param  bool    $multiple
      * @return string
      */
     protected function resolveOperationName($operation, $multiple = true)

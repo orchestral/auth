@@ -53,8 +53,8 @@ class Factory
     /**
      * Register an ACL Container instance with Closure.
      *
-     * @param  string   $name
-     * @param  \Closure $callback
+     * @param  string  $name
+     * @param  \Closure  $callback
      * @return \Orchestra\Auth\Acl\Acl
      */
     public function register($name, $callback = null)
@@ -74,8 +74,8 @@ class Factory
     /**
      * Manipulate and synchronize roles.
      *
-     * @param  string   $method
-     * @param  array    $parameters
+     * @param  string  $method
+     * @param  array   $parameters
      * @return mixed
      */
     public function __call($method, array $parameters)
@@ -119,7 +119,7 @@ class Factory
     /**
      * Get ACL instance by name.
      *
-     * @param  string   $name
+     * @param  string  $name
      * @return \Orchestra\Auth\Acl\Acl
      */
     public function get($name)

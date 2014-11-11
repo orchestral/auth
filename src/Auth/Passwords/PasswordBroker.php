@@ -42,8 +42,8 @@ class PasswordBroker extends Broker
     /**
      * Send a password reminder to a user.
      *
-     * @param  array    $credentials
-     * @param  \Closure $callback
+     * @param  array  $credentials
+     * @param  \Closure  $callback
      * @return string
      */
     public function sendResetLink(array $credentials, Closure $callback = null)
