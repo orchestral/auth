@@ -18,7 +18,7 @@ class OrchestraAuthCreateUserMetaTable extends Migration
 
             $table->integer('user_id')->unsigned();
             $table->string('name', 255);
-            $table->text('value');
+            $table->longText('value');
 
             $table->timestamps();
 
