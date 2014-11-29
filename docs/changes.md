@@ -11,6 +11,12 @@ title: Auth Change Log
 
 ## Version 2.2 {#v2-2}
 
+### v2.2.1 {#v2-2-1}
+
+* Use long text fields for `user_meta.value`.
+* Use configuration value for password reminder table instead of hardcoded value.
+* Implement `Illuminate\Support\Arr`.
+
 ### v2.2.0 {#v2-2-0}
 
 * Bump minimum version to PHP v5.4.0.
