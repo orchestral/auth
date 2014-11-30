@@ -29,7 +29,7 @@ Next replace `Illuminate\Auth\AuthServiceProvider` with the following service pr
 	// ...
 
 	'Orchestra\Auth\AuthServiceProvider',
-    'Orchestra\Authorization\AuthorizationServiceProvider',
+	'Orchestra\Authorization\AuthorizationServiceProvider',
 	'Orchestra\Memory\MemoryServiceProvider',
 
 	'Orchestra\Auth\CommandServiceProvider',
