@@ -1,24 +1,9 @@
 <?php namespace Orchestra\Auth;
 
-use Orchestra\Auth\Authorization\Factory;
 use Illuminate\Auth\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function register()
-    {
-        $this->registerAuthenticator();
-
-        $this->registerUserResolver();
-
-        $this->registerRequestRebindHandler();
-
-        $this->registerAuthorizator();
-    }
-
     /**
      * Register the service provider for Auth.
      *
@@ -37,18 +22,6 @@ class AuthServiceProvider extends ServiceProvider
 
         $this->app->singleton('auth.driver', function ($app) {
             return $app['auth']->driver();
-        });
-    }
-
-    /**
-     * Register the service provider for Acl.
-     *
-     * @return void
-     */
-    protected function registerAuthorizator()
-    {
-        $this->app->singleton('orchestra.acl', function ($app) {
-            return new Factory($app['auth']->driver());
         });
     }
 }

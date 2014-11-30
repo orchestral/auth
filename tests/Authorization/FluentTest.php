@@ -1,14 +1,14 @@
-<?php namespace Orchestra\Auth\Authorization\TestCase;
+<?php namespace Orchestra\Authorization\TestCase;
 
 use Mockery as m;
-use Orchestra\Auth\Authorization\Fluent;
+use Orchestra\Authorization\Fluent;
 
 class FluentTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * Stub instance.
      *
-     * @return Orchestra\Auth\Acl\Fluent
+     * @return Orchestra\Authorization\Fluent
      */
     private $stub = null;
 
@@ -47,7 +47,7 @@ class FluentTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test Orchestra\Auth\Acl\Fluent::add() method.
+     * Test Orchestra\Authorization\Fluent::add() method.
      *
      * @test
      */
@@ -72,7 +72,7 @@ class FluentTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test Orchestra\Auth\Acl\Fluent::add() method null throw an exception.
+     * Test Orchestra\Authorization\Fluent::add() method null throw an exception.
      *
      * @expectedException \InvalidArgumentException
      */
@@ -84,7 +84,7 @@ class FluentTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test Orchestra\Auth\Acl\Fluent::attach() method.
+     * Test Orchestra\Authorization\Fluent::attach() method.
      *
      * @test
      */
@@ -103,7 +103,7 @@ class FluentTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test Orchestra\Auth\Acl\Fluent::attach() method null throw an exception.
+     * Test Orchestra\Authorization\Fluent::attach() method null throw an exception.
      *
      * @expectedException \InvalidArgumentException
      */
@@ -115,7 +115,7 @@ class FluentTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test Orchestra\Auth\Acl\Fluent::has() method.
+     * Test Orchestra\Authorization\Fluent::has() method.
      *
      * @test
      */
@@ -126,7 +126,7 @@ class FluentTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test Orchestra\Auth\Acl\Fluent::rename() method.
+     * Test Orchestra\Authorization\Fluent::rename() method.
      *
      * @test
      */
@@ -149,7 +149,7 @@ class FluentTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test Orchestra\Auth\Acl\Fluent::search() method.
+     * Test Orchestra\Authorization\Fluent::search() method.
      *
      * @test
      */
@@ -165,7 +165,7 @@ class FluentTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test Orchestra\Auth\Acl\Fluent::exist() method.
+     * Test Orchestra\Authorization\Fluent::exist() method.
      *
      * @test
      */
@@ -181,7 +181,7 @@ class FluentTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test Orchestra\Auth\Acl\Fluent::remove() method.
+     * Test Orchestra\Authorization\Fluent::remove() method.
      *
      * @test
      */
@@ -214,7 +214,7 @@ class FluentTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test Orchestra\Auth\Acl\Fluent::detach() method.
+     * Test Orchestra\Authorization\Fluent::detach() method.
      *
      * @test
      */
@@ -245,7 +245,7 @@ class FluentTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test Orchestra\Auth\Acl\Fluent::remove() method null throw an exception.
+     * Test Orchestra\Authorization\Fluent::remove() method null throw an exception.
      *
      * @expectedException \InvalidArgumentException
      */
@@ -255,7 +255,7 @@ class FluentTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test Orchestra\Auth\Acl\Fluent::filter() method.
+     * Test Orchestra\Authorization\Fluent::filter() method.
      *
      * @test
      */

@@ -16,7 +16,8 @@
 			"src/migrations"
 		],
 		"psr-4": {
-			"Orchestra\\Auth\\" : "src/Auth/"
+			"Orchestra\\Auth\\" : "src/Auth/",
+			"Orchestra\\Authorization\\" : "src/Authorization/"
 		}
 	},
 	"require": {

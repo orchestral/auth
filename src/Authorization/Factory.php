@@ -3,8 +3,9 @@
 use Illuminate\Support\Arr;
 use Orchestra\Contracts\Auth\Guard;
 use Orchestra\Contracts\Memory\Provider;
+use Orchestra\Contracts\Authorization\Factory as FactoryContract;
 
-class Factory
+class Factory implements FactoryContract
 {
     /**
      * Auth instance.
@@ -35,7 +36,7 @@ class Factory
      *
      * @param  string  $name
      * @param  \Orchestra\Contracts\Memory\Provider  $memory
-     * @return \Orchestra\Auth\Authorization\Authorization
+     * @return \Orchestra\Contracts\Authorization\Authorization
      */
     public function make($name = null, Provider $memory = null)
     {
@@ -55,7 +56,7 @@ class Factory
      *
      * @param  string  $name
      * @param  \Closure  $callback
-     * @return \Orchestra\Auth\Authorization\Authorization
+     * @return \Orchestra\Contracts\Authorization\Authorization
      */
     public function register($name, $callback = null)
     {
@@ -120,7 +121,7 @@ class Factory
      * Get ACL instance by name.
      *
      * @param  string  $name
-     * @return \Orchestra\Auth\Authorization\Authorization
+     * @return \Orchestra\Contracts\Authorization\Authorization
      */
     public function get($name)
     {

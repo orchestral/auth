@@ -1,7 +1,7 @@
-<?php namespace Orchestra\Auth\Authorization\TestCase;
+<?php namespace Orchestra\Authorization\TestCase;
 
 use Mockery as m;
-use Orchestra\Auth\Authorization\Factory;
+use Orchestra\Authorization\Factory;
 
 class FactoryTest extends \PHPUnit_Framework_TestCase
 {
@@ -14,7 +14,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test Orchestra\Auth\Authorization\Factory::make()
+     * Test Orchestra\Authorization\Factory::make()
      *
      * @test
      */
@@ -23,17 +23,17 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
         $auth = m::mock('\Orchestra\Auth\Guard');
         $stub = new Factory($auth);
 
-        $this->assertInstanceOf('\Orchestra\Auth\Authorization\Authorization', $stub->make('mock-one'));
+        $this->assertInstanceOf('\Orchestra\Authorization\Authorization', $stub->make('mock-one'));
 
         $memory = m::mock('\Orchestra\Memory\Provider');
         $memory->shouldReceive('get')->once()->andReturn(array())
             ->shouldReceive('put')->once()->andReturn(array());
 
-        $this->assertInstanceOf('\Orchestra\Auth\Authorization\Authorization', $stub->make('mock-two', $memory));
+        $this->assertInstanceOf('\Orchestra\Authorization\Authorization', $stub->make('mock-two', $memory));
     }
 
     /**
-     * Test Orchestra\Auth\Authorization\Factory::register() method.
+     * Test Orchestra\Authorization\Factory::register() method.
      *
      * @test
      */
@@ -51,14 +51,14 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
         });
 
         $acl = $stub->make(null);
-        $this->assertInstanceOf('\Orchestra\Auth\Authorization\Authorization', $acl);
+        $this->assertInstanceOf('\Orchestra\Authorization\Authorization', $acl);
         $this->assertTrue($acl->can('view blog'));
         $this->assertFalse($acl->can('view forum'));
         $this->assertFalse($acl->can('view news'));
     }
 
     /**
-     * Test Orchestra\Auth\Authorization\Factory magic methods.
+     * Test Orchestra\Authorization\Factory magic methods.
      *
      * @test
      */
@@ -94,7 +94,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test Orchestra\Auth\Authorization\Factory::all() method.
+     * Test Orchestra\Authorization\Factory::all() method.
      *
      * @test
      */

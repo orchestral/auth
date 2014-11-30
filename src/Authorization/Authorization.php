@@ -6,7 +6,7 @@ use InvalidArgumentException;
 use Orchestra\Contracts\Auth\Guard;
 use Orchestra\Memory\ContainerTrait;
 use Orchestra\Contracts\Memory\Provider;
-use Orchestra\Contracts\Auth\Authorization as AuthorizationContract;
+use Orchestra\Contracts\Authorization\Authorization as AuthorizationContract;
 
 class Authorization implements AuthorizationContract
 {
