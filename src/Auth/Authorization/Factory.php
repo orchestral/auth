@@ -1,4 +1,4 @@
-<?php namespace Orchestra\Auth\Acl;
+<?php namespace Orchestra\Auth\Authorization;
 
 use Illuminate\Support\Arr;
 use Orchestra\Contracts\Auth\Guard;
@@ -35,7 +35,7 @@ class Factory
      *
      * @param  string  $name
      * @param  \Orchestra\Contracts\Memory\Provider  $memory
-     * @return \Orchestra\Auth\Acl\Acl
+     * @return \Orchestra\Auth\Authorization\Authorization
      */
     public function make($name = null, Provider $memory = null)
     {
@@ -44,7 +44,7 @@ class Factory
         }
 
         if (! isset($this->drivers[$name])) {
-            $this->drivers[$name] = new Acl($this->auth, $name, $memory);
+            $this->drivers[$name] = new Authorization($this->auth, $name, $memory);
         }
 
         return $this->drivers[$name];
@@ -55,7 +55,7 @@ class Factory
      *
      * @param  string  $name
      * @param  \Closure  $callback
-     * @return \Orchestra\Auth\Acl\Acl
+     * @return \Orchestra\Auth\Authorization\Authorization
      */
     public function register($name, $callback = null)
     {
@@ -120,7 +120,7 @@ class Factory
      * Get ACL instance by name.
      *
      * @param  string  $name
-     * @return \Orchestra\Auth\Acl\Acl
+     * @return \Orchestra\Auth\Authorization\Authorization
      */
     public function get($name)
     {

@@ -1,7 +1,7 @@
-<?php namespace Orchestra\Auth\Tests\Acl;
+<?php namespace Orchestra\Auth\Authorization\TestCase;
 
 use Mockery as m;
-use Orchestra\Auth\Acl\Fluent;
+use Orchestra\Auth\Authorization\Fluent;
 
 class FluentTest extends \PHPUnit_Framework_TestCase
 {
@@ -37,7 +37,7 @@ class FluentTest extends \PHPUnit_Framework_TestCase
      */
     public function testInstanceOf()
     {
-        $this->assertInstanceOf('\Orchestra\Auth\Acl\Fluent', $this->stub);
+        $this->assertInstanceOf('\Orchestra\Auth\Authorization\Fluent', $this->stub);
 
         $refl = new \ReflectionObject($this->stub);
         $name = $refl->getProperty('name');

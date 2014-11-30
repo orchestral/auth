@@ -1,4 +1,4 @@
-<?php namespace Orchestra\Auth\Acl;
+<?php namespace Orchestra\Auth\Authorization;
 
 use InvalidArgumentException;
 
@@ -14,14 +14,14 @@ trait AuthorizationTrait
     /**
      * List of roles.
      *
-     * @var \Orchestra\Auth\Acl\Fluent
+     * @var \Orchestra\Auth\Authorization\Fluent
      */
     protected $roles;
 
     /**
      * List of actions.
      *
-     * @var \Orchestra\Auth\Acl\Fluent
+     * @var \Orchestra\Auth\Authorization\Fluent
      */
     protected $actions;
 
@@ -141,7 +141,7 @@ trait AuthorizationTrait
     /**
      * Get the `actions` instance.
      *
-     * @return \Orchestra\Auth\Acl\Fluent
+     * @return \Orchestra\Auth\Authorization\Fluent
      */
     public function actions()
     {
@@ -151,7 +151,7 @@ trait AuthorizationTrait
     /**
      * Get the `roles` instance.
      *
-     * @return \Orchestra\Auth\Acl\Fluent
+     * @return \Orchestra\Auth\Authorization\Fluent
      */
     public function roles()
     {

@@ -1,4 +1,4 @@
-<?php namespace Orchestra\Auth\Acl;
+<?php namespace Orchestra\Auth\Authorization;
 
 use RuntimeException;
 use Illuminate\Support\Str;
@@ -6,9 +6,9 @@ use InvalidArgumentException;
 use Orchestra\Contracts\Auth\Guard;
 use Orchestra\Memory\ContainerTrait;
 use Orchestra\Contracts\Memory\Provider;
-use Orchestra\Contracts\Auth\Acl\Acl as AclContract;
+use Orchestra\Contracts\Auth\Authorization as AuthorizationContract;
 
-class Acl implements AclContract
+class Authorization implements AuthorizationContract
 {
     use AuthorizationTrait, ContainerTrait;
 
@@ -169,7 +169,7 @@ class Acl implements AclContract
      * @param  string  $type           'roles' or 'actions'
      * @param  string  $operation
      * @param  array   $parameters
-     * @return \Orchestra\Auth\Acl\Fluent
+     * @return \Orchestra\Auth\Authorization\Fluent
      */
     public function execute($type, $operation, array $parameters = array())
     {

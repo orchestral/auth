@@ -1,4 +1,4 @@
-<?php namespace Orchestra\Auth\Acl;
+<?php namespace Orchestra\Auth\Authorization;
 
 use Illuminate\Support\Str;
 use InvalidArgumentException;

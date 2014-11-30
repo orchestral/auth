@@ -1,24 +1,24 @@
-<?php namespace Orchestra\Auth\Tests\Acl;
+<?php namespace Orchestra\Auth\Authorization\TestCase;
 
 use Mockery as m;
-use Orchestra\Auth\Acl\Acl;
 use Orchestra\Memory\Provider;
 use Orchestra\Memory\Handlers\Runtime;
+use Orchestra\Auth\Authorization\Authorization;
 use Illuminate\Container\Container as IlluminateContainer;
 
-class ContainerTest extends \PHPUnit_Framework_TestCase
+class AuthorizationTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * Application mock instance.
      *
-     * @var Illuminate\Foundation\Application
+     * @var \Illuminate\Contracts\Foundation\Application
      */
     private $app = null;
 
     /**
      * Acl Container instance.
      *
-     * @var Orchestra\Auth\Acl\Acl
+     * @var Orchestra\Auth\Authorization\Acl
      */
     private $stub = null;
 
@@ -40,7 +40,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
         $memory  = new Provider(new Runtime('foo', array()));
         $memory->put('acl_foo', $this->memoryProvider());
 
-        $this->stub = new Acl($this->app['auth'], 'foo', $memory);
+        $this->stub = new Authorization($this->app['auth'], 'foo', $memory);
     }
 
     /**
@@ -95,10 +95,10 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
         $actions->setAccessible(true);
         $acl->setAccessible(true);
 
-        $this->assertInstanceOf('\Orchestra\Auth\Acl\Acl', $this->stub);
+        $this->assertInstanceOf('\Orchestra\Auth\Authorization\Authorization', $this->stub);
         $this->assertInstanceOf('\Orchestra\Memory\Provider', $memory->getValue($this->stub));
-        $this->assertInstanceOf('\Orchestra\Auth\Acl\Fluent', $roles->getValue($this->stub));
-        $this->assertInstanceOf('\Orchestra\Auth\Acl\Fluent', $actions->getValue($this->stub));
+        $this->assertInstanceOf('\Orchestra\Auth\Authorization\Fluent', $roles->getValue($this->stub));
+        $this->assertInstanceOf('\Orchestra\Auth\Authorization\Fluent', $actions->getValue($this->stub));
         $this->assertTrue(is_array($acl->getValue($this->stub)));
     }
 
@@ -112,7 +112,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
         $runtime = $this->getRuntimeMemoryProvider();
         $runtime->put('acl_foo', $this->memoryProvider());
 
-        $stub = new Acl($this->app['auth'], 'foo');
+        $stub = new Authorization($this->app['auth'], 'foo');
 
         $this->assertFalse($stub->attached());
 
@@ -139,13 +139,13 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $roles->getValue($stub)->get());
         $this->assertEquals($expected, $memory->getValue($stub)->get('acl_foo.roles'));
         $this->assertEquals($expected, $runtime->get('acl_foo.roles'));
-        $this->assertInstanceOf('\Orchestra\Auth\Acl\Fluent', $stub->roles());
+        $this->assertInstanceOf('\Orchestra\Auth\Authorization\Fluent', $stub->roles());
 
         $expected = array('manage-user', 'manage', 'foobar');
         $this->assertEquals($expected, $actions->getValue($stub)->get());
         $this->assertEquals($expected, $memory->getValue($stub)->get('acl_foo.actions'));
         $this->assertEquals($expected, $runtime->get('acl_foo.actions'));
-        $this->assertInstanceOf('\Orchestra\Auth\Acl\Fluent', $stub->actions());
+        $this->assertInstanceOf('\Orchestra\Auth\Authorization\Fluent', $stub->actions());
 
         $expected = array('0:0' => false, '0:1' => false, '1:0' => true, '1:1' => true, '2:2' => true);
         $this->assertEquals($expected, $acl->getValue($stub));
@@ -155,7 +155,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test Orchestra\Auth\Acl\Acl::attach() method throws exception
+     * Test Orchestra\Auth\Authorization\Acl::attach() method throws exception
      * when attaching multiple memory instance.
      *
      * @expectedException \RuntimeException
@@ -167,12 +167,12 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 
         $runtime2 = new Provider(new Runtime('foobar', array()));
 
-        $stub = new Acl($this->app['auth'], 'foo', $runtime1);
+        $stub = new Authorization($this->app['auth'], 'foo', $runtime1);
         $stub->attach($runtime2);
     }
 
      /**
-     * Test Orchestra\Auth\Acl\Acl::attach() method don't throw
+     * Test Orchestra\Auth\Authorization\Acl::attach() method don't throw
      * exception when attaching multiple memory instance using the same
      * instance.
      *
@@ -183,12 +183,12 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
         $runtime = $this->getRuntimeMemoryProvider();
         $runtime->put('acl_foo', $this->memoryProvider());
 
-        $stub = new Acl($this->app['auth'], 'foo', $runtime);
+        $stub = new Authorization($this->app['auth'], 'foo', $runtime);
         $stub->attach($runtime);
     }
 
     /**
-     * Test Orchestra\Auth\Acl\Acl::allow() method.
+     * Test Orchestra\Auth\Authorization\Acl::allow() method.
      *
      * @test
      */
@@ -197,7 +197,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
         $runtime = $this->getRuntimeMemoryProvider();
         $runtime->put('acl_foo', $this->memoryProvider());
 
-        $stub = new Acl($this->app['auth'], 'foo', $runtime);
+        $stub = new Authorization($this->app['auth'], 'foo', $runtime);
 
         $stub->allow('guest', 'manage-user');
 
@@ -215,7 +215,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test Orchestra\Auth\Acl\Acl::deny() method.
+     * Test Orchestra\Auth\Authorization\Acl::deny() method.
      *
      * @test
      */
@@ -224,7 +224,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
         $runtime = $this->getRuntimeMemoryProvider();
         $runtime->put('acl_foo', $this->memoryProvider());
 
-        $stub = new Acl($this->app['auth'], 'foo', $runtime);
+        $stub = new Authorization($this->app['auth'], 'foo', $runtime);
 
         $stub->deny('admin', 'manage-user');
 
@@ -242,7 +242,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test Orchestra\Auth\Acl\Acl::can() method as "admin" user.
+     * Test Orchestra\Auth\Authorization\Acl::can() method as "admin" user.
      *
      * @test
      */
@@ -256,7 +256,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
         $runtime = $this->getRuntimeMemoryProvider();
         $runtime->put('acl_foo', $this->memoryProvider());
 
-        $stub = new Acl($auth, 'foo', $runtime);
+        $stub = new Authorization($auth, 'foo', $runtime);
 
         $stub->addActions(array('Manage Page', 'Manage Photo'));
         $stub->allow('guest', 'Manage Page');
@@ -268,7 +268,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test Orchestra\Auth\Acl\Acl::can() method as "guest" user.
+     * Test Orchestra\Auth\Authorization\Acl::can() method as "guest" user.
      *
      * @test
      */
@@ -277,7 +277,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
         $runtime = $this->getRuntimeMemoryProvider();
         $runtime->put('acl_foo', $this->memoryProvider());
 
-        $stub = new Acl($this->app['auth'], 'foo', $runtime);
+        $stub = new Authorization($this->app['auth'], 'foo', $runtime);
 
         $stub->addActions(array('Manage Page', 'Manage Photo'));
         $stub->allow('guest', 'Manage Page');
@@ -288,7 +288,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test Orchestra\Auth\Acl\Acl::check() method.
+     * Test Orchestra\Auth\Authorization\Acl::check() method.
      *
      * @test
      */
@@ -297,7 +297,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
         $runtime = $this->getRuntimeMemoryProvider();
         $runtime->put('acl_foo', $this->memoryProvider());
 
-        $stub = new Acl($this->app['auth'], 'foo', $runtime);
+        $stub = new Authorization($this->app['auth'], 'foo', $runtime);
 
         $stub->addActions(array('Manage Page', 'Manage Photo'));
         $stub->allow('guest', 'Manage Page');
@@ -308,7 +308,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test Orchestra\Auth\Acl\Acl::check() method throws exception.
+     * Test Orchestra\Auth\Authorization\Acl::check() method throws exception.
      *
      * @expectedException \InvalidArgumentException
      */
@@ -318,7 +318,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test Orchestra\Auth\Acl\Acl::allow() method throws exception
+     * Test Orchestra\Auth\Authorization\Acl::allow() method throws exception
      * for roles.
      *
      * @expectedException \InvalidArgumentException
@@ -329,7 +329,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test Orchestra\Auth\Acl\Acl::allow() method throws exception
+     * Test Orchestra\Auth\Authorization\Acl::allow() method throws exception
      * for actions.
      *
      * @expectedException \InvalidArgumentException
@@ -340,7 +340,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test Orchestra\Auth\Acl\Acl::__call() method when execution is
+     * Test Orchestra\Auth\Authorization\Acl::__call() method when execution is
      * not supported.
      *
      * @expectedException \InvalidArgumentException
@@ -369,7 +369,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
         $actions->setAccessible(true);
 
         $this->assertInstanceOf('\Orchestra\Memory\Provider', $memory->getValue($stub));
-        $this->assertInstanceOf('\Orchestra\Auth\Acl\Fluent', $roles->getValue($stub));
+        $this->assertInstanceOf('\Orchestra\Auth\Authorization\Fluent', $roles->getValue($stub));
 
         $this->assertTrue($stub->roles()->has('guest'));
         $this->assertTrue($stub->roles()->has('admin'));
@@ -378,7 +378,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(array('guest', 'admin'), $roles->getValue($stub)->get());
         $this->assertEquals(array('guest', 'admin'), $stub->roles()->get());
 
-        $this->assertInstanceOf('\Orchestra\Auth\Acl\Fluent', $actions->getValue($stub));
+        $this->assertInstanceOf('\Orchestra\Auth\Authorization\Fluent', $actions->getValue($stub));
 
         $this->assertTrue($stub->actions()->has('manage-user'));
         $this->assertTrue($stub->actions()->has('manage'));
@@ -398,7 +398,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
         $runtime = $this->getRuntimeMemoryProvider();
         $runtime->put('acl_foo', $this->memoryProvider());
 
-        $stub    = new Acl($this->app['auth'], 'foo', $runtime);
+        $stub    = new Authorization($this->app['auth'], 'foo', $runtime);
         $refl    = new \ReflectionObject($stub);
         $actions = $refl->getProperty('actions');
         $roles   = $refl->getProperty('roles');
