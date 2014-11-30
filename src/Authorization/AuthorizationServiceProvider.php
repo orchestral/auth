@@ -22,4 +22,14 @@ class AuthorizationServiceProvider extends ServiceProvider
             return new Factory($app['auth']->driver());
         });
     }
+
+    /**
+     * Get the services provided by the provider.
+     *
+     * @return array
+     */
+    public function provides()
+    {
+        return ['orchestra.acl'];
+    }
 }
