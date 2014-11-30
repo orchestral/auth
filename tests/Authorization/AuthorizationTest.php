@@ -18,7 +18,7 @@ class AuthorizationTest extends \PHPUnit_Framework_TestCase
     /**
      * Acl Container instance.
      *
-     * @var Orchestra\Auth\Authorization\Acl
+     * @var Orchestra\Authorization\Authorization
      */
     private $stub = null;
 
@@ -95,10 +95,10 @@ class AuthorizationTest extends \PHPUnit_Framework_TestCase
         $actions->setAccessible(true);
         $acl->setAccessible(true);
 
-        $this->assertInstanceOf('\Orchestra\Auth\Authorization\Authorization', $this->stub);
+        $this->assertInstanceOf('\Orchestra\Authorization\Authorization', $this->stub);
         $this->assertInstanceOf('\Orchestra\Memory\Provider', $memory->getValue($this->stub));
-        $this->assertInstanceOf('\Orchestra\Auth\Authorization\Fluent', $roles->getValue($this->stub));
-        $this->assertInstanceOf('\Orchestra\Auth\Authorization\Fluent', $actions->getValue($this->stub));
+        $this->assertInstanceOf('\Orchestra\Authorization\Fluent', $roles->getValue($this->stub));
+        $this->assertInstanceOf('\Orchestra\Authorization\Fluent', $actions->getValue($this->stub));
         $this->assertTrue(is_array($acl->getValue($this->stub)));
     }
 
@@ -139,13 +139,13 @@ class AuthorizationTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $roles->getValue($stub)->get());
         $this->assertEquals($expected, $memory->getValue($stub)->get('acl_foo.roles'));
         $this->assertEquals($expected, $runtime->get('acl_foo.roles'));
-        $this->assertInstanceOf('\Orchestra\Auth\Authorization\Fluent', $stub->roles());
+        $this->assertInstanceOf('\Orchestra\Authorization\Fluent', $stub->roles());
 
         $expected = array('manage-user', 'manage', 'foobar');
         $this->assertEquals($expected, $actions->getValue($stub)->get());
         $this->assertEquals($expected, $memory->getValue($stub)->get('acl_foo.actions'));
         $this->assertEquals($expected, $runtime->get('acl_foo.actions'));
-        $this->assertInstanceOf('\Orchestra\Auth\Authorization\Fluent', $stub->actions());
+        $this->assertInstanceOf('\Orchestra\Authorization\Fluent', $stub->actions());
 
         $expected = array('0:0' => false, '0:1' => false, '1:0' => true, '1:1' => true, '2:2' => true);
         $this->assertEquals($expected, $acl->getValue($stub));
@@ -155,7 +155,7 @@ class AuthorizationTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test Orchestra\Auth\Authorization\Acl::attach() method throws exception
+     * Test Orchestra\Authorization\Authorization::attach() method throws exception
      * when attaching multiple memory instance.
      *
      * @expectedException \RuntimeException
@@ -172,7 +172,7 @@ class AuthorizationTest extends \PHPUnit_Framework_TestCase
     }
 
      /**
-     * Test Orchestra\Auth\Authorization\Acl::attach() method don't throw
+     * Test Orchestra\Authorization\Authorization::attach() method don't throw
      * exception when attaching multiple memory instance using the same
      * instance.
      *
@@ -188,7 +188,7 @@ class AuthorizationTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test Orchestra\Auth\Authorization\Acl::allow() method.
+     * Test Orchestra\Authorization\Authorization::allow() method.
      *
      * @test
      */
@@ -215,7 +215,7 @@ class AuthorizationTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test Orchestra\Auth\Authorization\Acl::deny() method.
+     * Test Orchestra\Authorization\Authorization::deny() method.
      *
      * @test
      */
@@ -242,7 +242,7 @@ class AuthorizationTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test Orchestra\Auth\Authorization\Acl::can() method as "admin" user.
+     * Test Orchestra\Authorization\Authorization::can() method as "admin" user.
      *
      * @test
      */
@@ -268,7 +268,7 @@ class AuthorizationTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test Orchestra\Auth\Authorization\Acl::can() method as "guest" user.
+     * Test Orchestra\Authorization\Authorization::can() method as "guest" user.
      *
      * @test
      */
@@ -288,7 +288,7 @@ class AuthorizationTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test Orchestra\Auth\Authorization\Acl::check() method.
+     * Test Orchestra\Authorization\Authorization::check() method.
      *
      * @test
      */
@@ -308,7 +308,7 @@ class AuthorizationTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test Orchestra\Auth\Authorization\Acl::check() method throws exception.
+     * Test Orchestra\Authorization\Authorization::check() method throws exception.
      *
      * @expectedException \InvalidArgumentException
      */
@@ -318,7 +318,7 @@ class AuthorizationTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test Orchestra\Auth\Authorization\Acl::allow() method throws exception
+     * Test Orchestra\Authorization\Authorization::allow() method throws exception
      * for roles.
      *
      * @expectedException \InvalidArgumentException
@@ -329,7 +329,7 @@ class AuthorizationTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test Orchestra\Auth\Authorization\Acl::allow() method throws exception
+     * Test Orchestra\Authorization\Authorization::allow() method throws exception
      * for actions.
      *
      * @expectedException \InvalidArgumentException
@@ -340,7 +340,7 @@ class AuthorizationTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test Orchestra\Auth\Authorization\Acl::__call() method when execution is
+     * Test Orchestra\Authorization\Authorization::__call() method when execution is
      * not supported.
      *
      * @expectedException \InvalidArgumentException
@@ -369,7 +369,7 @@ class AuthorizationTest extends \PHPUnit_Framework_TestCase
         $actions->setAccessible(true);
 
         $this->assertInstanceOf('\Orchestra\Memory\Provider', $memory->getValue($stub));
-        $this->assertInstanceOf('\Orchestra\Auth\Authorization\Fluent', $roles->getValue($stub));
+        $this->assertInstanceOf('\Orchestra\Authorization\Fluent', $roles->getValue($stub));
 
         $this->assertTrue($stub->roles()->has('guest'));
         $this->assertTrue($stub->roles()->has('admin'));
@@ -378,7 +378,7 @@ class AuthorizationTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(array('guest', 'admin'), $roles->getValue($stub)->get());
         $this->assertEquals(array('guest', 'admin'), $stub->roles()->get());
 
-        $this->assertInstanceOf('\Orchestra\Auth\Authorization\Fluent', $actions->getValue($stub));
+        $this->assertInstanceOf('\Orchestra\Authorization\Fluent', $actions->getValue($stub));
 
         $this->assertTrue($stub->actions()->has('manage-user'));
         $this->assertTrue($stub->actions()->has('manage'));

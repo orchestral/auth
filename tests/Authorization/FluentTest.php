@@ -37,7 +37,7 @@ class FluentTest extends \PHPUnit_Framework_TestCase
      */
     public function testInstanceOf()
     {
-        $this->assertInstanceOf('\Orchestra\Auth\Authorization\Fluent', $this->stub);
+        $this->assertInstanceOf('\Orchestra\Authorization\Fluent', $this->stub);
 
         $refl = new \ReflectionObject($this->stub);
         $name = $refl->getProperty('name');

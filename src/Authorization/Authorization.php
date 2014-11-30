@@ -1,4 +1,4 @@
-<?php namespace Orchestra\Auth\Authorization;
+<?php namespace Orchestra\Authorization;
 
 use RuntimeException;
 use Illuminate\Support\Str;
@@ -169,7 +169,7 @@ class Authorization implements AuthorizationContract
      * @param  string  $type           'roles' or 'actions'
      * @param  string  $operation
      * @param  array   $parameters
-     * @return \Orchestra\Auth\Authorization\Fluent
+     * @return \Orchestra\Authorization\Fluent
      */
     public function execute($type, $operation, array $parameters = array())
     {
