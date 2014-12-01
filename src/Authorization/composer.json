@@ -1,0 +1,30 @@
+{
+	"name": "orchestra/authorization",
+	"description": "Authorization Component for Orchestra Platform",
+	"license": "MIT",
+	"homepage": "http://orchestraplatform.com/docs/latest/components/auth/",
+	"keywords": ["orchestra-platform", "orchestral", "laravel", "acl", "rbac", "permission"],
+	"authors": [
+		{
+			"name": "Mior Muhammad Zaki",
+			"email": "crynobone@gmail.com",
+			"homepage": "https://github.com/crynobone"
+		}
+	],
+	"autoload": {
+		"psr-4": {
+			"Orchestra\\Authorization\\" : ""
+		}
+	},
+	"require": {
+		"php": ">=5.4.0",
+		"orchestra/contracts": "3.0.*",
+		"orchestra/memory": "3.0.*"
+	},
+	"extra": {
+		"branch-alias": {
+			"dev-master": "3.0-dev"
+		}
+	},
+	"minimum-stability": "dev"
+}
