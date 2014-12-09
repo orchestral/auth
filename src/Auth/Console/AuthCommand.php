@@ -25,7 +25,7 @@ class AuthCommand extends Command
      */
     public function fire()
     {
-        $path = $this->laravel['path.base'].'/vendor/orchestra/auth/src/migrations';
+        $path = 'vendor/orchestra/auth/resources/database/migrations';
 
         $this->call('migrate', ['--path' => $path]);
     }
