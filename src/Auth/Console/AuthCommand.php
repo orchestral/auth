@@ -23,7 +23,7 @@ class AuthCommand extends Command
      *
      * @return void
      */
-    public function fire()
+    public function handle()
     {
         $path = 'vendor/orchestra/auth/resources/database/migrations';
 
