@@ -30,6 +30,9 @@
 		"illuminate/auth": "5.0.*",
 		"illuminate/database": "5.0.*"
 	},
+	"replace": {
+		"orchestra/authorization": "self.version"
+	},
 	"suggest": {
 		"laravel/framework": "Allow using orchestra/auth component outside of Orchestra Platform",
 		"orchestra/model": "Allow using orchestra/auth component outside of Orchestra Platform",
