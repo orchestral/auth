@@ -26,5 +26,8 @@
 			"dev-master": "3.0-dev"
 		}
 	},
+	"support": {
+		"issues": "https://github.com/orchestral/auth/issues"
+	},
 	"minimum-stability": "dev"
 }
