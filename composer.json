@@ -1,8 +1,8 @@
 {
 	"name": "orchestra/auth",
-	"description": "Orchestra Platform 2 Auth Component",
+	"description": "Auth Component for Orchestra Platform",
 	"license": "MIT",
-	"homepage": "http://orchestraplatform.com/docs/2.0/components/auth/",
+	"homepage": "http://orchestraplatform.com/docs/latest/components/auth/",
 	"keywords": ["orchestra-platform", "orchestral", "laravel", "auth", "acl", "rbac"],
 	"authors": [
 		{
@@ -29,13 +29,13 @@
 		"illuminate/auth": "4.0.*"
 	},
 	"suggest": {
-		"laravel/framework": "Allow using orchestra/auth component outside of Orchestra Platform 2",
-		"orchestra/model": "Allow using orchestra/auth component outside of Orchestra Platform 2",
-		"orchestra/foundation": "Allow using orchestra/auth with Orchestra Platform 2"
+		"laravel/framework": "Allow using orchestra/auth component outside of Orchestra Platform",
+		"orchestra/model": "Allow using orchestra/auth component outside of Orchestra Platform",
+		"orchestra/foundation": "Allow using orchestra/auth with Orchestra Platform"
 	},
 	"extra": {
 		"branch-alias": {
-			"dev-master": "2.1-dev"
+			"dev-master": "3.1-dev"
 		}
 	},
 	"minimum-stability": "dev"
