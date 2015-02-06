@@ -18,12 +18,12 @@
 	},
 	"require": {
 		"php": ">=5.4.0",
-		"orchestra/contracts": "3.0.*",
-		"orchestra/memory": "3.0.*"
+		"orchestra/contracts": "3.1.*",
+		"orchestra/memory": "3.1.*"
 	},
 	"extra": {
 		"branch-alias": {
-			"dev-master": "3.0-dev"
+			"dev-master": "3.1-dev"
 		}
 	},
 	"support": {
