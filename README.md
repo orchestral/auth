@@ -1,15 +1,30 @@
-Orchestra Platform Auth Component
+Auth Component for Orchestra Platform
 ==============
 
-Orchestra\Auth extends the functionality of Illuminate\Auth with the extra functionality to retrieve users' role. This is important when we want to use Orchestra\Acl to manage application Access Control List (ACL).
+Auth Component extends the functionality of `Illuminate\Auth` with the extra functionality to retrieve users' role. This is important when we want to use Orchestra\Acl to manage application Access Control List (ACL).
 
-[![Latest Stable Version](https://poser.pugx.org/orchestra/auth/v/stable.png)](https://packagist.org/packages/orchestra/auth) 
-[![Total Downloads](https://poser.pugx.org/orchestra/auth/downloads.png)](https://packagist.org/packages/orchestra/auth) 
-[![Build Status](https://travis-ci.org/orchestral/auth.svg?branch=2.1)](https://travis-ci.org/orchestral/auth) 
-[![Coverage Status](https://coveralls.io/repos/orchestral/auth/badge.png?branch=2.1)](https://coveralls.io/r/orchestral/auth?branch=2.1) 
-[![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/orchestral/auth/badges/quality-score.png?s=5618935a11f17373602073e6d1388e61acaa7085)](https://scrutinizer-ci.com/g/orchestral/auth/) 
+[![Latest Stable Version](https://img.shields.io/github/release/orchestral/auth.svg?style=flat)](https://packagist.org/packages/orchestra/auth)
+[![Total Downloads](https://img.shields.io/packagist/dt/orchestra/auth.svg?style=flat)](https://packagist.org/packages/orchestra/auth)
+[![MIT License](https://img.shields.io/packagist/l/orchestra/auth.svg?style=flat)](https://packagist.org/packages/orchestra/auth)
+[![Build Status](https://img.shields.io/travis/orchestral/auth/2.1.svg?style=flat)](https://travis-ci.org/orchestral/auth)
+[![Coverage Status](https://img.shields.io/coveralls/orchestral/auth/2.1.svg?style=flat)](https://coveralls.io/r/orchestral/auth?branch=2.1)
+[![Scrutinizer Quality Score](https://img.shields.io/scrutinizer/g/orchestral/auth/2.1.svg?style=flat)](https://scrutinizer-ci.com/g/orchestral/auth/)
 
-## Quick Installation
+## Table of Content
+
+* [Version Compatibility](#version-compatibility)
+* [Installation](#installation)
+* [Configuration](#configuration)
+* [Resources](#resources)
+
+## Version Compatibility
+
+Laravel    | Auth
+:----------|:----------
+ 4.0.x     | 2.0.x
+ 4.1.x     | 2.1.x
+
+## Installation
 
 To install through composer, simply put the following in your `composer.json` file:
 
@@ -21,13 +36,23 @@ To install through composer, simply put the following in your `composer.json` fi
 }
 ```
 
+And then run `composer install` from the terminal.
+
+### Quick Installation
+
+Above installation can also be simplify by using the following command:
+
+    composer require "orchestra/auth=2.1.*"
+
+## Configuration
+
 Next replace `Illuminate\Auth\AuthServiceProvider` with the following service provider in `app/config/app.php`.
 
 ```php
 'providers' => array(
-	
+
 	// ...
-	
+
 	'Orchestra\Auth\AuthServiceProvider',
 	'Orchestra\Memory\MemoryServiceProvider',
 
