@@ -10,7 +10,23 @@ Auth Component extends the functionality of `Illuminate\Auth` with the extra fun
 [![Coverage Status](https://img.shields.io/coveralls/orchestral/auth/3.0.svg?style=flat)](https://coveralls.io/r/orchestral/auth?branch=3.0)
 [![Scrutinizer Quality Score](https://img.shields.io/scrutinizer/g/orchestral/auth/3.0.svg?style=flat)](https://scrutinizer-ci.com/g/orchestral/auth/)
 
-## Quick Installation
+## Table of Content
+
+* [Version Compatibility](#version-compatibility)
+* [Installation](#installation)
+* [Configuration](#configuration)
+* [Resources](#resources)
+
+## Version Compatibility
+
+Laravel    | Auth
+:----------|:----------
+ 4.0.x     | 2.0.x
+ 4.1.x     | 2.1.x
+ 4.2.x     | 2.2.x
+ 5.0.x     | 3.0.x
+
+## Installation
 
 To install through composer, simply put the following in your `composer.json` file:
 
@@ -22,7 +38,17 @@ To install through composer, simply put the following in your `composer.json` fi
 }
 ```
 
-Next replace `Illuminate\Auth\AuthServiceProvider` with the following service provider in `app/config/app.php`.
+And then run `composer install` from the terminal.
+
+### Quick Installation
+
+Above installation can also be simplify by using the following command:
+
+    composer require "orchestra/auth=3.0.*"
+
+## Configuration
+
+Next replace `Illuminate\Auth\AuthServiceProvider` with the following service provider in `config/app.php`.
 
 ```php
 'providers' => [
