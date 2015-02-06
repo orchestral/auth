@@ -25,6 +25,7 @@ Laravel    | Auth
  4.1.x     | 2.1.x
  4.2.x     | 2.2.x
  5.0.x     | 3.0.x
+ 5.1.x     | 3.1.x@dev
 
 ## Installation
 
@@ -44,7 +45,7 @@ And then run `composer install` from the terminal.
 
 Above installation can also be simplify by using the following command:
 
-    composer require "orchestra/auth=3.0.*"
+    composer require "orchestra/auth=3.1.*"
 
 ## Configuration
 
