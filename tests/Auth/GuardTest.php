@@ -8,7 +8,7 @@ class GuardTest extends \PHPUnit_Framework_TestCase
     /**
      * Provider instance.
      *
-     * @var Illuminate\Auth\UserProviderInterface
+     * @var Illuminate\Contracts\Auth\UserProvider
      */
     private $provider = null;
 
@@ -31,7 +31,7 @@ class GuardTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        $this->provider = m::mock('\Illuminate\Auth\UserProviderInterface');
+        $this->provider = m::mock('\Illuminate\Contracts\Auth\UserProvider');
         $this->session  = m::mock('\Illuminate\Session\Store');
         $this->events   = m::mock('\Illuminate\Contracts\Events\Dispatcher');
     }
