@@ -1,10 +1,11 @@
 <?php namespace Orchestra\Auth;
 
 use Illuminate\Support\Arr;
+use Illuminate\Auth\Guard as BaseGuard;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Orchestra\Contracts\Auth\Guard as GuardContract;
 
-class Guard extends \Illuminate\Auth\Guard implements GuardContract
+class Guard extends BaseGuard implements GuardContract
 {
     /**
      * Cached user to roles relationship.
