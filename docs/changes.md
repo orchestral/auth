@@ -5,9 +5,19 @@ title: Auth Change Log
 
 ## Version 3.0 {#v3-0}
 
-### v3.0.0@dev {#3-3-0}
+### v3.0.0 {#3-3-0}
 
-* Remove deprecated `Orchestra\Auth\Acl\Fluent::fill()` method.
+* Update support for Laravel Framework v5.0.
+* Split components to two (2) sub-components; Auth and Authorization.
+* Rename `Orchestra\Auth\Acl` namespace to `Orchestra\Authorization`.
+* Auth:
+  - Simplify `Orchestra\Auth\AuthServiceProvider`.
+  - `Orchestra\Auth\Guard` should get user identity from `getAuthIndetifier()` method.
+  - Moved password recovery code from `orchestra/foundation`.
+* Authorization:
+  - Add `Orchestra\Authorization\AuthorizationServiceProvider`.
+  - Rename `Orchestra\Auth\Acl\Container` to `Orchestra\Authorization\Authorization`.
+  - Remove deprecated `Orchestra\Auth\Acl\Fluent::fill()` method, use `attach()` instead.
 
 ## Version 2.2 {#v2-2}
 
