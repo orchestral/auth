@@ -2,7 +2,7 @@
 
 use Closure;
 use Orchestra\Notifier\Message;
-use Illuminate\Auth\UserProviderInterface;
+use Illuminate\Contracts\Auth\UserProvider;
 use Illuminate\Contracts\Support\Arrayable;
 use Orchestra\Contracts\Notification\Notification;
 use Illuminate\Auth\Passwords\PasswordBroker as Broker;
@@ -23,13 +23,13 @@ class PasswordBroker extends Broker
      * Create a new password broker instance.
      *
      * @param  \Illuminate\Auth\Passwords\TokenRepositoryInterface  $tokens
-     * @param  \Illuminate\Auth\UserProviderInterface  $users
+     * @param  \Illuminate\Contracts\Auth\UserProvider  $users
      * @param  \Orchestra\Contracts\Notification\Notification  $mailer
      * @param  string  $emailView
      */
     public function __construct(
         TokenRepositoryInterface $tokens,
-        UserProviderInterface $users,
+        UserProvider $users,
         Notification $mailer,
         $emailView
     ) {
