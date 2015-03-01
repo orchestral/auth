@@ -68,8 +68,8 @@ class Authorization implements AuthorizationContract
     protected function initiate()
     {
         $name = $this->name;
-        $data = array('acl' => array(), 'actions' => array(), 'roles' => array());
-        $data = array_merge($data, $this->memory->get("acl_{$name}", array()));
+        $data = ['acl' => [], 'actions' => [], 'roles' => []];
+        $data = array_merge($data, $this->memory->get("acl_{$name}", []));
 
         // Loop through all the roles and actions in memory and add it to
         // this ACL instance.
@@ -153,11 +153,11 @@ class Authorization implements AuthorizationContract
         if ($this->attached()) {
             $name = $this->name;
 
-            $this->memory->put("acl_{$name}", array(
+            $this->memory->put("acl_{$name}", [
                 "acl"     => $this->acl,
                 "actions" => $this->actions->get(),
                 "roles"   => $this->roles->get(),
-            ));
+            ]);
         }
 
         return $this;
@@ -171,9 +171,9 @@ class Authorization implements AuthorizationContract
      * @param  array   $parameters
      * @return \Orchestra\Authorization\Fluent
      */
-    public function execute($type, $operation, array $parameters = array())
+    public function execute($type, $operation, array $parameters = [])
     {
-        return call_user_func_array(array($this->{$type}, $operation), $parameters);
+        return call_user_func_array([$this->{$type}, $operation], $parameters);
     }
 
     /**
@@ -218,7 +218,7 @@ class Authorization implements AuthorizationContract
         $multiple  = (isset($matches[3]) && $matches[3] === 's');
         $operation = $this->resolveOperationName($matches[1], $multiple);
 
-        return array($type, $operation);
+        return [$type, $operation];
     }
 
     /**
@@ -233,7 +233,7 @@ class Authorization implements AuthorizationContract
     {
         if (! $multiple) {
             return $operation;
-        } elseif (in_array($operation, array('fill', 'add'))) {
+        } elseif (in_array($operation, ['fill', 'add'])) {
             return 'attach';
         }
 

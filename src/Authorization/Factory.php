@@ -81,7 +81,7 @@ class Factory implements FactoryContract
      */
     public function __call($method, array $parameters)
     {
-        $response = array();
+        $response = [];
 
         foreach ($this->drivers as $acl) {
             $response[] = call_user_func_array([$acl, $method], $parameters);

@@ -156,7 +156,7 @@ class Fluent
         $key = strval($key);
         $key = $this->getSlugFromName($key);
 
-        return ( ! empty($key) && in_array($key, $this->items));
+        return (! empty($key) && in_array($key, $this->items));
     }
 
     /**
@@ -211,7 +211,7 @@ class Fluent
         $id = array_search($key, $this->items);
 
         if (false === $id) {
-            return null;
+            return;
         }
 
         return $id;

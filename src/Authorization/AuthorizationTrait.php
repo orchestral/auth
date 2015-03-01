@@ -127,7 +127,6 @@ trait AuthorizationTrait
         }
     }
 
-
     /**
      * Get the `acl` collection.
      *
