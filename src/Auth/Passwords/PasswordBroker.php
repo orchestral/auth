@@ -33,9 +33,9 @@ class PasswordBroker extends Broker
         Notification $mailer,
         $emailView
     ) {
-        $this->users = $users;
-        $this->mailer = $mailer;
-        $this->tokens = $tokens;
+        $this->users     = $users;
+        $this->mailer    = $mailer;
+        $this->tokens    = $tokens;
         $this->emailView = $emailView;
     }
 
@@ -44,6 +44,7 @@ class PasswordBroker extends Broker
      *
      * @param  array  $credentials
      * @param  \Closure  $callback
+     *
      * @return string
      */
     public function sendResetLink(array $credentials, Closure $callback = null)
@@ -73,6 +74,7 @@ class PasswordBroker extends Broker
      * @param  \Illuminate\Contracts\Auth\CanResetPassword  $user
      * @param  string  $token
      * @param  \Closure|null  $callback
+     *
      * @return \Orchestra\Contracts\Notification\Receipt
      */
     public function emailResetLink(RemindableContract $user, $token, Closure $callback = null)

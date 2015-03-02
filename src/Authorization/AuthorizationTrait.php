@@ -38,7 +38,9 @@ trait AuthorizationTrait
      *
      * @param  string|array  $roles      A string or an array of roles
      * @param  string        $action     A string of action name
+     *
      * @return bool
+     *
      * @throws \InvalidArgumentException
      */
     public function checkAuthorization($roles, $action)
@@ -69,7 +71,9 @@ trait AuthorizationTrait
      * @param  string|array  $roles      A string or an array of roles
      * @param  string|array  $actions    A string or an array of action name
      * @param  bool          $allow
+     *
      * @return void
+     *
      * @throws \InvalidArgumentException
      */
     public function setAuthorization($roles, $actions, $allow = true)
@@ -92,7 +96,9 @@ trait AuthorizationTrait
      * @param  string  $role
      * @param  array   $actions
      * @param  bool    $allow
+     *
      * @return bool
+     *
      * @throws \InvalidArgumentException
      */
     protected function groupedAssignAction($role, array $actions, $allow = true)
@@ -114,19 +120,19 @@ trait AuthorizationTrait
      * @param  string  $role       A key or string representation of roles
      * @param  string  $action     A key or string representation of action name
      * @param  bool    $allow
+     *
      * @return void
      */
     protected function assign($role = null, $action = null, $allow = true)
     {
-        $role = $this->roles->findKey($role);
+        $role   = $this->roles->findKey($role);
         $action = $this->actions->findKey($action);
 
         if (! is_null($role) && ! is_null($action)) {
-            $key = $role.':'.$action;
+            $key             = $role.':'.$action;
             $this->acl[$key] = $allow;
         }
     }
-
 
     /**
      * Get the `acl` collection.

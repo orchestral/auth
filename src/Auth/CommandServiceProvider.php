@@ -20,7 +20,7 @@ class CommandServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->singleton('orchestra.commands.auth', function () {
-            return new AuthCommand;
+            return new AuthCommand();
         });
 
         $this->commands('orchestra.commands.auth');

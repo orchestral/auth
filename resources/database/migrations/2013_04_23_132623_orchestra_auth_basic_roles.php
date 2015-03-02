@@ -15,17 +15,17 @@ class OrchestraAuthBasicRoles extends Migration
     {
         $datetime = Carbon::now();
 
-        DB::table('roles')->insert(array(
+        DB::table('roles')->insert([
             'name'       => 'Administrator',
             'created_at' => $datetime,
             'updated_at' => $datetime,
-        ));
+        ]);
 
-        DB::table('roles')->insert(array(
+        DB::table('roles')->insert([
             'name'       => 'Member',
             'created_at' => $datetime,
             'updated_at' => $datetime,
-        ));
+        ]);
     }
 
     /**

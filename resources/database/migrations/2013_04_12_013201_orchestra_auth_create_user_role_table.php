@@ -21,7 +21,7 @@ class OrchestraAuthCreateUserRoleTable extends Migration
 
             $table->timestamps();
 
-            $table->index(array('user_id', 'role_id'));
+            $table->index(['user_id', 'role_id']);
         });
     }
 

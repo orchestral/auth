@@ -36,6 +36,7 @@ class Factory implements FactoryContract
      *
      * @param  string  $name
      * @param  \Orchestra\Contracts\Memory\Provider  $memory
+     *
      * @return \Orchestra\Contracts\Authorization\Authorization
      */
     public function make($name = null, Provider $memory = null)
@@ -56,6 +57,7 @@ class Factory implements FactoryContract
      *
      * @param  string  $name
      * @param  \Closure  $callback
+     *
      * @return \Orchestra\Contracts\Authorization\Authorization
      */
     public function register($name, $callback = null)
@@ -77,11 +79,12 @@ class Factory implements FactoryContract
      *
      * @param  string  $method
      * @param  array   $parameters
+     *
      * @return mixed
      */
     public function __call($method, array $parameters)
     {
-        $response = array();
+        $response = [];
 
         foreach ($this->drivers as $acl) {
             $response[] = call_user_func_array([$acl, $method], $parameters);
@@ -121,6 +124,7 @@ class Factory implements FactoryContract
      * Get ACL instance by name.
      *
      * @param  string  $name
+     *
      * @return \Orchestra\Contracts\Authorization\Authorization
      */
     public function get($name)
