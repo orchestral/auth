@@ -41,7 +41,9 @@ class Authorization implements AuthorizationContract
      * Bind current ACL instance with a Memory instance.
      *
      * @param  \Orchestra\Contracts\Memory\Provider  $memory
+     *
      * @return void
+     *
      * @throws \RuntimeException if $memory has been attached.
      */
     public function attach(Provider $memory = null)
@@ -92,6 +94,7 @@ class Authorization implements AuthorizationContract
      * @param  string|array  $roles      A string or an array of roles
      * @param  string|array  $actions    A string or an array of action name
      * @param  bool          $allow
+     *
      * @return $this
      */
     public function allow($roles, $actions, $allow = true)
@@ -106,6 +109,7 @@ class Authorization implements AuthorizationContract
      * actions based on available type of access.
      *
      * @param  string  $action     A string of action name
+     *
      * @return bool
      */
     public function can($action)
@@ -121,7 +125,9 @@ class Authorization implements AuthorizationContract
      *
      * @param  string|array  $roles      A string or an array of roles
      * @param  string        $action     A string of action name
+     *
      * @return bool
+     *
      * @throws \InvalidArgumentException
      */
     public function check($roles, $action)
@@ -135,6 +141,7 @@ class Authorization implements AuthorizationContract
      *
      * @param  string|array  $roles      A string or an array of roles
      * @param  string|array  $actions    A string or an array of action name
+     *
      * @return $this
      */
     public function deny($roles, $actions)
@@ -169,6 +176,7 @@ class Authorization implements AuthorizationContract
      * @param  string  $type           'roles' or 'actions'
      * @param  string  $operation
      * @param  array   $parameters
+     *
      * @return \Orchestra\Authorization\Fluent
      */
     public function execute($type, $operation, array $parameters = [])
@@ -181,6 +189,7 @@ class Authorization implements AuthorizationContract
      *
      * @param  string  $method
      * @param  array   $parameters
+     *
      * @return mixed
      */
     public function __call($method, array $parameters)
@@ -201,7 +210,9 @@ class Authorization implements AuthorizationContract
      * detach multiple actions or roles.
      *
      * @param  string  $method
+     *
      * @return array
+     *
      * @throws \InvalidArgumentException
      */
     protected function resolveDynamicExecution($method)
@@ -227,6 +238,7 @@ class Authorization implements AuthorizationContract
      *
      * @param  string  $operation
      * @param  bool    $multiple
+     *
      * @return string
      */
     protected function resolveOperationName($operation, $multiple = true)

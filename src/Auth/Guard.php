@@ -18,6 +18,7 @@ class Guard extends BaseGuard implements GuardContract
      * Setup roles event listener.
      *
      * @param  \Closure|string  $event
+     *
      * @return void
      */
     public function setup($event)
@@ -60,6 +61,7 @@ class Guard extends BaseGuard implements GuardContract
      * Determine if current user has the given role.
      *
      * @param  string|array  $roles
+     *
      * @return bool
      */
     public function is($roles)
@@ -87,6 +89,7 @@ class Guard extends BaseGuard implements GuardContract
      * Determine if current user has any of the given role.
      *
      * @param  array   $roles
+     *
      * @return bool
      */
     public function isAny(array $roles)
@@ -114,6 +117,7 @@ class Guard extends BaseGuard implements GuardContract
      * Determine if current user does not has any of the given role.
      *
      * @param  string   $roles
+     *
      * @return bool
      */
     public function isNot($roles)
@@ -125,6 +129,7 @@ class Guard extends BaseGuard implements GuardContract
      * Determine if current user does not has any of the given role.
      *
      * @param  array   $roles
+     *
      * @return bool
      */
     public function isNotAny(array $roles)
@@ -150,6 +155,7 @@ class Guard extends BaseGuard implements GuardContract
      *
      * @param  \Illuminate\Contracts\Auth\Authenticatable  $user
      * @param  array  $roles
+     *
      * @return array
      */
     protected function getUserRolesFromEventDispatcher(Authenticatable $user = null, $roles = [])

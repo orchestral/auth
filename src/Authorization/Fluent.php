@@ -34,7 +34,9 @@ class Fluent
      * Add a key to collection.
      *
      * @param  string  $key
+     *
      * @return bool
+     *
      * @throws \InvalidArgumentException
      */
     public function add($key)
@@ -62,6 +64,7 @@ class Fluent
      * Add multiple key to collection.
      *
      * @param  array  $keys
+     *
      * @return bool
      */
     public function attach(array $keys)
@@ -77,6 +80,7 @@ class Fluent
      * Remove multiple key to collection.
      *
      * @param  array  $keys
+     *
      * @return bool
      */
     public function detach(array $keys)
@@ -92,6 +96,7 @@ class Fluent
      * Check if an id is set in the collection.
      *
      * @param  int  $id
+     *
      * @return bool
      */
     public function exist($id)
@@ -105,6 +110,7 @@ class Fluent
      * Filter request.
      *
      * @param  string|array  $request
+     *
      * @return array
      */
     public function filter($request)
@@ -124,6 +130,7 @@ class Fluent
      * Find collection key from a name.
      *
      * @param  mixed  $name
+     *
      * @return integer|null
      */
     public function findKey($name)
@@ -149,6 +156,7 @@ class Fluent
      * Determine whether a key exists in collection.
      *
      * @param  string  $key
+     *
      * @return bool
      */
     public function has($key)
@@ -163,7 +171,9 @@ class Fluent
      * Remove a key from collection.
      *
      * @param  string  $key
+     *
      * @return bool
+     *
      * @throws \InvalidArgumentException
      */
     public function remove($key)
@@ -185,6 +195,7 @@ class Fluent
      *
      * @param  string  $from
      * @param  string  $to
+     *
      * @return bool
      */
     public function rename($from, $to)
@@ -202,6 +213,7 @@ class Fluent
      * Get the ID from a key.
      *
      * @param  string   $key
+     *
      * @return int
      */
     public function search($key)
@@ -221,6 +233,7 @@ class Fluent
      * Get slug name.
      *
      * @param  string  $name
+     *
      * @return string
      */
     protected function getSlugFromName($name)

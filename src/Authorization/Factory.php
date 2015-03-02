@@ -36,6 +36,7 @@ class Factory implements FactoryContract
      *
      * @param  string  $name
      * @param  \Orchestra\Contracts\Memory\Provider  $memory
+     *
      * @return \Orchestra\Contracts\Authorization\Authorization
      */
     public function make($name = null, Provider $memory = null)
@@ -56,6 +57,7 @@ class Factory implements FactoryContract
      *
      * @param  string  $name
      * @param  \Closure  $callback
+     *
      * @return \Orchestra\Contracts\Authorization\Authorization
      */
     public function register($name, $callback = null)
@@ -77,6 +79,7 @@ class Factory implements FactoryContract
      *
      * @param  string  $method
      * @param  array   $parameters
+     *
      * @return mixed
      */
     public function __call($method, array $parameters)
@@ -121,6 +124,7 @@ class Factory implements FactoryContract
      * Get ACL instance by name.
      *
      * @param  string  $name
+     *
      * @return \Orchestra\Contracts\Authorization\Authorization
      */
     public function get($name)
