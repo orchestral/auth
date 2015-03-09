@@ -1,6 +1,3 @@
 # Composer
 composer.lock
 vendor/*
-
-# Build
-.subsplit/
