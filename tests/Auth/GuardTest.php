@@ -27,7 +27,7 @@ class GuardTest extends \PHPUnit_Framework_TestCase
     private $events = null;
 
     /**
-     * Setup the test environment
+     * Setup the test environment.
      */
     public function setUp()
     {
@@ -57,7 +57,7 @@ class GuardTest extends \PHPUnit_Framework_TestCase
     {
         $events   = $this->events;
         $callback = function () {
-            return array('editor');
+            return ['editor'];
         };
 
         $events->shouldReceive('forget')->once()->with('orchestra.auth: roles')->andReturn(null)
@@ -83,13 +83,13 @@ class GuardTest extends \PHPUnit_Framework_TestCase
         $user->shouldReceive('getAuthIdentifier')->once()->andReturn(1);
 
         $events->shouldReceive('until')->once()
-                ->with('orchestra.auth: roles', m::any())->andReturn(array('admin', 'editor'));
+                ->with('orchestra.auth: roles', m::any())->andReturn(['admin', 'editor']);
 
         $stub = new Guard($this->provider, $this->session);
         $stub->setDispatcher($events);
         $stub->setUser($user);
 
-        $expected = array('admin', 'editor');
+        $expected = ['admin', 'editor'];
         $output   = $stub->roles();
 
         $this->assertEquals($expected, $output);
@@ -115,7 +115,7 @@ class GuardTest extends \PHPUnit_Framework_TestCase
         $stub->setDispatcher($events);
         $stub->setUser($user);
 
-        $expected = array('Guest');
+        $expected = ['Guest'];
         $output   = $stub->roles();
 
         $this->assertEquals($expected, $output);
@@ -135,7 +135,7 @@ class GuardTest extends \PHPUnit_Framework_TestCase
         $user->shouldReceive('getAuthIdentifier')->times(5)->andReturn(1);
 
         $events->shouldReceive('until')->once()
-                ->with('orchestra.auth: roles', m::any())->andReturn(array('admin', 'editor'));
+                ->with('orchestra.auth: roles', m::any())->andReturn(['admin', 'editor']);
 
         $stub = new Guard($this->provider, $this->session);
         $stub->setDispatcher($events);
@@ -145,8 +145,8 @@ class GuardTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($stub->is('editor'));
         $this->assertFalse($stub->is('user'));
 
-        $this->assertTrue($stub->is(array('admin', 'editor')));
-        $this->assertFalse($stub->is(array('admin', 'user')));
+        $this->assertTrue($stub->is(['admin', 'editor']));
+        $this->assertFalse($stub->is(['admin', 'user']));
     }
 
     /**
@@ -174,8 +174,8 @@ class GuardTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($stub->is('editor'));
         $this->assertFalse($stub->is('user'));
 
-        $this->assertFalse($stub->is(array('admin', 'editor')));
-        $this->assertFalse($stub->is(array('admin', 'user')));
+        $this->assertFalse($stub->is(['admin', 'editor']));
+        $this->assertFalse($stub->is(['admin', 'user']));
     }
 
     /**
@@ -192,15 +192,15 @@ class GuardTest extends \PHPUnit_Framework_TestCase
         $user->shouldReceive('getAuthIdentifier')->times(3)->andReturn(1);
 
         $events->shouldReceive('until')->once()
-                ->with('orchestra.auth: roles', m::any())->andReturn(array('admin', 'editor'));
+                ->with('orchestra.auth: roles', m::any())->andReturn(['admin', 'editor']);
 
         $stub = new Guard($this->provider, $this->session);
         $stub->setDispatcher($events);
         $stub->setUser($user);
 
-        $this->assertTrue($stub->isAny(array('admin', 'user')));
-        $this->assertTrue($stub->isAny(array('user', 'editor')));
-        $this->assertFalse($stub->isAny(array('superadmin', 'user')));
+        $this->assertTrue($stub->isAny(['admin', 'user']));
+        $this->assertTrue($stub->isAny(['user', 'editor']));
+        $this->assertFalse($stub->isAny(['superadmin', 'user']));
     }
 
     /**
@@ -224,8 +224,8 @@ class GuardTest extends \PHPUnit_Framework_TestCase
         $stub->setDispatcher($events);
         $stub->setUser($user);
 
-        $this->assertFalse($stub->isAny(array('admin', 'editor')));
-        $this->assertFalse($stub->isAny(array('admin', 'user')));
+        $this->assertFalse($stub->isAny(['admin', 'editor']));
+        $this->assertFalse($stub->isAny(['admin', 'user']));
     }
 
     /**
@@ -242,7 +242,7 @@ class GuardTest extends \PHPUnit_Framework_TestCase
         $user->shouldReceive('getAuthIdentifier')->times(5)->andReturn(1);
 
         $events->shouldReceive('until')->once()
-                ->with('orchestra.auth: roles', m::any())->andReturn(array('admin', 'editor'));
+                ->with('orchestra.auth: roles', m::any())->andReturn(['admin', 'editor']);
 
         $stub = new Guard($this->provider, $this->session);
         $stub->setDispatcher($events);
@@ -252,8 +252,8 @@ class GuardTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($stub->isNot('user'));
         $this->assertFalse($stub->isNot('admin'));
 
-        $this->assertTrue($stub->isNot(array('superadmin', 'user')));
-        $this->assertFalse($stub->isNot(array('admin', 'editor')));
+        $this->assertTrue($stub->isNot(['superadmin', 'user']));
+        $this->assertFalse($stub->isNot(['admin', 'editor']));
     }
 
     /**
@@ -281,8 +281,8 @@ class GuardTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($stub->isNot('editor'));
         $this->assertTrue($stub->isNot('user'));
 
-        $this->assertTrue($stub->isNot(array('admin', 'editor')));
-        $this->assertTrue($stub->isNot(array('admin', 'user')));
+        $this->assertTrue($stub->isNot(['admin', 'editor']));
+        $this->assertTrue($stub->isNot(['admin', 'user']));
     }
 
     /**
@@ -299,15 +299,15 @@ class GuardTest extends \PHPUnit_Framework_TestCase
         $user->shouldReceive('getAuthIdentifier')->times(3)->andReturn(1);
 
         $events->shouldReceive('until')->once()
-                ->with('orchestra.auth: roles', m::any())->andReturn(array('admin', 'editor'));
+                ->with('orchestra.auth: roles', m::any())->andReturn(['admin', 'editor']);
 
         $stub = new Guard($this->provider, $this->session);
         $stub->setDispatcher($events);
         $stub->setUser($user);
 
-        $this->assertTrue($stub->isNotAny(array('administrator', 'user')));
-        $this->assertFalse($stub->isNotAny(array('user', 'editor')));
-        $this->assertFalse($stub->isNotAny(array('admin', 'editor')));
+        $this->assertTrue($stub->isNotAny(['administrator', 'user']));
+        $this->assertFalse($stub->isNotAny(['user', 'editor']));
+        $this->assertFalse($stub->isNotAny(['admin', 'editor']));
     }
 
     /**
@@ -331,8 +331,8 @@ class GuardTest extends \PHPUnit_Framework_TestCase
         $stub->setDispatcher($events);
         $stub->setUser($user);
 
-        $this->assertTrue($stub->isNotAny(array('admin', 'editor')));
-        $this->assertTrue($stub->isNotAny(array('admin', 'user')));
+        $this->assertTrue($stub->isNotAny(['admin', 'editor']));
+        $this->assertTrue($stub->isNotAny(['admin', 'user']));
     }
 
     /**
@@ -348,9 +348,9 @@ class GuardTest extends \PHPUnit_Framework_TestCase
         $cookie   = m::mock('\Illuminate\Contracts\Cookie\QueueingFactory');
 
         $events->shouldReceive('until')->never()
-                ->with('orchestra.auth: roles', m::any())->andReturn(array('admin', 'editor'))
+                ->with('orchestra.auth: roles', m::any())->andReturn(['admin', 'editor'])
             ->shouldReceive('fire')->once()
-                ->with('auth.logout', m::any())->andReturn(array('admin', 'editor'));
+                ->with('auth.logout', m::any())->andReturn(['admin', 'editor']);
         $provider->shouldReceive('updateRememberToken')->once();
         $session->shouldReceive('remove')->once()->andReturn(null);
 
@@ -373,9 +373,9 @@ class GuardTest extends \PHPUnit_Framework_TestCase
             ->shouldReceive('setRememberToken')->once();
 
         $user->setValue($stub, $userStub);
-        $userRoles->setValue($stub, array(1 => array('admin', 'editor')));
+        $userRoles->setValue($stub, [1 => ['admin', 'editor']]);
 
-        $this->assertEquals(array('admin', 'editor'), $stub->roles());
+        $this->assertEquals(['admin', 'editor'], $stub->roles());
 
         $stub->logout();
 

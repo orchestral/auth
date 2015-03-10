@@ -12,7 +12,7 @@ class PasswordBrokerTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        $app = new Container;
+        $app               = new Container();
         $app['translator'] = $translator = m::mock('\Illuminate\Translation\Translator')->makePartial();
         $translator->shouldReceive('trans')->andReturn('foo');
 
@@ -49,7 +49,7 @@ class PasswordBrokerTest extends \PHPUnit_Framework_TestCase
         };
 
         $user->shouldReceive('retrieveByCredentials')->once()
-            ->with(array('username' => 'user-foo'))
+            ->with(['username' => 'user-foo'])
             ->andReturn($userReminderable);
         $reminders->shouldReceive('create')->once()->with($userReminderable)->andReturnNull();
         $mailer->shouldReceive('send')->once()
@@ -59,7 +59,7 @@ class PasswordBrokerTest extends \PHPUnit_Framework_TestCase
                     return true;
                 });
 
-        $this->assertEquals('passwords.sent', $stub->sendResetLink(array('username' => 'user-foo'), $callback));
+        $this->assertEquals('passwords.sent', $stub->sendResetLink(['username' => 'user-foo'], $callback));
     }
 
     /**
@@ -78,9 +78,9 @@ class PasswordBrokerTest extends \PHPUnit_Framework_TestCase
         );
 
         $user->shouldReceive('retrieveByCredentials')->once()
-            ->with(array('username' => 'user-foo'))->andReturnNull();
+            ->with(['username' => 'user-foo'])->andReturnNull();
 
-        $this->assertEquals('passwords.user', $stub->sendResetLink(array('username' => 'user-foo')));
+        $this->assertEquals('passwords.user', $stub->sendResetLink(['username' => 'user-foo']));
     }
 
     /**
@@ -103,15 +103,15 @@ class PasswordBrokerTest extends \PHPUnit_Framework_TestCase
             return 'foo';
         };
 
-        $credentials = array(
-            'username' => 'user-foo',
-            'password' => 'qwerty',
+        $credentials = [
+            'username'              => 'user-foo',
+            'password'              => 'qwerty',
             'password_confirmation' => 'qwerty',
-            'token' => 'someuniquetokenkey',
-        );
+            'token'                 => 'someuniquetokenkey',
+        ];
 
         $user->shouldReceive('retrieveByCredentials')->once()
-                ->with(array_except($credentials, array('token')))->andReturn($userReminderable);
+                ->with(array_except($credentials, ['token']))->andReturn($userReminderable);
         $reminders->shouldReceive('exists')->once()->with($userReminderable, 'someuniquetokenkey')->andReturn(true)
             ->shouldReceive('delete')->once()->with('someuniquetokenkey')->andReturn(true);
 
@@ -137,15 +137,15 @@ class PasswordBrokerTest extends \PHPUnit_Framework_TestCase
             //
         };
 
-        $credentials = array(
-            'username' => 'user-foo',
-            'password' => 'qwerty',
+        $credentials = [
+            'username'              => 'user-foo',
+            'password'              => 'qwerty',
             'password_confirmation' => 'qwerty',
-            'token' => 'someuniquetokenkey',
-        );
+            'token'                 => 'someuniquetokenkey',
+        ];
 
         $user->shouldReceive('retrieveByCredentials')->once()
-            ->with(array_except($credentials, array('token')))->andReturnNull();
+            ->with(array_except($credentials, ['token']))->andReturnNull();
 
         $this->assertEquals('passwords.user', $stub->reset($credentials, $callback));
     }
@@ -169,15 +169,15 @@ class PasswordBrokerTest extends \PHPUnit_Framework_TestCase
             //
         };
 
-        $credentials = array(
-            'username' => 'user-foo',
-            'password' => 'qwerty',
+        $credentials = [
+            'username'              => 'user-foo',
+            'password'              => 'qwerty',
             'password_confirmation' => 'qwerty',
-            'token' => 'someuniquetokenkey',
-        );
+            'token'                 => 'someuniquetokenkey',
+        ];
 
         $user->shouldReceive('retrieveByCredentials')->once()
-                ->with(array_except($credentials, array('token')))
+                ->with(array_except($credentials, ['token']))
                 ->andReturn($userReminderable = m::mock('\Illuminate\Contracts\Auth\CanResetPassword, \Orchestra\Contracts\Notification\Recipient'));
         $reminders->shouldReceive('exists')->once()->with($userReminderable, 'someuniquetokenkey')->andReturn(false);
 
@@ -203,15 +203,15 @@ class PasswordBrokerTest extends \PHPUnit_Framework_TestCase
             //
         };
 
-        $credentials = array(
-            'username' => 'user-foo',
-            'password' => 'qwerty',
+        $credentials = [
+            'username'              => 'user-foo',
+            'password'              => 'qwerty',
             'password_confirmation' => 'qwerty',
-            'token' => 'someuniquetokenkey',
-        );
+            'token'                 => 'someuniquetokenkey',
+        ];
 
         $user->shouldReceive('retrieveByCredentials')->once()
-                ->with(array_except($credentials, array('token')))
+                ->with(array_except($credentials, ['token']))
                 ->andReturn($userReminderable = m::mock('\Illuminate\Contracts\Auth\CanResetPassword, \Orchestra\Contracts\Notification\Recipient'));
         $reminders->shouldReceive('exists')->once()->with($userReminderable, 'someuniquetokenkey')->andReturn(false);
 
@@ -233,8 +233,8 @@ class PasswordBrokerTest extends \PHPUnit_Framework_TestCase
             $view = 'foo'
         );
 
-        $user->shouldReceive('retrieveByCredentials')->once()->with(array())->andReturn('foo');
+        $user->shouldReceive('retrieveByCredentials')->once()->with([])->andReturn('foo');
 
-        $stub->getUser(array());
+        $stub->getUser([]);
     }
 }

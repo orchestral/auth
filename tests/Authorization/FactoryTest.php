@@ -14,7 +14,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test Orchestra\Authorization\Factory::make()
+     * Test Orchestra\Authorization\Factory::make().
      *
      * @test
      */
@@ -26,8 +26,8 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('\Orchestra\Authorization\Authorization', $stub->make('mock-one'));
 
         $memory = m::mock('\Orchestra\Memory\Provider');
-        $memory->shouldReceive('get')->once()->andReturn(array())
-            ->shouldReceive('put')->once()->andReturn(array());
+        $memory->shouldReceive('get')->once()->andReturn([])
+            ->shouldReceive('put')->once()->andReturn([]);
 
         $this->assertInstanceOf('\Orchestra\Authorization\Authorization', $stub->make('mock-two', $memory));
     }
@@ -45,8 +45,8 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
         $auth->shouldReceive('guest')->times(3)->andReturn(true);
 
         $stub->register(function ($acl) {
-            $acl->addActions(array('view blog', 'view forum', 'view news'));
-            $acl->allow('guest', array('view blog'));
+            $acl->addActions(['view blog', 'view forum', 'view news']);
+            $acl->allow('guest', ['view blog']);
             $acl->deny('guest', 'view forum');
         });
 
@@ -70,8 +70,8 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
         $acl1 = $stub->make('mock-one');
         $acl2 = $stub->make('mock-two');
 
-        $stub->addRoles(array('admin', 'manager', 'moderator'));
-        $stub->removeRoles(array('moderator'));
+        $stub->addRoles(['admin', 'manager', 'moderator']);
+        $stub->removeRoles(['moderator']);
 
         $this->assertTrue($acl1->hasRole('admin'));
         $this->assertTrue($acl2->hasRole('admin'));
@@ -86,11 +86,11 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($acl2->hasRole('manager'));
 
         $this->assertTrue(is_array($stub->all()));
-        $this->assertFalse(array() === $stub->all());
+        $this->assertFalse([] === $stub->all());
 
         $stub->finish();
 
-        $this->assertEquals(array(), $stub->all());
+        $this->assertEquals([], $stub->all());
     }
 
     /**
@@ -107,7 +107,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
         $mock2 = $stub->make('mock-two');
         $mock3 = $stub->make('mock-three');
 
-        $expect = array('mock-one', 'mock-two', 'mock-three');
+        $expect = ['mock-one', 'mock-two', 'mock-three'];
         $this->assertEquals($expect, array_keys($stub->all()));
 
         $this->assertEquals($mock1, $stub->get('mock-one'));

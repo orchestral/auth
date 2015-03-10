@@ -18,7 +18,7 @@ class FluentTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->stub = new Fluent('stub');
-        $this->stub->attach(array('Hello World'));
+        $this->stub->attach(['Hello World']);
     }
 
     /**
@@ -53,7 +53,7 @@ class FluentTest extends \PHPUnit_Framework_TestCase
      */
     public function testAddMethod()
     {
-        $stub = new Fluent('foo');
+        $stub  = new Fluent('foo');
         $model = m::mock('\Illuminate\Database\Eloquent\Model');
 
         $model->shouldReceive('getAttribute')->once()->with('name')->andReturn('eloquent');
@@ -62,11 +62,11 @@ class FluentTest extends \PHPUnit_Framework_TestCase
         $stub->add('foobar');
         $stub->add($model);
 
-        $refl = new \ReflectionObject($stub);
+        $refl  = new \ReflectionObject($stub);
         $items = $refl->getProperty('items');
         $items->setAccessible(true);
 
-        $expected = array('foo', 'foobar', 'eloquent');
+        $expected = ['foo', 'foobar', 'eloquent'];
         $this->assertEquals($expected, $items->getValue($stub));
         $this->assertEquals($expected, $stub->get());
     }
@@ -92,14 +92,14 @@ class FluentTest extends \PHPUnit_Framework_TestCase
     {
         $stub = new Fluent('foo');
 
-        $stub->attach(array('foo', 'foobar'));
+        $stub->attach(['foo', 'foobar']);
 
-        $refl = new \ReflectionObject($stub);
+        $refl  = new \ReflectionObject($stub);
         $items = $refl->getProperty('items');
         $items->setAccessible(true);
 
-        $this->assertEquals(array('foo', 'foobar'), $items->getValue($stub));
-        $this->assertEquals(array('foo', 'foobar'), $stub->get());
+        $this->assertEquals(['foo', 'foobar'], $items->getValue($stub));
+        $this->assertEquals(['foo', 'foobar'], $stub->get());
     }
 
     /**
@@ -111,7 +111,7 @@ class FluentTest extends \PHPUnit_Framework_TestCase
     {
         $stub = new Fluent('foo');
 
-        $stub->attach(array(null));
+        $stub->attach([null]);
     }
 
     /**
@@ -134,16 +134,16 @@ class FluentTest extends \PHPUnit_Framework_TestCase
     {
         $stub = new Fluent('foo');
 
-        $stub->attach(array('foo', 'foobar'));
+        $stub->attach(['foo', 'foobar']);
 
         $stub->rename('foo', 'laravel');
 
-        $refl = new \ReflectionObject($stub);
+        $refl  = new \ReflectionObject($stub);
         $items = $refl->getProperty('items');
         $items->setAccessible(true);
 
-        $this->assertEquals(array('laravel', 'foobar'), $items->getValue($stub));
-        $this->assertEquals(array('laravel', 'foobar'), $stub->get());
+        $this->assertEquals(['laravel', 'foobar'], $items->getValue($stub));
+        $this->assertEquals(['laravel', 'foobar'], $stub->get());
 
         $this->assertFalse($stub->rename('foo', 'hello'));
     }
@@ -157,7 +157,7 @@ class FluentTest extends \PHPUnit_Framework_TestCase
     {
         $stub = new Fluent('foo');
 
-        $stub->attach(array('foo', 'foobar'));
+        $stub->attach(['foo', 'foobar']);
 
         $this->assertEquals(0, $stub->search('foo'));
         $this->assertEquals(1, $stub->search('foobar'));
@@ -173,7 +173,7 @@ class FluentTest extends \PHPUnit_Framework_TestCase
     {
         $stub = new Fluent('foo');
 
-        $stub->attach(array('foo', 'foobar'));
+        $stub->attach(['foo', 'foobar']);
 
         $this->assertTrue($stub->exist(0));
         $this->assertTrue($stub->exist(1));
@@ -189,26 +189,26 @@ class FluentTest extends \PHPUnit_Framework_TestCase
     {
         $stub = new Fluent('foo');
 
-        $stub->attach(array('foo', 'foobar'));
+        $stub->attach(['foo', 'foobar']);
 
-        $this->assertEquals(array('foo', 'foobar'), $stub->get());
+        $this->assertEquals(['foo', 'foobar'], $stub->get());
 
         $stub->remove('foo');
 
         $this->assertFalse($stub->exist(0));
         $this->assertTrue($stub->exist(1));
-        $this->assertEquals(array(1 => 'foobar'), $stub->get());
+        $this->assertEquals([1 => 'foobar'], $stub->get());
 
-        $stub->attach(array('foo'));
+        $stub->attach(['foo']);
 
-        $this->assertEquals(array(1 => 'foobar', 2 => 'foo'), $stub->get());
+        $this->assertEquals([1 => 'foobar', 2 => 'foo'], $stub->get());
 
         $stub->remove('foo');
 
         $this->assertFalse($stub->exist(0));
         $this->assertTrue($stub->exist(1));
         $this->assertFalse($stub->exist(2));
-        $this->assertEquals(array(1 => 'foobar'), $stub->get());
+        $this->assertEquals([1 => 'foobar'], $stub->get());
 
         $this->assertFalse($stub->remove('hello'));
     }
@@ -222,26 +222,26 @@ class FluentTest extends \PHPUnit_Framework_TestCase
     {
         $stub = new Fluent('foo');
 
-        $stub->attach(array('foo', 'foobar'));
+        $stub->attach(['foo', 'foobar']);
 
-        $this->assertEquals(array('foo', 'foobar'), $stub->get());
+        $this->assertEquals(['foo', 'foobar'], $stub->get());
 
-        $stub->detach(array('foo'));
+        $stub->detach(['foo']);
 
         $this->assertFalse($stub->exist(0));
         $this->assertTrue($stub->exist(1));
-        $this->assertEquals(array(1 => 'foobar'), $stub->get());
+        $this->assertEquals([1 => 'foobar'], $stub->get());
 
-        $stub->attach(array('foo'));
+        $stub->attach(['foo']);
 
-        $this->assertEquals(array(1 => 'foobar', 2 => 'foo'), $stub->get());
+        $this->assertEquals([1 => 'foobar', 2 => 'foo'], $stub->get());
 
-        $stub->detach(array('foo'));
+        $stub->detach(['foo']);
 
         $this->assertFalse($stub->exist(0));
         $this->assertTrue($stub->exist(1));
         $this->assertFalse($stub->exist(2));
-        $this->assertEquals(array(1 => 'foobar'), $stub->get());
+        $this->assertEquals([1 => 'foobar'], $stub->get());
     }
 
     /**
@@ -262,10 +262,10 @@ class FluentTest extends \PHPUnit_Framework_TestCase
     public function testFilterMethod()
     {
         $stub = new Fluent('foo');
-        $stub->attach(array('foo', 'foobar'));
+        $stub->attach(['foo', 'foobar']);
 
-        $this->assertEquals(array('foo', 'foobar'), $stub->filter('*'));
-        $this->assertEquals(array(1 => 'foobar'), $stub->filter('!foo'));
-        $this->assertEquals(array('hello-world'), $stub->filter('hello-world'));
+        $this->assertEquals(['foo', 'foobar'], $stub->filter('*'));
+        $this->assertEquals([1 => 'foobar'], $stub->filter('!foo'));
+        $this->assertEquals(['hello-world'], $stub->filter('hello-world'));
     }
 }
