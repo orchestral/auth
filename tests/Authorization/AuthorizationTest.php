@@ -27,17 +27,17 @@ class AuthorizationTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        $this->app = new IlluminateContainer;
-        $this->app['auth'] = $auth = m::mock('\Orchestra\Auth\Guard');
+        $this->app           = new IlluminateContainer();
+        $this->app['auth']   = $auth   = m::mock('\Orchestra\Auth\Guard');
         $this->app['config'] = $config = m::mock('Config');
         $this->app['events'] = $event = m::mock('Event');
 
         $auth->shouldReceive('guest')->andReturn(true)
             ->shouldReceive('user')->andReturn(null);
-        $config->shouldReceive('get')->andReturn(array());
-        $event->shouldReceive('until')->andReturn(array('admin', 'editor'));
+        $config->shouldReceive('get')->andReturn([]);
+        $event->shouldReceive('until')->andReturn(['admin', 'editor']);
 
-        $memory  = new Provider(new Runtime('foo', array()));
+        $memory  = new Provider(new Runtime('foo', []));
         $memory->put('acl_foo', $this->memoryProvider());
 
         $this->stub = new Authorization($this->app['auth'], 'foo', $memory);
@@ -60,21 +60,21 @@ class AuthorizationTest extends \PHPUnit_Framework_TestCase
      */
     protected function getRuntimeMemoryProvider()
     {
-        return new Provider(new Runtime('foo', array()));
+        return new Provider(new Runtime('foo', []));
     }
 
     /**
-     * Add data provider
+     * Add data provider.
      *
      * @return array
      */
     protected function memoryProvider()
     {
-        return array(
-            'acl'     => array('0:0' => false, '0:1' => false, '1:0' => true, '1:1' => true),
-            'actions' => array('Manage User', 'Manage'),
-            'roles'   => array('Guest', 'Admin'),
-        );
+        return [
+            'acl'     => ['0:0' => false, '0:1' => false, '1:0' => true, '1:1' => true],
+            'actions' => ['Manage User', 'Manage'],
+            'roles'   => ['Guest', 'Admin'],
+        ];
     }
 
     /**
@@ -135,19 +135,19 @@ class AuthorizationTest extends \PHPUnit_Framework_TestCase
         $actions->setAccessible(true);
         $acl->setAccessible(true);
 
-        $expected = array('guest', 'admin', 'foo');
+        $expected = ['guest', 'admin', 'foo'];
         $this->assertEquals($expected, $roles->getValue($stub)->get());
         $this->assertEquals($expected, $memory->getValue($stub)->get('acl_foo.roles'));
         $this->assertEquals($expected, $runtime->get('acl_foo.roles'));
         $this->assertInstanceOf('\Orchestra\Authorization\Fluent', $stub->roles());
 
-        $expected = array('manage-user', 'manage', 'foobar');
+        $expected = ['manage-user', 'manage', 'foobar'];
         $this->assertEquals($expected, $actions->getValue($stub)->get());
         $this->assertEquals($expected, $memory->getValue($stub)->get('acl_foo.actions'));
         $this->assertEquals($expected, $runtime->get('acl_foo.actions'));
         $this->assertInstanceOf('\Orchestra\Authorization\Fluent', $stub->actions());
 
-        $expected = array('0:0' => false, '0:1' => false, '1:0' => true, '1:1' => true, '2:2' => true);
+        $expected = ['0:0' => false, '0:1' => false, '1:0' => true, '1:1' => true, '2:2' => true];
         $this->assertEquals($expected, $acl->getValue($stub));
         $this->assertEquals($expected, $memory->getValue($stub)->get('acl_foo.acl'));
         $this->assertEquals($expected, $runtime->get('acl_foo.acl'));
@@ -165,13 +165,13 @@ class AuthorizationTest extends \PHPUnit_Framework_TestCase
         $runtime1 = $this->getRuntimeMemoryProvider();
         $runtime1->put('acl_foo', $this->memoryProvider());
 
-        $runtime2 = new Provider(new Runtime('foobar', array()));
+        $runtime2 = new Provider(new Runtime('foobar', []));
 
         $stub = new Authorization($this->app['auth'], 'foo', $runtime1);
         $stub->attach($runtime2);
     }
 
-     /**
+    /**
      * Test Orchestra\Authorization\Authorization::attach() method don't throw
      * exception when attaching multiple memory instance using the same
      * instance.
@@ -208,7 +208,7 @@ class AuthorizationTest extends \PHPUnit_Framework_TestCase
         $memory->setAccessible(true);
         $acl->setAccessible(true);
 
-        $expected = array('0:0' => true, '0:1' => false, '1:0' => true, '1:1' => true);
+        $expected = ['0:0' => true, '0:1' => false, '1:0' => true, '1:1' => true];
         $this->assertEquals($expected, $acl->getValue($stub));
         $this->assertEquals($expected, $memory->getValue($stub)->get('acl_foo.acl'));
         $this->assertEquals($expected, $runtime->get('acl_foo.acl'));
@@ -235,7 +235,7 @@ class AuthorizationTest extends \PHPUnit_Framework_TestCase
         $memory->setAccessible(true);
         $acl->setAccessible(true);
 
-        $expected = array('0:0' => false, '0:1' => false, '1:0' => false, '1:1' => true);
+        $expected = ['0:0' => false, '0:1' => false, '1:0' => false, '1:1' => true];
         $this->assertEquals($expected, $acl->getValue($stub));
         $this->assertEquals($expected, $memory->getValue($stub)->get('acl_foo.acl'));
         $this->assertEquals($expected, $runtime->get('acl_foo.acl'));
@@ -251,14 +251,14 @@ class AuthorizationTest extends \PHPUnit_Framework_TestCase
         $auth = m::mock('\Orchestra\Auth\Guard');
 
         $auth->shouldReceive('guest')->times(4)->andReturn(false)
-            ->shouldReceive('roles')->times(4)->andReturn(array('Admin'));
+            ->shouldReceive('roles')->times(4)->andReturn(['Admin']);
 
         $runtime = $this->getRuntimeMemoryProvider();
         $runtime->put('acl_foo', $this->memoryProvider());
 
         $stub = new Authorization($auth, 'foo', $runtime);
 
-        $stub->addActions(array('Manage Page', 'Manage Photo'));
+        $stub->addActions(['Manage Page', 'Manage Photo']);
         $stub->allow('guest', 'Manage Page');
 
         $this->assertTrue($stub->can('manage'));
@@ -279,7 +279,7 @@ class AuthorizationTest extends \PHPUnit_Framework_TestCase
 
         $stub = new Authorization($this->app['auth'], 'foo', $runtime);
 
-        $stub->addActions(array('Manage Page', 'Manage Photo'));
+        $stub->addActions(['Manage Page', 'Manage Photo']);
         $stub->allow('guest', 'Manage Page');
 
         $this->assertFalse($stub->can('manage'));
@@ -299,7 +299,7 @@ class AuthorizationTest extends \PHPUnit_Framework_TestCase
 
         $stub = new Authorization($this->app['auth'], 'foo', $runtime);
 
-        $stub->addActions(array('Manage Page', 'Manage Photo'));
+        $stub->addActions(['Manage Page', 'Manage Photo']);
         $stub->allow('guest', 'Manage Page');
 
         $this->assertFalse($stub->check('guest', 'manage'));
@@ -375,8 +375,8 @@ class AuthorizationTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($stub->roles()->has('admin'));
         $this->assertTrue($stub->hasRole('guest'));
         $this->assertTrue($stub->hasRole('admin'));
-        $this->assertEquals(array('guest', 'admin'), $roles->getValue($stub)->get());
-        $this->assertEquals(array('guest', 'admin'), $stub->roles()->get());
+        $this->assertEquals(['guest', 'admin'], $roles->getValue($stub)->get());
+        $this->assertEquals(['guest', 'admin'], $stub->roles()->get());
 
         $this->assertInstanceOf('\Orchestra\Authorization\Fluent', $actions->getValue($stub));
 
@@ -384,12 +384,12 @@ class AuthorizationTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($stub->actions()->has('manage'));
         $this->assertTrue($stub->hasAction('manage-user'));
         $this->assertTrue($stub->hasAction('manage'));
-        $this->assertEquals(array('manage-user', 'manage'), $actions->getValue($stub)->get());
-        $this->assertEquals(array('manage-user', 'manage'), $stub->actions()->get());
+        $this->assertEquals(['manage-user', 'manage'], $actions->getValue($stub)->get());
+        $this->assertEquals(['manage-user', 'manage'], $stub->actions()->get());
     }
 
     /**
-     * Test adding duplicate roles and actions is properly handled
+     * Test adding duplicate roles and actions is properly handled.
      *
      * @test
      */
@@ -407,20 +407,20 @@ class AuthorizationTest extends \PHPUnit_Framework_TestCase
         $roles->setAccessible(true);
 
         $stub->roles()->add('admin');
-        $stub->roles()->attach(array('admin'));
+        $stub->roles()->attach(['admin']);
         $stub->addRole('admin');
-        $stub->addRoles(array('admin', 'moderator'));
-        $stub->removeRoles(array('moderator'));
+        $stub->addRoles(['admin', 'moderator']);
+        $stub->removeRoles(['moderator']);
 
         $stub->actions()->add('manage');
-        $stub->actions()->attach(array('manage'));
+        $stub->actions()->attach(['manage']);
         $stub->addAction('manage');
-        $stub->addActions(array('manage'));
+        $stub->addActions(['manage']);
 
-        $this->assertEquals(array('guest', 'admin'), $roles->getValue($stub)->get());
-        $this->assertEquals(array('guest', 'admin'), $stub->roles()->get());
+        $this->assertEquals(['guest', 'admin'], $roles->getValue($stub)->get());
+        $this->assertEquals(['guest', 'admin'], $stub->roles()->get());
 
-        $this->assertEquals(array('manage-user', 'manage'), $actions->getValue($stub)->get());
-        $this->assertEquals(array('manage-user', 'manage'), $stub->actions()->get());
+        $this->assertEquals(['manage-user', 'manage'], $actions->getValue($stub)->get());
+        $this->assertEquals(['manage-user', 'manage'], $stub->actions()->get());
     }
 }
