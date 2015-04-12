@@ -131,7 +131,7 @@ class Fluent
      *
      * @param  mixed  $name
      *
-     * @return integer|null
+     * @return int|null
      */
     public function findKey($name)
     {
