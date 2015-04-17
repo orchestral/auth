@@ -28,9 +28,9 @@ class AuthorizationTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->app           = new IlluminateContainer();
-        $this->app['auth']   = $auth   = m::mock('\Orchestra\Auth\Guard');
-        $this->app['config'] = $config = m::mock('Config');
-        $this->app['events'] = $event = m::mock('Event');
+        $this->app['auth']   = $auth   = m::mock('\Orchestra\Contracts\Auth\Guard');
+        $this->app['config'] = $config = m::mock('\Illuminate\Contracts\Config\Repository');
+        $this->app['events'] = $event = m::mock('\Illuminate\Contracts\Events\Dispatcher');
 
         $auth->shouldReceive('guest')->andReturn(true)
             ->shouldReceive('user')->andReturn(null);
@@ -96,7 +96,7 @@ class AuthorizationTest extends \PHPUnit_Framework_TestCase
         $acl->setAccessible(true);
 
         $this->assertInstanceOf('\Orchestra\Authorization\Authorization', $this->stub);
-        $this->assertInstanceOf('\Orchestra\Memory\Provider', $memory->getValue($this->stub));
+        $this->assertInstanceOf('\Orchestra\Contracts\Memory\Provider', $memory->getValue($this->stub));
         $this->assertInstanceOf('\Orchestra\Authorization\Fluent', $roles->getValue($this->stub));
         $this->assertInstanceOf('\Orchestra\Authorization\Fluent', $actions->getValue($this->stub));
         $this->assertTrue(is_array($acl->getValue($this->stub)));
@@ -248,7 +248,7 @@ class AuthorizationTest extends \PHPUnit_Framework_TestCase
      */
     public function testCanMethodAsAdminUser()
     {
-        $auth = m::mock('\Orchestra\Auth\Guard');
+        $auth = m::mock('\Orchestra\Contracts\Auth\Guard');
 
         $auth->shouldReceive('guest')->times(4)->andReturn(false)
             ->shouldReceive('roles')->times(4)->andReturn(['Admin']);
@@ -368,7 +368,7 @@ class AuthorizationTest extends \PHPUnit_Framework_TestCase
         $roles->setAccessible(true);
         $actions->setAccessible(true);
 
-        $this->assertInstanceOf('\Orchestra\Memory\Provider', $memory->getValue($stub));
+        $this->assertInstanceOf('\Orchestra\Contracts\Memory\Provider', $memory->getValue($stub));
         $this->assertInstanceOf('\Orchestra\Authorization\Fluent', $roles->getValue($stub));
 
         $this->assertTrue($stub->roles()->has('guest'));
