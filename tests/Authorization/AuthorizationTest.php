@@ -268,7 +268,7 @@ class AuthorizationTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test Orchestra\Authorization\Authorization::can() method as "admin" user.
+     * Test Orchestra\Authorization\Authorization::can() method as "normal" user.
      *
      * @test
      */
@@ -278,6 +278,32 @@ class AuthorizationTest extends \PHPUnit_Framework_TestCase
 
         $auth->shouldReceive('guest')->times(2)->andReturn(false)
             ->shouldReceive('roles')->times(2)->andReturn(['Admin', 'Staff']);
+
+        $runtime = $this->getRuntimeMemoryProvider();
+        $runtime->put('acl_foo', $this->memoryProvider());
+
+        $stub = new Authorization($auth, 'foo', $runtime);
+
+        $stub->addRoles(['Staff']);
+        $stub->addActions(['Manage Application', 'Manage Photo']);
+        $stub->allow('Admin', ['Manage Application', 'Manage Photo']);
+        $stub->allow('Staff', ['Manage Photo']);
+
+        $this->assertTrue($stub->can('manage application'));
+        $this->assertTrue($stub->can('manage photo'));
+    }
+
+    /**
+     * Test Orchestra\Authorization\Authorization::can() method as "normal" user.
+     *
+     * @test
+     */
+    public function testCanMethodAsUserShouldNotBeAffectedByRoleOrder()
+    {
+        $auth = m::mock('\Orchestra\Contracts\Auth\Guard');
+
+        $auth->shouldReceive('guest')->times(2)->andReturn(false)
+            ->shouldReceive('roles')->times(2)->andReturn(['Staff', 'Admin']);
 
         $runtime = $this->getRuntimeMemoryProvider();
         $runtime->put('acl_foo', $this->memoryProvider());
