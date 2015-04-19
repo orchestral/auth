@@ -161,9 +161,9 @@ class Authorization implements AuthorizationContract
             $name = $this->name;
 
             $this->memory->put("acl_{$name}", [
-                "acl"     => $this->acl,
-                "actions" => $this->actions->get(),
-                "roles"   => $this->roles->get(),
+                'acl'     => $this->acl,
+                'actions' => $this->actions->get(),
+                'roles'   => $this->roles->get(),
             ]);
         }
 

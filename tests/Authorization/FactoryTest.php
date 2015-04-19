@@ -20,7 +20,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
      */
     public function testMakeMethod()
     {
-        $auth = m::mock('\Orchestra\Auth\Guard');
+        $auth = m::mock('\Orchestra\Contracts\Auth\Guard');
         $stub = new Factory($auth);
 
         $this->assertInstanceOf('\Orchestra\Authorization\Authorization', $stub->make('mock-one'));
@@ -39,7 +39,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
      */
     public function testRegisterMethod()
     {
-        $auth = m::mock('\Orchestra\Auth\Guard');
+        $auth = m::mock('\Orchestra\Contracts\Auth\Guard');
         $stub = new Factory($auth);
 
         $auth->shouldReceive('guest')->times(3)->andReturn(true);
@@ -64,7 +64,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
      */
     public function testMagicMethods()
     {
-        $auth = m::mock('\Orchestra\Auth\Guard');
+        $auth = m::mock('\Orchestra\Contracts\Auth\Guard');
         $stub = new Factory($auth);
 
         $acl1 = $stub->make('mock-one');
@@ -100,7 +100,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
      */
     public function testAllMethod()
     {
-        $auth = m::mock('\Orchestra\Auth\Guard');
+        $auth = m::mock('\Orchestra\Contracts\Auth\Guard');
         $stub = new Factory($auth);
 
         $mock1 = $stub->make('mock-one');
