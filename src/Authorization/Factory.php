@@ -41,9 +41,7 @@ class Factory implements FactoryContract
      */
     public function make($name = null, Provider $memory = null)
     {
-        if (is_null($name)) {
-            $name = 'default';
-        }
+        $name = ! is_null($name) ? $name : 'default';
 
         if (! isset($this->drivers[$name])) {
             $this->drivers[$name] = new Authorization($this->auth, $name, $memory);
