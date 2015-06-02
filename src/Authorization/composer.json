@@ -18,8 +18,8 @@
 	},
 	"require": {
 		"php": ">=5.5.0",
-		"orchestra/contracts": "3.1.*",
-		"orchestra/memory": "3.1.*"
+		"orchestra/contracts": "3.2.*",
+		"orchestra/memory": "3.2.*"
 	},
 	"extra": {
 		"branch-alias": {
