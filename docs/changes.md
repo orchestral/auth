@@ -5,17 +5,22 @@ title: Auth Change Log
 
 ## Version 3.1 {#v3-1}
 
-### v3.1.0 {#3-1-0}
+### v3.1.1 {#v3-1-1}
+
+* Bump minimum version to PHP v5.5.0.
+* Ensure `Orchestra\Auth\Guard::getUserRolesFromEventDispatcher()` return array instead of `Illuminate\Support\Collection` etc.
+
+### v3.1.0 {#v3-1-0}
 
 * Update support for Laravel Framework v5.1.
 
 ## Version 3.0 {#v3-0}
 
-### v3.0.1 {#3-0-1}
+### v3.0.1 {#v3-0-1}
 
 * Replace deprecated `Illuminate\Auth\UserProviderInterface` contract with `Illuminate\Contracts\Auth\UserProvider`.
 
-### v3.0.0 {#3-0-0}
+### v3.0.0 {#v3-0-0}
 
 * Update support for Laravel Framework v5.0.
 * Split components to two (2) sub-components; Auth and Authorization.
