@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Arr;
 use Illuminate\Auth\Guard as BaseGuard;
+use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Orchestra\Contracts\Auth\Guard as GuardContract;
 
@@ -169,6 +170,6 @@ class Guard extends BaseGuard implements GuardContract
             return ['Guest'];
         }
 
-        return $roles;
+        return ($roles instanceof Arrayable ? $roles->toArray() : $roles);
     }
 }
