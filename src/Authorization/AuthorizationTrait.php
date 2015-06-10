@@ -145,6 +145,16 @@ trait AuthorizationTrait
     }
 
     /**
+     * Get the auth implementation.
+     *
+     * @return \Orchestra\Contracts\Auth\Guard
+     */
+    public function auth()
+    {
+        return $this->auth;
+    }
+
+    /**
      * Get the `actions` instance.
      *
      * @return \Orchestra\Authorization\Fluent
