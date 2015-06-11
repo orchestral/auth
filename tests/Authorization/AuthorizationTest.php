@@ -18,7 +18,7 @@ class AuthorizationTest extends \PHPUnit_Framework_TestCase
     /**
      * Acl Container instance.
      *
-     * @var Orchestra\Authorization\Authorization
+     * @var \Orchestra\Authorization\Authorization
      */
     private $stub = null;
 
@@ -96,6 +96,10 @@ class AuthorizationTest extends \PHPUnit_Framework_TestCase
         $acl->setAccessible(true);
 
         $this->assertInstanceOf('\Orchestra\Authorization\Authorization', $this->stub);
+        $this->assertInstanceOf('\Orchestra\Contracts\Auth\Guard', $this->stub->auth());
+        $this->assertInstanceOf('\Orchestra\Authorization\Fluent', $this->stub->roles());
+        $this->assertInstanceOf('\Orchestra\Authorization\Fluent', $this->stub->actions());
+
         $this->assertInstanceOf('\Orchestra\Contracts\Memory\Provider', $memory->getValue($this->stub));
         $this->assertInstanceOf('\Orchestra\Authorization\Fluent', $roles->getValue($this->stub));
         $this->assertInstanceOf('\Orchestra\Authorization\Fluent', $actions->getValue($this->stub));
