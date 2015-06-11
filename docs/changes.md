@@ -5,10 +5,16 @@ title: Auth Change Log
 
 ## Version 3.1 {#v3-1}
 
+### v3.1.2 {#v3-1-2}
+
+* Authorization:
+  - Add `Orchestra\Authorization\AuthorizationTrait::auth()` helper to get instance of `Orchestra\Contracts\Auth\Guard` from `$acl` instance.
+
 ### v3.1.1 {#v3-1-1}
 
 * Bump minimum version to PHP v5.5.0.
-* Ensure `Orchestra\Auth\Guard::getUserRolesFromEventDispatcher()` return array instead of `Illuminate\Support\Collection` etc.
+* Auth:
+  - Ensure `Orchestra\Auth\Guard::getUserRolesFromEventDispatcher()` return array instead of `Illuminate\Support\Collection` etc.
 
 ### v3.1.0 {#v3-1-0}
 
