@@ -111,10 +111,32 @@ class Authorization implements AuthorizationContract
      * @param  string  $action     A string of action name
      *
      * @return bool
+     *
+     * @throws \InvalidArgumentException
      */
     public function can($action)
     {
         $roles = $this->getUserRoles();
+
+        return $this->checkAuthorization($roles, $action);
+    }
+
+    /**
+     * Verify whether current user has sufficient roles to access the
+     * actions based on available type of access if the action exist.
+     *
+     * @param  string  $action     A string of action name
+     *
+     * @return bool
+     */
+    public function canIf($action)
+    {
+        $roles = $this->getUserRoles();
+        $action = Keyword::make($action);
+
+        if (is_null($this->actions->search($action))) {
+            return false;
+        }
 
         return $this->checkAuthorization($roles, $action);
     }

@@ -45,10 +45,11 @@ trait AuthorizationTrait
      */
     public function checkAuthorization($roles, $action)
     {
-        $action = $this->actions->search($action);
+        $name   = $action;
+        $action = $this->actions->search($name);
 
         if (is_null($action)) {
-            throw new InvalidArgumentException("Unable to verify unknown action {$action}.");
+            throw new InvalidArgumentException("Unable to verify unknown action {$name}.");
         }
 
         foreach ((array) $roles as $role) {

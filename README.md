@@ -57,12 +57,12 @@ Next replace `Illuminate\Auth\AuthServiceProvider` with the following service pr
 
 	// ...
 
-	'Orchestra\Auth\AuthServiceProvider',
-	'Orchestra\Authorization\AuthorizationServiceProvider',
-	'Orchestra\Memory\MemoryServiceProvider',
+	Orchestra\Auth\AuthServiceProvider::class,
+	Orchestra\Authorization\AuthorizationServiceProvider::class,
+	Orchestra\Memory\MemoryServiceProvider::class,
 
-	'Orchestra\Auth\CommandServiceProvider',
-	'Orchestra\Memory\CommandServiceProvider',
+	Orchestra\Auth\CommandServiceProvider::class,
+	Orchestra\Memory\CommandServiceProvider::class,
 ],
 ```
 
@@ -75,7 +75,7 @@ To make development easier, you could add `Orchestra\Support\Facades\ACL` alias 
 ```php
 'aliases' => [
 
-	'ACL' => 'Orchestra\Support\Facades\ACL',
+	'ACL' => Orchestra\Support\Facades\ACL::class,
 
 ],
 ```
@@ -83,4 +83,4 @@ To make development easier, you could add `Orchestra\Support\Facades\ACL` alias 
 ## Resources
 
 * [Documentation](http://orchestraplatform.com/docs/latest/components/auth)
-* [Change Log](http://orchestraplatform.com/docs/latest/components/auth/changes#v3-0)
+* [Change Log](http://orchestraplatform.com/docs/latest/components/auth/changes#v3-1)

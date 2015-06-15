@@ -5,6 +5,13 @@ title: Auth Change Log
 
 ## Version 3.1 {#v3-1}
 
+### v3.1.3 {#v3-1-3}
+
+* Authorization:
+  - Add `Orchestra\Authorization\Authorization::canIf()` method to only check for ACL metric if the metric is available.
+  - Add `Orchestra\Authorization\Keyword` to simplify validating fluent keyword against slug value.
+  - Fixes exceptions thrown message via `Orchestra\Authorization\Fluent`.
+
 ### v3.1.2 {#v3-1-2}
 
 * Authorization:
@@ -21,6 +28,13 @@ title: Auth Change Log
 * Update support for Laravel Framework v5.1.
 
 ## Version 3.0 {#v3-0}
+
+### v3.0.2 {#v3-0-2}
+
+* Authorization:
+  - Add `Orchestra\Authorization\Authorization::canIf()` method to only check for ACL metric if the metric is available.
+  - Add `Orchestra\Authorization\Keyword` to simplify validating fluent keyword against slug value.
+  - Fixes exceptions thrown message via `Orchestra\Authorization\Fluent`.
 
 ### v3.0.1 {#v3-0-1}
 
