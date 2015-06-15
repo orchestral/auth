@@ -50,11 +50,13 @@ class Fluent
             $key = $key->getAttribute('name');
         }
 
-        if ($this->has($key)) {
+        $keyword = Keyword::make($key);
+
+        if ($this->has($keyword)) {
             return false;
         }
 
-        array_push($this->items, Keyword::make($key)->getSlug());
+        array_push($this->items, $keyword->getSlug());
 
         return true;
     }

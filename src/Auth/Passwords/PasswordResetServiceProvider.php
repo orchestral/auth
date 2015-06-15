@@ -1,6 +1,8 @@
 <?php namespace Orchestra\Auth\Passwords;
 
-class PasswordResetServiceProvider extends \Illuminate\Auth\Passwords\PasswordResetServiceProvider
+use Illuminate\Auth\Passwords\PasswordResetServiceProvider as ServiceProvider;
+
+class PasswordResetServiceProvider extends ServiceProvider
 {
     /**
      * Indicates if loading of the provider is deferred.
@@ -22,11 +24,11 @@ class PasswordResetServiceProvider extends \Illuminate\Auth\Passwords\PasswordRe
             // for the given e-mail addresses. We will resolve an implementation here.
             $tokens = $app['auth.password.tokens'];
 
-            $users = $app['auth']->driver()->getProvider();
+            $users = $app->make('auth.driver')->getProvider();
 
-            $notifier = $app['orchestra.notifier']->driver();
+            $notifier = $app->make('orchestra.notifier')->driver();
 
-            $view = $app['config']['auth.password.email'];
+            $view = $app->make('config')->get('auth.password.email');
 
             // The password broker uses a token repository to validate tokens and send user
             // password e-mails, as well as validating that password reset process as an
