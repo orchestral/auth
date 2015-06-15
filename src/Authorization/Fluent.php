@@ -162,7 +162,6 @@ class Fluent
      */
     public function has($key)
     {
-        $key = strval($key);
         $key = Keyword::make($key)->getSlug();
 
         return (! empty($key) && in_array($key, $this->items));
