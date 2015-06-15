@@ -42,7 +42,7 @@ class Fluent
     public function add($key)
     {
         if (is_null($key)) {
-            throw new InvalidArgumentException("Can't add NULL {$this->name}.");
+            throw new InvalidArgumentException("Can't add NULL to {$this->name}.");
         }
 
         // Type-hint the attribute value of an Eloquent result, if it was
@@ -179,7 +179,7 @@ class Fluent
     public function remove($key)
     {
         if (is_null($key)) {
-            throw new InvalidArgumentException("Can't add NULL {$this->name}.");
+            throw new InvalidArgumentException("Can't remove NULL from {$this->name}.");
         }
 
         if (! is_null($id = $this->search($key))) {
