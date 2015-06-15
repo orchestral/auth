@@ -132,6 +132,7 @@ class Authorization implements AuthorizationContract
     public function canIf($action)
     {
         $roles = $this->getUserRoles();
+        $action = Keyword::make($action);
 
         if (is_null($this->actions->search($action))) {
             return false;

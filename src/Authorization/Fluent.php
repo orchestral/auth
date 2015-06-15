@@ -1,6 +1,5 @@
 <?php namespace Orchestra\Authorization;
 
-use Illuminate\Support\Str;
 use InvalidArgumentException;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 
@@ -55,7 +54,7 @@ class Fluent
             return false;
         }
 
-        array_push($this->items, $this->getSlugFromName($key));
+        array_push($this->items, Keyword::make($key)->getSlug());
 
         return true;
     }
@@ -101,9 +100,7 @@ class Fluent
      */
     public function exist($id)
     {
-        is_string($id) && $id = $this->getSlugFromName($id);
-
-        return isset($this->items[$id]);
+        return Keyword::make($id)->hasIn($this->items);
     }
 
     /**
@@ -136,7 +133,7 @@ class Fluent
     public function findKey($name)
     {
         if (! (is_numeric($name) && $this->exist($name))) {
-            $name = $this->search($name);
+            $name = (string) $this->search($name);
         }
 
         return $name;
@@ -162,7 +159,7 @@ class Fluent
     public function has($key)
     {
         $key = strval($key);
-        $key = $this->getSlugFromName($key);
+        $key = Keyword::make($key)->getSlug();
 
         return (! empty($key) && in_array($key, $this->items));
     }
@@ -200,11 +197,13 @@ class Fluent
      */
     public function rename($from, $to)
     {
-        if (is_null($key = $this->search($from))) {
+        $key = $this->search($from);
+
+        if (is_null($key)) {
             return false;
         }
 
-        $this->items[$key] = $this->getSlugFromName($to);
+        $this->items[$key] = Keyword::make($to)->getSlug();
 
         return true;
     }
@@ -212,32 +211,18 @@ class Fluent
     /**
      * Get the ID from a key.
      *
-     * @param  string   $key
+     * @param  string  $key
      *
      * @return int
      */
     public function search($key)
     {
-        is_string($key) && $key = $this->getSlugFromName($key);
-
-        $id = array_search($key, $this->items);
+        $id = Keyword::make($key)->searchIn($this->items);
 
         if (false === $id) {
             return;
         }
 
         return $id;
-    }
-
-    /**
-     * Get slug name.
-     *
-     * @param  string  $name
-     *
-     * @return string
-     */
-    protected function getSlugFromName($name)
-    {
-        return trim(Str::slug($name, '-'));
     }
 }
