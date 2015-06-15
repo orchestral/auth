@@ -5,6 +5,13 @@ title: Auth Change Log
 
 ## Version 3.0 {#v3-0}
 
+### v3.0.2 {#v3-0-2}
+
+* Authorization:
+  - Add `Orchestra\Authorization\Authorization::canIf()` method to only check for ACL metric if the metric is available.
+  - Add `Orchestra\Authorization\Keyword` to simplify validating fluent keyword against slug value.
+  - Fixes exceptions thrown message via `Orchestra\Authorization\Fluent`.
+
 ### v3.0.1 {#v3-0-1}
 
 * Replace deprecated `Illuminate\Auth\UserProviderInterface` contract with `Illuminate\Contracts\Auth\UserProvider`.
