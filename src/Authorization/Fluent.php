@@ -132,8 +132,10 @@ class Fluent
      */
     public function findKey($name)
     {
-        if (! (is_numeric($name) && $this->exist($name))) {
-            $name = (string) $this->search($name);
+        $keyword = Keyword::make($name);
+
+        if (! (is_numeric($name) && $keyword->hasIn($this->items))) {
+            return (string) $keyword->searchIn($this->items);
         }
 
         return $name;

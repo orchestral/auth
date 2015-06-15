@@ -7,7 +7,7 @@ class Keyword
     /**
      * Original value.
      *
-     * @var string
+     * @var string|int
      */
     protected $value = '';
 
@@ -51,7 +51,7 @@ class Keyword
     /**
      * Get keyword value.
      *
-     * @return string
+     * @return string|int
      */
     public function getValue()
     {
@@ -61,7 +61,7 @@ class Keyword
     /**
      * Get slug string.
      *
-     * @return string
+     * @return string|null
      */
     public function getSlug()
     {
@@ -107,6 +107,6 @@ class Keyword
      */
     public function __toString()
     {
-        return $this->getSlug();
+        return (string) $this->slug;
     }
 }
