@@ -243,6 +243,10 @@ class Fluent
      */
     protected function getKeyword($key)
     {
+        if ($key instanceof Keyword) {
+            return $key;
+        }
+
         if (! isset($this->cachedKeyword[$key])) {
             $this->cachedKeyword[$key] = Keyword::make($key);
         }
