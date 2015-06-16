@@ -8,7 +8,7 @@ title: Auth Change Log
 ### v3.1.4 {#v3-1-4}
 
 * Improved performances by reducing call within `Illuminate\Container\Container`.
-* Reduces call the `Orchestra\Authorization\Keyword` on known keyword.
+* Reduces call to `Orchestra\Authorization\Keyword` on known keyword.
 
 ### v3.1.3 {#v3-1-3}
 
