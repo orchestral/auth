@@ -17,7 +17,7 @@ class Fluent
      *
      * @var array
      */
-    protected static $cachedKeyword = [];
+    protected $cachedKeyword = [];
 
     /**
      * Collection of this instance.
