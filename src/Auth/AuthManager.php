@@ -1,6 +1,8 @@
 <?php namespace Orchestra\Auth;
 
-class AuthManager extends \Illuminate\Auth\AuthManager
+use Illuminate\Auth\AuthManager as BaseManager;
+
+class AuthManager extends BaseManager
 {
     /**
      * {@inheritdoc}
@@ -13,7 +15,7 @@ class AuthManager extends \Illuminate\Auth\AuthManager
             return $custom;
         }
 
-        return new Guard($custom, $this->app['session.store']);
+        return new Guard($custom, $this->app->make('session.store'));
     }
 
     /**
@@ -23,7 +25,7 @@ class AuthManager extends \Illuminate\Auth\AuthManager
     {
         $provider = $this->createDatabaseProvider();
 
-        return new Guard($provider, $this->app['session.store']);
+        return new Guard($provider, $this->app->make('session.store'));
     }
 
     /**
@@ -33,6 +35,6 @@ class AuthManager extends \Illuminate\Auth\AuthManager
     {
         $provider = $this->createEloquentProvider();
 
-        return new Guard($provider, $this->app['session.store']);
+        return new Guard($provider, $this->app->make('session.store'));
     }
 }

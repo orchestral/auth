@@ -19,7 +19,7 @@ class AuthorizationServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->singleton('orchestra.acl', function ($app) {
-            return new Factory($app['auth']->driver());
+            return new Factory($app->make('auth.driver'));
         });
     }
 

@@ -13,6 +13,13 @@ class Fluent
     protected $name;
 
     /**
+     * Cached keyword.
+     *
+     * @var array
+     */
+    protected $cachedKeyword = [];
+
+    /**
      * Collection of this instance.
      *
      * @var array
@@ -50,11 +57,13 @@ class Fluent
             $key = $key->getAttribute('name');
         }
 
-        if ($this->has($key)) {
+        $keyword = $this->getKeyword($key);
+
+        if ($this->has($keyword)) {
             return false;
         }
 
-        array_push($this->items, Keyword::make($key)->getSlug());
+        array_push($this->items, $keyword->getSlug());
 
         return true;
     }
@@ -100,7 +109,7 @@ class Fluent
      */
     public function exist($id)
     {
-        return Keyword::make($id)->hasIn($this->items);
+        return $this->getKeyword($id)->hasIn($this->items);
     }
 
     /**
@@ -132,7 +141,7 @@ class Fluent
      */
     public function findKey($name)
     {
-        $keyword = Keyword::make($name);
+        $keyword = $this->getKeyword($name);
 
         if (! (is_numeric($name) && $keyword->hasIn($this->items))) {
             return (string) $keyword->searchIn($this->items);
@@ -160,8 +169,7 @@ class Fluent
      */
     public function has($key)
     {
-        $key = strval($key);
-        $key = Keyword::make($key)->getSlug();
+        $key = $this->getKeyword($key)->getSlug();
 
         return (! empty($key) && in_array($key, $this->items));
     }
@@ -205,7 +213,7 @@ class Fluent
             return false;
         }
 
-        $this->items[$key] = Keyword::make($to)->getSlug();
+        $this->items[$key] = $this->getKeyword($to)->getSlug();
 
         return true;
     }
@@ -219,12 +227,30 @@ class Fluent
      */
     public function search($key)
     {
-        $id = Keyword::make($key)->searchIn($this->items);
+        $id = $this->getKeyword($key)->searchIn($this->items);
 
         if (false === $id) {
             return;
         }
 
         return $id;
+    }
+
+    /**
+     * Get keyword instance.
+     *
+     * @var \Orchestra\Authorization\Keyword
+     */
+    protected function getKeyword($key)
+    {
+        if ($key instanceof Keyword) {
+            return $key;
+        }
+
+        if (! isset($this->cachedKeyword[$key])) {
+            $this->cachedKeyword[$key] = Keyword::make($key);
+        }
+
+        return $this->cachedKeyword[$key];
     }
 }
