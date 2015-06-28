@@ -1,6 +1,7 @@
 <?php namespace Orchestra\Authorization;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Contracts\Foundation\Application;
 
 class AuthorizationServiceProvider extends ServiceProvider
 {
@@ -18,7 +19,7 @@ class AuthorizationServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton('orchestra.acl', function ($app) {
+        $this->app->singleton('orchestra.acl', function (Application $app) {
             return new Factory($app->make('auth.driver'));
         });
     }

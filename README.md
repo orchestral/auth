@@ -15,7 +15,7 @@ Auth Component extends the functionality of `Illuminate\Auth` with the extra fun
 * [Version Compatibility](#version-compatibility)
 * [Installation](#installation)
 * [Configuration](#configuration)
-* [Resources](#resources)
+* [Change Log](http://orchestraplatform.com/docs/latest/components/auth/changes#v3-2)
 
 ## Version Compatibility
 
@@ -83,4 +83,3 @@ To make development easier, you could add `Orchestra\Support\Facades\ACL` alias 
 ## Resources
 
 * [Documentation](http://orchestraplatform.com/docs/latest/components/auth)
-* [Change Log](http://orchestraplatform.com/docs/latest/components/auth/changes#v3-1)
