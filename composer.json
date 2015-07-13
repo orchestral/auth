@@ -1,47 +1,47 @@
 {
-	"name": "orchestra/auth",
-	"description": "Auth Component for Orchestra Platform",
-	"homepage": "http://orchestraplatform.com/docs/latest/components/auth/",
-	"keywords": ["orchestra-platform", "orchestral", "laravel", "auth", "acl", "rbac", "permission"],
-	"license": "MIT",
-	"authors": [
-		{
-			"name": "Mior Muhammad Zaki",
-			"email": "crynobone@gmail.com",
-			"homepage": "https://github.com/crynobone"
-		}
-	],
-	"autoload": {
-		"classmap": [
-			"resources/database/migrations"
-		],
-		"psr-4": {
-			"Orchestra\\Auth\\" : "src/Auth/",
-			"Orchestra\\Authorization\\" : "src/Authorization/"
-		}
-	},
-	"require": {
-		"php": ">=5.5.0",
-		"orchestra/memory": "~3.2.0",
-		"orchestra/notifier": "~3.2.0"
-	},
-	"require-dev": {
-		"mockery/mockery": "0.9.*",
-		"illuminate/auth": "~5.2.0",
-		"illuminate/database": "~5.2.0"
-	},
-	"replace": {
-		"orchestra/authorization": "self.version"
-	},
-	"suggest": {
-		"laravel/framework": "Allow using orchestra/auth component outside of Orchestra Platform (~5.2).",
-		"orchestra/model": "Allow using orchestra/auth component outside of Orchestra Platform (~3.2).",
-		"orchestra/foundation": "Allow using orchestra/auth with Orchestra Platform (~3.2)."
-	},
-	"extra": {
-		"branch-alias": {
-			"dev-master": "3.2-dev"
-		}
-	},
-	"minimum-stability": "dev"
+    "name": "orchestra/auth",
+    "description": "Auth Component for Orchestra Platform",
+    "homepage": "http://orchestraplatform.com/docs/latest/components/auth/",
+    "keywords": ["orchestra-platform", "orchestral", "laravel", "auth", "acl", "rbac", "permission"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Mior Muhammad Zaki",
+            "email": "crynobone@gmail.com",
+            "homepage": "https://github.com/crynobone"
+        }
+    ],
+    "autoload": {
+        "classmap": [
+            "resources/database/migrations"
+        ],
+        "psr-4": {
+            "Orchestra\\Auth\\" : "src/Auth/",
+            "Orchestra\\Authorization\\" : "src/Authorization/"
+        }
+    },
+    "require": {
+        "php": ">=5.5.0",
+        "orchestra/memory": "~3.2.0",
+        "orchestra/notifier": "~3.2.0"
+    },
+    "require-dev": {
+        "mockery/mockery": "0.9.*",
+        "illuminate/auth": "~5.2.0",
+        "illuminate/database": "~5.2.0"
+    },
+    "replace": {
+        "orchestra/authorization": "self.version"
+    },
+    "suggest": {
+        "laravel/framework": "Allow using orchestra/auth component outside of Orchestra Platform (~5.2).",
+        "orchestra/model": "Allow using orchestra/auth component outside of Orchestra Platform (~3.2).",
+        "orchestra/foundation": "Allow using orchestra/auth with Orchestra Platform (~3.2)."
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "3.2-dev"
+        }
+    },
+    "minimum-stability": "dev"
 }
