@@ -1,33 +1,33 @@
 {
-	"name": "orchestra/authorization",
-	"description": "Authorization Component for Orchestra Platform",
-	"homepage": "http://orchestraplatform.com/docs/latest/components/auth/",
-	"keywords": ["orchestra-platform", "orchestral", "laravel", "acl", "rbac", "permission"],
-	"license": "MIT",
-	"authors": [
-		{
-			"name": "Mior Muhammad Zaki",
-			"email": "crynobone@gmail.com",
-			"homepage": "https://github.com/crynobone"
-		}
-	],
-	"autoload": {
-		"psr-4": {
-			"Orchestra\\Authorization\\" : ""
-		}
-	},
-	"require": {
-		"php": ">=5.5.0",
-		"orchestra/contracts": "~3.1.0",
-		"orchestra/memory": "~3.1.0"
-	},
-	"extra": {
-		"branch-alias": {
-			"dev-master": "3.2-dev"
-		}
-	},
-	"support": {
-		"issues": "https://github.com/orchestral/auth/issues"
-	},
-	"minimum-stability": "dev"
+    "name": "orchestra/authorization",
+    "description": "Authorization Component for Orchestra Platform",
+    "homepage": "http://orchestraplatform.com/docs/latest/components/auth/",
+    "keywords": ["orchestra-platform", "orchestral", "laravel", "acl", "rbac", "permission"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Mior Muhammad Zaki",
+            "email": "crynobone@gmail.com",
+            "homepage": "https://github.com/crynobone"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Orchestra\\Authorization\\" : ""
+        }
+    },
+    "require": {
+        "php": ">=5.5.0",
+        "orchestra/contracts": "~3.1.0",
+        "orchestra/memory": "~3.1.0"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "3.2-dev"
+        }
+    },
+    "support": {
+        "issues": "https://github.com/orchestral/auth/issues"
+    },
+    "minimum-stability": "dev"
 }
