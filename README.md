@@ -1,7 +1,8 @@
 Auth Component for Orchestra Platform
 ==============
+[![Join the chat at https://gitter.im/orchestral/platform](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/orchestral/platform?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-Auth Component extends the functionality of `Illuminate\Auth` with the extra functionality to retrieve users' role. This is important when we want to use Orchestra\Acl to manage application Access Control List (ACL).
+Auth Component extends the functionality of `Illuminate\Auth` with the extra functionality to retrieve users' role. This is important when we want to manage application Access Control List (ACL).
 
 [![Latest Stable Version](https://img.shields.io/github/release/orchestral/auth.svg?style=flat-square)](https://packagist.org/packages/orchestra/auth)
 [![Total Downloads](https://img.shields.io/packagist/dt/orchestra/auth.svg?style=flat-square)](https://packagist.org/packages/orchestra/auth)
