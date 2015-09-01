@@ -33,6 +33,13 @@ trait AuthorizationTrait
     protected $acl = [];
 
     /**
+     * User roles.
+     *
+     * @var array
+     */
+    protected $userRoles = [];
+
+    /**
      * Verify whether given roles has sufficient roles to access the
      * actions based on available type of access.
      *
@@ -136,6 +143,19 @@ trait AuthorizationTrait
     }
 
     /**
+     * Assign user roles.
+     *
+     * @param  array  $userRoles
+     * @return $this
+     */
+    public function given(array $userRoles)
+    {
+        $this->userRoles = $userRoles;
+
+        return $this;
+    }
+
+    /**
      * Get the `acl` collection.
      *
      * @return array
@@ -182,7 +202,9 @@ trait AuthorizationTrait
      */
     protected function getUserRoles()
     {
-        if (! $this->auth->guest()) {
+        if (! empty($this->userRoles)) {
+            return $this->userRoles;
+        } elseif (! $this->auth->guest()) {
             return $this->auth->roles();
         }
 

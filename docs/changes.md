@@ -5,6 +5,10 @@ title: Auth Change Log
 
 ## Version 3.1 {#v3-1}
 
+### v3.1.5@dev {#v3-1-5}
+
+* Allow to manually set roles when working outside of authenticated state via `Orchestra\Authorization\AuthorizationTrait::given()` method.
+
 ### v3.1.4 {#v3-1-4}
 
 * Improved performances by reducing call within `Illuminate\Container\Container`.
