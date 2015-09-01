@@ -150,7 +150,7 @@ trait AuthorizationTrait
      *
      * @return $this
      */
-    public function given(Authorizable $user)
+    public function setUser(Authorizable $user)
     {
         $userRoles = $user->getRoles();
 
@@ -168,7 +168,7 @@ trait AuthorizationTrait
      *
      * @return $this
      */
-    public function revoke()
+    public function revokeUser()
     {
         $this->userRoles = null;
 
