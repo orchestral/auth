@@ -1,6 +1,7 @@
 <?php namespace Orchestra\Authorization;
 
 use InvalidArgumentException;
+use Orchestra\Contracts\Authorization\Authorizable;
 
 trait AuthorizationTrait
 {
@@ -35,9 +36,9 @@ trait AuthorizationTrait
     /**
      * User roles.
      *
-     * @var array|null
+     * @var \Orchestra\Contracts\Authorization\Authorizable|null
      */
-    protected $userRoles;
+    protected $user;
 
     /**
      * Verify whether given roles has sufficient roles to access the
@@ -142,27 +143,27 @@ trait AuthorizationTrait
     }
 
     /**
-     * Assign user roles.
+     * Assign user instance.
      *
-     * @param  array  $userRoles
+     * @param  \Orchestra\Contracts\Authorization\Authorizable  $user
      *
      * @return $this
      */
-    public function given(array $userRoles)
+    public function given(Authorizable $user)
     {
-        $this->userRoles = $userRoles;
+        $this->user = $user;
 
         return $this;
     }
 
     /**
-     * Revoke assigned user roles.
+     * Revoke assigned user instance.
      *
      * @return $this
      */
     public function revoke()
     {
-        $this->userRoles = null;
+        $this->user = null;
 
         return $this;
     }
@@ -214,8 +215,8 @@ trait AuthorizationTrait
      */
     protected function getUserRoles()
     {
-        if (! is_null($this->userRoles)) {
-            return $this->userRoles;
+        if ($this->user instanceof Authorizable) {
+            return $this->user->getRoles();
         } elseif (! $this->auth->guest()) {
             return $this->auth->roles();
         }
