@@ -146,6 +146,7 @@ trait AuthorizationTrait
      * Assign user roles.
      *
      * @param  array  $userRoles
+     *
      * @return $this
      */
     public function given(array $userRoles)
