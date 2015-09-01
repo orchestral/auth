@@ -35,9 +35,9 @@ trait AuthorizationTrait
     /**
      * User roles.
      *
-     * @var array
+     * @var array|null
      */
-    protected $userRoles = [];
+    protected $userRoles;
 
     /**
      * Verify whether given roles has sufficient roles to access the
@@ -156,6 +156,18 @@ trait AuthorizationTrait
     }
 
     /**
+     * Revoke assigned user roles.
+     *
+     * @return $this
+     */
+    public function revoke()
+    {
+        $this->userRoles = null;
+
+        return $this;
+    }
+
+    /**
      * Get the `acl` collection.
      *
      * @return array
@@ -202,7 +214,7 @@ trait AuthorizationTrait
      */
     protected function getUserRoles()
     {
-        if (! empty($this->userRoles)) {
+        if (! is_null($this->userRoles)) {
             return $this->userRoles;
         } elseif (! $this->auth->guest()) {
             return $this->auth->roles();

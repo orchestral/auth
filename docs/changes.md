@@ -7,7 +7,7 @@ title: Auth Change Log
 
 ### v3.1.5@dev {#v3-1-5}
 
-* Allow to manually set roles when working outside of authenticated state via `Orchestra\Authorization\AuthorizationTrait::given()` method.
+* Allow to manually set roles when working outside of authenticated state via `Orchestra\Authorization\AuthorizationTrait::given()` method, which can be revoke by calling `Orchestra\AuthorizationTrait::revoke()`.
 
 ### v3.1.4 {#v3-1-4}
 
