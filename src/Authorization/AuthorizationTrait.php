@@ -137,8 +137,7 @@ trait AuthorizationTrait
         $action = $this->actions->findKey($action);
 
         if (! is_null($role) && ! is_null($action)) {
-            $key             = $role.':'.$action;
-            $this->acl[$key] = $allow;
+            $this->acl["{$role}:{$action}"] = $allow;
         }
     }
 
