@@ -1,6 +1,8 @@
 <?php namespace Orchestra\Authorization;
 
 use InvalidArgumentException;
+use Illuminate\Contracts\Support\Arrayable;
+use Orchestra\Contracts\Authorization\Authorizable;
 
 trait AuthorizationTrait
 {
@@ -31,6 +33,13 @@ trait AuthorizationTrait
      * @var array
      */
     protected $acl = [];
+
+    /**
+     * User roles.
+     *
+     * @var array|null
+     */
+    protected $userRoles;
 
     /**
      * Verify whether given roles has sufficient roles to access the
@@ -130,9 +139,40 @@ trait AuthorizationTrait
         $action = $this->actions->findKey($action);
 
         if (! is_null($role) && ! is_null($action)) {
-            $key             = $role.':'.$action;
-            $this->acl[$key] = $allow;
+            $this->acl["{$role}:{$action}"] = $allow;
         }
+    }
+
+    /**
+     * Assign user instance.
+     *
+     * @param  \Orchestra\Contracts\Authorization\Authorizable  $user
+     *
+     * @return $this
+     */
+    public function setUser(Authorizable $user)
+    {
+        $userRoles = $user->getRoles();
+
+        if ($userRoles instanceof Arrayable) {
+            $userRoles = $userRoles->toArray();
+        }
+
+        $this->userRoles = $userRoles;
+
+        return $this;
+    }
+
+    /**
+     * Revoke assigned user instance.
+     *
+     * @return $this
+     */
+    public function revokeUser()
+    {
+        $this->userRoles = null;
+
+        return $this;
     }
 
     /**
@@ -182,7 +222,9 @@ trait AuthorizationTrait
      */
     protected function getUserRoles()
     {
-        if (! $this->auth->guest()) {
+        if (! is_null($this->userRoles)) {
+            return $this->userRoles;
+        } elseif (! $this->auth->guest()) {
             return $this->auth->roles();
         }
 
