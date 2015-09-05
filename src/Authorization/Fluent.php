@@ -1,6 +1,7 @@
 <?php namespace Orchestra\Authorization;
 
 use InvalidArgumentException;
+use Orchestra\Support\Keyword;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 
 class Fluent
@@ -239,7 +240,7 @@ class Fluent
     /**
      * Get keyword instance.
      *
-     * @var \Orchestra\Authorization\Keyword
+     * @return \Orchestra\Support\Keyword
      */
     protected function getKeyword($key)
     {
