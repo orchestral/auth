@@ -47,7 +47,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected function registerPolicyAfterResolvingHandler()
     {
-        $this->app->afterResolving(Policy::class, function ($policy) {
+        $this->app->afterResolving(Policy::class, function (Policy $policy) {
             return $policy->setAuthorization($this->app->make(FactoryContract::class));
         });
     }
