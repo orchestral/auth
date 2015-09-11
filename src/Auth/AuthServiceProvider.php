@@ -1,10 +1,24 @@
 <?php namespace Orchestra\Auth;
 
+use Orchestra\Authorization\Policy;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Auth\AuthServiceProvider as ServiceProvider;
+use Orchestra\Contracts\Authorization\Factory as FactoryContract;
 
 class AuthServiceProvider extends ServiceProvider
 {
+    /**
+     * Register the service provider.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        parent::register();
+
+        $this->registerPolicyAfterResolvingHandler();
+    }
+
     /**
      * Register the service provider for Auth.
      *
@@ -23,6 +37,18 @@ class AuthServiceProvider extends ServiceProvider
 
         $this->app->singleton('auth.driver', function (Application $app) {
             return $app->make('auth')->driver();
+        });
+    }
+
+    /**
+     * Register the Policy after resolving handler.
+     *
+     * @return void
+     */
+    protected function registerPolicyAfterResolvingHandler()
+    {
+        $this->app->afterResolving(Policy::class, function (Policy $policy) {
+            return $policy->setAuthorization($this->app->make(FactoryContract::class));
         });
     }
 }
