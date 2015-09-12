@@ -5,6 +5,11 @@ title: Auth Change Log
 
 ## Version 3.1 {#v3-1}
 
+### v3.1.6 {#v3-1-6}
+
+* Add `Orchestra\Authorization\Policy`.
+* Remove `Orchestra\Authorization\Keyword`, use `Orchestra\Support\Keyword` instead.
+
 ### v3.1.5 {#v3-1-5}
 
 * Allow to manually set roles when working outside of authenticated state via `Orchestra\Authorization\AuthorizationTrait::setUser()` method, which can be revoke by calling `Orchestra\AuthorizationTrait::revokeUser()`.
