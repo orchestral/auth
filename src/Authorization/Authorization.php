@@ -43,7 +43,7 @@ class Authorization implements AuthorizationContract
      *
      * @param  \Orchestra\Contracts\Memory\Provider  $memory
      *
-     * @return void
+     * @return $this
      *
      * @throws \RuntimeException if $memory has been attached.
      */
@@ -61,6 +61,8 @@ class Authorization implements AuthorizationContract
             $this->setMemoryProvider($memory);
             $this->initiate();
         }
+
+        return $this;
     }
 
     /**
