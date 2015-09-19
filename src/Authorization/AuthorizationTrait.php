@@ -176,7 +176,7 @@ trait AuthorizationTrait
     }
 
     /**
-     * Get the `acl` collection.
+     * Get the ACL collection.
      *
      * @return array
      */

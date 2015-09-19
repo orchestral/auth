@@ -14,7 +14,7 @@ class Authorization implements AuthorizationContract
     use AuthorizationTrait, ContainerTrait;
 
     /**
-     * Acl instance name.
+     * ACL instance name.
      *
      * @var string
      */
@@ -66,7 +66,7 @@ class Authorization implements AuthorizationContract
     }
 
     /**
-     * Initiate acl data from memory.
+     * Initiate ACL data from memory.
      *
      * @return $this
      */
@@ -81,7 +81,7 @@ class Authorization implements AuthorizationContract
         $this->roles->attach($data['roles']);
         $this->actions->attach($data['actions']);
 
-        // Loop through all the acl in memory and add it to this ACL
+        // Loop through all the ACL in memory and add it to this ACL
         // instance.
         foreach ($data['acl'] as $id => $allow) {
             list($role, $action) = explode(':', $id);
@@ -175,7 +175,7 @@ class Authorization implements AuthorizationContract
     }
 
     /**
-     * Sync memory with acl instance, make sure anything that added before
+     * Sync memory with ACL instance, make sure anything that added before
      * ->with($memory) got called is appended to memory as well.
      *
      * @return $this
