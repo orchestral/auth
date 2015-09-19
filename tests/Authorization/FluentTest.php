@@ -185,23 +185,7 @@ class FluentTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test Orchestra\Authorization\Fluent::exist() method.
-     *
-     * @test
-     */
-    public function testExistMethod()
-    {
-        $stub = new Fluent('foo');
-
-        $stub->attach(['foo', 'foobar']);
-
-        $this->assertTrue($stub->exist(0));
-        $this->assertTrue($stub->exist(1));
-        $this->assertFalse($stub->exist(3));
-    }
-
-    /**
-     * Test Orchestra\Authorization\Fluent::exist() method.
+     * Test Orchestra\Authorization\Fluent::exists() method.
      *
      * @test
      */
@@ -231,8 +215,8 @@ class FluentTest extends \PHPUnit_Framework_TestCase
 
         $stub->remove('foo');
 
-        $this->assertFalse($stub->exist(0));
-        $this->assertTrue($stub->exist(1));
+        $this->assertFalse($stub->exists(0));
+        $this->assertTrue($stub->exists(1));
         $this->assertEquals([1 => 'foobar'], $stub->get());
 
         $stub->attach(['foo']);
@@ -241,9 +225,9 @@ class FluentTest extends \PHPUnit_Framework_TestCase
 
         $stub->remove('foo');
 
-        $this->assertFalse($stub->exist(0));
-        $this->assertTrue($stub->exist(1));
-        $this->assertFalse($stub->exist(2));
+        $this->assertFalse($stub->exists(0));
+        $this->assertTrue($stub->exists(1));
+        $this->assertFalse($stub->exists(2));
         $this->assertEquals([1 => 'foobar'], $stub->get());
 
         $this->assertFalse($stub->remove('hello'));
@@ -264,8 +248,8 @@ class FluentTest extends \PHPUnit_Framework_TestCase
 
         $stub->detach(['foo']);
 
-        $this->assertFalse($stub->exist(0));
-        $this->assertTrue($stub->exist(1));
+        $this->assertFalse($stub->exists(0));
+        $this->assertTrue($stub->exists(1));
         $this->assertEquals([1 => 'foobar'], $stub->get());
 
         $stub->attach(['foo']);
@@ -274,9 +258,9 @@ class FluentTest extends \PHPUnit_Framework_TestCase
 
         $stub->detach(['foo']);
 
-        $this->assertFalse($stub->exist(0));
-        $this->assertTrue($stub->exist(1));
-        $this->assertFalse($stub->exist(2));
+        $this->assertFalse($stub->exists(0));
+        $this->assertTrue($stub->exists(1));
+        $this->assertFalse($stub->exists(2));
         $this->assertEquals([1 => 'foobar'], $stub->get());
     }
 
@@ -295,8 +279,8 @@ class FluentTest extends \PHPUnit_Framework_TestCase
 
         $stub->detach(new Collection(['foo']));
 
-        $this->assertFalse($stub->exist(0));
-        $this->assertTrue($stub->exist(1));
+        $this->assertFalse($stub->exists(0));
+        $this->assertTrue($stub->exists(1));
         $this->assertEquals([1 => 'foobar'], $stub->get());
 
         $stub->attach(['foo']);
@@ -305,9 +289,9 @@ class FluentTest extends \PHPUnit_Framework_TestCase
 
         $stub->detach(new Collection(['foo']));
 
-        $this->assertFalse($stub->exist(0));
-        $this->assertTrue($stub->exist(1));
-        $this->assertFalse($stub->exist(2));
+        $this->assertFalse($stub->exists(0));
+        $this->assertTrue($stub->exists(1));
+        $this->assertFalse($stub->exists(2));
         $this->assertEquals([1 => 'foobar'], $stub->get());
     }
 
