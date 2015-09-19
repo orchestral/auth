@@ -5,6 +5,12 @@ title: Auth Change Log
 
 ## Version 3.1 {#v3-1}
 
+### v3.1.7 {#v3-1-7}
+
+* Return `$this` from `Orchestra\Authorization\Authorization` when attaching memory instance, following convension from `Orchestra\Memory\ContainerTrait`.
+* Allow `Orchestra\Authorization\Fluent::attach()` and `Orchestra\Authorization\Fluent::detach()` to support `Illuminate\Contracts\Support\Arrayable` contract.
+* Deprecate `Orchestra\Authorization\Fluent::exist()` and replace it with `Orchestra\Authorization\Fluent::exists()`.
+
 ### v3.1.6 {#v3-1-6}
 
 * Add `Orchestra\Authorization\Policy`.
