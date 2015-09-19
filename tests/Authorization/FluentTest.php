@@ -181,6 +181,22 @@ class FluentTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Test Orchestra\Authorization\Fluent::exist() method.
+     *
+     * @test
+     */
+    public function testExistsMethod()
+    {
+        $stub = new Fluent('foo');
+
+        $stub->attach(['foo', 'foobar']);
+
+        $this->assertTrue($stub->exists(0));
+        $this->assertTrue($stub->exists(1));
+        $this->assertFalse($stub->exists(3));
+    }
+
+    /**
      * Test Orchestra\Authorization\Fluent::remove() method.
      *
      * @test

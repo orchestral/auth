@@ -113,11 +113,27 @@ class Fluent
     /**
      * Check if an id is set in the collection.
      *
+     * @deprecated 3.1.x
+     *
+     * @param  int  $id
+     *
+     * @return bool
+     *
+     * @see $this->exists()
+     */
+    public function exist($id)
+    {
+        return $this->exists($id);
+    }
+
+    /**
+     * Check if an id is set in the collection.
+     *
      * @param  int  $id
      *
      * @return bool
      */
-    public function exist($id)
+    public function exists($id)
     {
         return $this->getKeyword($id)->hasIn($this->items);
     }
