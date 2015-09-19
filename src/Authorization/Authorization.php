@@ -14,7 +14,7 @@ class Authorization implements AuthorizationContract
     use AuthorizationTrait, ContainerTrait;
 
     /**
-     * Acl instance name.
+     * ACL instance name.
      *
      * @var string
      */
@@ -23,19 +23,32 @@ class Authorization implements AuthorizationContract
     /**
      * Construct a new object.
      *
-     * @param  \Orchestra\Contracts\Auth\Guard  $auth
      * @param  string  $name
      * @param  \Orchestra\Contracts\Memory\Provider|null  $memory
      */
-    public function __construct(Guard $auth, $name, Provider $memory = null)
+    public function __construct($name, Provider $memory = null)
     {
-        $this->auth    = $auth;
-        $this->name    = $name;
+        $this->name = $name;
+
         $this->roles   = new Fluent('roles');
         $this->actions = new Fluent('actions');
 
         $this->roles->add('guest');
         $this->attach($memory);
+    }
+
+    /**
+     * Set authenticator.
+     *
+     * @param  \Illuminate\Contracts\Auth\Guard  $auth
+     *
+     * @return $this
+     */
+    public function setAuthenticator(Guard $auth)
+    {
+        $this->auth = $auth;
+
+        return $this;
     }
 
     /**
@@ -66,7 +79,7 @@ class Authorization implements AuthorizationContract
     }
 
     /**
-     * Initiate acl data from memory.
+     * Initiate ACL data from memory.
      *
      * @return $this
      */
@@ -81,7 +94,7 @@ class Authorization implements AuthorizationContract
         $this->roles->attach($data['roles']);
         $this->actions->attach($data['actions']);
 
-        // Loop through all the acl in memory and add it to this ACL
+        // Loop through all the ACL in memory and add it to this ACL
         // instance.
         foreach ($data['acl'] as $id => $allow) {
             list($role, $action) = explode(':', $id);
@@ -175,7 +188,7 @@ class Authorization implements AuthorizationContract
     }
 
     /**
-     * Sync memory with acl instance, make sure anything that added before
+     * Sync memory with ACL instance, make sure anything that added before
      * ->with($memory) got called is appended to memory as well.
      *
      * @return $this
