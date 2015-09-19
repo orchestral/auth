@@ -2,6 +2,7 @@
 
 use InvalidArgumentException;
 use Orchestra\Support\Keyword;
+use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 
 class Fluent
@@ -72,12 +73,16 @@ class Fluent
     /**
      * Add multiple key to collection.
      *
-     * @param  array  $keys
+     * @param  \Illuminate\Contracts\Support\Arrayable|array  $keys
      *
      * @return bool
      */
-    public function attach(array $keys)
+    public function attach($keys)
     {
+        if ($keys instanceof Arrayable) {
+            $keys = $keys->toArray();
+        }
+
         foreach ($keys as $key) {
             $this->add($key);
         }
@@ -88,12 +93,16 @@ class Fluent
     /**
      * Remove multiple key to collection.
      *
-     * @param  array  $keys
+     * @param  \Illuminate\Contracts\Support\Arrayable|array  $keys
      *
      * @return bool
      */
-    public function detach(array $keys)
+    public function detach($keys)
     {
+        if ($keys instanceof Arrayable) {
+            $keys = $keys->toArray();
+        }
+
         foreach ($keys as $key) {
             $this->remove($key);
         }
@@ -104,11 +113,27 @@ class Fluent
     /**
      * Check if an id is set in the collection.
      *
+     * @deprecated 3.1.x
+     *
+     * @param  int  $id
+     *
+     * @return bool
+     *
+     * @see $this->exists()
+     */
+    public function exist($id)
+    {
+        return $this->exists($id);
+    }
+
+    /**
+     * Check if an id is set in the collection.
+     *
      * @param  int  $id
      *
      * @return bool
      */
-    public function exist($id)
+    public function exists($id)
     {
         return $this->getKeyword($id)->hasIn($this->items);
     }

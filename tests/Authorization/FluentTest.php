@@ -1,6 +1,7 @@
 <?php namespace Orchestra\Authorization\TestCase;
 
 use Mockery as m;
+use Illuminate\Support\Collection;
 use Orchestra\Authorization\Fluent;
 
 class FluentTest extends \PHPUnit_Framework_TestCase
@@ -53,7 +54,7 @@ class FluentTest extends \PHPUnit_Framework_TestCase
      */
     public function testAddMethod()
     {
-        $stub  = new Fluent('foo');
+        $stub = new Fluent('foo');
         $model = m::mock('\Illuminate\Database\Eloquent\Model');
 
         $model->shouldReceive('getAttribute')->once()->with('name')->andReturn('eloquent');
@@ -62,7 +63,7 @@ class FluentTest extends \PHPUnit_Framework_TestCase
         $stub->add('foobar');
         $stub->add($model);
 
-        $refl  = new \ReflectionObject($stub);
+        $refl = new \ReflectionObject($stub);
         $items = $refl->getProperty('items');
         $items->setAccessible(true);
 
@@ -94,7 +95,26 @@ class FluentTest extends \PHPUnit_Framework_TestCase
 
         $stub->attach(['foo', 'foobar']);
 
-        $refl  = new \ReflectionObject($stub);
+        $refl = new \ReflectionObject($stub);
+        $items = $refl->getProperty('items');
+        $items->setAccessible(true);
+
+        $this->assertEquals(['foo', 'foobar'], $items->getValue($stub));
+        $this->assertEquals(['foo', 'foobar'], $stub->get());
+    }
+
+    /**
+     * Test Orchestra\Authorization\Fluent::attach() method.
+     *
+     * @test
+     */
+    public function testAttachMethodGivenArrayable()
+    {
+        $stub = new Fluent('foo');
+
+        $stub->attach(new Collection(['foo', 'foobar']));
+
+        $refl = new \ReflectionObject($stub);
         $items = $refl->getProperty('items');
         $items->setAccessible(true);
 
@@ -138,7 +158,7 @@ class FluentTest extends \PHPUnit_Framework_TestCase
 
         $stub->rename('foo', 'laravel');
 
-        $refl  = new \ReflectionObject($stub);
+        $refl = new \ReflectionObject($stub);
         $items = $refl->getProperty('items');
         $items->setAccessible(true);
 
@@ -178,6 +198,22 @@ class FluentTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($stub->exist(0));
         $this->assertTrue($stub->exist(1));
         $this->assertFalse($stub->exist(3));
+    }
+
+    /**
+     * Test Orchestra\Authorization\Fluent::exist() method.
+     *
+     * @test
+     */
+    public function testExistsMethod()
+    {
+        $stub = new Fluent('foo');
+
+        $stub->attach(['foo', 'foobar']);
+
+        $this->assertTrue($stub->exists(0));
+        $this->assertTrue($stub->exists(1));
+        $this->assertFalse($stub->exists(3));
     }
 
     /**
@@ -237,6 +273,37 @@ class FluentTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals([1 => 'foobar', 2 => 'foo'], $stub->get());
 
         $stub->detach(['foo']);
+
+        $this->assertFalse($stub->exist(0));
+        $this->assertTrue($stub->exist(1));
+        $this->assertFalse($stub->exist(2));
+        $this->assertEquals([1 => 'foobar'], $stub->get());
+    }
+
+    /**
+     * Test Orchestra\Authorization\Fluent::detach() method.
+     *
+     * @test
+     */
+    public function testDetachMethodGivenArrayable()
+    {
+        $stub = new Fluent('foo');
+
+        $stub->attach(['foo', 'foobar']);
+
+        $this->assertEquals(['foo', 'foobar'], $stub->get());
+
+        $stub->detach(new Collection(['foo']));
+
+        $this->assertFalse($stub->exist(0));
+        $this->assertTrue($stub->exist(1));
+        $this->assertEquals([1 => 'foobar'], $stub->get());
+
+        $stub->attach(['foo']);
+
+        $this->assertEquals([1 => 'foobar', 2 => 'foo'], $stub->get());
+
+        $stub->detach(new Collection(['foo']));
 
         $this->assertFalse($stub->exist(0));
         $this->assertTrue($stub->exist(1));

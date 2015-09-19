@@ -32,8 +32,8 @@ class GuardTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->provider = m::mock('\Illuminate\Contracts\Auth\UserProvider');
-        $this->session  = m::mock('\Illuminate\Session\Store');
-        $this->events   = m::mock('\Illuminate\Contracts\Events\Dispatcher');
+        $this->session = m::mock('\Illuminate\Session\Store');
+        $this->events = m::mock('\Illuminate\Contracts\Events\Dispatcher');
     }
 
     /**
@@ -55,7 +55,7 @@ class GuardTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetupMethod()
     {
-        $events   = $this->events;
+        $events = $this->events;
         $callback = function () {
             return ['editor'];
         };
@@ -90,7 +90,7 @@ class GuardTest extends \PHPUnit_Framework_TestCase
         $stub->setUser($user);
 
         $expected = ['admin', 'editor'];
-        $output   = $stub->roles();
+        $output = $stub->roles();
 
         $this->assertEquals($expected, $output);
     }
@@ -116,7 +116,7 @@ class GuardTest extends \PHPUnit_Framework_TestCase
         $stub->setUser($user);
 
         $expected = ['Guest'];
-        $output   = $stub->roles();
+        $output = $stub->roles();
 
         $this->assertEquals($expected, $output);
     }
@@ -158,7 +158,7 @@ class GuardTest extends \PHPUnit_Framework_TestCase
     public function testIsMethodWhenInvalidRolesIsReturned()
     {
         $events = $this->events;
-        $user   = m::mock('\Illuminate\Contracts\Auth\Authenticatable');
+        $user = m::mock('\Illuminate\Contracts\Auth\Authenticatable');
 
         $user->shouldReceive('getAuthIdentifier')->times(5)->andReturn(1);
 
@@ -212,7 +212,7 @@ class GuardTest extends \PHPUnit_Framework_TestCase
     public function testIsAnyMethodWhenInvalidRolesIsReturned()
     {
         $events = $this->events;
-        $user   = m::mock('\Illuminate\Contracts\Auth\Authenticatable');
+        $user = m::mock('\Illuminate\Contracts\Auth\Authenticatable');
 
         $user->shouldReceive('getAuthIdentifier')->twice()->andReturn(1);
 
@@ -265,7 +265,7 @@ class GuardTest extends \PHPUnit_Framework_TestCase
     public function testIsNotMethodWhenInvalidRolesIsReturned()
     {
         $events = $this->events;
-        $user   = m::mock('\Illuminate\Contracts\Auth\Authenticatable');
+        $user = m::mock('\Illuminate\Contracts\Auth\Authenticatable');
 
         $user->shouldReceive('getAuthIdentifier')->times(5)->andReturn(1);
 
@@ -319,7 +319,7 @@ class GuardTest extends \PHPUnit_Framework_TestCase
     public function testIsNotAnyMethodWhenInvalidRolesIsReturned()
     {
         $events = $this->events;
-        $user   = m::mock('\Illuminate\Contracts\Auth\Authenticatable');
+        $user = m::mock('\Illuminate\Contracts\Auth\Authenticatable');
 
         $user->shouldReceive('getAuthIdentifier')->twice()->andReturn(1);
 
@@ -342,10 +342,10 @@ class GuardTest extends \PHPUnit_Framework_TestCase
      */
     public function testLogoutMethod()
     {
-        $events   = $this->events;
+        $events = $this->events;
         $provider = $this->provider;
-        $session  = $this->session;
-        $cookie   = m::mock('\Illuminate\Contracts\Cookie\QueueingFactory');
+        $session = $this->session;
+        $cookie = m::mock('\Illuminate\Contracts\Cookie\QueueingFactory');
 
         $events->shouldReceive('until')->never()
                 ->with('orchestra.auth: roles', m::any())->andReturn(['admin', 'editor'])
@@ -360,8 +360,8 @@ class GuardTest extends \PHPUnit_Framework_TestCase
         $cookie->shouldReceive('queue')->once()->andReturn($cookie)
             ->shouldReceive('forget')->once()->andReturn(null);
 
-        $refl      = new \ReflectionObject($stub);
-        $user      = $refl->getProperty('user');
+        $refl = new \ReflectionObject($stub);
+        $user = $refl->getProperty('user');
         $userRoles = $refl->getProperty('userRoles');
 
         $user->setAccessible(true);
