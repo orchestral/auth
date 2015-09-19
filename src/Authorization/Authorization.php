@@ -23,19 +23,32 @@ class Authorization implements AuthorizationContract
     /**
      * Construct a new object.
      *
-     * @param  \Orchestra\Contracts\Auth\Guard  $auth
      * @param  string  $name
      * @param  \Orchestra\Contracts\Memory\Provider|null  $memory
      */
-    public function __construct(Guard $auth, $name, Provider $memory = null)
+    public function __construct($name, Provider $memory = null)
     {
-        $this->auth    = $auth;
-        $this->name    = $name;
+        $this->name = $name;
+
         $this->roles   = new Fluent('roles');
         $this->actions = new Fluent('actions');
 
         $this->roles->add('guest');
         $this->attach($memory);
+    }
+
+    /**
+     * Set authenticator.
+     *
+     * @param  \Illuminate\Contracts\Auth\Guard  $auth
+     *
+     * @return $this
+     */
+    public function setAuthenticator(Guard $auth)
+    {
+        $this->auth = $auth;
+
+        return $this;
     }
 
     /**

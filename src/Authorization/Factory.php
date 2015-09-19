@@ -44,7 +44,7 @@ class Factory implements FactoryContract
         $name = ! is_null($name) ? $name : 'default';
 
         if (! isset($this->drivers[$name])) {
-            $this->drivers[$name] = new Authorization($this->auth, $name, $memory);
+            $this->drivers[$name] = (new Authorization($name, $memory))->setAuthenticator($this->auth);
         }
 
         return $this->drivers[$name];
