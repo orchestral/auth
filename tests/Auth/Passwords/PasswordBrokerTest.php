@@ -12,7 +12,7 @@ class PasswordBrokerTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        $app               = new Container();
+        $app = new Container();
         $app['translator'] = $translator = m::mock('\Illuminate\Translation\Translator')->makePartial();
         $translator->shouldReceive('trans')->andReturn('foo');
 
@@ -104,10 +104,10 @@ class PasswordBrokerTest extends \PHPUnit_Framework_TestCase
         };
 
         $credentials = [
-            'username'              => 'user-foo',
-            'password'              => 'qwerty',
+            'username' => 'user-foo',
+            'password' => 'qwerty',
             'password_confirmation' => 'qwerty',
-            'token'                 => 'someuniquetokenkey',
+            'token' => 'someuniquetokenkey',
         ];
 
         $user->shouldReceive('retrieveByCredentials')->once()
@@ -138,10 +138,10 @@ class PasswordBrokerTest extends \PHPUnit_Framework_TestCase
         };
 
         $credentials = [
-            'username'              => 'user-foo',
-            'password'              => 'qwerty',
+            'username' => 'user-foo',
+            'password' => 'qwerty',
             'password_confirmation' => 'qwerty',
-            'token'                 => 'someuniquetokenkey',
+            'token' => 'someuniquetokenkey',
         ];
 
         $user->shouldReceive('retrieveByCredentials')->once()
@@ -170,10 +170,10 @@ class PasswordBrokerTest extends \PHPUnit_Framework_TestCase
         };
 
         $credentials = [
-            'username'              => 'user-foo',
-            'password'              => 'qwerty',
+            'username' => 'user-foo',
+            'password' => 'qwerty',
             'password_confirmation' => 'qwerty',
-            'token'                 => 'someuniquetokenkey',
+            'token' => 'someuniquetokenkey',
         ];
 
         $user->shouldReceive('retrieveByCredentials')->once()
@@ -204,10 +204,10 @@ class PasswordBrokerTest extends \PHPUnit_Framework_TestCase
         };
 
         $credentials = [
-            'username'              => 'user-foo',
-            'password'              => 'qwerty',
+            'username' => 'user-foo',
+            'password' => 'qwerty',
             'password_confirmation' => 'qwerty',
-            'token'                 => 'someuniquetokenkey',
+            'token' => 'someuniquetokenkey',
         ];
 
         $user->shouldReceive('retrieveByCredentials')->once()

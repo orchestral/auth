@@ -27,8 +27,8 @@ class AuthorizationTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        $this->app           = new IlluminateContainer();
-        $this->app['auth']   = $auth   = m::mock('\Orchestra\Contracts\Auth\Guard');
+        $this->app = new IlluminateContainer();
+        $this->app['auth'] = $auth = m::mock('\Orchestra\Contracts\Auth\Guard');
         $this->app['config'] = $config = m::mock('\Illuminate\Contracts\Config\Repository');
         $this->app['events'] = $event = m::mock('\Illuminate\Contracts\Events\Dispatcher');
 
@@ -37,7 +37,7 @@ class AuthorizationTest extends \PHPUnit_Framework_TestCase
         $config->shouldReceive('get')->andReturn([]);
         $event->shouldReceive('until')->andReturn(['admin', 'editor']);
 
-        $memory  = new Provider(new Runtime('foo', []));
+        $memory = new Provider(new Runtime('foo', []));
         $memory->put('acl_foo', $this->memoryProvider());
 
         $this->stub = new Authorization($this->app['auth'], 'foo', $memory);
@@ -71,9 +71,9 @@ class AuthorizationTest extends \PHPUnit_Framework_TestCase
     protected function memoryProvider()
     {
         return [
-            'acl'     => ['0:0' => false, '0:1' => false, '1:0' => true, '1:1' => true],
+            'acl' => ['0:0' => false, '0:1' => false, '1:0' => true, '1:1' => true],
             'actions' => ['Manage User', 'Manage'],
-            'roles'   => ['Guest', 'Admin'],
+            'roles' => ['Guest', 'Admin'],
         ];
     }
 
@@ -84,11 +84,11 @@ class AuthorizationTest extends \PHPUnit_Framework_TestCase
      */
     public function testInstanceOfStub()
     {
-        $refl    = new \ReflectionObject($this->stub);
-        $memory  = $refl->getProperty('memory');
-        $roles   = $refl->getProperty('roles');
+        $refl = new \ReflectionObject($this->stub);
+        $memory = $refl->getProperty('memory');
+        $roles = $refl->getProperty('roles');
         $actions = $refl->getProperty('actions');
-        $acl     = $refl->getProperty('acl');
+        $acl = $refl->getProperty('acl');
 
         $memory->setAccessible(true);
         $roles->setAccessible(true);
@@ -128,11 +128,11 @@ class AuthorizationTest extends \PHPUnit_Framework_TestCase
         $stub->addAction('foobar');
         $stub->allow('foo', 'foobar');
 
-        $refl    = new \ReflectionObject($stub);
-        $memory  = $refl->getProperty('memory');
-        $roles   = $refl->getProperty('roles');
+        $refl = new \ReflectionObject($stub);
+        $memory = $refl->getProperty('memory');
+        $roles = $refl->getProperty('roles');
         $actions = $refl->getProperty('actions');
-        $acl     = $refl->getProperty('acl');
+        $acl = $refl->getProperty('acl');
 
         $memory->setAccessible(true);
         $roles->setAccessible(true);
@@ -205,9 +205,9 @@ class AuthorizationTest extends \PHPUnit_Framework_TestCase
 
         $stub->allow('guest', 'manage-user');
 
-        $refl   = new \ReflectionObject($this->stub);
+        $refl = new \ReflectionObject($this->stub);
         $memory = $refl->getProperty('memory');
-        $acl    = $refl->getProperty('acl');
+        $acl = $refl->getProperty('acl');
 
         $memory->setAccessible(true);
         $acl->setAccessible(true);
@@ -232,9 +232,9 @@ class AuthorizationTest extends \PHPUnit_Framework_TestCase
 
         $stub->deny('admin', 'manage-user');
 
-        $refl   = new \ReflectionObject($this->stub);
+        $refl = new \ReflectionObject($this->stub);
         $memory = $refl->getProperty('memory');
-        $acl    = $refl->getProperty('acl');
+        $acl = $refl->getProperty('acl');
 
         $memory->setAccessible(true);
         $acl->setAccessible(true);
@@ -414,10 +414,10 @@ class AuthorizationTest extends \PHPUnit_Framework_TestCase
      */
     public function testMemoryIsProperlySync()
     {
-        $stub    = $this->stub;
-        $refl    = new \ReflectionObject($stub);
-        $memory  = $refl->getProperty('memory');
-        $roles   = $refl->getProperty('roles');
+        $stub = $this->stub;
+        $refl = new \ReflectionObject($stub);
+        $memory = $refl->getProperty('memory');
+        $roles = $refl->getProperty('roles');
         $actions = $refl->getProperty('actions');
 
         $memory->setAccessible(true);
@@ -454,10 +454,10 @@ class AuthorizationTest extends \PHPUnit_Framework_TestCase
         $runtime = $this->getRuntimeMemoryProvider();
         $runtime->put('acl_foo', $this->memoryProvider());
 
-        $stub    = new Authorization($this->app['auth'], 'foo', $runtime);
-        $refl    = new \ReflectionObject($stub);
+        $stub = new Authorization($this->app['auth'], 'foo', $runtime);
+        $refl = new \ReflectionObject($stub);
         $actions = $refl->getProperty('actions');
-        $roles   = $refl->getProperty('roles');
+        $roles = $refl->getProperty('roles');
 
         $actions->setAccessible(true);
         $roles->setAccessible(true);
