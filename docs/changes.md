@@ -5,6 +5,10 @@ title: Auth Change Log
 
 ## Version 3.1 {#v3-1}
 
+### v3.1.8 {#v3-1-8}
+
+* Use setter to assign `Orchestra\Contracts\Auth\Guard`, which allow the package to be use on non-Laravel app.
+
 ### v3.1.7 {#v3-1-7}
 
 * Return `$this` from `Orchestra\Authorization\Authorization` when attaching memory instance, following convension from `Orchestra\Memory\ContainerTrait`.
