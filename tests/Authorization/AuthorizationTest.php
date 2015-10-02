@@ -40,7 +40,7 @@ class AuthorizationTest extends \PHPUnit_Framework_TestCase
         $memory = new Provider(new Runtime('foo', []));
         $memory->put('acl_foo', $this->memoryProvider());
 
-        $this->stub = new Authorization($this->app['auth'], 'foo', $memory);
+        $this->stub = (new Authorization('foo', $memory))->setAuthenticator($this->app['auth']);
     }
 
     /**
@@ -116,7 +116,7 @@ class AuthorizationTest extends \PHPUnit_Framework_TestCase
         $runtime = $this->getRuntimeMemoryProvider();
         $runtime->put('acl_foo', $this->memoryProvider());
 
-        $stub = new Authorization($this->app['auth'], 'foo');
+        $stub = (new Authorization('foo'))->setAuthenticator($this->app['auth']);
 
         $this->assertFalse($stub->attached());
 
@@ -171,7 +171,7 @@ class AuthorizationTest extends \PHPUnit_Framework_TestCase
 
         $runtime2 = new Provider(new Runtime('foobar', []));
 
-        $stub = new Authorization($this->app['auth'], 'foo', $runtime1);
+        $stub = (new Authorization('foo', $runtime1))->setAuthenticator($this->app['auth']);
         $stub->attach($runtime2);
     }
 
@@ -187,7 +187,7 @@ class AuthorizationTest extends \PHPUnit_Framework_TestCase
         $runtime = $this->getRuntimeMemoryProvider();
         $runtime->put('acl_foo', $this->memoryProvider());
 
-        $stub = new Authorization($this->app['auth'], 'foo', $runtime);
+        $stub = (new Authorization('foo', $runtime))->setAuthenticator($this->app['auth']);
         $stub->attach($runtime);
     }
 
@@ -201,7 +201,7 @@ class AuthorizationTest extends \PHPUnit_Framework_TestCase
         $runtime = $this->getRuntimeMemoryProvider();
         $runtime->put('acl_foo', $this->memoryProvider());
 
-        $stub = new Authorization($this->app['auth'], 'foo', $runtime);
+        $stub = (new Authorization('foo', $runtime))->setAuthenticator($this->app['auth']);
 
         $stub->allow('guest', 'manage-user');
 
@@ -228,7 +228,7 @@ class AuthorizationTest extends \PHPUnit_Framework_TestCase
         $runtime = $this->getRuntimeMemoryProvider();
         $runtime->put('acl_foo', $this->memoryProvider());
 
-        $stub = new Authorization($this->app['auth'], 'foo', $runtime);
+        $stub = (new Authorization('foo', $runtime))->setAuthenticator($this->app['auth']);
 
         $stub->deny('admin', 'manage-user');
 
@@ -260,7 +260,7 @@ class AuthorizationTest extends \PHPUnit_Framework_TestCase
         $runtime = $this->getRuntimeMemoryProvider();
         $runtime->put('acl_foo', $this->memoryProvider());
 
-        $stub = new Authorization($auth, 'foo', $runtime);
+        $stub = (new Authorization('foo', $runtime))->setAuthenticator($auth);
 
         $stub->addActions(['Manage Page', 'Manage Photo']);
         $stub->allow('guest', 'Manage Page');
@@ -286,7 +286,7 @@ class AuthorizationTest extends \PHPUnit_Framework_TestCase
         $runtime = $this->getRuntimeMemoryProvider();
         $runtime->put('acl_foo', $this->memoryProvider());
 
-        $stub = new Authorization($auth, 'foo', $runtime);
+        $stub = (new Authorization('foo', $runtime))->setAuthenticator($auth);
 
         $stub->addRoles(['Staff']);
         $stub->addActions(['Manage Application', 'Manage Photo']);
@@ -312,7 +312,7 @@ class AuthorizationTest extends \PHPUnit_Framework_TestCase
         $runtime = $this->getRuntimeMemoryProvider();
         $runtime->put('acl_foo', $this->memoryProvider());
 
-        $stub = new Authorization($auth, 'foo', $runtime);
+        $stub = (new Authorization('foo', $runtime))->setAuthenticator($auth);
 
         $stub->addRoles(['Staff']);
         $stub->addActions(['Manage Application', 'Manage Photo']);
@@ -333,7 +333,7 @@ class AuthorizationTest extends \PHPUnit_Framework_TestCase
         $runtime = $this->getRuntimeMemoryProvider();
         $runtime->put('acl_foo', $this->memoryProvider());
 
-        $stub = new Authorization($this->app['auth'], 'foo', $runtime);
+        $stub = (new Authorization('foo', $runtime))->setAuthenticator($this->app['auth']);
 
         $stub->addActions(['Manage Page', 'Manage Photo']);
         $stub->allow('guest', 'Manage Page');
@@ -353,7 +353,7 @@ class AuthorizationTest extends \PHPUnit_Framework_TestCase
         $runtime = $this->getRuntimeMemoryProvider();
         $runtime->put('acl_foo', $this->memoryProvider());
 
-        $stub = new Authorization($this->app['auth'], 'foo', $runtime);
+        $stub = (new Authorization('foo', $runtime))->setAuthenticator($this->app['auth']);
 
         $stub->addActions(['Manage Page', 'Manage Photo']);
         $stub->allow('guest', 'Manage Page');
@@ -454,7 +454,7 @@ class AuthorizationTest extends \PHPUnit_Framework_TestCase
         $runtime = $this->getRuntimeMemoryProvider();
         $runtime->put('acl_foo', $this->memoryProvider());
 
-        $stub = new Authorization($this->app['auth'], 'foo', $runtime);
+        $stub = (new Authorization('foo', $runtime))->setAuthenticator($this->app['auth']);
         $refl = new \ReflectionObject($stub);
         $actions = $refl->getProperty('actions');
         $roles = $refl->getProperty('roles');
