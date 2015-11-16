@@ -28,7 +28,8 @@
     "require-dev": {
         "mockery/mockery": "0.9.*",
         "illuminate/auth": "~5.2.0",
-        "illuminate/database": "~5.2.0"
+        "illuminate/database": "~5.2.0",
+        "paragonie/random_compat": "~1.1"
     },
     "replace": {
         "orchestra/authorization": "self.version"
