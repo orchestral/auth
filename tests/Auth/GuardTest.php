@@ -350,7 +350,7 @@ class GuardTest extends \PHPUnit_Framework_TestCase
         $events->shouldReceive('until')->never()
                 ->with('orchestra.auth: roles', m::any())->andReturn(['admin', 'editor'])
             ->shouldReceive('fire')->once()
-                ->with('auth.logout', m::any())->andReturn(['admin', 'editor']);
+                ->with(m::type('\Illuminate\Auth\Events\Logout'))->andReturnNull();
         $provider->shouldReceive('updateRememberToken')->once();
         $session->shouldReceive('remove')->once()->andReturn(null);
 
