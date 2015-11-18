@@ -16,7 +16,7 @@ Auth Component extends the functionality of `Illuminate\Auth` with the extra fun
 * [Version Compatibility](#version-compatibility)
 * [Installation](#installation)
 * [Configuration](#configuration)
-* [Change Log](http://orchestraplatform.com/docs/latest/components/auth/changes#v3-2)
+* [Change Log](http://orchestraplatform.com/docs/latest/components/auth/changes#v3-3)
 
 ## Version Compatibility
 
