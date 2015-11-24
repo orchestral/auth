@@ -7,27 +7,32 @@ title: Auth Change Log
 
 ### v3.1.8 {#v3-1-8}
 
-* Use setter to assign `Orchestra\Contracts\Auth\Guard`, which allow the package to be use on non-Laravel app.
+* Auth:
+  - Use setter to assign `Orchestra\Contracts\Auth\Guard`, which allow the package to be use on non-Laravel app.
 
 ### v3.1.7 {#v3-1-7}
 
-* Return `$this` from `Orchestra\Authorization\Authorization` when attaching memory instance, following convension from `Orchestra\Memory\ContainerTrait`.
-* Allow `Orchestra\Authorization\Fluent::attach()` and `Orchestra\Authorization\Fluent::detach()` to support `Illuminate\Contracts\Support\Arrayable` contract.
-* Deprecate `Orchestra\Authorization\Fluent::exist()` and replace it with `Orchestra\Authorization\Fluent::exists()`.
+* Authorization:
+  - Return `$this` from `Orchestra\Authorization\Authorization` when attaching memory instance, following convension from `Orchestra\Memory\ContainerTrait`.
+  - Allow `Orchestra\Authorization\Fluent::attach()` and `Orchestra\Authorization\Fluent::detach()` to support `Illuminate\Contracts\Support\Arrayable` contract.
+  - Deprecate `Orchestra\Authorization\Fluent::exist()` and replace it with `Orchestra\Authorization\Fluent::exists()`.
 
 ### v3.1.6 {#v3-1-6}
 
-* Add `Orchestra\Authorization\Policy`.
-* Remove `Orchestra\Authorization\Keyword`, use `Orchestra\Support\Keyword` instead.
+* Authorization:
+  - Add `Orchestra\Authorization\Policy`.
+  - Remove `Orchestra\Authorization\Keyword`, use `Orchestra\Support\Keyword` instead.
 
 ### v3.1.5 {#v3-1-5}
 
-* Allow to manually set roles when working outside of authenticated state via `Orchestra\Authorization\AuthorizationTrait::setUser()` method, which can be revoke by calling `Orchestra\AuthorizationTrait::revokeUser()`.
+* Authorization:
+  - Allow to manually set roles when working outside of authenticated state via `Orchestra\Authorization\AuthorizationTrait::setUser()` method, which can be revoke by calling `Orchestra\AuthorizationTrait::revokeUser()`.
 
 ### v3.1.4 {#v3-1-4}
 
 * Improved performances by reducing call within `Illuminate\Container\Container`.
-* Reduces call to `Orchestra\Authorization\Keyword` on known keyword.
+* Authorization:
+  - Reduces call to `Orchestra\Authorization\Keyword` on known keyword.
 
 ### v3.1.3 {#v3-1-3}
 
