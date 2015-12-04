@@ -1,9 +1,9 @@
 <?php namespace Orchestra\Auth\TestCase;
 
 use Mockery as m;
-use Orchestra\Auth\Guard;
+use Orchestra\Auth\SessionGuard;
 
-class GuardTest extends \PHPUnit_Framework_TestCase
+class SessionGuardTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * Provider instance.
@@ -63,14 +63,14 @@ class GuardTest extends \PHPUnit_Framework_TestCase
         $events->shouldReceive('forget')->once()->with('orchestra.auth: roles')->andReturn(null)
             ->shouldReceive('listen')->once()->with('orchestra.auth: roles', $callback)->andReturn(null);
 
-        $stub = new Guard($this->provider, $this->session);
+        $stub = new SessionGuard('web', $this->provider, $this->session);
         $stub->setDispatcher($events);
 
         $stub->setup($callback);
     }
 
     /**
-     * Test Orchestra\Auth\Guard::roles() method returning valid roles.
+     * Test Orchestra\Auth\SessionGuard::roles() method returning valid roles.
      *
      * @test
      */
@@ -85,7 +85,7 @@ class GuardTest extends \PHPUnit_Framework_TestCase
         $events->shouldReceive('until')->once()
                 ->with('orchestra.auth: roles', m::any())->andReturn(['admin', 'editor']);
 
-        $stub = new Guard($this->provider, $this->session);
+        $stub = new SessionGuard('web', $this->provider, $this->session);
         $stub->setDispatcher($events);
         $stub->setUser($user);
 
@@ -96,7 +96,7 @@ class GuardTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test Orchestra\Auth\Guard::roles() method when user is not logged in.
+     * Test Orchestra\Auth\SessionGuard::roles() method when user is not logged in.
      *
      * @test
      */
@@ -111,7 +111,7 @@ class GuardTest extends \PHPUnit_Framework_TestCase
         $events->shouldReceive('until')->once()
                 ->with('orchestra.auth: roles', m::any())->andReturn(null);
 
-        $stub = new Guard($this->provider, $this->session);
+        $stub = new SessionGuard('web', $this->provider, $this->session);
         $stub->setDispatcher($events);
         $stub->setUser($user);
 
@@ -137,7 +137,7 @@ class GuardTest extends \PHPUnit_Framework_TestCase
         $events->shouldReceive('until')->once()
                 ->with('orchestra.auth: roles', m::any())->andReturn(['admin', 'editor']);
 
-        $stub = new Guard($this->provider, $this->session);
+        $stub = new SessionGuard('web', $this->provider, $this->session);
         $stub->setDispatcher($events);
         $stub->setUser($user);
 
@@ -166,7 +166,7 @@ class GuardTest extends \PHPUnit_Framework_TestCase
                 ->with('orchestra.auth: roles', m::any())->once()
                 ->andReturn('foo');
 
-        $stub = new Guard($this->provider, $this->session);
+        $stub = new SessionGuard('web', $this->provider, $this->session);
         $stub->setDispatcher($events);
         $stub->setUser($user);
 
@@ -194,7 +194,7 @@ class GuardTest extends \PHPUnit_Framework_TestCase
         $events->shouldReceive('until')->once()
                 ->with('orchestra.auth: roles', m::any())->andReturn(['admin', 'editor']);
 
-        $stub = new Guard($this->provider, $this->session);
+        $stub = new SessionGuard('web', $this->provider, $this->session);
         $stub->setDispatcher($events);
         $stub->setUser($user);
 
@@ -220,7 +220,7 @@ class GuardTest extends \PHPUnit_Framework_TestCase
                 ->with('orchestra.auth: roles', m::any())->once()
                 ->andReturn('foo');
 
-        $stub = new Guard($this->provider, $this->session);
+        $stub = new SessionGuard('web', $this->provider, $this->session);
         $stub->setDispatcher($events);
         $stub->setUser($user);
 
@@ -244,7 +244,7 @@ class GuardTest extends \PHPUnit_Framework_TestCase
         $events->shouldReceive('until')->once()
                 ->with('orchestra.auth: roles', m::any())->andReturn(['admin', 'editor']);
 
-        $stub = new Guard($this->provider, $this->session);
+        $stub = new SessionGuard('web', $this->provider, $this->session);
         $stub->setDispatcher($events);
         $stub->setUser($user);
 
@@ -273,7 +273,7 @@ class GuardTest extends \PHPUnit_Framework_TestCase
                 ->with('orchestra.auth: roles', m::any())->once()
                 ->andReturn('foo');
 
-        $stub = new Guard($this->provider, $this->session);
+        $stub = new SessionGuard('web', $this->provider, $this->session);
         $stub->setDispatcher($events);
         $stub->setUser($user);
 
@@ -301,7 +301,7 @@ class GuardTest extends \PHPUnit_Framework_TestCase
         $events->shouldReceive('until')->once()
                 ->with('orchestra.auth: roles', m::any())->andReturn(['admin', 'editor']);
 
-        $stub = new Guard($this->provider, $this->session);
+        $stub = new SessionGuard('web', $this->provider, $this->session);
         $stub->setDispatcher($events);
         $stub->setUser($user);
 
@@ -327,7 +327,7 @@ class GuardTest extends \PHPUnit_Framework_TestCase
                 ->with('orchestra.auth: roles', m::any())->once()
                 ->andReturn('foo');
 
-        $stub = new Guard($this->provider, $this->session);
+        $stub = new SessionGuard('web', $this->provider, $this->session);
         $stub->setDispatcher($events);
         $stub->setUser($user);
 
@@ -354,7 +354,7 @@ class GuardTest extends \PHPUnit_Framework_TestCase
         $provider->shouldReceive('updateRememberToken')->once();
         $session->shouldReceive('remove')->once()->andReturn(null);
 
-        $stub = new Guard($provider, $session);
+        $stub = new SessionGuard('web', $provider, $session);
         $stub->setDispatcher($events);
         $stub->setCookieJar($cookie);
         $cookie->shouldReceive('queue')->once()->andReturn($cookie)

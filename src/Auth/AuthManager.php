@@ -5,36 +5,33 @@ use Illuminate\Auth\AuthManager as BaseManager;
 class AuthManager extends BaseManager
 {
     /**
-     * {@inheritdoc}
+     * Create a session based authentication guard.
+     *
+     * @param  string  $name
+     * @param  array  $config
+     * @return \Illuminate\Auth\SessionGuard
      */
-    protected function callCustomCreator($driver)
+    public function createSessionDriver($name, $config)
     {
-        $custom = $this->customCreators[$driver]($this->app);
+        $provider = $this->createUserProvider($config['provider']);
 
-        if ($custom instanceof Guard) {
-            return $custom;
+        $guard = new SessionGuard($name, $provider, $this->app['session.store']);
+
+        // When using the remember me functionality of the authentication services we
+        // will need to be set the encryption instance of the guard, which allows
+        // secure, encrypted cookie values to get generated for those cookies.
+        if (method_exists($guard, 'setCookieJar')) {
+            $guard->setCookieJar($this->app['cookie']);
         }
 
-        return new Guard($custom, $this->app->make('session.store'));
-    }
+        if (method_exists($guard, 'setDispatcher')) {
+            $guard->setDispatcher($this->app['events']);
+        }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function createDatabaseDriver()
-    {
-        $provider = $this->createDatabaseProvider();
+        if (method_exists($guard, 'setRequest')) {
+            $guard->setRequest($this->app->refresh('request', $guard, 'setRequest'));
+        }
 
-        return new Guard($provider, $this->app->make('session.store'));
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function createEloquentDriver()
-    {
-        $provider = $this->createEloquentProvider();
-
-        return new Guard($provider, $this->app->make('session.store'));
+        return $guard;
     }
 }
