@@ -1,5 +1,6 @@
 <?php namespace Orchestra\Auth\Passwords;
 
+use InvalidArgumentException;
 use Illuminate\Auth\Passwords\PasswordBrokerManager as BaseManager;
 
 class PasswordBrokerManager extends BaseManager
