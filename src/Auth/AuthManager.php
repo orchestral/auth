@@ -15,17 +15,17 @@ class AuthManager extends BaseManager
     {
         $provider = $this->createUserProvider($config['provider']);
 
-        $guard = new SessionGuard($name, $provider, $this->app['session.store']);
+        $guard = new SessionGuard($name, $provider, $this->app->make('session.store'));
 
         // When using the remember me functionality of the authentication services we
         // will need to be set the encryption instance of the guard, which allows
         // secure, encrypted cookie values to get generated for those cookies.
         if (method_exists($guard, 'setCookieJar')) {
-            $guard->setCookieJar($this->app['cookie']);
+            $guard->setCookieJar($this->app->make('cookie'));
         }
 
         if (method_exists($guard, 'setDispatcher')) {
-            $guard->setDispatcher($this->app['events']);
+            $guard->setDispatcher($this->app->make('events'));
         }
 
         if (method_exists($guard, 'setRequest')) {
