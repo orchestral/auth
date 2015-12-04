@@ -1,12 +1,13 @@
 <?php namespace Orchestra\Auth;
 
 use Illuminate\Support\Arr;
-use Illuminate\Auth\Guard as BaseGuard;
 use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Contracts\Auth\StatefulGuard;
+use Illuminate\Auth\SessionGuard as BaseGuard;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Orchestra\Contracts\Auth\Guard as GuardContract;
 
-class Guard extends BaseGuard implements GuardContract
+class SessionGuard extends BaseGuard implements StatefulGuard, GuardContract
 {
     /**
      * Cached user to roles relationship.

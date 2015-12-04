@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -19,7 +18,9 @@ class OrchestraAuthCreatePasswordRemindersTable extends Migration
      */
     public function __construct()
     {
-        $this->table = Config::get('auth.password.table');
+        $resetter = config('auth.default_resetter');
+
+        $this->table = config("auth.resetters.{$resetter}.table");
     }
 
     /**

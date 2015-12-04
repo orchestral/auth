@@ -19,21 +19,11 @@ class PasswordResetServiceProvider extends ServiceProvider
     protected function registerPasswordBroker()
     {
         $this->app->singleton('auth.password', function ($app) {
-            // The password token repository is responsible for storing the email addresses
-            // and password reset tokens. It will be used to verify the tokens are valid
-            // for the given e-mail addresses. We will resolve an implementation here.
-            $tokens = $app['auth.password.tokens'];
+            return new PasswordBrokerManager($app);
+        });
 
-            $users = $app->make('auth.driver')->getProvider();
-
-            $notifier = $app->make('orchestra.notifier')->driver();
-
-            $view = $app->make('config')->get('auth.password.email');
-
-            // The password broker uses a token repository to validate tokens and send user
-            // password e-mails, as well as validating that password reset process as an
-            // aggregate service of sorts providing a convenient interface for resets.
-            return new PasswordBroker($tokens, $users, $notifier, $view);
+        $this->app->bind('auth.password.broker', function ($app) {
+            return $app->make('auth.password')->broker();
         });
     }
 }
