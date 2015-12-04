@@ -18,9 +18,9 @@ class OrchestraAuthCreatePasswordRemindersTable extends Migration
      */
     public function __construct()
     {
-        $resetter = config('auth.default_resetter');
+        $driver = config('auth.defaults.passwords');
 
-        $this->table = config("auth.resetters.{$resetter}.table");
+        $this->table = config("auth.passwords.{$driver}.table");
     }
 
     /**
