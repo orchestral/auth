@@ -36,7 +36,7 @@ class AuthServiceProvider extends ServiceProvider
         });
 
         $this->app->singleton('auth.driver', function (Application $app) {
-            return $app->make('auth')->driver();
+            return $app->make('auth')->guard();
         });
     }
 
