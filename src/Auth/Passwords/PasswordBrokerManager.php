@@ -1,5 +1,6 @@
 <?php namespace Orchestra\Auth\Passwords;
 
+use InvalidArgumentException;
 use Illuminate\Auth\Passwords\PasswordBrokerManager as BaseManager;
 
 class PasswordBrokerManager extends BaseManager
@@ -23,7 +24,7 @@ class PasswordBrokerManager extends BaseManager
         // aggregate service of sorts providing a convenient interface for resets.
         return new PasswordBroker(
             $this->createTokenRepository($config),
-            $this->createUserProvider($config['provider']),
+            $this->createUserProvider($config['source']),
             $this->app->make('orchestra.notifier')->driver(),
             $config['email']
         );
