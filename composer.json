@@ -30,6 +30,7 @@
     "require-dev": {
         "mockery/mockery": "0.9.*",
         "illuminate/database": "~5.2.0",
+        "illuminate/session": "~5.2.0",
         "paragonie/random_compat": "~1.1"
     },
     "replace": {
