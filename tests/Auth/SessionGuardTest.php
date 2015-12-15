@@ -8,23 +8,30 @@ class SessionGuardTest extends \PHPUnit_Framework_TestCase
     /**
      * Provider instance.
      *
-     * @var Illuminate\Contracts\Auth\UserProvider
+     * @var \Illuminate\Contracts\Auth\UserProvider
      */
     private $provider = null;
 
     /**
      * Session instance.
      *
-     * @var Illuminate\Session\Store
+     * @var \Illuminate\Session\Store
      */
     private $session = null;
 
     /**
      * Event dispatcher instance.
      *
-     * @var Illuminate\Event\Dispatcher
+     * @var \Illuminate\Event\Dispatcher
      */
     private $events = null;
+
+    /**
+     * The request instance.
+     *
+     * @var \Illuminate\Http\Request
+     */
+    private $request = null;
 
     /**
      * Setup the test environment.
@@ -34,6 +41,7 @@ class SessionGuardTest extends \PHPUnit_Framework_TestCase
         $this->provider = m::mock('\Illuminate\Contracts\Auth\UserProvider');
         $this->session = m::mock('\Illuminate\Session\Store');
         $this->events = m::mock('\Illuminate\Contracts\Events\Dispatcher');
+        $this->request = m::mock('\Illuminate\Http\Request');
     }
 
     /**
@@ -60,8 +68,8 @@ class SessionGuardTest extends \PHPUnit_Framework_TestCase
             return ['editor'];
         };
 
-        $events->shouldReceive('forget')->once()->with('orchestra.auth: roles')->andReturn(null)
-            ->shouldReceive('listen')->once()->with('orchestra.auth: roles', $callback)->andReturn(null);
+        $events->shouldReceive('forget')->once()->with('orchestra.auth: roles')->andReturnNull()
+            ->shouldReceive('listen')->once()->with('orchestra.auth: roles', $callback)->andReturnNull();
 
         $stub = new SessionGuard('web', $this->provider, $this->session);
         $stub->setDispatcher($events);
@@ -109,7 +117,7 @@ class SessionGuardTest extends \PHPUnit_Framework_TestCase
         $user->shouldReceive('getAuthIdentifier')->once()->andReturn(1);
 
         $events->shouldReceive('until')->once()
-                ->with('orchestra.auth: roles', m::any())->andReturn(null);
+                ->with('orchestra.auth: roles', m::any())->andReturnNull();
 
         $stub = new SessionGuard('web', $this->provider, $this->session);
         $stub->setDispatcher($events);
@@ -342,23 +350,32 @@ class SessionGuardTest extends \PHPUnit_Framework_TestCase
      */
     public function testLogoutMethod()
     {
+        $cookie = m::mock('\Illuminate\Contracts\Cookie\QueueingFactory');
+
         $events = $this->events;
         $provider = $this->provider;
         $session = $this->session;
-        $cookie = m::mock('\Illuminate\Contracts\Cookie\QueueingFactory');
+        $request = $this->request;
+
+        $request->cookies = $cookie;
 
         $events->shouldReceive('until')->never()
                 ->with('orchestra.auth: roles', m::any())->andReturn(['admin', 'editor'])
             ->shouldReceive('fire')->once()
                 ->with(m::type('\Illuminate\Auth\Events\Logout'))->andReturnNull();
         $provider->shouldReceive('updateRememberToken')->once();
-        $session->shouldReceive('remove')->once()->andReturn(null);
+        $session->shouldReceive('remove')->once()->andReturnNull();
 
         $stub = new SessionGuard('web', $provider, $session);
         $stub->setDispatcher($events);
         $stub->setCookieJar($cookie);
-        $cookie->shouldReceive('queue')->once()->andReturn($cookie)
-            ->shouldReceive('forget')->once()->andReturn(null);
+        $stub->setRequest($request);
+
+        $key = 'remember_web_'.sha1(get_class($stub));
+
+        $cookie->shouldReceive('get')->once()->andReturn($key)
+            ->shouldReceive('queue')->once()->andReturn($cookie)
+            ->shouldReceive('forget')->once()->with($key)->andReturnNull();
 
         $refl = new \ReflectionObject($stub);
         $user = $refl->getProperty('user');

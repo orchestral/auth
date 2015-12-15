@@ -28,7 +28,7 @@
         "orchestra/notifier": "~3.2.0"
     },
     "require-dev": {
-        "mockery/mockery": "0.9.*",
+        "mockery/mockery": "^0.9.1",
         "illuminate/database": "~5.2.0",
         "illuminate/session": "~5.2.0",
         "paragonie/random_compat": "~1.1"
