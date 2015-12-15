@@ -33,7 +33,7 @@ class AuthorizationTest extends \PHPUnit_Framework_TestCase
         $this->app['events'] = $event = m::mock('\Illuminate\Contracts\Events\Dispatcher');
 
         $auth->shouldReceive('guest')->andReturn(true)
-            ->shouldReceive('user')->andReturn(null);
+            ->shouldReceive('user')->andReturnNull();
         $config->shouldReceive('get')->andReturn([]);
         $event->shouldReceive('until')->andReturn(['admin', 'editor']);
 
