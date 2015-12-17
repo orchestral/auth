@@ -13,7 +13,7 @@ class AuthManager extends BaseManager
      */
     public function createSessionDriver($name, $config)
     {
-        $provider = $this->createUserProvider($config['source']);
+        $provider = $this->createUserProvider($config['provider']);
 
         $guard = new SessionGuard($name, $provider, $this->app->make('session.store'));
 
