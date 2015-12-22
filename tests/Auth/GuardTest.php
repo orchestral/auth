@@ -27,6 +27,13 @@ class GuardTest extends \PHPUnit_Framework_TestCase
     private $events = null;
 
     /**
+     * The request instance.
+     *
+     * @var \Illuminate\Http\Request
+     */
+    private $request = null;
+
+    /**
      * Setup the test environment.
      */
     public function setUp()
@@ -34,6 +41,7 @@ class GuardTest extends \PHPUnit_Framework_TestCase
         $this->provider = m::mock('\Illuminate\Contracts\Auth\UserProvider');
         $this->session = m::mock('\Illuminate\Session\Store');
         $this->events = m::mock('\Illuminate\Contracts\Events\Dispatcher');
+        $this->request = m::mock('\Illuminate\Http\Request');
     }
 
     /**
@@ -342,23 +350,31 @@ class GuardTest extends \PHPUnit_Framework_TestCase
      */
     public function testLogoutMethod()
     {
+        $cookie = m::mock('\Illuminate\Contracts\Cookie\QueueingFactory');
         $events = $this->events;
         $provider = $this->provider;
         $session = $this->session;
-        $cookie = m::mock('\Illuminate\Contracts\Cookie\QueueingFactory');
+        $request = $this->request;
+
+        $request->cookies = $cookie;
 
         $events->shouldReceive('until')->never()
                 ->with('orchestra.auth: roles', m::any())->andReturn(['admin', 'editor'])
             ->shouldReceive('fire')->once()
-                ->with('auth.logout', m::any())->andReturn(['admin', 'editor']);
+                ->with('auth.logout', m::any())->andReturnNull();
         $provider->shouldReceive('updateRememberToken')->once();
-        $session->shouldReceive('remove')->once()->andReturn(null);
+        $session->shouldReceive('remove')->once()->andReturnNull();
 
         $stub = new Guard($provider, $session);
         $stub->setDispatcher($events);
         $stub->setCookieJar($cookie);
-        $cookie->shouldReceive('queue')->once()->andReturn($cookie)
-            ->shouldReceive('forget')->once()->andReturn(null);
+        $stub->setRequest($request);
+
+        $key = 'remember_'.md5(get_class($stub));
+
+        $cookie->shouldReceive('get')->once()->andReturn($key)
+            ->shouldReceive('queue')->once()->andReturn($cookie)
+            ->shouldReceive('forget')->once()->with($key)->andReturnNull();
 
         $refl = new \ReflectionObject($stub);
         $user = $refl->getProperty('user');
