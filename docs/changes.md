@@ -3,6 +3,25 @@ title: Auth Change Log
 
 ---
 
+## Version 3.2 {#v3-2}
+
+### v3.2.0 {#v3-2-0}
+
+* Update support for Laravel Framework v5.2.
+* Improved performances by reducing call within `Illuminate\Container\Container`.
+* Auth:
+  - Use setter to assign `Orchestra\Contracts\Auth\Guard`, which allow the package to be use on non-Laravel app.
+  - Ensure `Orchestra\Auth\Guard::getUserRolesFromEventDispatcher()` return array instead of `Illuminate\Support\Collection` etc.
+* Authorization:
+  - Return `$this` from `Orchestra\Authorization\Authorization` when attaching memory instance, following convension from `Orchestra\Memory\ContainerTrait`.
+  - Allow `Orchestra\Authorization\Fluent::attach()` and `Orchestra\Authorization\Fluent::detach()` to support `Illuminate\Contracts\Support\Arrayable` contract.
+  - Remove `Orchestra\Authorization\Fluent::exist()`.
+  - Add `Orchestra\Authorization\Policy`.
+  - Remove `Orchestra\Authorization\Keyword`, use `Orchestra\Support\Keyword` instead.
+  - Allow to manually set roles when working outside of authenticated state via `Orchestra\Authorization\AuthorizationTrait::setUser()` method, which can be revoke by calling `Orchestra\AuthorizationTrait::revokeUser()`.
+  - Add `Orchestra\Authorization\Authorization::canIf()` method to only check for ACL metric if the metric is available.
+  - Add `Orchestra\Authorization\AuthorizationTrait::auth()` helper to get instance of `Orchestra\Contracts\Auth\Guard` from `$acl` instance.
+
 ## Version 3.1 {#v3-1}
 
 ### v3.1.8 {#v3-1-8}
