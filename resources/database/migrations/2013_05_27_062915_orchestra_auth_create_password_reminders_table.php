@@ -33,7 +33,7 @@ class OrchestraAuthCreatePasswordRemindersTable extends Migration
         Schema::create($this->table, function (Blueprint $table) {
             $table->string('email')->index();
             $table->string('token')->index();
-            $table->timestamp('created_at');
+            $table->timestamp('created_at')->nullable();
         });
     }
 

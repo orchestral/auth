@@ -5,6 +5,12 @@ title: Auth Change Log
 
 ## Version 3.2 {#v3-2}
 
+### v3.2.1 {#v3-2-1}
+
+* Auth:
+  - Use `nullable` timestamps to avoid issues with `created_at` fields updating on every row update.
+  - Refactor `OrchestraAuthAddRememberTokenToUsersTable` migration to only add `remember_token` field if it's not available.
+
 ### v3.2.0 {#v3-2-0}
 
 * Update support for Laravel Framework v5.2.
