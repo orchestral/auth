@@ -25,7 +25,7 @@ class OrchestraAuthCreateUsersTable extends Migration
             $table->string('fullname', 100)->nullable();
             $table->integer('status')->nullable();
 
-            $table->timestamps();
+            $table->nullableTimestamps();
             $table->softDeletes();
 
             $table->unique('email');
