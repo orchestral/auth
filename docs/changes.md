@@ -5,6 +5,11 @@ title: Auth Change Log
 
 ## Version 3.2 {#v3-2}
 
+### v3.2.2 {#v3-2-2}
+
+* Auth:
+  - Pass email value into password reset link template.
+
 ### v3.2.1 {#v3-2-1}
 
 * Auth:

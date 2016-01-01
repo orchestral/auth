@@ -51,6 +51,7 @@ class PasswordBrokerTest extends \PHPUnit_Framework_TestCase
         $user->shouldReceive('retrieveByCredentials')->once()
             ->with(['username' => 'user-foo'])
             ->andReturn($userReminderable);
+        $userReminderable->shouldReceive('getEmailForPasswordReset')->once()->andReturn('crynobone@gmail.com');
         $reminders->shouldReceive('create')->once()->with($userReminderable)->andReturnNull();
         $mailer->shouldReceive('send')->once()
                 ->with($userReminderable, m::any(), m::type('Closure'))

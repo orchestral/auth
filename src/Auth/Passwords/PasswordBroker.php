@@ -84,6 +84,7 @@ class PasswordBroker extends Broker
         // so that it may be displayed for an user to click for password reset.
         $data = [
             'user'  => ($user instanceof Arrayable ? $user->toArray() : $user),
+            'email' => $user->getEmailForPasswordReset(),
             'token' => $token,
         ];
 
