@@ -20,7 +20,7 @@ class OrchestraAuthCreateUserMetaTable extends Migration
             $table->string('name', 255);
             $table->longText('value');
 
-            $table->nullableTimestamps();
+            $table->timestamps();
 
             $table->index('user_id');
             $table->unique(['user_id', 'name']);
