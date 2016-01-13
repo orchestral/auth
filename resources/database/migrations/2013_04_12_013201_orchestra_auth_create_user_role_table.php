@@ -19,7 +19,7 @@ class OrchestraAuthCreateUserRoleTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->integer('role_id')->unsigned();
 
-            $table->timestamps();
+            $table->nullableTimestamps();
 
             $table->index(['user_id', 'role_id']);
         });
