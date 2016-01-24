@@ -5,6 +5,11 @@ title: Auth Change Log
 
 ## Version 3.2 {#v3-2}
 
+### v3.2.3 {#v3-2-3}
+
+* Auth:
+  - Fixes custom auth provider. ([@whoacowboy](https://github.com/whoacowboy))
+  
 ### v3.2.2 {#v3-2-2}
 
 * Auth:
