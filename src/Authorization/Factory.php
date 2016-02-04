@@ -67,7 +67,7 @@ class Factory implements FactoryContract
 
         $instance = $this->make($name);
 
-        call_user_func($callback, $instance);
+        $callback($instance);
 
         return $instance;
     }
