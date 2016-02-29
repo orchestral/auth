@@ -61,18 +61,21 @@ trait AuthorizationTrait
             throw new InvalidArgumentException("Unable to verify unknown action {$name}.");
         }
 
+        $authorized = false;
+
         foreach ((array) $roles as $role) {
-            $role = $this->roles->search($role);
+            $role       = $this->roles->search($role);
+            $permission = isset($this->acl[$role.':'.$action]) ? $this->acl[$role.':'.$action] : false;
 
             // array_search() will return false when no key is found based
             // on given haystack, therefore we should just ignore and
             // continue to the next role.
-            if (! is_null($role) && isset($this->acl[$role.':'.$action])) {
-                return $this->acl[$role.':'.$action];
+            if (! is_null($role) && $permission === true) {
+                $authorized = true;
             }
         }
 
-        return false;
+        return $authorized;
     }
 
     /**
