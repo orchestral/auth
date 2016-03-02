@@ -5,6 +5,11 @@ title: Auth Change Log
 
 ## Version 3.2 {#v3-2}
 
+### v3.2.4 {#v3-2-4}
+
+* Authorization:
+  -  Fixes authorization to support checking multiple roles.
+
 ### v3.2.3 {#v3-2-3}
 
 * Auth:
