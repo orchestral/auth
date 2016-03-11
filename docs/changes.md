@@ -8,12 +8,12 @@ title: Auth Change Log
 ### v3.2.5 {#v3-2-5}
 
 * Auth:
-  - Cast `Orchestra\Auth\Guard::$userRoles` value to `array` if set to `null` to avoid invalid use of `Illuminate\Support\Arr`.
+  - Cast `Orchestra\Auth\SessionGuard::$userRoles` value to `array` if set to `null` to avoid invalid use of `Illuminate\Support\Arr`.
 
 ### v3.2.4 {#v3-2-4}
 
 * Authorization:
-  -  Fixes authorization to support checking multiple roles.
+  - Fixes authorization to support checking multiple roles.
 
 ### v3.2.3 {#v3-2-3}
 
