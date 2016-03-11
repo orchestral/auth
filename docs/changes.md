@@ -5,6 +5,11 @@ title: Auth Change Log
 
 ## Version 3.2 {#v3-2}
 
+### v3.2.5 {#v3-2-5}
+
+* Auth:
+  - Cast `Orchestra\Auth\Guard::$userRoles` value to `array` if set to `null` to avoid invalid use of `Illuminate\Support\Arr`.
+
 ### v3.2.4 {#v3-2-4}
 
 * Authorization:
