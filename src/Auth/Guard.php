@@ -45,7 +45,7 @@ class Guard extends BaseGuard implements GuardContract
         // otherwise it's just as the same as setting userId as 0.
         is_null($user) || $userId = $user->getAuthIdentifier();
 
-        $roles = Arr::get($this->userRoles, "{$userId}", []);
+        $roles = Arr::get($this->userRoles ?: [], "{$userId}", []);
 
         // This operation might be called more than once in a request, by
         // cached the event result we can avoid duplicate events being fired.
