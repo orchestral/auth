@@ -2,11 +2,11 @@
 
 use Mockery as m;
 use Illuminate\Support\Fluent;
-use Orchestra\Authorization\Authorizer;
+use Orchestra\Authorization\Permission;
 
-class AuthorizerTraitTest extends \PHPUnit_Framework_TestCase
+class PermissionTest extends \PHPUnit_Framework_TestCase
 {
-    use Authorizer;
+    use Permission;
 
     /**
      * Teardown the test environment.

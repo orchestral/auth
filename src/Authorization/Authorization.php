@@ -11,7 +11,7 @@ use Orchestra\Contracts\Authorization\Authorization as AuthorizationContract;
 
 class Authorization implements AuthorizationContract
 {
-    use Authorizer, ContainerTrait;
+    use Permission, ContainerTrait;
 
     /**
      * ACL instance name.
