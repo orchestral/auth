@@ -219,7 +219,7 @@ class Authorization implements AuthorizationContract
      */
     public function execute($type, $operation, array $parameters = [])
     {
-        return call_user_func([$this->{$type}, $operation], ...$parameters);
+        return $this->{$type}->{$operation}(...$parameters);
     }
 
     /**
