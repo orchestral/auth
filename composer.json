@@ -24,7 +24,7 @@
         "php": ">=5.5.0",
         "illuminate/auth": "~5.2.0",
         "orchestra/contracts": "~3.2.0",
-        "orchestra/memory": "~3.2.0",
+        "orchestra/memory": "~3.2.4",
         "orchestra/notifier": "~3.2.0"
     },
     "require-dev": {

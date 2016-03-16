@@ -4,14 +4,14 @@ use RuntimeException;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
 use Orchestra\Support\Keyword;
+use Orchestra\Memory\Memorizable;
 use Orchestra\Contracts\Auth\Guard;
-use Orchestra\Memory\ContainerTrait;
 use Orchestra\Contracts\Memory\Provider;
 use Orchestra\Contracts\Authorization\Authorization as AuthorizationContract;
 
 class Authorization implements AuthorizationContract
 {
-    use AuthorizationTrait, ContainerTrait;
+    use Permission, Memorizable;
 
     /**
      * ACL instance name.

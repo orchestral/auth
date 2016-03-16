@@ -4,7 +4,7 @@ use InvalidArgumentException;
 use Illuminate\Contracts\Support\Arrayable;
 use Orchestra\Contracts\Authorization\Authorizable;
 
-trait AuthorizationTrait
+trait Permission
 {
     /**
      * Auth instance.
