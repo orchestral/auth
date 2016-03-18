@@ -5,6 +5,11 @@ title: Auth Change Log
 
 ## Version 3.2 {#v3-2}
 
+### v3.2.6 {#v3-2-6}
+
+* Authorization:
+  - Rename `Orchestra\Authorization\AuthorizationTrait` to `Orchestra\Authorization\Permission`.
+ 
 ### v3.2.5 {#v3-2-5}
 
 * Auth:
