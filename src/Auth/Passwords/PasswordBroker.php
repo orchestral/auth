@@ -1,4 +1,6 @@
-<?php namespace Orchestra\Auth\Passwords;
+<?php
+
+namespace Orchestra\Auth\Passwords;
 
 use Closure;
 use Orchestra\Notifier\Message;

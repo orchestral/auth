@@ -1,4 +1,6 @@
-<?php namespace Orchestra\Auth;
+<?php
+
+namespace Orchestra\Auth;
 
 use Illuminate\Support\Arr;
 use Illuminate\Contracts\Support\Arrayable;

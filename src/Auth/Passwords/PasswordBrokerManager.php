@@ -1,4 +1,6 @@
-<?php namespace Orchestra\Auth\Passwords;
+<?php
+
+namespace Orchestra\Auth\Passwords;
 
 use InvalidArgumentException;
 use Illuminate\Auth\Passwords\PasswordBrokerManager as BaseManager;
@@ -9,6 +11,7 @@ class PasswordBrokerManager extends BaseManager
      * Resolve the given broker.
      *
      * @param  string  $name
+     *
      * @return \Illuminate\Contracts\Auth\PasswordBroker
      */
     protected function resolve($name)

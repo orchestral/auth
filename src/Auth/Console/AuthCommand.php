@@ -1,4 +1,6 @@
-<?php namespace Orchestra\Auth\Console;
+<?php
+
+namespace Orchestra\Auth\Console;
 
 use Illuminate\Console\Command;
 

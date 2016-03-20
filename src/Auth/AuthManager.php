@@ -1,4 +1,6 @@
-<?php namespace Orchestra\Auth;
+<?php
+
+namespace Orchestra\Auth;
 
 use Illuminate\Auth\AuthManager as BaseManager;
 
@@ -9,6 +11,7 @@ class AuthManager extends BaseManager
      *
      * @param  string  $name
      * @param  array  $config
+     *
      * @return \Illuminate\Auth\SessionGuard
      */
     public function createSessionDriver($name, $config)

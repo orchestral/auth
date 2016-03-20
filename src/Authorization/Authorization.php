@@ -1,4 +1,6 @@
-<?php namespace Orchestra\Authorization;
+<?php
+
+namespace Orchestra\Authorization;
 
 use RuntimeException;
 use Illuminate\Support\Str;

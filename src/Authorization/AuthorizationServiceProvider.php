@@ -1,4 +1,6 @@
-<?php namespace Orchestra\Authorization;
+<?php
+
+namespace Orchestra\Authorization;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Contracts\Foundation\Application;

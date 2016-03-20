@@ -1,4 +1,6 @@
-<?php namespace Orchestra\Auth\Passwords;
+<?php
+
+namespace Orchestra\Auth\Passwords;
 
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Auth\Passwords\PasswordResetServiceProvider as ServiceProvider;

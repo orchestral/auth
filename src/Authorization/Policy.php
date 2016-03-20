@@ -1,4 +1,6 @@
-<?php namespace Orchestra\Authorization;
+<?php
+
+namespace Orchestra\Authorization;
 
 use Orchestra\Contracts\Authorization\Factory as FactoryContract;
 
