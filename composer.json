@@ -23,9 +23,9 @@
     "require": {
         "php": ">=5.6.0",
         "illuminate/auth": "~5.3.0",
-        "orchestra/contracts": "~3.3.0",
-        "orchestra/memory": "~3.3.0",
-        "orchestra/notifier": "~3.3.0"
+        "orchestra/contracts": "~3.4.0",
+        "orchestra/memory": "~3.4.0",
+        "orchestra/notifier": "~3.4.0"
     },
     "require-dev": {
         "mockery/mockery": "^0.9.1",
@@ -37,13 +37,13 @@
         "orchestra/authorization": "self.version"
     },
     "suggest": {
-        "laravel/framework": "Allow using orchestra/auth component outside of Orchestra Platform (~5.3).",
-        "orchestra/model": "Allow using orchestra/auth component outside of Orchestra Platform (~3.3).",
-        "orchestra/foundation": "Allow using orchestra/auth with Orchestra Platform (~3.3)."
+        "laravel/framework": "Allow using orchestra/auth component outside of Orchestra Platform (~5.4).",
+        "orchestra/model": "Allow using orchestra/auth component outside of Orchestra Platform (~3.4).",
+        "orchestra/foundation": "Allow using orchestra/auth with Orchestra Platform (~3.4)."
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "3.3-dev"
+            "dev-master": "3.4-dev"
         }
     },
     "minimum-stability": "dev"

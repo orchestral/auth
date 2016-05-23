@@ -7,16 +7,16 @@ Auth Component extends the functionality of `Illuminate\Auth` with the extra fun
 [![Latest Stable Version](https://img.shields.io/github/release/orchestral/auth.svg?style=flat-square)](https://packagist.org/packages/orchestra/auth)
 [![Total Downloads](https://img.shields.io/packagist/dt/orchestra/auth.svg?style=flat-square)](https://packagist.org/packages/orchestra/auth)
 [![MIT License](https://img.shields.io/packagist/l/orchestra/auth.svg?style=flat-square)](https://packagist.org/packages/orchestra/auth)
-[![Build Status](https://img.shields.io/travis/orchestral/auth/3.3.svg?style=flat-square)](https://travis-ci.org/orchestral/auth)
-[![Coverage Status](https://img.shields.io/coveralls/orchestral/auth/3.3.svg?style=flat-square)](https://coveralls.io/r/orchestral/auth?branch=3.3)
-[![Scrutinizer Quality Score](https://img.shields.io/scrutinizer/g/orchestral/auth/3.3.svg?style=flat-square)](https://scrutinizer-ci.com/g/orchestral/auth/)
+[![Build Status](https://img.shields.io/travis/orchestral/auth/master.svg?style=flat-square)](https://travis-ci.org/orchestral/auth)
+[![Coverage Status](https://img.shields.io/coveralls/orchestral/auth/master.svg?style=flat-square)](https://coveralls.io/r/orchestral/auth?branch=master)
+[![Scrutinizer Quality Score](https://img.shields.io/scrutinizer/g/orchestral/auth/master.svg?style=flat-square)](https://scrutinizer-ci.com/g/orchestral/auth/)
 
 ## Table of Content
 
 * [Version Compatibility](#version-compatibility)
 * [Installation](#installation)
 * [Configuration](#configuration)
-* [Change Log](http://orchestraplatform.com/docs/latest/components/auth/changes#v3-3)
+* [Change Log](http://orchestraplatform.com/docs/latest/components/auth/changes#v3-4)
 
 ## Version Compatibility
 
