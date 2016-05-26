@@ -22,6 +22,20 @@ class AuthServiceProvider extends ServiceProvider
     }
 
     /**
+     * Boot the service provider.
+     *
+     * @return void
+     */
+    public function boot()
+    {
+        $path = realpath(__DIR__.'/../../');
+
+        $this->loadMigrationsFrom([
+            "{$path}/resources/database/migrations"
+        ]);
+    }
+
+    /**
      * Register the service provider for Auth.
      *
      * @return void
