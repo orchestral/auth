@@ -28,11 +28,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $path = realpath(__DIR__.'/../../');
-
-        $this->loadMigrationsFrom([
-            "{$path}/resources/database/migrations"
-        ]);
+        $this->bootMigrations();
     }
 
     /**
@@ -66,5 +62,22 @@ class AuthServiceProvider extends ServiceProvider
         $this->app->afterResolving(Policy::class, function (Policy $policy) {
             return $policy->setAuthorization($this->app->make(FactoryContract::class));
         });
+    }
+
+    /**
+     * Boot migrations for components.
+     *
+     * @return void
+     */
+    protected function bootMigrations()
+    {
+        if (! $this->app->bound('migrator')) {
+            return ;
+        }
+        $path = realpath(__DIR__.'/../../');
+
+        $this->loadMigrationsFrom([
+            "{$path}/resources/database/migrations",
+        ]);
     }
 }
