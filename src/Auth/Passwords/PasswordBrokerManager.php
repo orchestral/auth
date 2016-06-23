@@ -27,7 +27,8 @@ class PasswordBrokerManager extends BaseManager
         // aggregate service of sorts providing a convenient interface for resets.
         return new PasswordBroker(
             $this->createTokenRepository($config),
-            $this->app->make('auth')->createUserProvider($config['provider'])
+            $this->app->make('auth')->createUserProvider($config['provider']),
+            $name
         );
     }
 }

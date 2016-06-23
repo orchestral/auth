@@ -10,17 +10,27 @@ use Illuminate\Auth\Passwords\TokenRepositoryInterface;
 class PasswordBroker extends Broker
 {
     /**
+     * The password reset user provider.
+     *
+     * @var string|null
+     */
+    protected $provider;
+
+    /**
      * Create a new password broker instance.
      *
      * @param  \Illuminate\Auth\Passwords\TokenRepositoryInterface  $tokens
      * @param  \Illuminate\Contracts\Auth\UserProvider  $users
+     * @param  string  $provider
      */
     public function __construct(
         TokenRepositoryInterface $tokens,
-        UserProvider $users
+        UserProvider $users,
+        $provider
     ) {
-        $this->users  = $users;
-        $this->tokens = $tokens;
+        $this->users    = $users;
+        $this->tokens   = $tokens;
+        $this->provider = $provider;
     }
 
     /**
@@ -46,7 +56,8 @@ class PasswordBroker extends Broker
         // user with a link to reset their password. We will then redirect back to
         // the current URI having nothing set in the session to indicate errors.
         $user->sendPasswordResetNotification(
-            $this->tokens->create($user)
+            $this->tokens->create($user),
+            $this->provider
         );
 
         return static::RESET_LINK_SENT;
