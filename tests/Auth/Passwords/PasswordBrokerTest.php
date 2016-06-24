@@ -37,17 +37,14 @@ class PasswordBrokerTest extends \PHPUnit_Framework_TestCase
     {
         $stub = new PasswordBroker(
             $reminders = m::mock('\Illuminate\Auth\Passwords\TokenRepositoryInterface'),
-            $user = m::mock('\Illuminate\Contracts\Auth\UserProvider, \Illuminate\Contracts\Auth\CanResetPassword')
+            $user = m::mock('\Illuminate\Contracts\Auth\UserProvider, \Illuminate\Contracts\Auth\CanResetPassword'),
+            'user'
         );
-
-        $callback = function () {
-            //
-        };
 
         $user->shouldReceive('retrieveByCredentials')->once()
             ->with(['username' => 'user-foo'])->andReturn($user);
         $reminders->shouldReceive('create')->once()->with($user)->andReturn('token');
-        $user->shouldReceive('sendPasswordResetNotification')->once()->with('token');
+        $user->shouldReceive('sendPasswordResetNotification')->once()->with('token', 'user');
 
         $this->assertEquals('passwords.sent', $stub->sendResetLink(['username' => 'user-foo']));
     }
