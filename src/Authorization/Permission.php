@@ -231,7 +231,7 @@ trait Permission
         if (! is_null($this->userRoles)) {
             return $this->userRoles;
         } elseif (! $this->auth->guest()) {
-            return $this->auth->roles()->all();
+            return $this->auth->roles();
         }
 
         return new Collection($this->roles->has('guest') ? ['guest'] : []);
