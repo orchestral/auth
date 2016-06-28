@@ -1,4 +1,6 @@
-<?php namespace Orchestra\Auth\Passwords\TestCase;
+<?php
+
+namespace Orchestra\Auth\Passwords\TestCase;
 
 use Mockery as m;
 use Illuminate\Container\Container;

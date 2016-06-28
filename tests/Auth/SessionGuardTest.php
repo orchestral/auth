@@ -1,7 +1,10 @@
-<?php namespace Orchestra\Auth\TestCase;
+<?php
+
+namespace Orchestra\Auth\TestCase;
 
 use Mockery as m;
 use Orchestra\Auth\SessionGuard;
+use Illuminate\Support\Collection;
 
 class SessionGuardTest extends \PHPUnit_Framework_TestCase
 {
@@ -97,7 +100,7 @@ class SessionGuardTest extends \PHPUnit_Framework_TestCase
         $stub->setDispatcher($events);
         $stub->setUser($user);
 
-        $expected = ['admin', 'editor'];
+        $expected = new Collection(['admin', 'editor']);
         $output = $stub->roles();
 
         $this->assertEquals($expected, $output);
@@ -123,7 +126,7 @@ class SessionGuardTest extends \PHPUnit_Framework_TestCase
         $stub->setDispatcher($events);
         $stub->setUser($user);
 
-        $expected = ['Guest'];
+        $expected = new Collection(['Guest']);
         $output = $stub->roles();
 
         $this->assertEquals($expected, $output);
@@ -200,7 +203,7 @@ class SessionGuardTest extends \PHPUnit_Framework_TestCase
         $user->shouldReceive('getAuthIdentifier')->times(3)->andReturn(1);
 
         $events->shouldReceive('until')->once()
-                ->with('orchestra.auth: roles', m::any())->andReturn(['admin', 'editor']);
+                ->with('orchestra.auth: roles', m::any())->andReturn(new Collection(['admin', 'editor']));
 
         $stub = new SessionGuard('web', $this->provider, $this->session);
         $stub->setDispatcher($events);
@@ -390,9 +393,9 @@ class SessionGuardTest extends \PHPUnit_Framework_TestCase
             ->shouldReceive('setRememberToken')->once();
 
         $user->setValue($stub, $userStub);
-        $userRoles->setValue($stub, [1 => ['admin', 'editor']]);
+        $userRoles->setValue($stub, [1 => new Collection(['admin', 'editor'])]);
 
-        $this->assertEquals(['admin', 'editor'], $stub->roles());
+        $this->assertEquals(new Collection(['admin', 'editor']), $stub->roles());
 
         $stub->logout();
 

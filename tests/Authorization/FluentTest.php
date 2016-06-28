@@ -1,4 +1,6 @@
-<?php namespace Orchestra\Authorization\TestCase;
+<?php
+
+namespace Orchestra\Authorization\TestCase;
 
 use Mockery as m;
 use Illuminate\Support\Collection;

@@ -3,6 +3,7 @@
 namespace Orchestra\Authorization;
 
 use InvalidArgumentException;
+use Illuminate\Support\Collection;
 use Illuminate\Contracts\Support\Arrayable;
 use Orchestra\Contracts\Authorization\Authorizable;
 
@@ -39,7 +40,7 @@ trait Permission
     /**
      * User roles.
      *
-     * @var array|null
+     * @var \Illuminate\Support\Collection
      */
     protected $userRoles;
 
@@ -64,6 +65,10 @@ trait Permission
         }
 
         $authorized = false;
+
+        if ($roles instanceof Arrayable) {
+            $roles = $roles->toArray();
+        }
 
         foreach ((array) $roles as $role) {
             $role       = $this->roles->search($role);
@@ -159,10 +164,6 @@ trait Permission
     {
         $userRoles = $user->getRoles();
 
-        if ($userRoles instanceof Arrayable) {
-            $userRoles = $userRoles->toArray();
-        }
-
         $this->userRoles = $userRoles;
 
         return $this;
@@ -223,16 +224,16 @@ trait Permission
     /**
      * Get all possible user roles.
      *
-     * @return array
+     * @return \Illuminate\Support\Collection
      */
     protected function getUserRoles()
     {
         if (! is_null($this->userRoles)) {
             return $this->userRoles;
         } elseif (! $this->auth->guest()) {
-            return $this->auth->roles();
+            return $this->auth->roles()->all();
         }
 
-        return $this->roles->has('guest') ? ['guest'] : [];
+        return new Collection($this->roles->has('guest') ? ['guest'] : []);
     }
 }
