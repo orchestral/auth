@@ -3,6 +3,7 @@
 namespace Orchestra\Auth;
 
 use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Auth\StatefulGuard;
 use Illuminate\Auth\SessionGuard as BaseGuard;
@@ -14,9 +15,9 @@ class SessionGuard extends BaseGuard implements StatefulGuard, GuardContract
     /**
      * Cached user to roles relationship.
      *
-     * @var array
+     * @var \Illuminate\Support\Collection
      */
-    protected $userRoles = null;
+    protected $userRoles;
 
     /**
      * Setup roles event listener.
@@ -37,7 +38,7 @@ class SessionGuard extends BaseGuard implements StatefulGuard, GuardContract
      *
      * If the user is a guest, empty array should be returned.
      *
-     * @return array
+     * @return \Illuminate\Support\Collection
      */
     public function roles()
     {
@@ -48,13 +49,15 @@ class SessionGuard extends BaseGuard implements StatefulGuard, GuardContract
         // otherwise it's just as the same as setting userId as 0.
         is_null($user) || $userId = $user->getAuthIdentifier();
 
-        $roles = Arr::get($this->userRoles ?: [], "{$userId}", []);
+        $roles = Arr::get($this->userRoles ?: [], "{$userId}", new Collection());
 
         // This operation might be called more than once in a request, by
         // cached the event result we can avoid duplicate events being fired.
-        if (empty($roles)) {
+        if ($roles->isEmpty()) {
             $roles = $this->getUserRolesFromEventDispatcher($user, $roles);
         }
+
+        $roles = new Collection($roles);
 
         Arr::set($this->userRoles, "{$userId}", $roles);
 
@@ -70,7 +73,7 @@ class SessionGuard extends BaseGuard implements StatefulGuard, GuardContract
      */
     public function is($roles)
     {
-        $userRoles = $this->roles();
+        $userRoles = $this->roles()->all();
 
         // For a pre-caution, we should return false in events where user
         // roles not an array.
@@ -98,7 +101,7 @@ class SessionGuard extends BaseGuard implements StatefulGuard, GuardContract
      */
     public function isAny(array $roles)
     {
-        $userRoles = $this->roles();
+        $userRoles = $this->roles()->all();;
 
         // For a pre-caution, we should return false in events where user
         // roles not an array.
@@ -158,21 +161,21 @@ class SessionGuard extends BaseGuard implements StatefulGuard, GuardContract
      * Ger user roles from event dispatcher.
      *
      * @param  \Illuminate\Contracts\Auth\Authenticatable  $user
-     * @param  array  $roles
+     * @param  \Illuminate\Support\Collection|array  $roles
      *
-     * @return array
+     * @return \Illuminate\Support\Collection
      */
     protected function getUserRolesFromEventDispatcher(Authenticatable $user = null, $roles = [])
     {
-        $roles = $this->events->until('orchestra.auth: roles', [$user, (array) $roles]);
+        $roles = $this->events->until('orchestra.auth: roles', [$user, $roles]);
 
         // It possible that after event are all propagated we don't have a
         // roles for the user, in this case we should properly append "Guest"
         // user role to the current user.
         if (is_null($roles)) {
-            return ['Guest'];
+            $roles = ['Guest'];
         }
 
-        return ($roles instanceof Arrayable ? $roles->toArray() : $roles);
+        return (new Collection($roles));
     }
 }

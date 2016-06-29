@@ -1,7 +1,10 @@
-<?php namespace Orchestra\Authorization\TestCase;
+<?php
+
+namespace Orchestra\Authorization\TestCase;
 
 use Mockery as m;
 use Orchestra\Memory\Provider;
+use Illuminate\Support\Collection;
 use Orchestra\Memory\Handlers\Runtime;
 use Orchestra\Authorization\Authorization;
 use Illuminate\Container\Container as IlluminateContainer;
@@ -35,7 +38,7 @@ class AuthorizationTest extends \PHPUnit_Framework_TestCase
         $auth->shouldReceive('guest')->andReturn(true)
             ->shouldReceive('user')->andReturnNull();
         $config->shouldReceive('get')->andReturn([]);
-        $event->shouldReceive('until')->andReturn(['admin', 'editor']);
+        $event->shouldReceive('until')->andReturn(new Collection(['admin', 'editor']));
 
         $memory = new Provider(new Runtime('foo', []));
         $memory->put('acl_foo', $this->memoryProvider());
@@ -255,7 +258,7 @@ class AuthorizationTest extends \PHPUnit_Framework_TestCase
         $auth = m::mock('\Orchestra\Contracts\Auth\Guard');
 
         $auth->shouldReceive('guest')->times(4)->andReturn(false)
-            ->shouldReceive('roles')->times(4)->andReturn(['Admin']);
+            ->shouldReceive('roles')->times(4)->andReturn(new Collection(['Admin']));
 
         $runtime = $this->getRuntimeMemoryProvider();
         $runtime->put('acl_foo', $this->memoryProvider());
@@ -281,7 +284,7 @@ class AuthorizationTest extends \PHPUnit_Framework_TestCase
         $auth = m::mock('\Orchestra\Contracts\Auth\Guard');
 
         $auth->shouldReceive('guest')->times(2)->andReturn(false)
-            ->shouldReceive('roles')->times(2)->andReturn(['Admin', 'Staff']);
+            ->shouldReceive('roles')->times(2)->andReturn(new Collection(['Admin', 'Staff']));
 
         $runtime = $this->getRuntimeMemoryProvider();
         $runtime->put('acl_foo', $this->memoryProvider());
@@ -307,7 +310,7 @@ class AuthorizationTest extends \PHPUnit_Framework_TestCase
         $auth = m::mock('\Orchestra\Contracts\Auth\Guard');
 
         $auth->shouldReceive('guest')->times(2)->andReturn(false)
-            ->shouldReceive('roles')->times(2)->andReturn(['Staff', 'Admin']);
+            ->shouldReceive('roles')->times(2)->andReturn(new Collection(['Staff', 'Admin']));
 
         $runtime = $this->getRuntimeMemoryProvider();
         $runtime->put('acl_foo', $this->memoryProvider());

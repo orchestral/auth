@@ -1,7 +1,10 @@
-<?php namespace Orchestra\Authorization\TestCase;
+<?php
+
+namespace Orchestra\Authorization\TestCase;
 
 use Mockery as m;
 use Illuminate\Support\Fluent;
+use Illuminate\Support\Collection;
 use Orchestra\Authorization\Permission;
 
 class PermissionTest extends \PHPUnit_Framework_TestCase
@@ -21,11 +24,9 @@ class PermissionTest extends \PHPUnit_Framework_TestCase
         $this->assertNull($this->userRoles);
 
         $user = m::mock('\Orchestra\Contracts\Authorization\Authorizable, \Illuminate\Contracts\Support\Arrayable');
-        $roles = [
-            'Administrator',
-        ];
+        $roles = new Collection(['Administrator']);
 
-        $user->shouldReceive('getRoles')->once()->andReturn(new Fluent($roles));
+        $user->shouldReceive('getRoles')->once()->andReturn($roles);
 
         $this->assertEquals($this, $this->setUser($user));
         $this->assertEquals($roles, $this->getUserRoles());

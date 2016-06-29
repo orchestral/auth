@@ -1,4 +1,6 @@
-<?php namespace Orchestra\Auth\Passwords\TestCase;
+<?php
+
+namespace Orchestra\Auth\Passwords\TestCase;
 
 use Mockery as m;
 use Illuminate\Container\Container;
@@ -37,30 +39,16 @@ class PasswordBrokerTest extends \PHPUnit_Framework_TestCase
     {
         $stub = new PasswordBroker(
             $reminders = m::mock('\Illuminate\Auth\Passwords\TokenRepositoryInterface'),
-            $user = m::mock('\Illuminate\Contracts\Auth\UserProvider'),
-            $mailer = m::mock('\Orchestra\Notifier\Handlers\Orchestra'),
-            $view = 'foo'
+            $user = m::mock('\Illuminate\Contracts\Auth\UserProvider, \Illuminate\Contracts\Auth\CanResetPassword'),
+            'user'
         );
 
-        $userReminderable = m::mock('\Illuminate\Contracts\Auth\CanResetPassword, \Orchestra\Contracts\Notification\Recipient');
-
-        $callback = function () {
-            //
-        };
-
         $user->shouldReceive('retrieveByCredentials')->once()
-            ->with(['username' => 'user-foo'])
-            ->andReturn($userReminderable);
-        $userReminderable->shouldReceive('getEmailForPasswordReset')->once()->andReturn('crynobone@gmail.com');
-        $reminders->shouldReceive('create')->once()->with($userReminderable)->andReturnNull();
-        $mailer->shouldReceive('send')->once()
-                ->with($userReminderable, m::any(), m::type('Closure'))
-                ->andReturnUsing(function ($u, $f, $c) use ($mailer) {
-                    $c($mailer);
-                    return true;
-                });
+            ->with(['username' => 'user-foo'])->andReturn($user);
+        $reminders->shouldReceive('create')->once()->with($user)->andReturn('token');
+        $user->shouldReceive('sendPasswordResetNotification')->once()->with('token', 'user');
 
-        $this->assertEquals('passwords.sent', $stub->sendResetLink(['username' => 'user-foo'], $callback));
+        $this->assertEquals('passwords.sent', $stub->sendResetLink(['username' => 'user-foo']));
     }
 
     /**

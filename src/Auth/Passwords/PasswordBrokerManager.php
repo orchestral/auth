@@ -28,8 +28,7 @@ class PasswordBrokerManager extends BaseManager
         return new PasswordBroker(
             $this->createTokenRepository($config),
             $this->app->make('auth')->createUserProvider($config['provider']),
-            $this->app->make('orchestra.notifier')->driver(),
-            $config['email']
+            $name
         );
     }
 }
