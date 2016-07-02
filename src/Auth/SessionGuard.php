@@ -4,7 +4,6 @@ namespace Orchestra\Auth;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
-use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Auth\StatefulGuard;
 use Illuminate\Auth\SessionGuard as BaseGuard;
 use Illuminate\Contracts\Auth\Authenticatable;
@@ -101,7 +100,7 @@ class SessionGuard extends BaseGuard implements StatefulGuard, GuardContract
      */
     public function isAny(array $roles)
     {
-        $userRoles = $this->roles()->all();;
+        $userRoles = $this->roles()->all();
 
         // For a pre-caution, we should return false in events where user
         // roles not an array.
