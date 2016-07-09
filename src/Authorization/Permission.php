@@ -4,7 +4,6 @@ namespace Orchestra\Authorization;
 
 use InvalidArgumentException;
 use Illuminate\Support\Collection;
-use Illuminate\Contracts\Support\Arrayable;
 use Orchestra\Contracts\Authorization\Authorizable;
 
 trait Permission
