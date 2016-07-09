@@ -4,7 +4,6 @@ namespace Orchestra\Authorization;
 
 use InvalidArgumentException;
 use Illuminate\Support\Collection;
-use Illuminate\Contracts\Support\Arrayable;
 use Orchestra\Contracts\Authorization\Authorizable;
 
 trait Permission
@@ -66,11 +65,9 @@ trait Permission
 
         $authorized = false;
 
-        if ($roles instanceof Arrayable) {
-            $roles = $roles->toArray();
-        }
+        $roles = new Collection($roles);
 
-        foreach ((array) $roles as $role) {
+        foreach ($roles->all() as $role) {
             $role       = $this->roles->search($role);
             $permission = isset($this->acl[$role.':'.$action]) ? $this->acl[$role.':'.$action] : false;
 
