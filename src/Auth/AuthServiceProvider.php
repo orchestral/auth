@@ -74,6 +74,7 @@ class AuthServiceProvider extends ServiceProvider
         if (! $this->app->bound('migrator')) {
             return ;
         }
+
         $path = realpath(__DIR__.'/../../');
 
         $this->loadMigrationsFrom([
