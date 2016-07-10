@@ -58,9 +58,9 @@ class Authorization implements AuthorizationContract
      *
      * @param  \Orchestra\Contracts\Memory\Provider  $memory
      *
-     * @return $this
-     *
      * @throws \RuntimeException if $memory has been attached.
+     *
+     * @return $this
      */
     public function attach(Provider $memory = null)
     {
@@ -128,9 +128,9 @@ class Authorization implements AuthorizationContract
      *
      * @param  string  $action     A string of action name
      *
-     * @return bool
-     *
      * @throws \InvalidArgumentException
+     *
+     * @return bool
      */
     public function can($action)
     {
@@ -166,9 +166,9 @@ class Authorization implements AuthorizationContract
      * @param  string|array  $roles      A string or an array of roles
      * @param  string        $action     A string of action name
      *
-     * @return bool
-     *
      * @throws \InvalidArgumentException
+     *
+     * @return bool
      */
     public function check($roles, $action)
     {
@@ -251,9 +251,9 @@ class Authorization implements AuthorizationContract
      *
      * @param  string  $method
      *
-     * @return array
-     *
      * @throws \InvalidArgumentException
+     *
+     * @return array
      */
     protected function resolveDynamicExecution($method)
     {

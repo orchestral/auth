@@ -45,9 +45,9 @@ class Fluent
      *
      * @param  string  $key
      *
-     * @return bool
-     *
      * @throws \InvalidArgumentException
+     *
+     * @return bool
      */
     public function add($key)
     {
@@ -191,9 +191,9 @@ class Fluent
      *
      * @param  string  $key
      *
-     * @return bool
-     *
      * @throws \InvalidArgumentException
+     *
+     * @return bool
      */
     public function remove($key)
     {

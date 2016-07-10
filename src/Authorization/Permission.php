@@ -50,9 +50,9 @@ trait Permission
      * @param  string|array  $roles      A string or an array of roles
      * @param  string        $action     A string of action name
      *
-     * @return bool
-     *
      * @throws \InvalidArgumentException
+     *
+     * @return bool
      */
     public function checkAuthorization($roles, $action)
     {
@@ -89,9 +89,9 @@ trait Permission
      * @param  string|array  $actions    A string or an array of action name
      * @param  bool          $allow
      *
-     * @return void
-     *
      * @throws \InvalidArgumentException
+     *
+     * @return void
      */
     public function setAuthorization($roles, $actions, $allow = true)
     {
@@ -114,9 +114,9 @@ trait Permission
      * @param  array   $actions
      * @param  bool    $allow
      *
-     * @return bool
-     *
      * @throws \InvalidArgumentException
+     *
+     * @return bool
      */
     protected function groupedAssignAction($role, array $actions, $allow = true)
     {
