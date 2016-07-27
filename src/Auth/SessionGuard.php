@@ -175,6 +175,6 @@ class SessionGuard extends BaseGuard implements StatefulGuard, GuardContract
             $roles = ['Guest'];
         }
 
-        return (new Collection($roles));
+        return new Collection($roles);
     }
 }
