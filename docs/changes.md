@@ -3,6 +3,18 @@ title: Auth Change Log
 
 ---
 
+## Version 3.3 {#v3-3}
+
+### v3.3.0 {#v3-3-0}
+
+* Update support for Laravel Framework v5.3.
+* Auth:
+  - Use `nullable` timestamps to avoid issues with `created_at` fields updating on every row update.
+  - Update password reset process to use new Laravel notification. 
+* Authorization:
+  - Rename `Orchestra\Authorization\AuthorizationTrait` to `Orchestra\Authorization\Permission`.
+  - Always setup roles to be an instance of `Illuminate\Support\Collection` for consistency.
+
 ## Version 3.2 {#v3-2}
 
 ### v3.2.6 {#v3-2-6}
