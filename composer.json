@@ -28,19 +28,14 @@
         "orchestra/notifier": "~3.4.0"
     },
     "require-dev": {
-        "mockery/mockery": "^0.9.1",
+        "mockery/mockery": "^0.9.4",
         "illuminate/database": "~5.4.0",
         "illuminate/queue": "~5.4.0",
         "illuminate/session": "~5.4.0",
-        "paragonie/random_compat": "~1.1"
+        "paragonie/random_compat": "~1.1|~2.0"
     },
     "replace": {
         "orchestra/authorization": "self.version"
-    },
-    "suggest": {
-        "laravel/framework": "Allow using orchestra/auth component outside of Orchestra Platform (~5.4).",
-        "orchestra/model": "Allow using orchestra/auth component outside of Orchestra Platform (~3.4).",
-        "orchestra/foundation": "Allow using orchestra/auth with Orchestra Platform (~3.4)."
     },
     "extra": {
         "branch-alias": {
