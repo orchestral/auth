@@ -30,5 +30,8 @@
     "support": {
         "issues": "https://github.com/orchestral/auth/issues"
     },
+    "config": {
+        "sort-packages": true
+    },
     "minimum-stability": "dev"
 }
