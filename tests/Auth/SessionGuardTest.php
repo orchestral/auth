@@ -5,6 +5,7 @@ namespace Orchestra\Auth\TestCase;
 use Mockery as m;
 use Orchestra\Auth\SessionGuard;
 use Illuminate\Support\Collection;
+use Illuminate\Auth\Events\Authenticated;
 
 class SessionGuardTest extends \PHPUnit_Framework_TestCase
 {
@@ -93,7 +94,9 @@ class SessionGuardTest extends \PHPUnit_Framework_TestCase
 
         $user->shouldReceive('getAuthIdentifier')->once()->andReturn(1);
 
-        $events->shouldReceive('until')->once()
+        $events->shouldReceive('fire')->once()
+                ->with(m::type(Authenticated::class))->andReturnNull()
+            ->shouldReceive('until')->once()
                 ->with('orchestra.auth: roles', m::any())->andReturn(['admin', 'editor']);
 
         $stub = new SessionGuard('web', $this->provider, $this->session);
@@ -119,7 +122,9 @@ class SessionGuardTest extends \PHPUnit_Framework_TestCase
 
         $user->shouldReceive('getAuthIdentifier')->once()->andReturn(1);
 
-        $events->shouldReceive('until')->once()
+        $events->shouldReceive('fire')->once()
+                ->with(m::type(Authenticated::class))->andReturnNull()
+            ->shouldReceive('until')->once()
                 ->with('orchestra.auth: roles', m::any())->andReturnNull();
 
         $stub = new SessionGuard('web', $this->provider, $this->session);
@@ -145,7 +150,9 @@ class SessionGuardTest extends \PHPUnit_Framework_TestCase
 
         $user->shouldReceive('getAuthIdentifier')->times(5)->andReturn(1);
 
-        $events->shouldReceive('until')->once()
+        $events->shouldReceive('fire')->once()
+                ->with(m::type(Authenticated::class))->andReturnNull()
+            ->shouldReceive('until')->once()
                 ->with('orchestra.auth: roles', m::any())->andReturn(['admin', 'editor']);
 
         $stub = new SessionGuard('web', $this->provider, $this->session);
@@ -173,7 +180,9 @@ class SessionGuardTest extends \PHPUnit_Framework_TestCase
 
         $user->shouldReceive('getAuthIdentifier')->times(5)->andReturn(1);
 
-        $events->shouldReceive('until')
+        $events->shouldReceive('fire')->once()
+                ->with(m::type(Authenticated::class))->andReturnNull()
+            ->shouldReceive('until')
                 ->with('orchestra.auth: roles', m::any())->once()
                 ->andReturn('foo');
 
@@ -202,8 +211,11 @@ class SessionGuardTest extends \PHPUnit_Framework_TestCase
 
         $user->shouldReceive('getAuthIdentifier')->times(3)->andReturn(1);
 
-        $events->shouldReceive('until')->once()
-                ->with('orchestra.auth: roles', m::any())->andReturn(new Collection(['admin', 'editor']));
+        $events->shouldReceive('fire')->once()
+                ->with(m::type(Authenticated::class))->andReturnNull()
+            ->shouldReceive('until')->once()
+                ->with('orchestra.auth: roles', m::any())
+                ->andReturn(new Collection(['admin', 'editor']));
 
         $stub = new SessionGuard('web', $this->provider, $this->session);
         $stub->setDispatcher($events);
@@ -227,7 +239,9 @@ class SessionGuardTest extends \PHPUnit_Framework_TestCase
 
         $user->shouldReceive('getAuthIdentifier')->twice()->andReturn(1);
 
-        $events->shouldReceive('until')
+        $events->shouldReceive('fire')->once()
+                ->with(m::type(Authenticated::class))->andReturnNull()
+            ->shouldReceive('until')
                 ->with('orchestra.auth: roles', m::any())->once()
                 ->andReturn('foo');
 
@@ -252,8 +266,11 @@ class SessionGuardTest extends \PHPUnit_Framework_TestCase
 
         $user->shouldReceive('getAuthIdentifier')->times(5)->andReturn(1);
 
-        $events->shouldReceive('until')->once()
-                ->with('orchestra.auth: roles', m::any())->andReturn(['admin', 'editor']);
+        $events->shouldReceive('fire')->once()
+                ->with(m::type(Authenticated::class))->andReturnNull()
+            ->shouldReceive('until')->once()
+                ->with('orchestra.auth: roles', m::any())
+                ->andReturn(['admin', 'editor']);
 
         $stub = new SessionGuard('web', $this->provider, $this->session);
         $stub->setDispatcher($events);
@@ -280,7 +297,9 @@ class SessionGuardTest extends \PHPUnit_Framework_TestCase
 
         $user->shouldReceive('getAuthIdentifier')->times(5)->andReturn(1);
 
-        $events->shouldReceive('until')
+        $events->shouldReceive('fire')->once()
+                ->with(m::type(Authenticated::class))->andReturnNull()
+            ->shouldReceive('until')
                 ->with('orchestra.auth: roles', m::any())->once()
                 ->andReturn('foo');
 
@@ -309,8 +328,11 @@ class SessionGuardTest extends \PHPUnit_Framework_TestCase
 
         $user->shouldReceive('getAuthIdentifier')->times(3)->andReturn(1);
 
-        $events->shouldReceive('until')->once()
-                ->with('orchestra.auth: roles', m::any())->andReturn(['admin', 'editor']);
+        $events->shouldReceive('fire')->once()
+                ->with(m::type(Authenticated::class))->andReturnNull()
+            ->shouldReceive('until')->once()
+                ->with('orchestra.auth: roles', m::any())
+                ->andReturn(['admin', 'editor']);
 
         $stub = new SessionGuard('web', $this->provider, $this->session);
         $stub->setDispatcher($events);
@@ -334,7 +356,9 @@ class SessionGuardTest extends \PHPUnit_Framework_TestCase
 
         $user->shouldReceive('getAuthIdentifier')->twice()->andReturn(1);
 
-        $events->shouldReceive('until')
+        $events->shouldReceive('fire')->once()
+                ->with(m::type(Authenticated::class))->andReturnNull()
+            ->shouldReceive('until')
                 ->with('orchestra.auth: roles', m::any())->once()
                 ->andReturn('foo');
 
