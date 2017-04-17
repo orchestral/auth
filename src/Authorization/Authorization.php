@@ -30,13 +30,27 @@ class Authorization implements AuthorizationContract
      */
     public function __construct($name, Provider $memory = null)
     {
-        $this->name = $name;
+        $this->setName($name);
 
         $this->roles   = new Fluent('roles');
         $this->actions = new Fluent('actions');
 
         $this->roles->add('guest');
         $this->attach($memory);
+    }
+
+    /**
+     * Set the authorization name.
+     *
+     * @param string $name
+     *
+     * @return $this
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
     }
 
     /**
