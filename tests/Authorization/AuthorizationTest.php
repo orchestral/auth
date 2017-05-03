@@ -4,12 +4,13 @@ namespace Orchestra\Authorization\TestCase;
 
 use Mockery as m;
 use Orchestra\Memory\Provider;
+use PHPUnit\Framework\TestCase;
 use Illuminate\Support\Collection;
 use Orchestra\Memory\Handlers\Runtime;
 use Orchestra\Authorization\Authorization;
 use Illuminate\Container\Container as IlluminateContainer;
 
-class AuthorizationTest extends \PHPUnit_Framework_TestCase
+class AuthorizationTest extends TestCase
 {
     /**
      * Application mock instance.
@@ -28,7 +29,7 @@ class AuthorizationTest extends \PHPUnit_Framework_TestCase
     /**
      * Setup the test environment.
      */
-    public function setUp()
+    protected function setUp()
     {
         $this->app = new IlluminateContainer();
         $this->app['auth'] = $auth = m::mock('\Orchestra\Contracts\Auth\Guard');
@@ -49,7 +50,7 @@ class AuthorizationTest extends \PHPUnit_Framework_TestCase
     /**
      * Teardown the test environment.
      */
-    public function tearDown()
+    protected function tearDown()
     {
         unset($this->stub);
 

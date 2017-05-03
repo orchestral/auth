@@ -3,10 +3,11 @@
 namespace Orchestra\Authorization\TestCase;
 
 use Mockery as m;
+use PHPUnit\Framework\TestCase;
 use Illuminate\Support\Collection;
 use Orchestra\Authorization\Fluent;
 
-class FluentTest extends \PHPUnit_Framework_TestCase
+class FluentTest extends TestCase
 {
     /**
      * Stub instance.
@@ -18,7 +19,7 @@ class FluentTest extends \PHPUnit_Framework_TestCase
     /**
      * Setup the test environment.
      */
-    public function setUp()
+    protected function setUp()
     {
         $this->stub = new Fluent('stub');
         $this->stub->attach(['Hello World']);
@@ -27,7 +28,7 @@ class FluentTest extends \PHPUnit_Framework_TestCase
     /**
      * Teardown the test environment.
      */
-    public function tearDown()
+    protected function tearDown()
     {
         unset($this->stub);
         m::close();
