@@ -32,7 +32,8 @@
         "illuminate/queue": "~5.4.0",
         "illuminate/session": "~5.4.0",
         "mockery/mockery": "^0.9.4",
-        "paragonie/random_compat": "~1.1|~2.0"
+        "paragonie/random_compat": "~1.1|~2.0",
+        "phpunit/phpunit": "~5.7"
     },
     "replace": {
         "orchestra/authorization": "self.version"
