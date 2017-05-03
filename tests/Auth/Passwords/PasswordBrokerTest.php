@@ -1,18 +1,19 @@
 <?php
 
-namespace Orchestra\Auth\Passwords\TestCase;
+namespace Orchestra\Auth\TestCase\Passwords;
 
 use Mockery as m;
+use PHPUnit\Framework\TestCase;
 use Illuminate\Container\Container;
 use Illuminate\Support\Facades\Facade;
 use Orchestra\Auth\Passwords\PasswordBroker;
 
-class PasswordBrokerTest extends \PHPUnit_Framework_TestCase
+class PasswordBrokerTest extends TestCase
 {
     /**
      * Setup the test environment.
      */
-    public function setUp()
+    protected function setUp()
     {
         $app = new Container();
         $app['translator'] = $translator = m::mock('\Illuminate\Translation\Translator')->makePartial();
@@ -25,7 +26,7 @@ class PasswordBrokerTest extends \PHPUnit_Framework_TestCase
     /**
      * Teardown the test environment.
      */
-    public function tearDown()
+    protected function tearDown()
     {
         m::close();
     }

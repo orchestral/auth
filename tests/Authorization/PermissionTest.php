@@ -4,17 +4,18 @@ namespace Orchestra\Authorization\TestCase;
 
 use Mockery as m;
 use Illuminate\Support\Fluent;
+use PHPUnit\Framework\TestCase;
 use Illuminate\Support\Collection;
 use Orchestra\Authorization\Permission;
 
-class PermissionTest extends \PHPUnit_Framework_TestCase
+class PermissionTest extends TestCase
 {
     use Permission;
 
     /**
      * Teardown the test environment.
      */
-    public function tearDown()
+    protected function tearDown()
     {
         m::close();
     }
