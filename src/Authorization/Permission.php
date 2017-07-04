@@ -69,7 +69,7 @@ trait Permission
 
         foreach ($roles->all() as $role) {
             $role       = $this->roles->search($role);
-            $permission = isset($this->acl[$role.':'.$action]) ? $this->acl[$role.':'.$action] : false;
+            $permission = $this->acl[$role.':'.$action] ?? false;
 
             // array_search() will return false when no key is found based
             // on given haystack, therefore we should just ignore and
