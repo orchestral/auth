@@ -2,7 +2,6 @@
 
 namespace Orchestra\Authorization;
 
-use Illuminate\Support\Arr;
 use Orchestra\Contracts\Auth\Guard;
 use Orchestra\Contracts\Memory\Provider;
 use Orchestra\Contracts\Authorization\Factory as FactoryContract;
@@ -43,7 +42,7 @@ class Factory implements FactoryContract
      */
     public function make($name = null, Provider $memory = null)
     {
-        $name = ! is_null($name) ? $name : 'default';
+        $name = $name ?? 'default';
 
         if (! isset($this->drivers[$name])) {
             $this->drivers[$name] = (new Authorization($name, $memory))->setAuthenticator($this->auth);
@@ -125,10 +124,10 @@ class Factory implements FactoryContract
      *
      * @param  string  $name
      *
-     * @return \Orchestra\Contracts\Authorization\Authorization
+     * @return \Orchestra\Contracts\Authorization\Authorization|null
      */
     public function get($name)
     {
-        return Arr::get($this->drivers, $name);
+        return $this->drivers[$name] ?? null;
     }
 }

@@ -2,7 +2,6 @@
 
 namespace Orchestra\Auth;
 
-use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Contracts\Auth\StatefulGuard;
 use Illuminate\Auth\SessionGuard as BaseGuard;
@@ -48,7 +47,7 @@ class SessionGuard extends BaseGuard implements StatefulGuard, GuardContract
         // otherwise it's just as the same as setting userId as 0.
         is_null($user) || $userId = $user->getAuthIdentifier();
 
-        $roles = Arr::get($this->userRoles ?: [], "{$userId}", new Collection());
+        $roles = ($this->userRoles ?: [])["{$userId}"] ?? new Collection();
 
         // This operation might be called more than once in a request, by
         // cached the event result we can avoid duplicate events being fired.
@@ -58,7 +57,7 @@ class SessionGuard extends BaseGuard implements StatefulGuard, GuardContract
 
         $roles = new Collection($roles);
 
-        Arr::set($this->userRoles, "{$userId}", $roles);
+        $this->userRoles["{$userId}"] = $roles;
 
         return $roles;
     }

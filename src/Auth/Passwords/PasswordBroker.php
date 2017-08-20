@@ -45,9 +45,8 @@ class PasswordBroker extends Broker
         // First we will check to see if we found a user at the given credentials and
         // if we did not we will redirect back to this current URI with a piece of
         // "flash" data in the session to indicate to the developers the errors.
-        $user = $this->getUser($credentials);
 
-        if (is_null($user)) {
+        if (is_null($user = $this->getUser($credentials))) {
             return static::INVALID_USER;
         }
 

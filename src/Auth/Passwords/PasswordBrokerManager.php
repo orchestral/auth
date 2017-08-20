@@ -16,9 +16,7 @@ class PasswordBrokerManager extends BaseManager
      */
     protected function resolve($name)
     {
-        $config = $this->getConfig($name);
-
-        if (is_null($config)) {
+        if (is_null($config = $this->getConfig($name))) {
             throw new InvalidArgumentException("Password resetter [{$name}] is not defined.");
         }
 

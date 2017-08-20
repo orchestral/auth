@@ -134,9 +134,7 @@ class Authorization implements AuthorizationContract
      */
     public function can($action)
     {
-        $roles = $this->getUserRoles();
-
-        return $this->checkAuthorization($roles, $action);
+        return $this->checkAuthorization($this->getUserRoles(), $action);
     }
 
     /**

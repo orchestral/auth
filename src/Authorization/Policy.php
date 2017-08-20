@@ -75,6 +75,6 @@ abstract class Policy
      */
     protected function getAuthorizationName()
     {
-        return $this->name ?: 'orchestra';
+        return $this->name ?? 'orchestra';
     }
 }
