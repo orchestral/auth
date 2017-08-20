@@ -3,27 +3,24 @@ Auth Component for Orchestra Platform
 
 Auth Component extends the functionality of `Illuminate\Auth` with the extra functionality to retrieve users' role. This is important when we want to manage application Access Control List (ACL).
 
-[![Latest Stable Version](https://img.shields.io/github/release/orchestral/auth.svg?style=flat-square)](https://packagist.org/packages/orchestra/auth)
-[![Total Downloads](https://img.shields.io/packagist/dt/orchestra/auth.svg?style=flat-square)](https://packagist.org/packages/orchestra/auth)
-[![MIT License](https://img.shields.io/packagist/l/orchestra/auth.svg?style=flat-square)](https://packagist.org/packages/orchestra/auth)
-[![Build Status](https://img.shields.io/travis/orchestral/auth/master.svg?style=flat-square)](https://travis-ci.org/orchestral/auth)
-[![Coverage Status](https://img.shields.io/coveralls/orchestral/auth/master.svg?style=flat-square)](https://coveralls.io/r/orchestral/auth?branch=master)
-[![Scrutinizer Quality Score](https://img.shields.io/scrutinizer/g/orchestral/auth/master.svg?style=flat-square)](https://scrutinizer-ci.com/g/orchestral/auth/)
+[![Build Status](https://travis-ci.org/orchestral/auth.svg?branch=master)](https://travis-ci.org/orchestral/auth)
+[![Latest Stable Version](https://poser.pugx.org/orchestra/auth/version)](https://packagist.org/packages/orchestra/auth)
+[![Total Downloads](https://poser.pugx.org/orchestra/auth/downloads)](https://packagist.org/packages/orchestra/auth)
+[![Latest Unstable Version](https://poser.pugx.org/orchestra/auth/v/unstable)](//packagist.org/packages/orchestra/auth)
+[![License](https://poser.pugx.org/orchestra/auth/license)](https://packagist.org/packages/orchestra/auth)
 
 ## Table of Content
 
 * [Version Compatibility](#version-compatibility)
 * [Installation](#installation)
 * [Configuration](#configuration)
-* [Change Log](https://github.com/orchestral/auth/releases)
+* [Changelog](https://github.com/orchestral/auth/releases)
 
 ## Version Compatibility
 
 Laravel    | Auth
 :----------|:----------
- 4.0.x     | 2.0.x
- 4.1.x     | 2.1.x
- 4.2.x     | 2.2.x
+ 4.x.x     | 2.x.x
  5.0.x     | 3.0.x
  5.1.x     | 3.1.x
  5.2.x     | 3.2.x
@@ -37,9 +34,9 @@ To install through composer, simply put the following in your `composer.json` fi
 
 ```json
 {
-	"require": {
-		"orchestra/auth": "~3.0"
-	}
+    "require": {
+        "orchestra/auth": "~3.0"
+    }
 }
 ```
 
@@ -58,14 +55,14 @@ Next replace `Illuminate\Auth\AuthServiceProvider` with the following service pr
 ```php
 'providers' => [
 
-	// ...
+    // ...
 
-	Orchestra\Auth\AuthServiceProvider::class,
-	Orchestra\Authorization\AuthorizationServiceProvider::class,
-	Orchestra\Memory\MemoryServiceProvider::class,
+    Orchestra\Auth\AuthServiceProvider::class,
+    Orchestra\Authorization\AuthorizationServiceProvider::class,
+    Orchestra\Memory\MemoryServiceProvider::class,
 
-	Orchestra\Auth\CommandServiceProvider::class,
-	Orchestra\Memory\CommandServiceProvider::class,
+    Orchestra\Auth\CommandServiceProvider::class,
+    Orchestra\Memory\CommandServiceProvider::class,
 ],
 ```
 
@@ -78,11 +75,8 @@ To make development easier, you could add `Orchestra\Support\Facades\ACL` alias 
 ```php
 'aliases' => [
 
-	'ACL' => Orchestra\Support\Facades\ACL::class,
+    'ACL' => Orchestra\Support\Facades\ACL::class,
 
 ],
 ```
 
-## Resources
-
-* [Documentation](http://orchestraplatform.com/docs/latest/components/auth)
