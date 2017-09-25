@@ -37,4 +37,16 @@ class AuthManager extends BaseManager
 
         return $guard;
     }
+
+    /**
+     * Create an instance of the Eloquent user provider.
+     *
+     * @param  array  $config
+     *
+     * @return \Orchestra\Auth\EloquentUserProvider
+     */
+    protected function createEloquentProvider($config)
+    {
+        return new EloquentUserProvider($this->app->make('hash'), $config['model']);
+    }
 }
