@@ -183,7 +183,7 @@ class Fluent
     {
         $key = $this->getKeyword($key)->getSlug();
 
-        return (! empty($key) && in_array($key, $this->items));
+        return ! empty($key) && in_array($key, $this->items);
     }
 
     /**
@@ -203,6 +203,7 @@ class Fluent
 
         if (! is_null($id = $this->search($key))) {
             unset($this->items[$id]);
+
             return true;
         }
 

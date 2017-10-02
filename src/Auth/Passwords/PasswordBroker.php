@@ -28,8 +28,8 @@ class PasswordBroker extends Broker
         UserProvider $users,
         $provider
     ) {
-        $this->users    = $users;
-        $this->tokens   = $tokens;
+        $this->users = $users;
+        $this->tokens = $tokens;
         $this->provider = $provider;
     }
 

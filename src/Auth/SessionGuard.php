@@ -40,7 +40,7 @@ class SessionGuard extends BaseGuard implements StatefulGuard, GuardContract
      */
     public function roles()
     {
-        $user   = $this->user();
+        $user = $this->user();
         $userId = 0;
 
         // This is a simple check to detect if the user is actually logged-in,
