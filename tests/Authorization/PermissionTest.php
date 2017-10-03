@@ -3,7 +3,6 @@
 namespace Orchestra\Authorization\TestCase;
 
 use Mockery as m;
-use Illuminate\Support\Fluent;
 use PHPUnit\Framework\TestCase;
 use Illuminate\Support\Collection;
 use Orchestra\Authorization\Permission;

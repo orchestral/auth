@@ -56,7 +56,7 @@ trait Permission
      */
     public function checkAuthorization($roles, $action)
     {
-        $name   = $action;
+        $name = $action;
         $action = $this->actions->search($name);
 
         if (is_null($action)) {
@@ -68,7 +68,7 @@ trait Permission
         $roles = new Collection($roles);
 
         foreach ($roles->all() as $role) {
-            $role       = $this->roles->search($role);
+            $role = $this->roles->search($role);
             $permission = $this->acl[$role.':'.$action] ?? false;
 
             // array_search() will return false when no key is found based
@@ -95,7 +95,7 @@ trait Permission
      */
     public function setAuthorization($roles, $actions, $allow = true)
     {
-        $roles   = $this->roles->filter($roles);
+        $roles = $this->roles->filter($roles);
         $actions = $this->actions->filter($actions);
 
         foreach ($roles as $role) {
@@ -142,7 +142,7 @@ trait Permission
      */
     protected function assign($role = null, $action = null, $allow = true)
     {
-        $role   = $this->roles->findKey($role);
+        $role = $this->roles->findKey($role);
         $action = $this->actions->findKey($action);
 
         if (! is_null($role) && ! is_null($action)) {

@@ -32,7 +32,7 @@ class Authorization implements AuthorizationContract
     {
         $this->name = $name;
 
-        $this->roles   = new Fluent('roles');
+        $this->roles = new Fluent('roles');
         $this->actions = new Fluent('actions');
 
         $this->roles->add('guest');
@@ -58,7 +58,7 @@ class Authorization implements AuthorizationContract
      *
      * @param  \Orchestra\Contracts\Memory\Provider  $memory
      *
-     * @throws \RuntimeException if $memory has been attached.
+     * @throws \RuntimeException if $memory has been attached
      *
      * @return $this
      */
@@ -147,7 +147,7 @@ class Authorization implements AuthorizationContract
      */
     public function canIf($action)
     {
-        $roles  = $this->getUserRoles();
+        $roles = $this->getUserRoles();
         $action = Keyword::make($action);
 
         if (is_null($this->actions->search($action))) {
@@ -199,9 +199,9 @@ class Authorization implements AuthorizationContract
             $name = $this->name;
 
             $this->memory->put("acl_{$name}", [
-                'acl'     => $this->acl,
+                'acl' => $this->acl,
                 'actions' => $this->actions->get(),
-                'roles'   => $this->roles->get(),
+                'roles' => $this->roles->get(),
             ]);
         }
 
@@ -256,15 +256,15 @@ class Authorization implements AuthorizationContract
     protected function resolveDynamicExecution($method)
     {
         // Preserve legacy CRUD structure for actions and roles.
-        $method  = Str::snake($method, '_');
+        $method = Str::snake($method, '_');
         $matcher = '/^(add|rename|has|get|remove|fill|attach|detach)_(role|action)(s?)$/';
 
         if (! preg_match($matcher, $method, $matches)) {
             throw new InvalidArgumentException("Invalid keyword [$method]");
         }
 
-        $type      = $matches[2].'s';
-        $multiple  = (isset($matches[3]) && $matches[3] === 's');
+        $type = $matches[2].'s';
+        $multiple = (isset($matches[3]) && $matches[3] === 's');
         $operation = $this->resolveOperationName($matches[1], $multiple);
 
         return [$type, $operation];

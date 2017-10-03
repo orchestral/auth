@@ -63,7 +63,7 @@ class Factory implements FactoryContract
     {
         if (is_callable($name)) {
             $callback = $name;
-            $name     = null;
+            $name = null;
         }
 
         $instance = $this->make($name);
