@@ -7,7 +7,7 @@ use Orchestra\Support\Keyword;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 
-class Fluent
+abstract class Fluent
 {
     /**
      * Collection name.
