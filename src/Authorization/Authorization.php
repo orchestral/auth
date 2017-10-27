@@ -32,8 +32,8 @@ class Authorization implements AuthorizationContract
     {
         $this->name = $name;
 
-        $this->roles = new Fluent('roles');
-        $this->actions = new Fluent('actions');
+        $this->roles = new Role();
+        $this->actions = new Action();
 
         $this->roles->add('guest');
         $this->attach($memory);

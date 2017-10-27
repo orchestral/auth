@@ -31,19 +31,9 @@ class Fluent
     protected $items = [];
 
     /**
-     * Construct a new instance.
-     *
-     * @param  string  $name
-     */
-    public function __construct($name)
-    {
-        $this->name = $name;
-    }
-
-    /**
      * Add a key to collection.
      *
-     * @param  string  $key
+     * @param  \Illuminate\Database\Eloquent\Model|string  $key
      *
      * @throws \InvalidArgumentException
      *
@@ -115,7 +105,7 @@ class Fluent
     /**
      * Check if an id is set in the collection.
      *
-     * @param  int  $id
+     * @param  \Orchestra\Support\Keyword|string  $id
      *
      * @return bool
      */
@@ -147,7 +137,7 @@ class Fluent
     /**
      * Find collection key from a name.
      *
-     * @param  mixed  $name
+     * @param  \Orchestra\Support\Keyword|string  $name
      *
      * @return int|null
      */
@@ -175,7 +165,7 @@ class Fluent
     /**
      * Determine whether a key exists in collection.
      *
-     * @param  string  $key
+     * @param  \Orchestra\Support\Keyword|string  $key
      *
      * @return bool
      */
@@ -189,7 +179,7 @@ class Fluent
     /**
      * Remove a key from collection.
      *
-     * @param  string  $key
+     * @param  \Orchestra\Support\Keyword|string|null  $key
      *
      * @throws \InvalidArgumentException
      *
@@ -213,8 +203,8 @@ class Fluent
     /**
      * Rename a key from collection.
      *
-     * @param  string  $from
-     * @param  string  $to
+     * @param  \Orchestra\Support\Keyword|string  $from
+     * @param  \Orchestra\Support\Keyword|string  $to
      *
      * @return bool
      */
@@ -234,9 +224,9 @@ class Fluent
     /**
      * Get the ID from a key.
      *
-     * @param  string  $key
+     * @param  \Orchestra\Support\Keyword|string  $key
      *
-     * @return int
+     * @return int|null
      */
     public function search($key)
     {
@@ -251,6 +241,8 @@ class Fluent
 
     /**
      * Get keyword instance.
+     *
+     * @param  \Orchestra\Support\Keyword|string  $key
      *
      * @return \Orchestra\Support\Keyword
      */
