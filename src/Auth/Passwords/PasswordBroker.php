@@ -2,7 +2,6 @@
 
 namespace Orchestra\Auth\Passwords;
 
-use Orchestra\Notifier\Message;
 use Illuminate\Contracts\Auth\UserProvider;
 use Illuminate\Auth\Passwords\PasswordBroker as Broker;
 use Illuminate\Auth\Passwords\TokenRepositoryInterface;

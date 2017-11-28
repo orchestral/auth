@@ -5,6 +5,7 @@ namespace Orchestra\Authorization\TestCase;
 use Mockery as m;
 use PHPUnit\Framework\TestCase;
 use Illuminate\Support\Collection;
+use Orchestra\Authorization\Action;
 use Orchestra\Authorization\Fluent;
 
 class FluentTest extends TestCase
@@ -21,7 +22,7 @@ class FluentTest extends TestCase
      */
     protected function setUp()
     {
-        $this->stub = new Fluent('stub');
+        $this->stub = new StubFluent();
         $this->stub->attach(['Hello World']);
     }
 
@@ -57,7 +58,7 @@ class FluentTest extends TestCase
      */
     public function testAddMethod()
     {
-        $stub = new Fluent('foo');
+        $stub = new Action();
         $model = m::mock('\Illuminate\Database\Eloquent\Model');
 
         $model->shouldReceive('getAttribute')->once()->with('name')->andReturn('eloquent');
@@ -82,7 +83,7 @@ class FluentTest extends TestCase
      */
     public function testAddMethodNullThrownException()
     {
-        $stub = new Fluent('foo');
+        $stub = new Action();
 
         $stub->add(null);
     }
@@ -94,7 +95,7 @@ class FluentTest extends TestCase
      */
     public function testAttachMethod()
     {
-        $stub = new Fluent('foo');
+        $stub = new Action();
 
         $stub->attach(['foo', 'foobar']);
 
@@ -113,7 +114,7 @@ class FluentTest extends TestCase
      */
     public function testAttachMethodGivenArrayable()
     {
-        $stub = new Fluent('foo');
+        $stub = new Action();
 
         $stub->attach(new Collection(['foo', 'foobar']));
 
@@ -132,7 +133,7 @@ class FluentTest extends TestCase
      */
     public function testAttachMethodNullThrownException()
     {
-        $stub = new Fluent('foo');
+        $stub = new Action();
 
         $stub->attach([null]);
     }
@@ -155,7 +156,7 @@ class FluentTest extends TestCase
      */
     public function testRenameMethod()
     {
-        $stub = new Fluent('foo');
+        $stub = new Action();
 
         $stub->attach(['foo', 'foobar']);
 
@@ -178,7 +179,7 @@ class FluentTest extends TestCase
      */
     public function testSearchMethod()
     {
-        $stub = new Fluent('foo');
+        $stub = new Action();
 
         $stub->attach(['foo', 'foobar']);
 
@@ -194,7 +195,7 @@ class FluentTest extends TestCase
      */
     public function testExistsMethod()
     {
-        $stub = new Fluent('foo');
+        $stub = new Action();
 
         $stub->attach(['foo', 'foobar']);
 
@@ -210,7 +211,7 @@ class FluentTest extends TestCase
      */
     public function testRemoveMethod()
     {
-        $stub = new Fluent('foo');
+        $stub = new Action();
 
         $stub->attach(['foo', 'foobar']);
 
@@ -243,7 +244,7 @@ class FluentTest extends TestCase
      */
     public function testDetachMethod()
     {
-        $stub = new Fluent('foo');
+        $stub = new Action();
 
         $stub->attach(['foo', 'foobar']);
 
@@ -274,7 +275,7 @@ class FluentTest extends TestCase
      */
     public function testDetachMethodGivenArrayable()
     {
-        $stub = new Fluent('foo');
+        $stub = new Action();
 
         $stub->attach(['foo', 'foobar']);
 
@@ -305,7 +306,7 @@ class FluentTest extends TestCase
      */
     public function testRemoveMethodNullThrownException()
     {
-        with(new Fluent('foo'))->remove(null);
+        with(new Action())->remove(null);
     }
 
     /**
@@ -315,11 +316,16 @@ class FluentTest extends TestCase
      */
     public function testFilterMethod()
     {
-        $stub = new Fluent('foo');
+        $stub = new Action();
         $stub->attach(['foo', 'foobar']);
 
         $this->assertEquals(['foo', 'foobar'], $stub->filter('*'));
         $this->assertEquals([1 => 'foobar'], $stub->filter('!foo'));
         $this->assertEquals(['hello-world'], $stub->filter('hello-world'));
     }
+}
+
+class StubFluent extends Fluent
+{
+    protected $name = 'stub';
 }

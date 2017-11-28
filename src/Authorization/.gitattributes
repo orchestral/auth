@@ -1,6 +1,9 @@
 * text=auto
 
 # Ignore following folder/file.
+<<<<<<< HEAD
 /.gitattributes export-ignore
+=======
+>>>>>>> 3.5
 /LICENSE export-ignore
 /README.md export-ignore
