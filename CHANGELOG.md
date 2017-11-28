@@ -2,6 +2,15 @@
 
 This changelog references the relevant changes (bug and security fixes) done to `orchestra/auth`.
 
+## 3.5.1
+
+Released: 2017-11-29
+
+### Changes
+
+* Remove `orchestra/notifier` dependencies.
+* Split `Orchestra\Authorization\Fluent` to `Orchestra\Authorization\Action` and `Orchestra\Authorization\Role`.
+
 ## 3.5.0
 
 Released: 2017-10-03
