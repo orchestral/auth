@@ -28,7 +28,7 @@ class Authorization implements AuthorizationContract
      * @param  string  $name
      * @param  \Orchestra\Contracts\Memory\Provider|null  $memory
      */
-    public function __construct($name, Provider $memory = null)
+    public function __construct(string $name, Provider $memory = null)
     {
         $this->name = $name;
 
@@ -46,7 +46,7 @@ class Authorization implements AuthorizationContract
      *
      * @return $this
      */
-    public function setAuthenticator(Guard $auth)
+    public function setAuthenticator(Guard $auth): self
     {
         $this->auth = $auth;
 
@@ -62,7 +62,7 @@ class Authorization implements AuthorizationContract
      *
      * @return $this
      */
-    public function attach(Provider $memory = null)
+    public function attach(Provider $memory = null): self
     {
         if ($this->attached() && $memory !== $this->memory) {
             throw new RuntimeException(
@@ -85,7 +85,7 @@ class Authorization implements AuthorizationContract
      *
      * @return $this
      */
-    protected function initiate()
+    protected function initiate(): self
     {
         $name = $this->name;
         $data = ['acl' => [], 'actions' => [], 'roles' => []];
@@ -115,7 +115,7 @@ class Authorization implements AuthorizationContract
      *
      * @return $this
      */
-    public function allow($roles, $actions, $allow = true)
+    public function allow($roles, $actions, bool $allow = true): self
     {
         $this->setAuthorization($roles, $actions, $allow);
 
@@ -132,7 +132,7 @@ class Authorization implements AuthorizationContract
      *
      * @return bool
      */
-    public function can($action)
+    public function can(string $action): bool
     {
         return $this->checkAuthorization($this->getUserRoles(), $action);
     }
@@ -145,7 +145,7 @@ class Authorization implements AuthorizationContract
      *
      * @return bool
      */
-    public function canIf($action)
+    public function canIf(string $action): bool
     {
         $roles = $this->getUserRoles();
         $action = Keyword::make($action);
@@ -168,7 +168,7 @@ class Authorization implements AuthorizationContract
      *
      * @return bool
      */
-    public function check($roles, $action)
+    public function check($roles, string $action): bool
     {
         return $this->checkAuthorization($roles, $action);
     }
@@ -182,7 +182,7 @@ class Authorization implements AuthorizationContract
      *
      * @return $this
      */
-    public function deny($roles, $actions)
+    public function deny($roles, $actions): self
     {
         return $this->allow($roles, $actions, false);
     }
@@ -193,7 +193,7 @@ class Authorization implements AuthorizationContract
      *
      * @return $this
      */
-    public function sync()
+    public function sync(): self
     {
         if ($this->attached()) {
             $name = $this->name;
@@ -217,7 +217,7 @@ class Authorization implements AuthorizationContract
      *
      * @return \Orchestra\Authorization\Fluent
      */
-    public function execute($type, $operation, array $parameters = [])
+    public function execute(string $type, string $operation, array $parameters = [])
     {
         return $this->{$type}->{$operation}(...$parameters);
     }
@@ -230,7 +230,7 @@ class Authorization implements AuthorizationContract
      *
      * @return mixed
      */
-    public function __call($method, array $parameters)
+    public function __call(string $method, array $parameters)
     {
         list($type, $operation) = $this->resolveDynamicExecution($method);
 
@@ -253,7 +253,7 @@ class Authorization implements AuthorizationContract
      *
      * @return array
      */
-    protected function resolveDynamicExecution($method)
+    protected function resolveDynamicExecution(string $method): array
     {
         // Preserve legacy CRUD structure for actions and roles.
         $method = Str::snake($method, '_');
@@ -279,7 +279,7 @@ class Authorization implements AuthorizationContract
      *
      * @return string
      */
-    protected function resolveOperationName($operation, $multiple = true)
+    protected function resolveOperationName(string $operation, bool $multiple = true): string
     {
         if (! $multiple) {
             return $operation;

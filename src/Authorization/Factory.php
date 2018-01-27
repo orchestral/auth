@@ -5,6 +5,7 @@ namespace Orchestra\Authorization;
 use Orchestra\Contracts\Auth\Guard;
 use Orchestra\Contracts\Memory\Provider;
 use Orchestra\Contracts\Authorization\Factory as FactoryContract;
+use Orchestra\Contracts\Authorization\Authorization as AuthorizationContract;
 
 class Factory implements FactoryContract
 {
@@ -35,12 +36,12 @@ class Factory implements FactoryContract
     /**
      * Initiate a new ACL Container instance.
      *
-     * @param  string  $name
-     * @param  \Orchestra\Contracts\Memory\Provider  $memory
+     * @param  string|null  $name
+     * @param  \Orchestra\Contracts\Memory\Provider|null  $memory
      *
      * @return \Orchestra\Contracts\Authorization\Authorization
      */
-    public function make($name = null, Provider $memory = null)
+    public function make(string $name = null, ?Provider $memory = null): AuthorizationContract
     {
         $name = $name ?? 'default';
 
@@ -55,11 +56,11 @@ class Factory implements FactoryContract
      * Register an ACL Container instance with Closure.
      *
      * @param  string  $name
-     * @param  \Closure  $callback
+     * @param  callable|null  $callback
      *
      * @return \Orchestra\Contracts\Authorization\Authorization
      */
-    public function register($name, $callback = null)
+    public function register($name, ?callable $callback = null): AuthorizationContract
     {
         if (is_callable($name)) {
             $callback = $name;
@@ -77,11 +78,11 @@ class Factory implements FactoryContract
      * Manipulate and synchronize roles.
      *
      * @param  string  $method
-     * @param  array   $parameters
+     * @param  array  $parameters
      *
      * @return mixed
      */
-    public function __call($method, array $parameters)
+    public function __call(string $method, array $parameters)
     {
         $response = [];
 
@@ -97,7 +98,7 @@ class Factory implements FactoryContract
      *
      * @return $this
      */
-    public function finish()
+    public function finish(): self
     {
         // Re-sync before shutting down.
         foreach ($this->drivers as $acl) {
@@ -114,7 +115,7 @@ class Factory implements FactoryContract
      *
      * @return array
      */
-    public function all()
+    public function all(): array
     {
         return $this->drivers;
     }
@@ -126,7 +127,7 @@ class Factory implements FactoryContract
      *
      * @return \Orchestra\Contracts\Authorization\Authorization|null
      */
-    public function get($name)
+    public function get(string $name): ?AuthorizationContract
     {
         return $this->drivers[$name] ?? null;
     }

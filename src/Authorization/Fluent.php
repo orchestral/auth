@@ -39,7 +39,7 @@ abstract class Fluent
      *
      * @return bool
      */
-    public function add($key)
+    public function add($key): bool
     {
         if (is_null($key)) {
             throw new InvalidArgumentException("Can't add NULL to {$this->name}.");
@@ -69,7 +69,7 @@ abstract class Fluent
      *
      * @return bool
      */
-    public function attach($keys)
+    public function attach($keys): bool
     {
         if ($keys instanceof Arrayable) {
             $keys = $keys->toArray();
@@ -89,7 +89,7 @@ abstract class Fluent
      *
      * @return bool
      */
-    public function detach($keys)
+    public function detach($keys): bool
     {
         if ($keys instanceof Arrayable) {
             $keys = $keys->toArray();
@@ -109,7 +109,7 @@ abstract class Fluent
      *
      * @return bool
      */
-    public function exists($id)
+    public function exists($id): bool
     {
         return $this->getKeyword($id)->hasIn($this->items);
     }
@@ -121,7 +121,7 @@ abstract class Fluent
      *
      * @return array
      */
-    public function filter($request)
+    public function filter($request): array
     {
         if (is_array($request)) {
             return $request;
@@ -141,7 +141,7 @@ abstract class Fluent
      *
      * @return int|null
      */
-    public function findKey($name)
+    public function findKey($name): ?int
     {
         $keyword = $this->getKeyword($name);
 
@@ -157,7 +157,7 @@ abstract class Fluent
      *
      * @return array
      */
-    public function get()
+    public function get(): array
     {
         return $this->items;
     }
@@ -169,7 +169,7 @@ abstract class Fluent
      *
      * @return bool
      */
-    public function has($key)
+    public function has($key): bool
     {
         $key = $this->getKeyword($key)->getSlug();
 
@@ -185,7 +185,7 @@ abstract class Fluent
      *
      * @return bool
      */
-    public function remove($key)
+    public function remove($key): bool
     {
         if (is_null($key)) {
             throw new InvalidArgumentException("Can't remove NULL from {$this->name}.");
@@ -208,7 +208,7 @@ abstract class Fluent
      *
      * @return bool
      */
-    public function rename($from, $to)
+    public function rename($from, $to): bool
     {
         $key = $this->search($from);
 
@@ -228,12 +228,12 @@ abstract class Fluent
      *
      * @return int|null
      */
-    public function search($key)
+    public function search($key): ?int
     {
         $id = $this->getKeyword($key)->searchIn($this->items);
 
         if (false === $id) {
-            return;
+            return null;
         }
 
         return $id;
@@ -246,7 +246,7 @@ abstract class Fluent
      *
      * @return \Orchestra\Support\Keyword
      */
-    protected function getKeyword($key)
+    protected function getKeyword($key): Keyword
     {
         if ($key instanceof Keyword) {
             return $key;

@@ -4,6 +4,7 @@ namespace Orchestra\Authorization;
 
 use InvalidArgumentException;
 use Illuminate\Support\Collection;
+use Orchestra\Contracts\Auth\Guard;
 use Orchestra\Contracts\Authorization\Authorizable;
 
 trait Permission
@@ -140,7 +141,7 @@ trait Permission
      *
      * @return void
      */
-    protected function assign($role = null, $action = null, $allow = true)
+    protected function assign(?string $role = null, ?string $action = null, bool $allow = true): void
     {
         $role = $this->roles->findKey($role);
         $action = $this->actions->findKey($action);
@@ -157,7 +158,7 @@ trait Permission
      *
      * @return $this
      */
-    public function setUser(Authorizable $user)
+    public function setUser(Authorizable $user): self
     {
         $userRoles = $user->getRoles();
 
@@ -171,7 +172,7 @@ trait Permission
      *
      * @return $this
      */
-    public function revokeUser()
+    public function revokeUser(): self
     {
         $this->userRoles = null;
 
@@ -183,7 +184,7 @@ trait Permission
      *
      * @return array
      */
-    public function acl()
+    public function acl(): array
     {
         return $this->acl;
     }
@@ -193,7 +194,7 @@ trait Permission
      *
      * @return \Orchestra\Contracts\Auth\Guard
      */
-    public function auth()
+    public function auth(): Guard
     {
         return $this->auth;
     }
@@ -201,9 +202,9 @@ trait Permission
     /**
      * Get the `actions` instance.
      *
-     * @return \Orchestra\Authorization\Fluent
+     * @return \Orchestra\Authorization\Action
      */
-    public function actions()
+    public function actions(): Action
     {
         return $this->actions;
     }
@@ -211,9 +212,9 @@ trait Permission
     /**
      * Get the `roles` instance.
      *
-     * @return \Orchestra\Authorization\Fluent
+     * @return \Orchestra\Authorization\Role
      */
-    public function roles()
+    public function roles(): Role
     {
         return $this->roles;
     }
@@ -223,7 +224,7 @@ trait Permission
      *
      * @return \Illuminate\Support\Collection
      */
-    protected function getUserRoles()
+    protected function getUserRoles(): Collection
     {
         if (! is_null($this->userRoles)) {
             return $this->userRoles;

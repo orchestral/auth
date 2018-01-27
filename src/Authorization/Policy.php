@@ -3,6 +3,7 @@
 namespace Orchestra\Authorization;
 
 use Orchestra\Contracts\Authorization\Factory as FactoryContract;
+use Orchestra\Contracts\Authorization\Authorization as AuthorizationContract;
 
 abstract class Policy
 {
@@ -27,7 +28,7 @@ abstract class Policy
      *
      * @return $this
      */
-    public function setAuthorization(FactoryContract $factory)
+    public function setAuthorization(FactoryContract $factory): self
     {
         $this->acl = $factory->make($this->getAuthorizationName());
 
@@ -39,7 +40,7 @@ abstract class Policy
      *
      * @return \Orchestra\Contracts\Authorization\Authorization
      */
-    protected function getAuthorization()
+    protected function getAuthorization(): AuthorizationContract
     {
         return $this->acl;
     }
@@ -51,7 +52,7 @@ abstract class Policy
      *
      * @return bool
      */
-    protected function can($action)
+    protected function can(string $action): bool
     {
         return $this->acl->can($action);
     }
@@ -63,7 +64,7 @@ abstract class Policy
      *
      * @return bool
      */
-    protected function canIf($action)
+    protected function canIf(string $action): bool
     {
         return $this->acl->canIf($action);
     }
@@ -73,7 +74,7 @@ abstract class Policy
      *
      * @return string
      */
-    protected function getAuthorizationName()
+    protected function getAuthorizationName(): string
     {
         return $this->name ?? 'orchestra';
     }
