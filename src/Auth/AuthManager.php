@@ -45,7 +45,7 @@ class AuthManager extends BaseManager
      *
      * @return \Orchestra\Auth\EloquentUserProvider
      */
-    protected function createEloquentProvider(array $config): EloquentUserProvider
+    protected function createEloquentProvider($config)
     {
         return new EloquentUserProvider($this->app->make('hash'), $config['model']);
     }
