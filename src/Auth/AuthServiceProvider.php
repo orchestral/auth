@@ -40,7 +40,7 @@ class AuthServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function registerAuthenticator()
+    protected function registerAuthenticator(): void
     {
         $this->app->singleton('auth', function (Application $app) {
             // Once the authentication service has actually been requested by the developer
@@ -61,7 +61,7 @@ class AuthServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function registerPolicyAfterResolvingHandler()
+    protected function registerPolicyAfterResolvingHandler(): void
     {
         $this->app->afterResolving(Policy::class, function (Policy $policy) {
             return $policy->setAuthorization($this->app->make(FactoryContract::class));

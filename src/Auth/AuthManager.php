@@ -12,9 +12,9 @@ class AuthManager extends BaseManager
      * @param  string  $name
      * @param  array  $config
      *
-     * @return \Illuminate\Auth\SessionGuard
+     * @return \Orchestra\Auth\SessionGuard
      */
-    public function createSessionDriver($name, $config)
+    public function createSessionDriver(string $name, array $config): SessionGuard
     {
         $provider = $this->createUserProvider($config['provider']);
 
@@ -45,7 +45,7 @@ class AuthManager extends BaseManager
      *
      * @return \Orchestra\Auth\EloquentUserProvider
      */
-    protected function createEloquentProvider($config)
+    protected function createEloquentProvider(array $config): EloquentUserProvider
     {
         return new EloquentUserProvider($this->app->make('hash'), $config['model']);
     }

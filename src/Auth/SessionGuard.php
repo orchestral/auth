@@ -24,7 +24,7 @@ class SessionGuard extends BaseGuard implements StatefulGuard, GuardContract
      *
      * @return void
      */
-    public function setup($event)
+    public function setup($event): void
     {
         $this->userRoles = null;
         $this->events->forget('orchestra.auth: roles');
@@ -38,7 +38,7 @@ class SessionGuard extends BaseGuard implements StatefulGuard, GuardContract
      *
      * @return \Illuminate\Support\Collection
      */
-    public function roles()
+    public function roles(): Collection
     {
         $user = $this->user();
         $userId = 0;
@@ -69,7 +69,7 @@ class SessionGuard extends BaseGuard implements StatefulGuard, GuardContract
      *
      * @return bool
      */
-    public function is($roles)
+    public function is($roles): bool
     {
         $userRoles = $this->roles()->all();
 
@@ -93,11 +93,11 @@ class SessionGuard extends BaseGuard implements StatefulGuard, GuardContract
     /**
      * Determine if current user has any of the given role.
      *
-     * @param  array   $roles
+     * @param  array  $roles
      *
      * @return bool
      */
-    public function isAny(array $roles)
+    public function isAny(array $roles): bool
     {
         $userRoles = $this->roles()->all();
 
@@ -121,11 +121,11 @@ class SessionGuard extends BaseGuard implements StatefulGuard, GuardContract
     /**
      * Determine if current user does not has any of the given role.
      *
-     * @param  string   $roles
+     * @param  string|array  $roles
      *
      * @return bool
      */
-    public function isNot($roles)
+    public function isNot($roles): bool
     {
         return ! $this->is($roles);
     }
@@ -133,11 +133,11 @@ class SessionGuard extends BaseGuard implements StatefulGuard, GuardContract
     /**
      * Determine if current user does not has any of the given role.
      *
-     * @param  array   $roles
+     * @param  string|array  $roles
      *
      * @return bool
      */
-    public function isNotAny(array $roles)
+    public function isNotAny($roles): bool
     {
         return ! $this->isAny($roles);
     }
@@ -145,7 +145,7 @@ class SessionGuard extends BaseGuard implements StatefulGuard, GuardContract
     /**
      * {@inheritdoc}
      */
-    public function logout()
+    public function logout(): void
     {
         parent::logout();
 
@@ -163,7 +163,7 @@ class SessionGuard extends BaseGuard implements StatefulGuard, GuardContract
      *
      * @return \Illuminate\Support\Collection
      */
-    protected function getUserRolesFromEventDispatcher(Authenticatable $user = null, $roles = [])
+    protected function getUserRolesFromEventDispatcher(Authenticatable $user = null, $roles = []): Collection
     {
         $roles = $this->events->until('orchestra.auth: roles', [$user, $roles]);
 
