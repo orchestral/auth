@@ -14,7 +14,7 @@ class AuthManager extends BaseManager
      *
      * @return \Orchestra\Auth\SessionGuard
      */
-    public function createSessionDriver(string $name, array $config): SessionGuard
+    public function createSessionDriver($name, $config)
     {
         $provider = $this->createUserProvider($config['provider']);
 
