@@ -3,7 +3,7 @@ Auth Component for Orchestra Platform
 
 Auth Component extends the functionality of `Illuminate\Auth` with the extra functionality to retrieve users' role. This is important when we want to manage application Access Control List (ACL).
 
-[![Build Status](https://travis-ci.org/orchestral/auth.svg?branch=3.6)](https://travis-ci.org/orchestral/auth)
+[![Build Status](https://travis-ci.org/orchestral/auth.svg?branch=master)](https://travis-ci.org/orchestral/auth)
 [![Latest Stable Version](https://poser.pugx.org/orchestra/auth/version)](https://packagist.org/packages/orchestra/auth)
 [![Total Downloads](https://poser.pugx.org/orchestra/auth/downloads)](https://packagist.org/packages/orchestra/auth)
 [![Latest Unstable Version](https://poser.pugx.org/orchestra/auth/v/unstable)](//packagist.org/packages/orchestra/auth)
@@ -28,6 +28,7 @@ Laravel    | Auth
  5.4.x     | 3.4.x
  5.5.x     | 3.5.x
  5.6.x     | 3.6.x@dev
+ 5.7.x     | 3.7.x@dev
 
 ## Installation
 
