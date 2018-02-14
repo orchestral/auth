@@ -21,6 +21,7 @@ return PhpCsFixer\Config::create()
                 'phpdoc_no_empty_return' => false,
                 'phpdoc_order' => true,
                 'pre_increment' => false,
+                'self_accessor' => false,
                 'yoda_style' => false,
             ])
             ->setFinder($finder);
