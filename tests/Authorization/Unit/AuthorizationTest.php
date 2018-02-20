@@ -1,6 +1,6 @@
 <?php
 
-namespace Orchestra\Authorization\TestCase;
+namespace Orchestra\Authorization\TestCase\Unit;
 
 use Mockery as m;
 use Orchestra\Memory\Provider;
@@ -17,19 +17,19 @@ class AuthorizationTest extends TestCase
      *
      * @var \Illuminate\Contracts\Foundation\Application
      */
-    private $app = null;
+    private $app;
 
     /**
      * Acl Container instance.
      *
      * @var \Orchestra\Authorization\Authorization
      */
-    private $stub = null;
+    private $stub;
 
     /**
      * Setup the test environment.
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->app = new IlluminateContainer();
         $this->app['auth'] = $auth = m::mock('\Orchestra\Contracts\Auth\Guard');
@@ -50,9 +50,9 @@ class AuthorizationTest extends TestCase
     /**
      * Teardown the test environment.
      */
-    protected function tearDown()
+    protected function tearDown(): void
     {
-        unset($this->stub);
+        unset($this->app, $this->stub);
 
         m::close();
     }
@@ -89,24 +89,14 @@ class AuthorizationTest extends TestCase
     public function testInstanceOfStub()
     {
         $refl = new \ReflectionObject($this->stub);
-        $memory = $refl->getProperty('memory');
-        $roles = $refl->getProperty('roles');
-        $actions = $refl->getProperty('actions');
         $acl = $refl->getProperty('acl');
-
-        $memory->setAccessible(true);
-        $roles->setAccessible(true);
-        $actions->setAccessible(true);
         $acl->setAccessible(true);
 
         $this->assertInstanceOf('\Orchestra\Authorization\Authorization', $this->stub);
         $this->assertInstanceOf('\Orchestra\Contracts\Auth\Guard', $this->stub->auth());
-        $this->assertInstanceOf('\Orchestra\Authorization\Fluent', $this->stub->roles());
-        $this->assertInstanceOf('\Orchestra\Authorization\Fluent', $this->stub->actions());
+        $this->assertInstanceOf('\Orchestra\Authorization\Role', $this->stub->roles());
+        $this->assertInstanceOf('\Orchestra\Authorization\Action', $this->stub->actions());
 
-        $this->assertInstanceOf('\Orchestra\Contracts\Memory\Provider', $memory->getValue($this->stub));
-        $this->assertInstanceOf('\Orchestra\Authorization\Fluent', $roles->getValue($this->stub));
-        $this->assertInstanceOf('\Orchestra\Authorization\Fluent', $actions->getValue($this->stub));
         $this->assertTrue(is_array($acl->getValue($this->stub)));
     }
 
@@ -404,11 +394,11 @@ class AuthorizationTest extends TestCase
      * not supported.
      *
      * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Invalid keyword [add_foos]
+     * @expectedExceptionMessage Invalid keyword [add_boss]
      */
     public function testCallMagicMethodUsingMockOneThrowsExceptionForInvalidExecution()
     {
-        $this->stub->addFoos('boss');
+        $this->stub->addBoss('foo');
     }
 
     /**
@@ -459,12 +449,6 @@ class AuthorizationTest extends TestCase
         $runtime->put('acl_foo', $this->memoryProvider());
 
         $stub = (new Authorization('foo', $runtime))->setAuthenticator($this->app['auth']);
-        $refl = new \ReflectionObject($stub);
-        $actions = $refl->getProperty('actions');
-        $roles = $refl->getProperty('roles');
-
-        $actions->setAccessible(true);
-        $roles->setAccessible(true);
 
         $stub->roles()->add('admin');
         $stub->roles()->attach(['admin']);
@@ -477,10 +461,7 @@ class AuthorizationTest extends TestCase
         $stub->addAction('manage');
         $stub->addActions(['manage']);
 
-        $this->assertEquals(['guest', 'admin'], $roles->getValue($stub)->get());
         $this->assertEquals(['guest', 'admin'], $stub->roles()->get());
-
-        $this->assertEquals(['manage-user', 'manage'], $actions->getValue($stub)->get());
         $this->assertEquals(['manage-user', 'manage'], $stub->actions()->get());
     }
 }

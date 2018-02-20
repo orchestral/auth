@@ -4,3 +4,6 @@ vendor/*
 
 # Subsplit
 .subsplit/
+
+# PHPUnit
+coverage/

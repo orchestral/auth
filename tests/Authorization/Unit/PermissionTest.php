@@ -1,6 +1,6 @@
 <?php
 
-namespace Orchestra\Authorization\TestCase;
+namespace Orchestra\Authorization\TestCase\Unit;
 
 use Mockery as m;
 use PHPUnit\Framework\TestCase;
@@ -14,12 +14,13 @@ class PermissionTest extends TestCase
     /**
      * Teardown the test environment.
      */
-    protected function tearDown()
+    protected function tearDown(): void
     {
         m::close();
     }
 
-    public function testGetterAndSetterForUser()
+    /** @test */
+    public function it_can_interact_with_user()
     {
         $this->assertNull($this->userRoles);
 

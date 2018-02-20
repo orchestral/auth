@@ -1,6 +1,6 @@
 <?php
 
-namespace Orchestra\Authorization\TestCase;
+namespace Orchestra\Authorization\TestCase\Unit;
 
 use Mockery as m;
 use PHPUnit\Framework\TestCase;
@@ -11,7 +11,7 @@ class FactoryTest extends TestCase
     /**
      * Teardown the test environment.
      */
-    protected function tearDown()
+    protected function tearDown(): void
     {
         m::close();
     }

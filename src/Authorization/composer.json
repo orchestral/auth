@@ -20,7 +20,7 @@
         "php": ">=7.1",
         "orchestra/contracts": "~3.7.0",
         "orchestra/memory": "~3.7.0",
-        "orchestra/support": "~3.7.0"
+        "orchestra/support-core": "~3.7.0"
     },
     "extra": {
         "branch-alias": {
