@@ -1,6 +1,6 @@
 <?php
 
-namespace Orchestra\Auth\TestCase;
+namespace Orchestra\Auth\TestCase\Unit;
 
 use Mockery as m;
 use PHPUnit\Framework\TestCase;
@@ -15,33 +15,33 @@ class SessionGuardTest extends TestCase
      *
      * @var \Illuminate\Contracts\Auth\UserProvider
      */
-    private $provider = null;
+    private $provider;
 
     /**
      * Session instance.
      *
      * @var \Illuminate\Session\Store
      */
-    private $session = null;
+    private $session;
 
     /**
      * Event dispatcher instance.
      *
      * @var \Illuminate\Event\Dispatcher
      */
-    private $events = null;
+    private $events;
 
     /**
      * The request instance.
      *
      * @var \Illuminate\Http\Request
      */
-    private $request = null;
+    private $request;
 
     /**
      * Setup the test environment.
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->provider = m::mock('\Illuminate\Contracts\Auth\UserProvider');
         $this->session = m::mock('\Illuminate\Session\Store');
@@ -52,11 +52,9 @@ class SessionGuardTest extends TestCase
     /**
      * Teardown the test environment.
      */
-    protected function tearDown()
+    protected function tearDown(): void
     {
-        unset($this->provider);
-        unset($this->session);
-        unset($this->events);
+        unset($this->provider, $this->session, $this->events);
 
         m::close();
     }

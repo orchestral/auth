@@ -1,6 +1,6 @@
 <?php
 
-namespace Orchestra\Authorization\TestCase;
+namespace Orchestra\Authorization\TestCase\Unit;
 
 use Mockery as m;
 use Orchestra\Memory\Provider;
@@ -17,19 +17,19 @@ class AuthorizationTest extends TestCase
      *
      * @var \Illuminate\Contracts\Foundation\Application
      */
-    private $app = null;
+    private $app;
 
     /**
      * Acl Container instance.
      *
      * @var \Orchestra\Authorization\Authorization
      */
-    private $stub = null;
+    private $stub;
 
     /**
      * Setup the test environment.
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->app = new IlluminateContainer();
         $this->app['auth'] = $auth = m::mock('\Orchestra\Contracts\Auth\Guard');
@@ -50,9 +50,9 @@ class AuthorizationTest extends TestCase
     /**
      * Teardown the test environment.
      */
-    protected function tearDown()
+    protected function tearDown(): void
     {
-        unset($this->stub);
+        unset($this->app, $this->stub);
 
         m::close();
     }

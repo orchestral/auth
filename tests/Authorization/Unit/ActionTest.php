@@ -1,62 +1,24 @@
 <?php
 
-namespace Orchestra\Authorization\TestCase;
+namespace Orchestra\Authorization\TestCase\Unit;
 
 use Mockery as m;
 use PHPUnit\Framework\TestCase;
 use Illuminate\Support\Collection;
 use Orchestra\Authorization\Action;
-use Orchestra\Authorization\Fluent;
 
-class FluentTest extends TestCase
+class ActionTest extends TestCase
 {
-    /**
-     * Stub instance.
-     *
-     * @return Orchestra\Authorization\Fluent
-     */
-    private $stub = null;
-
-    /**
-     * Setup the test environment.
-     */
-    protected function setUp()
-    {
-        $this->stub = new StubFluent();
-        $this->stub->attach(['Hello World']);
-    }
-
     /**
      * Teardown the test environment.
      */
-    protected function tearDown()
+    protected function tearDown(): void
     {
-        unset($this->stub);
         m::close();
     }
 
-    /**
-     * Test instanceof stub.
-     *
-     * @test
-     */
-    public function testInstanceOf()
-    {
-        $this->assertInstanceOf('\Orchestra\Authorization\Fluent', $this->stub);
-
-        $refl = new \ReflectionObject($this->stub);
-        $name = $refl->getProperty('name');
-        $name->setAccessible(true);
-
-        $this->assertEquals('stub', $name->getValue($this->stub));
-    }
-
-    /**
-     * Test Orchestra\Authorization\Fluent::add() method.
-     *
-     * @test
-     */
-    public function testAddMethod()
+    /** @test */
+    public function it_can_add_actions()
     {
         $stub = new Action();
         $model = m::mock('\Illuminate\Database\Eloquent\Model');
@@ -67,94 +29,54 @@ class FluentTest extends TestCase
         $stub->add('foobar');
         $stub->add($model);
 
-        $refl = new \ReflectionObject($stub);
-        $items = $refl->getProperty('items');
-        $items->setAccessible(true);
-
         $expected = ['foo', 'foobar', 'eloquent'];
-        $this->assertEquals($expected, $items->getValue($stub));
         $this->assertEquals($expected, $stub->get());
     }
 
     /**
-     * Test Orchestra\Authorization\Fluent::add() method null throw an exception.
-     *
+     * @test
      * @expectedException \InvalidArgumentException
      */
-    public function testAddMethodNullThrownException()
+    public function it_cant_add_null_as_action()
     {
         $stub = new Action();
 
         $stub->add(null);
     }
 
-    /**
-     * Test Orchestra\Authorization\Fluent::attach() method.
-     *
-     * @test
-     */
-    public function testAttachMethod()
+    /** @test */
+    public function it_can_attach_actions()
     {
         $stub = new Action();
 
         $stub->attach(['foo', 'foobar']);
 
-        $refl = new \ReflectionObject($stub);
-        $items = $refl->getProperty('items');
-        $items->setAccessible(true);
-
-        $this->assertEquals(['foo', 'foobar'], $items->getValue($stub));
         $this->assertEquals(['foo', 'foobar'], $stub->get());
     }
 
-    /**
-     * Test Orchestra\Authorization\Fluent::attach() method.
-     *
-     * @test
-     */
-    public function testAttachMethodGivenArrayable()
+    /** @test */
+    public function it_can_attach_arrayable_to_actions()
     {
         $stub = new Action();
 
         $stub->attach(new Collection(['foo', 'foobar']));
 
-        $refl = new \ReflectionObject($stub);
-        $items = $refl->getProperty('items');
-        $items->setAccessible(true);
-
-        $this->assertEquals(['foo', 'foobar'], $items->getValue($stub));
         $this->assertEquals(['foo', 'foobar'], $stub->get());
     }
 
     /**
-     * Test Orchestra\Authorization\Fluent::attach() method null throw an exception.
-     *
+     * @test
      * @expectedException \InvalidArgumentException
      */
-    public function testAttachMethodNullThrownException()
+    public function it_throws_exception_when_attaching_null_to_actions()
     {
         $stub = new Action();
 
         $stub->attach([null]);
     }
 
-    /**
-     * Test Orchestra\Authorization\Fluent::has() method.
-     *
-     * @test
-     */
-    public function testHasMethod()
-    {
-        $this->assertTrue($this->stub->has('hello-world'));
-        $this->assertFalse($this->stub->has('goodbye-world'));
-    }
-
-    /**
-     * Test Orchestra\Authorization\Fluent::rename() method.
-     *
-     * @test
-     */
-    public function testRenameMethod()
+    /** @test */
+    public function it_can_rename_actions()
     {
         $stub = new Action();
 
@@ -162,22 +84,13 @@ class FluentTest extends TestCase
 
         $stub->rename('foo', 'laravel');
 
-        $refl = new \ReflectionObject($stub);
-        $items = $refl->getProperty('items');
-        $items->setAccessible(true);
-
-        $this->assertEquals(['laravel', 'foobar'], $items->getValue($stub));
         $this->assertEquals(['laravel', 'foobar'], $stub->get());
 
         $this->assertFalse($stub->rename('foo', 'hello'));
     }
 
-    /**
-     * Test Orchestra\Authorization\Fluent::search() method.
-     *
-     * @test
-     */
-    public function testSearchMethod()
+    /** @test */
+    public function it_can_search_actions()
     {
         $stub = new Action();
 
@@ -188,12 +101,8 @@ class FluentTest extends TestCase
         $this->assertNull($stub->search('laravel'));
     }
 
-    /**
-     * Test Orchestra\Authorization\Fluent::exists() method.
-     *
-     * @test
-     */
-    public function testExistsMethod()
+    /** @test */
+    public function it_can_check_if_action_exists()
     {
         $stub = new Action();
 
@@ -204,12 +113,8 @@ class FluentTest extends TestCase
         $this->assertFalse($stub->exists(3));
     }
 
-    /**
-     * Test Orchestra\Authorization\Fluent::remove() method.
-     *
-     * @test
-     */
-    public function testRemoveMethod()
+    /** @test */
+    public function it_can_remove_actions()
     {
         $stub = new Action();
 
@@ -237,12 +142,8 @@ class FluentTest extends TestCase
         $this->assertFalse($stub->remove('hello'));
     }
 
-    /**
-     * Test Orchestra\Authorization\Fluent::detach() method.
-     *
-     * @test
-     */
-    public function testDetachMethod()
+    /** @test */
+    public function it_can_detach_actions()
     {
         $stub = new Action();
 
@@ -268,12 +169,8 @@ class FluentTest extends TestCase
         $this->assertEquals([1 => 'foobar'], $stub->get());
     }
 
-    /**
-     * Test Orchestra\Authorization\Fluent::detach() method.
-     *
-     * @test
-     */
-    public function testDetachMethodGivenArrayable()
+    /** @test */
+    public function it_can_detach_actions_using_arrayable()
     {
         $stub = new Action();
 
@@ -300,21 +197,16 @@ class FluentTest extends TestCase
     }
 
     /**
-     * Test Orchestra\Authorization\Fluent::remove() method null throw an exception.
-     *
+     * @test
      * @expectedException \InvalidArgumentException
      */
-    public function testRemoveMethodNullThrownException()
+    public function it_throws_exception_when_removing_null()
     {
         with(new Action())->remove(null);
     }
 
-    /**
-     * Test Orchestra\Authorization\Fluent::filter() method.
-     *
-     * @test
-     */
-    public function testFilterMethod()
+    /** @test */
+    public function it_can_filter_actions()
     {
         $stub = new Action();
         $stub->attach(['foo', 'foobar']);
@@ -323,9 +215,4 @@ class FluentTest extends TestCase
         $this->assertEquals([1 => 'foobar'], $stub->filter('!foo'));
         $this->assertEquals(['hello-world'], $stub->filter('hello-world'));
     }
-}
-
-class StubFluent extends Fluent
-{
-    protected $name = 'stub';
 }
