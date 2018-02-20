@@ -11,7 +11,7 @@ class FluentTest extends TestCase
     /**
      * Stub instance.
      *
-     * @return Orchestra\Authorization\Fluent
+     * @return \Orchestra\Authorization\Fluent
      */
     private $stub;
 
