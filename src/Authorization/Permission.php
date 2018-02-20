@@ -19,14 +19,14 @@ trait Permission
     /**
      * List of roles.
      *
-     * @var \Orchestra\Authorization\Fluent
+     * @var \Orchestra\Authorization\Role
      */
     protected $roles;
 
     /**
      * List of actions.
      *
-     * @var \Orchestra\Authorization\Fluent
+     * @var \Orchestra\Authorization\Action
      */
     protected $actions;
 
@@ -55,7 +55,7 @@ trait Permission
      *
      * @return bool
      */
-    public function checkAuthorization($roles, $action)
+    public function checkAuthorization($roles, $action): bool
     {
         $name = $action;
         $action = $this->actions->search($name);
@@ -94,7 +94,7 @@ trait Permission
      *
      * @return void
      */
-    public function setAuthorization($roles, $actions, $allow = true)
+    public function setAuthorization($roles, $actions, bool $allow = true): void
     {
         $roles = $this->roles->filter($roles);
         $actions = $this->actions->filter($actions);
@@ -119,7 +119,7 @@ trait Permission
      *
      * @return bool
      */
-    protected function groupedAssignAction($role, array $actions, $allow = true)
+    protected function groupedAssignAction($role, array $actions, bool $allow = true): bool
     {
         foreach ($actions as $action) {
             if (! $this->actions->has($action)) {
