@@ -37,9 +37,7 @@ class FluentTest extends TestCase
         m::close();
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function it_has_proper_signature()
     {
         $this->assertInstanceOf('\Orchestra\Authorization\Fluent', $this->stub);
@@ -51,9 +49,7 @@ class FluentTest extends TestCase
         $this->assertEquals('stub', $name->getValue($this->stub));
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function it_can_check_whether_fluent_has_item()
     {
         $this->assertTrue($this->stub->has('hello-world'));
