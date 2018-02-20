@@ -3,7 +3,6 @@
 namespace Orchestra\Auth;
 
 use Illuminate\Support\ServiceProvider;
-use Orchestra\Auth\Console\AuthCommand;
 
 class CommandServiceProvider extends ServiceProvider
 {
