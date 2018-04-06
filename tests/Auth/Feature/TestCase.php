@@ -2,9 +2,9 @@
 
 namespace Orchestra\Auth\TestCase\Feature;
 
+use Orchestra\Testbench\TestCase as Testbench;
 use Illuminate\Auth\AuthServiceProvider as BaseServiceProvider;
 use Orchestra\Auth\AuthServiceProvider as OverrideServiceProvider;
-use Orchestra\Testbench\TestCase as Testbench;
 
 abstract class TestCase extends Testbench
 {
@@ -17,6 +17,7 @@ abstract class TestCase extends Testbench
 
         $this->withFactories(__DIR__.'/../../factories');
     }
+
     /**
      * Override application aliases.
      *
