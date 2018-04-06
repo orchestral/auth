@@ -28,7 +28,7 @@ abstract class Policy
      *
      * @return $this
      */
-    public function setAuthorization(FactoryContract $factory): self
+    public function setAuthorization(FactoryContract $factory)
     {
         $this->acl = $factory->make($this->getAuthorizationName());
 

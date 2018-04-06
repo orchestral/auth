@@ -46,7 +46,7 @@ class Authorization implements AuthorizationContract
      *
      * @return $this
      */
-    public function setAuthenticator(Guard $auth): self
+    public function setAuthenticator(Guard $auth)
     {
         $this->auth = $auth;
 
@@ -62,7 +62,7 @@ class Authorization implements AuthorizationContract
      *
      * @return $this
      */
-    public function attach(Provider $memory = null): self
+    public function attach(Provider $memory = null)
     {
         if ($this->attached() && $memory !== $this->memory) {
             throw new RuntimeException(
@@ -85,7 +85,7 @@ class Authorization implements AuthorizationContract
      *
      * @return $this
      */
-    protected function initiate(): self
+    protected function initiate()
     {
         $name = $this->name;
         $data = ['acl' => [], 'actions' => [], 'roles' => []];
@@ -115,7 +115,7 @@ class Authorization implements AuthorizationContract
      *
      * @return $this
      */
-    public function allow($roles, $actions, bool $allow = true): self
+    public function allow($roles, $actions, bool $allow = true)
     {
         $this->setAuthorization($roles, $actions, $allow);
 
@@ -182,7 +182,7 @@ class Authorization implements AuthorizationContract
      *
      * @return $this
      */
-    public function deny($roles, $actions): self
+    public function deny($roles, $actions)
     {
         return $this->allow($roles, $actions, false);
     }
@@ -193,7 +193,7 @@ class Authorization implements AuthorizationContract
      *
      * @return $this
      */
-    public function sync(): self
+    public function sync()
     {
         if ($this->attached()) {
             $name = $this->name;
