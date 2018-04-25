@@ -1,9 +1,9 @@
 # Composer
 composer.lock
-vendor/*
+/vendor/
 
 # Subsplit
-.subsplit/
+/.subsplit/
 
 # PHPUnit
-coverage/
+/coverage/

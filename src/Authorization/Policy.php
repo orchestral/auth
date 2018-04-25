@@ -49,24 +49,30 @@ abstract class Policy
      * Resolve if authorization can.
      *
      * @param  string  $action
+     * @param  \Illuminate\Contracts\Auth\Authenticatable|null  $user
      *
      * @return bool
      */
-    protected function can(string $action): bool
+    protected function can(string $action, ?Authenticatable $user = null): bool
     {
-        return $this->acl->can($action);
+        return ! is_null($user)
+                    ? $this->acl->canAs($user, $action)
+                    : $this->acl->can($action);
     }
 
     /**
      * Resolve if authorization can if action exists.
      *
      * @param  string  $action
+     * @param  \Illuminate\Contracts\Auth\Authenticatable|null  $user
      *
      * @return bool
      */
-    protected function canIf(string $action): bool
+    protected function canIf(string $action, ?Authenticatable $user = null): bool
     {
-        return $this->acl->canIf($action);
+        return ! is_null($user)
+                    ? $this->acl->canIfAs($user, $action)
+                    : $this->acl->canIf($action);
     }
 
     /**
