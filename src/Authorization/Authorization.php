@@ -9,6 +9,7 @@ use Orchestra\Support\Keyword;
 use Orchestra\Memory\Memorizable;
 use Orchestra\Contracts\Auth\Guard;
 use Orchestra\Contracts\Memory\Provider;
+use Orchestra\Contracts\Authorization\Authorizable;
 use Orchestra\Contracts\Authorization\Authorization as AuthorizationContract;
 
 class Authorization implements AuthorizationContract
@@ -155,6 +156,48 @@ class Authorization implements AuthorizationContract
         }
 
         return $this->checkAuthorization($roles, $action);
+    }
+
+    /**
+     * Verify whether current user has sufficient roles to access the
+     * actions based on available type of access.
+     *
+     * @param  \Orchestra\Contracts\Authorization\Authorizable  $user
+     * @param  string  $action     A string of action name
+     *
+     * @throws \InvalidArgumentException
+     *
+     * @return bool
+     */
+    public function canAs(Authorizable $user, $action)
+    {
+        $this->setUser($user);
+
+        $permission = $this->can($action);
+
+        $this->revokeUser();
+
+        return $permission;
+    }
+
+    /**
+     * Verify whether current user has sufficient roles to access the
+     * actions based on available type of access if the action exist.
+     *
+     * @param  \Orchestra\Contracts\Authorization\Authorizable  $user
+     * @param  string  $action     A string of action name
+     *
+     * @return bool
+     */
+    public function canIfAs(Authorizable $user, $action)
+    {
+        $this->setUser($user);
+
+        $permission = $this->canIf($action);
+
+        $this->revokeUser();
+
+        return $permission;
     }
 
     /**
