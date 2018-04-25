@@ -2,6 +2,7 @@
 
 namespace Orchestra\Authorization;
 
+use Orchestra\Contracts\Authorization\Authorizable;
 use Orchestra\Contracts\Authorization\Factory as FactoryContract;
 use Orchestra\Contracts\Authorization\Authorization as AuthorizationContract;
 
@@ -49,11 +50,11 @@ abstract class Policy
      * Resolve if authorization can.
      *
      * @param  string  $action
-     * @param  \Illuminate\Contracts\Auth\Authenticatable|null  $user
+     * @param  \Orchestra\Contracts\Authorization\Authorizable|null  $user
      *
      * @return bool
      */
-    protected function can(string $action, ?Authenticatable $user = null): bool
+    protected function can(string $action, ?Authorizable $user = null): bool
     {
         return ! is_null($user)
                     ? $this->acl->canAs($user, $action)
@@ -64,11 +65,11 @@ abstract class Policy
      * Resolve if authorization can if action exists.
      *
      * @param  string  $action
-     * @param  \Illuminate\Contracts\Auth\Authenticatable|null  $user
+     * @param  \Orchestra\Contracts\Authorization\Authorizable|null  $user
      *
      * @return bool
      */
-    protected function canIf(string $action, ?Authenticatable $user = null): bool
+    protected function canIf(string $action, ?Authorizable $user = null): bool
     {
         return ! is_null($user)
                     ? $this->acl->canIfAs($user, $action)
