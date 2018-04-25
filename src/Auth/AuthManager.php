@@ -12,7 +12,7 @@ class AuthManager extends BaseManager
      * @param  string  $name
      * @param  array  $config
      *
-     * @return \Illuminate\Auth\SessionGuard
+     * @return \Orchestra\Auth\SessionGuard
      */
     public function createSessionDriver($name, $config)
     {
