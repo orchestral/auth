@@ -9,6 +9,7 @@ use Orchestra\Support\Keyword;
 use Orchestra\Memory\Memorizable;
 use Orchestra\Contracts\Auth\Guard;
 use Orchestra\Contracts\Memory\Provider;
+use Orchestra\Contracts\Authorization\Authorizable;
 use Orchestra\Contracts\Authorization\Authorization as AuthorizationContract;
 
 class Authorization implements AuthorizationContract
@@ -46,7 +47,7 @@ class Authorization implements AuthorizationContract
      *
      * @return $this
      */
-    public function setAuthenticator(Guard $auth): self
+    public function setAuthenticator(Guard $auth)
     {
         $this->auth = $auth;
 
@@ -62,7 +63,7 @@ class Authorization implements AuthorizationContract
      *
      * @return $this
      */
-    public function attach(Provider $memory = null): self
+    public function attach(Provider $memory = null)
     {
         if ($this->attached() && $memory !== $this->memory) {
             throw new RuntimeException(
@@ -85,7 +86,7 @@ class Authorization implements AuthorizationContract
      *
      * @return $this
      */
-    protected function initiate(): self
+    protected function initiate()
     {
         $name = $this->name;
         $data = ['acl' => [], 'actions' => [], 'roles' => []];
@@ -115,7 +116,7 @@ class Authorization implements AuthorizationContract
      *
      * @return $this
      */
-    public function allow($roles, $actions, bool $allow = true): self
+    public function allow($roles, $actions, bool $allow = true)
     {
         $this->setAuthorization($roles, $actions, $allow);
 
@@ -158,6 +159,48 @@ class Authorization implements AuthorizationContract
     }
 
     /**
+     * Verify whether current user has sufficient roles to access the
+     * actions based on available type of access.
+     *
+     * @param  \Orchestra\Contracts\Authorization\Authorizable  $user
+     * @param  string  $action     A string of action name
+     *
+     * @throws \InvalidArgumentException
+     *
+     * @return bool
+     */
+    public function canAs(Authorizable $user, string $action): bool
+    {
+        $this->setUser($user);
+
+        $permission = $this->can($action);
+
+        $this->revokeUser();
+
+        return $permission;
+    }
+
+    /**
+     * Verify whether current user has sufficient roles to access the
+     * actions based on available type of access if the action exist.
+     *
+     * @param  \Orchestra\Contracts\Authorization\Authorizable  $user
+     * @param  string  $action     A string of action name
+     *
+     * @return bool
+     */
+    public function canIfAs(Authorizable $user, string $action): bool
+    {
+        $this->setUser($user);
+
+        $permission = $this->canIf($action);
+
+        $this->revokeUser();
+
+        return $permission;
+    }
+
+    /**
      * Verify whether given roles has sufficient roles to access the
      * actions based on available type of access.
      *
@@ -182,7 +225,7 @@ class Authorization implements AuthorizationContract
      *
      * @return $this
      */
-    public function deny($roles, $actions): self
+    public function deny($roles, $actions)
     {
         return $this->allow($roles, $actions, false);
     }
@@ -193,7 +236,7 @@ class Authorization implements AuthorizationContract
      *
      * @return $this
      */
-    public function sync(): self
+    public function sync()
     {
         if ($this->attached()) {
             $name = $this->name;

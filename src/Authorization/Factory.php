@@ -98,7 +98,7 @@ class Factory implements FactoryContract
      *
      * @return $this
      */
-    public function finish(): self
+    public function finish()
     {
         // Re-sync before shutting down.
         foreach ($this->drivers as $acl) {
