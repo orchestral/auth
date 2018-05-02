@@ -8,6 +8,7 @@ Auth Component extends the functionality of `Illuminate\Auth` with the extra fun
 [![Total Downloads](https://poser.pugx.org/orchestra/auth/downloads)](https://packagist.org/packages/orchestra/auth)
 [![Latest Unstable Version](https://poser.pugx.org/orchestra/auth/v/unstable)](//packagist.org/packages/orchestra/auth)
 [![License](https://poser.pugx.org/orchestra/auth/license)](https://packagist.org/packages/orchestra/auth)
+[![Coverage Status](https://coveralls.io/repos/github/orchestral/auth/badge.svg?branch=3.6)](https://coveralls.io/github/orchestral/auth?branch=3.6)
 
 ## Table of Content
 
