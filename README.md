@@ -8,7 +8,7 @@ Auth Component extends the functionality of `Illuminate\Auth` with the extra fun
 [![Total Downloads](https://poser.pugx.org/orchestra/auth/downloads)](https://packagist.org/packages/orchestra/auth)
 [![Latest Unstable Version](https://poser.pugx.org/orchestra/auth/v/unstable)](//packagist.org/packages/orchestra/auth)
 [![License](https://poser.pugx.org/orchestra/auth/license)](https://packagist.org/packages/orchestra/auth)
-[![Coverage Status](https://coveralls.io/repos/github/orchestral/auth/badge.svg?branch=3.6)](https://coveralls.io/github/orchestral/auth?branch=3.6)
+[![Coverage Status](https://coveralls.io/repos/github/orchestral/auth/badge.svg?branch=master)](https://coveralls.io/github/orchestral/auth?branch=master)
 
 ## Table of Content
 
@@ -28,8 +28,9 @@ Laravel    | Auth
  5.3.x     | 3.3.x
  5.4.x     | 3.4.x
  5.5.x     | 3.5.x
- 5.6.x     | 3.6.x@dev
+ 5.6.x     | 3.6.x
  5.7.x     | 3.7.x@dev
+
 
 ## Installation
 
