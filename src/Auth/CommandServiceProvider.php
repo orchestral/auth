@@ -4,6 +4,9 @@ namespace Orchestra\Auth;
 
 use Illuminate\Support\ServiceProvider;
 
+/**
+ * @deprecated v3.6.0
+ */
 class CommandServiceProvider extends ServiceProvider
 {
     /**

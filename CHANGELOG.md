@@ -14,6 +14,10 @@ Released: 2017-10-03
 
 * Update support to Laravel Framework 5.6.
 
+### Deprecated
+
+* Deprecate `Orchestra\Auth\CommandServiceProvider`.
+
 ## 3.5.2
 
 Released: 2018-04-25
