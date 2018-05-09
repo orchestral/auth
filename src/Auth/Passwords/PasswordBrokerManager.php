@@ -14,7 +14,7 @@ class PasswordBrokerManager extends BaseManager
      *
      * @return \Illuminate\Contracts\Auth\PasswordBroker
      */
-    protected function resolve(string $name): PasswordBroker
+    protected function resolve($name): PasswordBroker
     {
         if (is_null($config = $this->getConfig($name))) {
             throw new InvalidArgumentException("Password resetter [{$name}] is not defined.");
