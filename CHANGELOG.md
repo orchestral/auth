@@ -2,6 +2,14 @@
 
 This changelog references the relevant changes (bug and security fixes) done to `orchestra/auth`.
 
+## 3.6.1
+
+Released: 2018-05-24
+
+### Fixes
+
+* Fixes `Orchestra\Auth\Passwords\PasswordBrokerManager` contract.
+
 ## 3.6.0
 
 Released: 2017-10-03
