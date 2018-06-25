@@ -11,4 +11,4 @@ else
     git subsplit init git@github.com:orchestral/auth.git
 fi
 
-git subsplit publish --heads="master 3.5 3.4" --tags=$1 src/Authorization:git@github.com:orchestral/authorization.git
+git subsplit publish --heads="master 3.6 3.5" --tags=$1 src/Authorization:git@github.com:orchestral/authorization.git
