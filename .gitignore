@@ -1,9 +1,10 @@
 # Composer
-composer.lock
-/vendor/
+/vendor/*
+/composer.lock
 
 # Subsplit
 /.subsplit/
 
 # PHPUnit
-/coverage/
+/coverage/*
+/.phpunit.result.cache
