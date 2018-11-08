@@ -20,7 +20,7 @@ class OrchestraAuthCreateUsersTable extends Migration
             $table->string('email');
             $table->string('password');
 
-            Event::fire('orchestra.install.schema: users', [$table]);
+            Event::dispatch('orchestra.install.schema: users', [$table]);
 
             $table->string('fullname', 100)->nullable();
             $table->integer('status')->nullable();
