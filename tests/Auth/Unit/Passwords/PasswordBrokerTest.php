@@ -97,8 +97,8 @@ class PasswordBrokerTest extends TestCase
 
         $credentials = [
             'username' => 'user-foo',
-            'password' => 'qwerty',
-            'password_confirmation' => 'qwerty',
+            'password' => 'qwerty123',
+            'password_confirmation' => 'qwerty123',
             'token' => 'someuniquetokenkey',
         ];
 
@@ -163,8 +163,8 @@ class PasswordBrokerTest extends TestCase
 
         $credentials = [
             'username' => 'user-foo',
-            'password' => 'qwerty',
-            'password_confirmation' => 'qwerty',
+            'password' => 'qwerty123',
+            'password_confirmation' => 'qwerty123',
             'token' => 'someuniquetokenkey',
         ];
 
@@ -197,8 +197,8 @@ class PasswordBrokerTest extends TestCase
 
         $credentials = [
             'username' => 'user-foo',
-            'password' => 'qwerty',
-            'password_confirmation' => 'qwerty',
+            'password' => 'qwerty123',
+            'password_confirmation' => 'qwerty123',
             'token' => 'someuniquetokenkey',
         ];
 
