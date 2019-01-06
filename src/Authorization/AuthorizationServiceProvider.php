@@ -4,16 +4,10 @@ namespace Orchestra\Authorization;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\Support\DeferrableProvider;
 
-class AuthorizationServiceProvider extends ServiceProvider
+class AuthorizationServiceProvider extends ServiceProvider implements DeferrableProvider
 {
-    /**
-     * Indicates if loading of the provider is deferred.
-     *
-     * @var bool
-     */
-    protected $defer = true;
-
     /**
      * Register the service provider.
      *
