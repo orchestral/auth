@@ -413,7 +413,8 @@ class SessionGuardTest extends TestCase
         $userStub = m::mock('\Illuminate\Contracts\Auth\Authenticatable');
 
         $userStub->shouldReceive('getAuthIdentifier')->once()->andReturn(1)
-            ->shouldReceive('setRememberToken')->once();
+            ->shouldReceive('getRememberToken')->once()->andReturn('qwerty')
+            ->shouldReceive('setRememberToken')->once()->with(M::type('String'));
 
         $user->setValue($stub, $userStub);
         $userRoles->setValue($stub, [1 => new Collection(['admin', 'editor'])]);
