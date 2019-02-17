@@ -62,7 +62,7 @@ class Factory implements FactoryContract
      */
     public function register($name, ?callable $callback = null): AuthorizationContract
     {
-        if (is_callable($name)) {
+        if (\is_callable($name)) {
             $callback = $name;
             $name = null;
         }

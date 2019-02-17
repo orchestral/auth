@@ -73,7 +73,7 @@ class Authorization implements AuthorizationContract
 
         // since we already check instanceof Orchestra\Memory\Provider,
         // It safe to just check for not NULL.
-        if (! is_null($memory)) {
+        if (! \is_null($memory)) {
             $this->setMemoryProvider($memory);
             $this->initiate();
         }
@@ -90,7 +90,7 @@ class Authorization implements AuthorizationContract
     {
         $name = $this->name;
         $data = ['acl' => [], 'actions' => [], 'roles' => []];
-        $data = array_merge($data, $this->memory->get("acl_{$name}", []));
+        $data = \array_merge($data, $this->memory->get("acl_{$name}", []));
 
         // Loop through all the roles and actions in memory and add it to
         // this ACL instance.
@@ -100,7 +100,7 @@ class Authorization implements AuthorizationContract
         // Loop through all the ACL in memory and add it to this ACL
         // instance.
         foreach ($data['acl'] as $id => $allow) {
-            list($role, $action) = explode(':', $id);
+            list($role, $action) = \explode(':', $id);
             $this->assign($role, $action, $allow);
         }
 
@@ -151,7 +151,7 @@ class Authorization implements AuthorizationContract
         $roles = $this->getUserRoles();
         $action = Keyword::make($action);
 
-        if (is_null($this->actions->search($action))) {
+        if (\is_null($this->actions->search($action))) {
             return false;
         }
 
@@ -302,7 +302,7 @@ class Authorization implements AuthorizationContract
         $method = Str::snake($method, '_');
         $matcher = '/^(add|rename|has|get|remove|fill|attach|detach)_(role|action)(s?)$/';
 
-        if (! preg_match($matcher, $method, $matches)) {
+        if (! \preg_match($matcher, $method, $matches)) {
             throw new InvalidArgumentException("Invalid keyword [$method]");
         }
 
@@ -326,7 +326,7 @@ class Authorization implements AuthorizationContract
     {
         if (! $multiple) {
             return $operation;
-        } elseif (in_array($operation, ['fill', 'add'])) {
+        } elseif (\in_array($operation, ['fill', 'add'])) {
             return 'attach';
         }
 

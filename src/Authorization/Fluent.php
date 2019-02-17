@@ -41,7 +41,7 @@ abstract class Fluent
      */
     public function add($key): bool
     {
-        if (is_null($key)) {
+        if (\is_null($key)) {
             throw new InvalidArgumentException("Can't add NULL to {$this->name}.");
         }
 
@@ -57,7 +57,7 @@ abstract class Fluent
             return false;
         }
 
-        array_push($this->items, $keyword->getSlug());
+        \array_push($this->items, $keyword->getSlug());
 
         return true;
     }
@@ -123,12 +123,12 @@ abstract class Fluent
      */
     public function filter($request): array
     {
-        if (is_array($request)) {
+        if (\is_array($request)) {
             return $request;
         } elseif ($request === '*') {
             return $this->get();
         } elseif ($request[0] === '!') {
-            return array_diff($this->get(), [substr($request, 1)]);
+            return \array_diff($this->get(), [\substr($request, 1)]);
         }
 
         return [$request];
@@ -145,7 +145,7 @@ abstract class Fluent
     {
         $keyword = $this->getKeyword($name);
 
-        if (! (is_numeric($name) && $keyword->hasIn($this->items))) {
+        if (! (\is_numeric($name) && $keyword->hasIn($this->items))) {
             return (string) $keyword->searchIn($this->items);
         }
 
@@ -173,7 +173,7 @@ abstract class Fluent
     {
         $key = $this->getKeyword($key)->getSlug();
 
-        return ! empty($key) && in_array($key, $this->items);
+        return ! empty($key) && \in_array($key, $this->items);
     }
 
     /**
@@ -187,11 +187,11 @@ abstract class Fluent
      */
     public function remove($key): bool
     {
-        if (is_null($key)) {
+        if (\is_null($key)) {
             throw new InvalidArgumentException("Can't remove NULL from {$this->name}.");
         }
 
-        if (! is_null($id = $this->search($key))) {
+        if (! \is_null($id = $this->search($key))) {
             unset($this->items[$id]);
 
             return true;
@@ -212,7 +212,7 @@ abstract class Fluent
     {
         $key = $this->search($from);
 
-        if (is_null($key)) {
+        if (\is_null($key)) {
             return false;
         }
 

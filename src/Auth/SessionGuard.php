@@ -45,7 +45,7 @@ class SessionGuard extends BaseGuard implements StatefulGuard, GuardContract
 
         // This is a simple check to detect if the user is actually logged-in,
         // otherwise it's just as the same as setting userId as 0.
-        is_null($user) || $userId = $user->getAuthIdentifier();
+        \is_null($user) || $userId = $user->getAuthIdentifier();
 
         $roles = ($this->userRoles ?: [])["{$userId}"] ?? new Collection();
 
@@ -75,14 +75,14 @@ class SessionGuard extends BaseGuard implements StatefulGuard, GuardContract
 
         // For a pre-caution, we should return false in events where user
         // roles not an array.
-        if (! is_array($userRoles)) {
+        if (! \is_array($userRoles)) {
             return false;
         }
 
         // We should ensure that all given roles match the current user,
         // consider it as a AND condition instead of OR.
         foreach ((array) $roles as $role) {
-            if (! in_array($role, $userRoles)) {
+            if (! \in_array($role, $userRoles)) {
                 return false;
             }
         }
@@ -103,14 +103,14 @@ class SessionGuard extends BaseGuard implements StatefulGuard, GuardContract
 
         // For a pre-caution, we should return false in events where user
         // roles not an array.
-        if (! is_array($userRoles)) {
+        if (! \is_array($userRoles)) {
             return false;
         }
 
         // We should ensure that any given roles match the current user,
         // consider it as OR condition.
         foreach ($roles as $role) {
-            if (in_array($role, $userRoles)) {
+            if (\in_array($role, $userRoles)) {
                 return true;
             }
         }
@@ -170,7 +170,7 @@ class SessionGuard extends BaseGuard implements StatefulGuard, GuardContract
         // It possible that after event are all propagated we don't have a
         // roles for the user, in this case we should properly append "Guest"
         // user role to the current user.
-        if (is_null($roles)) {
+        if (\is_null($roles)) {
             $roles = ['Guest'];
         }
 
