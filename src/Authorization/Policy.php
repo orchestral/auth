@@ -56,7 +56,7 @@ abstract class Policy
      */
     protected function can(string $action, ?Authorizable $user = null): bool
     {
-        return ! is_null($user)
+        return ! \is_null($user)
                     ? $this->acl->canAs($user, $action)
                     : $this->acl->can($action);
     }
@@ -71,7 +71,7 @@ abstract class Policy
      */
     protected function canIf(string $action, ?Authorizable $user = null): bool
     {
-        return ! is_null($user)
+        return ! \is_null($user)
                     ? $this->acl->canIfAs($user, $action)
                     : $this->acl->canIf($action);
     }

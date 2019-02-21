@@ -60,7 +60,7 @@ trait Permission
         $name = $action;
         $action = $this->actions->search($name);
 
-        if (is_null($action)) {
+        if (\is_null($action)) {
             throw new InvalidArgumentException("Unable to verify unknown action {$name}.");
         }
 
@@ -75,7 +75,7 @@ trait Permission
             // array_search() will return false when no key is found based
             // on given haystack, therefore we should just ignore and
             // continue to the next role.
-            if (! is_null($role) && $permission === true) {
+            if (! \is_null($role) && $permission === true) {
                 $authorized = true;
             }
         }
@@ -146,7 +146,7 @@ trait Permission
         $role = $this->roles->findKey($role);
         $action = $this->actions->findKey($action);
 
-        if (! is_null($role) && ! is_null($action)) {
+        if (! \is_null($role) && ! \is_null($action)) {
             $this->acl["{$role}:{$action}"] = $allow;
         }
     }
@@ -226,7 +226,7 @@ trait Permission
      */
     protected function getUserRoles(): Collection
     {
-        if (! is_null($this->userRoles)) {
+        if (! \is_null($this->userRoles)) {
             return $this->userRoles;
         } elseif (! $this->auth->guest()) {
             return $this->auth->roles();

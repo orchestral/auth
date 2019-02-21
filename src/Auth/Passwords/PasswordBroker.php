@@ -45,7 +45,7 @@ class PasswordBroker extends Broker
         // if we did not we will redirect back to this current URI with a piece of
         // "flash" data in the session to indicate to the developers the errors.
 
-        if (is_null($user = $this->getUser($credentials))) {
+        if (\is_null($user = $this->getUser($credentials))) {
             return static::INVALID_USER;
         }
 
@@ -53,8 +53,7 @@ class PasswordBroker extends Broker
         // user with a link to reset their password. We will then redirect back to
         // the current URI having nothing set in the session to indicate errors.
         $user->sendPasswordResetNotification(
-            $this->tokens->create($user),
-            $this->provider
+            $this->tokens->create($user), $this->provider
         );
 
         return static::RESET_LINK_SENT;

@@ -28,7 +28,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $path = realpath(__DIR__.'/../../');
+        $path = \realpath(__DIR__.'/../../');
 
         $this->loadMigrationsFrom([
             "{$path}/resources/database/migrations",
