@@ -13,7 +13,7 @@ class PasswordBrokerTest extends TestCase
     /**
      * Setup the test environment.
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $app = new Container();
         $app['translator'] = $translator = m::mock('\Illuminate\Translation\Translator')->makePartial();
@@ -26,7 +26,7 @@ class PasswordBrokerTest extends TestCase
     /**
      * Teardown the test environment.
      */
-    protected function tearDown()
+    protected function tearDown(): void
     {
         m::close();
     }
@@ -214,10 +214,12 @@ class PasswordBrokerTest extends TestCase
      * Test Orchestra\Foundation\Reminders\PasswordBroker::getUser() method
      * throws exception.
      *
-     * @expectedException \UnexpectedValueException
+     * @test
      */
     public function testGetUserThrowsException()
     {
+        $this->expectException('UnexpectedValueException');
+
         $stub = new PasswordBroker(
             $reminders = m::mock('\Illuminate\Auth\Passwords\TokenRepositoryInterface'),
             $user = m::mock('\Illuminate\Contracts\Auth\UserProvider'),

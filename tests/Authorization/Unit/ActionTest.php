@@ -33,12 +33,11 @@ class ActionTest extends TestCase
         $this->assertEquals($expected, $stub->get());
     }
 
-    /**
-     * @test
-     * @expectedException \InvalidArgumentException
-     */
+    /** @test */
     public function it_cant_add_null_as_action()
     {
+        $this->expectException('InvalidArgumentException');
+
         $stub = new Action();
 
         $stub->add(null);
@@ -64,12 +63,11 @@ class ActionTest extends TestCase
         $this->assertEquals(['foo', 'foobar'], $stub->get());
     }
 
-    /**
-     * @test
-     * @expectedException \InvalidArgumentException
-     */
+    /** @test */
     public function it_throws_exception_when_attaching_null_to_actions()
     {
+        $this->expectException('InvalidArgumentException');
+
         $stub = new Action();
 
         $stub->attach([null]);
@@ -196,13 +194,12 @@ class ActionTest extends TestCase
         $this->assertEquals([1 => 'foobar'], $stub->get());
     }
 
-    /**
-     * @test
-     * @expectedException \InvalidArgumentException
-     */
+    /** @test */
     public function it_throws_exception_when_removing_null()
     {
-        with(new Action())->remove(null);
+        $this->expectException('InvalidArgumentException');
+
+        (new Action())->remove(null);
     }
 
     /** @test */
