@@ -156,10 +156,12 @@ class AuthorizationTest extends TestCase
      * Test Orchestra\Authorization\Authorization::attach() method throws exception
      * when attaching multiple memory instance.
      *
-     * @expectedException \RuntimeException
+     * @test
      */
     public function testAttachMethodThrowsExceptionWhenAttachMultipleMemory()
     {
+        $this->expectException('RuntimeException');
+
         $runtime1 = $this->getRuntimeMemoryProvider();
         $runtime1->put('acl_foo', $this->memoryProvider());
 
@@ -360,10 +362,12 @@ class AuthorizationTest extends TestCase
     /**
      * Test Orchestra\Authorization\Authorization::check() method throws exception.
      *
-     * @expectedException \InvalidArgumentException
+     * @test
      */
     public function testCheckMethodUsingMockOneThrowsException()
     {
+        $this->expectException('InvalidArgumentException');
+
         $this->stub->check('guest', 'view foo');
     }
 
@@ -371,10 +375,12 @@ class AuthorizationTest extends TestCase
      * Test Orchestra\Authorization\Authorization::allow() method throws exception
      * for roles.
      *
-     * @expectedException \InvalidArgumentException
+     * @test
      */
     public function testAllowMethodUsingMockOneThrowsExceptionForRoles()
     {
+        $this->expectException('InvalidArgumentException');
+
         $this->stub->allow('boss', 'view blog');
     }
 
@@ -382,10 +388,12 @@ class AuthorizationTest extends TestCase
      * Test Orchestra\Authorization\Authorization::allow() method throws exception
      * for actions.
      *
-     * @expectedException \InvalidArgumentException
+     * @test
      */
     public function testAllowMethodUsingMockOneThrowsExceptionForActions()
     {
+        $this->expectException('InvalidArgumentException');
+
         $this->stub->allow('guest', 'view foo');
     }
 
@@ -393,11 +401,13 @@ class AuthorizationTest extends TestCase
      * Test Orchestra\Authorization\Authorization::__call() method when execution is
      * not supported.
      *
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Invalid keyword [add_boss]
+     * @test
      */
     public function testCallMagicMethodUsingMockOneThrowsExceptionForInvalidExecution()
     {
+        $this->expectException('InvalidArgumentException');
+        $this->expectExceptionMessage('Invalid keyword [add_boss]');
+
         $this->stub->addBoss('foo');
     }
 
