@@ -3,6 +3,7 @@
 namespace Orchestra\Auth\TestCase\Unit\Passwords;
 
 use Mockery as m;
+use Illuminate\Support\Arr;
 use PHPUnit\Framework\TestCase;
 use Illuminate\Container\Container;
 use Illuminate\Support\Facades\Facade;
@@ -103,7 +104,7 @@ class PasswordBrokerTest extends TestCase
         ];
 
         $user->shouldReceive('retrieveByCredentials')->once()
-                ->with(array_except($credentials, ['token']))->andReturn($reminderable);
+                ->with(Arr::except($credentials, ['token']))->andReturn($reminderable);
         $reminders->shouldReceive('exists')->once()->with($reminderable, 'someuniquetokenkey')->andReturn(true)
             ->shouldReceive('delete')->once()->with($reminderable)->andReturn(true);
 
@@ -137,7 +138,7 @@ class PasswordBrokerTest extends TestCase
         ];
 
         $user->shouldReceive('retrieveByCredentials')->once()
-            ->with(array_except($credentials, ['token']))->andReturnNull();
+            ->with(Arr::except($credentials, ['token']))->andReturnNull();
 
         $this->assertEquals('passwords.user', $stub->reset($credentials, $callback));
     }
@@ -169,7 +170,7 @@ class PasswordBrokerTest extends TestCase
         ];
 
         $user->shouldReceive('retrieveByCredentials')->once()
-                ->with(array_except($credentials, ['token']))
+                ->with(Arr::except($credentials, ['token']))
                 ->andReturn($userReminderable = m::mock('\Illuminate\Contracts\Auth\CanResetPassword, \Orchestra\Contracts\Notification\Recipient'));
         $reminders->shouldReceive('exists')->once()->with($userReminderable, 'someuniquetokenkey')->andReturn(false);
 
@@ -203,7 +204,7 @@ class PasswordBrokerTest extends TestCase
         ];
 
         $user->shouldReceive('retrieveByCredentials')->once()
-                ->with(array_except($credentials, ['token']))
+                ->with(Arr::except($credentials, ['token']))
                 ->andReturn($userReminderable = m::mock('\Illuminate\Contracts\Auth\CanResetPassword, \Orchestra\Contracts\Notification\Recipient'));
         $reminders->shouldReceive('exists')->once()->with($userReminderable, 'someuniquetokenkey')->andReturn(false);
 
