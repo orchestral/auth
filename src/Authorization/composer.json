@@ -17,14 +17,14 @@
         }
     },
     "require": {
-        "php": ">=7.1",
-        "orchestra/contracts": "~3.8.0",
-        "orchestra/memory": "~3.8.0",
-        "orchestra/support-core": "~3.8.0"
+        "php": ">=7.2",
+        "orchestra/contracts": "~3.9.0",
+        "orchestra/memory": "~3.9.0",
+        "orchestra/support-core": "~3.9.0"
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "3.8-dev"
+            "dev-master": "3.9-dev"
         }
     },
     "support": {
