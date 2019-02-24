@@ -5,9 +5,8 @@ namespace Orchestra\Authorization;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Support\DeferrableProvider;
-use Illuminate\Contracts\Support\RegistrableProvider;
 
-class AuthorizationServiceProvider extends ServiceProvider implements DeferrableProvider, RegistrableProvider
+class AuthorizationServiceProvider extends ServiceProvider implements DeferrableProvider
 {
     /**
      * Register the service provider.
