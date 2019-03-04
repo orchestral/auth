@@ -58,9 +58,6 @@ Next replace `Illuminate\Auth\AuthServiceProvider` with the following service pr
     Orchestra\Auth\AuthServiceProvider::class,
     Orchestra\Authorization\AuthorizationServiceProvider::class,
     Orchestra\Memory\MemoryServiceProvider::class,
-
-    Orchestra\Auth\CommandServiceProvider::class,
-    Orchestra\Memory\CommandServiceProvider::class,
 ],
 ```
 
