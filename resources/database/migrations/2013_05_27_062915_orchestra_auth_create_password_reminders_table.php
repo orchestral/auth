@@ -16,7 +16,7 @@ class OrchestraAuthCreatePasswordRemindersTable extends Migration
         Schema::create($this->tableNameForPasswordReset(), function (Blueprint $table) {
             $table->string('email')->index();
             $table->string('token')->index();
-            $table->nullableTimestamp('created_at');
+            $table->timestamp('created_at')->nullable();
         });
     }
 
