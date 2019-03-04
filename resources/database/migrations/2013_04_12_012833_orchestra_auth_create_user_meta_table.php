@@ -33,6 +33,6 @@ class OrchestraAuthCreateUserMetaTable extends Migration
      */
     public function down()
     {
-        Schema::drop('user_meta');
+        Schema::dropIfExists('user_meta');
     }
 }

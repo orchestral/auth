@@ -32,6 +32,6 @@ class OrchestraAuthCreateUserRoleTable extends Migration
      */
     public function down()
     {
-        Schema::drop('user_role');
+        Schema::dropIfExists('user_role');
     }
 }

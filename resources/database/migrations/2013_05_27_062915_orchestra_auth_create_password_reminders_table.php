@@ -7,33 +7,16 @@ use Illuminate\Database\Migrations\Migration;
 class OrchestraAuthCreatePasswordRemindersTable extends Migration
 {
     /**
-     * Table name.
-     *
-     * @var string
-     */
-    protected $table;
-
-    /**
-     * Construct a new password reminder schema.
-     */
-    public function __construct()
-    {
-        $driver = config('auth.defaults.passwords');
-
-        $this->table() = config("auth.passwords.{$driver}.table");
-    }
-
-    /**
      * Run the migrations.
      *
      * @return void
      */
     public function up()
     {
-        Schema::create($this->table(), function (Blueprint $table) {
+        Schema::create($this->tableNameForPasswordReset(), function (Blueprint $table) {
             $table->string('email')->index();
             $table->string('token')->index();
-            $table->timestamp('created_at')->nullable();
+            $table->nullableTimestamp('created_at');
         });
     }
 
@@ -44,7 +27,7 @@ class OrchestraAuthCreatePasswordRemindersTable extends Migration
      */
     public function down()
     {
-        Schema::drop($this->table());
+        Schema::dropIfExists($this->tableNameForPasswordReset());
     }
 
     /**
@@ -52,7 +35,7 @@ class OrchestraAuthCreatePasswordRemindersTable extends Migration
      *
      * @return string
      */
-    protected function table(): string
+    protected function tableNameForPasswordReset(): string
     {
         return config(
             'auth.passwords.'.config('auth.defaults.passwords').'.table', 'password_resets'
