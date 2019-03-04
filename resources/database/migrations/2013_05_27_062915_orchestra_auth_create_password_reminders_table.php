@@ -20,7 +20,7 @@ class OrchestraAuthCreatePasswordRemindersTable extends Migration
     {
         $driver = config('auth.defaults.passwords');
 
-        $this->table = config("auth.passwords.{$driver}.table");
+        $this->table() = config("auth.passwords.{$driver}.table");
     }
 
     /**
@@ -30,7 +30,7 @@ class OrchestraAuthCreatePasswordRemindersTable extends Migration
      */
     public function up()
     {
-        Schema::create($this->table, function (Blueprint $table) {
+        Schema::create($this->table(), function (Blueprint $table) {
             $table->string('email')->index();
             $table->string('token')->index();
             $table->timestamp('created_at')->nullable();
@@ -44,6 +44,18 @@ class OrchestraAuthCreatePasswordRemindersTable extends Migration
      */
     public function down()
     {
-        Schema::drop($this->table);
+        Schema::drop($this->table());
+    }
+
+    /**
+     * Resolve table name.
+     *
+     * @return string
+     */
+    protected function table(): string
+    {
+        return config(
+            'auth.passwords.'.config('auth.defaults.passwords').'.table', 'password_resets'
+        );
     }
 }

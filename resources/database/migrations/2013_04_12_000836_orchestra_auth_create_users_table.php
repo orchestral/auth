@@ -15,9 +15,9 @@ class OrchestraAuthCreateUsersTable extends Migration
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
 
-            $table->string('email');
+            $table->string('email')->unique();
             $table->string('password');
 
             Event::dispatch('orchestra.install.schema: users', [$table]);
@@ -28,8 +28,6 @@ class OrchestraAuthCreateUsersTable extends Migration
 
             $table->nullableTimestamps();
             $table->softDeletes();
-
-            $table->unique('email');
         });
     }
 

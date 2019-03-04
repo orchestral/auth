@@ -1,6 +1,6 @@
 <?php
 
-use Carbon\Carbon;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Migrations\Migration;
 
@@ -13,19 +13,14 @@ class OrchestraAuthBasicRoles extends Migration
      */
     public function up()
     {
-        $datetime = Carbon::now();
+        $datetime = now();
 
-        DB::table('roles')->insert([
-            'name' => 'Administrator',
-            'created_at' => $datetime,
-            'updated_at' => $datetime,
-        ]);
-
-        DB::table('roles')->insert([
-            'name' => 'Member',
-            'created_at' => $datetime,
-            'updated_at' => $datetime,
-        ]);
+        Collection::make([
+            ['name' => 'Administrator', 'created_at' => $datetime, 'updated_at' => $datetime],
+            ['name' => 'Member', 'created_at' => $datetime, 'updated_at' => $datetime],
+        ])->each(function ($role) {
+            DB::table('roles')->insert($role);
+        });
     }
 
     /**
