@@ -14,10 +14,10 @@ class OrchestraAuthCreateUserRoleTable extends Migration
     public function up()
     {
         Schema::create('user_role', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
 
-            $table->integer('user_id')->unsigned();
-            $table->integer('role_id')->unsigned();
+            $table->bigInteger('user_id')->unsigned();
+            $table->bigInteger('role_id')->unsigned();
 
             $table->nullableTimestamps();
 
@@ -32,6 +32,6 @@ class OrchestraAuthCreateUserRoleTable extends Migration
      */
     public function down()
     {
-        Schema::drop('user_role');
+        Schema::dropIfExists('user_role');
     }
 }

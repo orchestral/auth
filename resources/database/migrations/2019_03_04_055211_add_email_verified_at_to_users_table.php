@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class OrchestraAuthAddRememberTokenToUsersTable extends Migration
+class AddEmailVerifiedAtToUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class OrchestraAuthAddRememberTokenToUsersTable extends Migration
      */
     public function up()
     {
-        if (! Schema::hasColumn('users', 'remember_token')) {
+        if (! Schema::hasColumn('users', 'email_verified_at')) {
             Schema::table('users', function (Blueprint $table) {
-                $table->rememberToken()->after('status');
+                $table->timestamp('email_verified_at')->nullable()->after('status');
             });
         }
     }

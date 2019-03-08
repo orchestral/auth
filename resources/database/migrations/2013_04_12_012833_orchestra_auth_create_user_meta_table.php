@@ -14,15 +14,14 @@ class OrchestraAuthCreateUserMetaTable extends Migration
     public function up()
     {
         Schema::create('user_meta', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
 
-            $table->integer('user_id')->unsigned();
+            $table->bigInteger('user_id')->unsigned();
             $table->string('name', 255);
             $table->longText('value');
 
             $table->nullableTimestamps();
 
-            $table->index('user_id');
             $table->unique(['user_id', 'name']);
         });
     }
@@ -34,6 +33,6 @@ class OrchestraAuthCreateUserMetaTable extends Migration
      */
     public function down()
     {
-        Schema::drop('user_meta');
+        Schema::dropIfExists('user_meta');
     }
 }

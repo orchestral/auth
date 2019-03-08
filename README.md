@@ -24,6 +24,7 @@ Laravel    | Auth
  5.5.x     | 3.5.x
  5.6.x     | 3.6.x
  5.7.x     | 3.7.x
+ 5.8.x     | 3.8.x@dev
 
 ## Installation
 
@@ -57,9 +58,6 @@ Next replace `Illuminate\Auth\AuthServiceProvider` with the following service pr
     Orchestra\Auth\AuthServiceProvider::class,
     Orchestra\Authorization\AuthorizationServiceProvider::class,
     Orchestra\Memory\MemoryServiceProvider::class,
-
-    Orchestra\Auth\CommandServiceProvider::class,
-    Orchestra\Memory\CommandServiceProvider::class,
 ],
 ```
 

@@ -14,7 +14,7 @@ class OrchestraAuthCreateRolesTable extends Migration
     public function up()
     {
         Schema::create('roles', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
 
             $table->string('name', 255);
 
@@ -30,6 +30,6 @@ class OrchestraAuthCreateRolesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('roles');
+        Schema::dropIfExists('roles');
     }
 }
