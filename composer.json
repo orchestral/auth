@@ -12,13 +12,13 @@
         }
     ],
     "autoload": {
-        "classmap": [
-            "resources/database/migrations"
-        ],
         "psr-4": {
             "Orchestra\\Auth\\" : "src/Auth/",
             "Orchestra\\Authorization\\" : "src/Authorization/"
-        }
+        },
+        "classmap": [
+            "database/migrations"
+        ]
     },
     "autoload-dev": {
         "psr-4": {
