@@ -423,6 +423,6 @@ class SessionGuardTest extends TestCase
 
         $stub->logout();
 
-        $this->assertNull($userRoles->getValue($stub));
+        $this->assertSame([], $userRoles->getValue($stub));
     }
 }
