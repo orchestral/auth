@@ -2,6 +2,16 @@
 
 This changelog references the relevant changes (bug and security fixes) done to `orchestra/auth`.
 
+## 3.8.0
+
+### Changes
+
+* Update support to Laravel Framework 5.8.
+
+### Remove
+
+* Remove deprecated `Orchestra\Auth\CommandServiceProvider`.
+
 ## 3.7.1
 
 Released: 2019-02-21
