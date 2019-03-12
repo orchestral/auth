@@ -4,6 +4,8 @@ This changelog references the relevant changes (bug and security fixes) done to 
 
 ## 3.8.0
 
+Released: 2019-03-12
+
 ### Changes
 
 * Update support to Laravel Framework 5.8.
