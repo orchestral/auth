@@ -13,9 +13,9 @@ class SessionGuard extends BaseGuard implements StatefulGuard, GuardContract
     /**
      * Cached user to roles relationship.
      *
-     * @var \Illuminate\Support\Collection
+     * @var array
      */
-    protected $userRoles;
+    protected $userRoles = [];
 
     /**
      * Setup roles event listener.
@@ -26,7 +26,8 @@ class SessionGuard extends BaseGuard implements StatefulGuard, GuardContract
      */
     public function setup($event): void
     {
-        $this->userRoles = null;
+        $this->userRoles = [];
+
         $this->events->forget('orchestra.auth: roles');
         $this->events->listen('orchestra.auth: roles', $event);
     }
@@ -47,7 +48,7 @@ class SessionGuard extends BaseGuard implements StatefulGuard, GuardContract
         // otherwise it's just as the same as setting userId as 0.
         \is_null($user) || $userId = $user->getAuthIdentifier();
 
-        $roles = ($this->userRoles ?: [])["{$userId}"] ?? new Collection();
+        $roles = $this->userRoles["{$userId}"] ?? new Collection();
 
         // This operation might be called more than once in a request, by
         // cached the event result we can avoid duplicate events being fired.
@@ -152,7 +153,7 @@ class SessionGuard extends BaseGuard implements StatefulGuard, GuardContract
         // We should flush the cached user roles relationship so any
         // subsequent request would re-validate all information,
         // instead of referring to the cached value.
-        $this->userRoles = null;
+        $this->userRoles = [];
     }
 
     /**
