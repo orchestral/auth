@@ -22,6 +22,7 @@ return PhpCsFixer\Config::create()
                 'phpdoc_order' => true,
                 'pre_increment' => false,
                 'self_accessor' => false,
+                'single_trait_insert_per_statement' => false,
                 'yoda_style' => false,
             ])
             ->setFinder($finder);
