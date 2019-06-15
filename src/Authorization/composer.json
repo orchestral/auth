@@ -19,7 +19,7 @@
     "require": {
         "php": ">=7.2",
         "orchestra/contracts": "~3.10.0",
-        "orchestra/memory": "dev-master",
+        "orchestra/memory": "~3.10.0",
         "orchestra/support-core": "~3.10.0"
     },
     "extra": {

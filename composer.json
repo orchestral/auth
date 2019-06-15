@@ -30,12 +30,12 @@
         "php": ">=7.2",
         "illuminate/auth": "dev-master",
         "orchestra/contracts": "~3.10.0",
-        "orchestra/memory": "dev-master",
+        "orchestra/memory": "~3.10.0",
         "orchestra/support-core": "~3.10.0"
     },
     "require-dev": {
         "mockery/mockery": "^1.2",
-        "orchestra/model": "dev-master",
+        "orchestra/model": "~3.10.0",
         "orchestra/testbench": "~3.10.0"
     },
     "replace": {
