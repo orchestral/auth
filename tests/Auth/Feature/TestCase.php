@@ -3,8 +3,6 @@
 namespace Orchestra\Auth\TestCase\Feature;
 
 use Orchestra\Testbench\TestCase as Testbench;
-use Illuminate\Auth\AuthServiceProvider as BaseServiceProvider;
-use Orchestra\Auth\AuthServiceProvider as OverrideServiceProvider;
 
 abstract class TestCase extends Testbench
 {
