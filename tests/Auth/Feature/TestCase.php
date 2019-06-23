@@ -28,7 +28,7 @@ abstract class TestCase extends Testbench
     protected function overrideApplicationProviders($app): array
     {
         return [
-            BaseServiceProvider::class => OverrideServiceProvider::class,
+            'Illuminate\Auth\AuthServiceProvider' => 'Orchestra\Auth\AuthServiceProvider',
         ];
     }
 }
