@@ -21,11 +21,11 @@ class PasswordResetServiceProvider extends ServiceProvider
      */
     protected function registerPasswordBroker(): void
     {
-        $this->app->singleton('auth.password', function (Application $app) {
+        $this->app->singleton('auth.password', static function (Application $app) {
             return new PasswordBrokerManager($app);
         });
 
-        $this->app->bind('auth.password.broker', function (Application $app) {
+        $this->app->bind('auth.password.broker', static function (Application $app) {
             return $app->make('auth.password')->broker();
         });
     }
