@@ -13,7 +13,7 @@ class OrchestraAuthCreateUserRoleTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_role', function (Blueprint $table) {
+        Schema::create('user_role', static function (Blueprint $table) {
             $table->bigIncrements('id');
 
             $table->bigInteger('user_id')->unsigned();

@@ -18,7 +18,7 @@ class OrchestraAuthBasicRoles extends Migration
         Collection::make([
             ['name' => 'Administrator', 'created_at' => $datetime, 'updated_at' => $datetime],
             ['name' => 'Member', 'created_at' => $datetime, 'updated_at' => $datetime],
-        ])->each(function ($role) {
+        ])->each(static function ($role) {
             DB::table('roles')->insert($role);
         });
     }
