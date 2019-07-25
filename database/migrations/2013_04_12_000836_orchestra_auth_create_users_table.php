@@ -14,7 +14,7 @@ class OrchestraAuthCreateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('users', static function (Blueprint $table) {
             $table->bigIncrements('id');
 
             $table->string('email')->unique();
