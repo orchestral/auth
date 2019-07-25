@@ -29,21 +29,21 @@
     "require": {
         "php": ">=7.2",
         "illuminate/auth": "dev-master",
-        "orchestra/contracts": "~3.10.0",
-        "orchestra/memory": "~3.10.0",
-        "orchestra/support-core": "~3.10.0"
+        "orchestra/contracts": "~4.0.0",
+        "orchestra/memory": "^4.0",
+        "orchestra/support-core": "^4.0"
     },
     "require-dev": {
         "mockery/mockery": "^1.2",
-        "orchestra/model": "~3.10.0",
-        "orchestra/testbench": "~3.10.0"
+        "orchestra/model": "^4.0",
+        "orchestra/testbench": "^4.0"
     },
     "replace": {
         "orchestra/authorization": "self.version"
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "3.10-dev"
+            "dev-master": "4.0-dev"
         }
     },
     "config": {
