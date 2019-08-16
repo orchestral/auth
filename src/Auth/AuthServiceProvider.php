@@ -3,7 +3,7 @@
 namespace Orchestra\Auth;
 
 use Orchestra\Authorization\Policy;
-use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\Container\Container;
 use Illuminate\Auth\AuthServiceProvider as ServiceProvider;
 use Orchestra\Contracts\Authorization\Factory as FactoryContract;
 
@@ -42,7 +42,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected function registerAuthenticator(): void
     {
-        $this->app->singleton('auth', static function (Application $app) {
+        $this->app->singleton('auth', static function (Container $app) {
             // Once the authentication service has actually been requested by the developer
             // we will set a variable in the application indicating such. This helps us
             // know that we need to set any queued cookies in the after event later.
@@ -51,7 +51,7 @@ class AuthServiceProvider extends ServiceProvider
             return new AuthManager($app);
         });
 
-        $this->app->singleton('auth.driver', static function (Application $app) {
+        $this->app->singleton('auth.driver', static function (Container $app) {
             return $app->make('auth')->guard();
         });
     }

@@ -3,7 +3,7 @@
 namespace Orchestra\Authorization;
 
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Support\DeferrableProvider;
 
 class AuthorizationServiceProvider extends ServiceProvider implements DeferrableProvider
@@ -15,7 +15,7 @@ class AuthorizationServiceProvider extends ServiceProvider implements Deferrable
      */
     public function register()
     {
-        $this->app->singleton('orchestra.acl', static function (Application $app) {
+        $this->app->singleton('orchestra.acl', static function (Container $app) {
             return new Factory($app->make('auth.driver'));
         });
     }
