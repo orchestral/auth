@@ -60,27 +60,6 @@ class SessionGuardTest extends TestCase
     }
 
     /**
-     * Test Orchestra\Auth\Guard::setup() method.
-     *
-     * @test
-     */
-    public function testSetupMethod()
-    {
-        $events = $this->events;
-        $callback = function () {
-            return ['editor'];
-        };
-
-        $events->shouldReceive('forget')->once()->with('orchestra.auth: roles')->andReturnNull()
-            ->shouldReceive('listen')->once()->with('orchestra.auth: roles', $callback)->andReturnNull();
-
-        $stub = new SessionGuard('web', $this->provider, $this->session);
-        $stub->setDispatcher($events);
-
-        $stub->setup($callback);
-    }
-
-    /**
      * Test Orchestra\Auth\SessionGuard::roles() method returning valid roles.
      *
      * @test

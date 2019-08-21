@@ -15,22 +15,6 @@ trait ProvidesRoles
     protected $userRoles = [];
 
     /**
-     * Setup roles event listener.
-     *
-     * @param  \Closure|string  $event
-     *
-     * @return void
-     */
-    public function setup($event): void
-    {
-        $this->userRoles = [];
-
-        $this->events->forget('orchestra.auth: roles');
-        $this->events->listen('orchestra.auth: roles', $event);
-    }
-
-
-    /**
      * Get the current user's roles of the application.
      *
      * If the user is a guest, empty array should be returned.
