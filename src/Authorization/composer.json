@@ -18,7 +18,7 @@
     },
     "require": {
         "php": ">=7.2",
-        "orchestra/contracts": "~4.0.0",
+        "orchestra/contracts": "^4.0",
         "orchestra/memory": "^4.0",
         "orchestra/support-core": "^4.0"
     },

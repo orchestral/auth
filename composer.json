@@ -28,8 +28,8 @@
     },
     "require": {
         "php": ">=7.2",
-        "illuminate/auth": "dev-master",
-        "orchestra/contracts": "~4.0.0",
+        "illuminate/auth": "^6.0",
+        "orchestra/contracts": "^4.0",
         "orchestra/memory": "^4.0",
         "orchestra/support-core": "^4.0"
     },
