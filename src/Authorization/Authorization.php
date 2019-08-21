@@ -7,7 +7,7 @@ use Illuminate\Support\Str;
 use InvalidArgumentException;
 use Orchestra\Support\Keyword;
 use Orchestra\Memory\Memorizable;
-use Orchestra\Contracts\Auth\Guard;
+use Illuminate\Contracts\Auth\Guard;
 use Orchestra\Contracts\Memory\Provider;
 use Orchestra\Contracts\Authorization\Authorizable;
 use Orchestra\Contracts\Authorization\Authorization as AuthorizationContract;
