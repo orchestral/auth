@@ -40,6 +40,25 @@ class AuthManager extends BaseManager
     }
 
     /**
+     * Register a new callback based request guard.
+     *
+     * @param  string  $driver
+     * @param  callable  $callback
+     * @return $this
+     */
+    public function viaRequest($driver, callable $callback)
+    {
+        return $this->extend($driver, function () use ($callback) {
+            $guard = new RequestGuard($callback, $this->app['request'], $this->createUserProvider());
+
+            $this->app->refresh('request', $guard, 'setRequest');
+
+            return $guard;
+        });
+    }
+
+
+    /**
      * Create an instance of the Eloquent user provider.
      *
      * @param  array  $config

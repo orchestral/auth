@@ -2,7 +2,7 @@
 
 namespace Orchestra\Authorization;
 
-use Orchestra\Contracts\Auth\Guard;
+use Illuminate\Contracts\Auth\Guard;
 use Orchestra\Contracts\Memory\Provider;
 use Orchestra\Contracts\Authorization\Factory as FactoryContract;
 use Orchestra\Contracts\Authorization\Authorization as AuthorizationContract;
@@ -12,7 +12,7 @@ class Factory implements FactoryContract
     /**
      * Auth instance.
      *
-     * @var \Orchestra\Contracts\Auth\Guard
+     * @var \Illuminate\Contracts\Auth\Guard
      */
     protected $auth;
 

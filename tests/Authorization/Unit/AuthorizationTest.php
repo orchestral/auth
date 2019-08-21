@@ -32,9 +32,9 @@ class AuthorizationTest extends TestCase
     protected function setUp(): void
     {
         $this->app = new IlluminateContainer();
-        $this->app['auth'] = $auth = m::mock('\Orchestra\Contracts\Auth\Guard');
-        $this->app['config'] = $config = m::mock('\Illuminate\Contracts\Config\Repository');
-        $this->app['events'] = $event = m::mock('\Illuminate\Contracts\Events\Dispatcher');
+        $this->app['auth'] = $auth = m::mock('Illuminate\Contracts\Auth\Guard');
+        $this->app['config'] = $config = m::mock('Illuminate\Contracts\Config\Repository');
+        $this->app['events'] = $event = m::mock('Illuminate\Contracts\Events\Dispatcher');
 
         $auth->shouldReceive('guest')->andReturn(true)
             ->shouldReceive('user')->andReturnNull();
@@ -92,10 +92,10 @@ class AuthorizationTest extends TestCase
         $acl = $refl->getProperty('acl');
         $acl->setAccessible(true);
 
-        $this->assertInstanceOf('\Orchestra\Authorization\Authorization', $this->stub);
-        $this->assertInstanceOf('\Orchestra\Contracts\Auth\Guard', $this->stub->auth());
-        $this->assertInstanceOf('\Orchestra\Authorization\Role', $this->stub->roles());
-        $this->assertInstanceOf('\Orchestra\Authorization\Action', $this->stub->actions());
+        $this->assertInstanceOf('Orchestra\Authorization\Authorization', $this->stub);
+        $this->assertInstanceOf('Illuminate\Contracts\Auth\Guard', $this->stub->auth());
+        $this->assertInstanceOf('Orchestra\Authorization\Role', $this->stub->roles());
+        $this->assertInstanceOf('Orchestra\Authorization\Action', $this->stub->actions());
 
         $this->assertTrue(is_array($acl->getValue($this->stub)));
     }
@@ -137,13 +137,13 @@ class AuthorizationTest extends TestCase
         $this->assertEquals($expected, $roles->getValue($stub)->get());
         $this->assertEquals($expected, $memory->getValue($stub)->get('acl_foo.roles'));
         $this->assertEquals($expected, $runtime->get('acl_foo.roles'));
-        $this->assertInstanceOf('\Orchestra\Authorization\Fluent', $stub->roles());
+        $this->assertInstanceOf('Orchestra\Authorization\Fluent', $stub->roles());
 
         $expected = ['manage-user', 'manage', 'foobar'];
         $this->assertEquals($expected, $actions->getValue($stub)->get());
         $this->assertEquals($expected, $memory->getValue($stub)->get('acl_foo.actions'));
         $this->assertEquals($expected, $runtime->get('acl_foo.actions'));
-        $this->assertInstanceOf('\Orchestra\Authorization\Fluent', $stub->actions());
+        $this->assertInstanceOf('Orchestra\Authorization\Fluent', $stub->actions());
 
         $expected = ['0:0' => false, '0:1' => false, '1:0' => true, '1:1' => true, '2:2' => true];
         $this->assertEquals($expected, $acl->getValue($stub));
@@ -248,7 +248,7 @@ class AuthorizationTest extends TestCase
      */
     public function testCanMethodAsAdminUser()
     {
-        $auth = m::mock('\Orchestra\Contracts\Auth\Guard');
+        $auth = m::mock('Orchestra\Contracts\Auth\Guard,Illuminate\Contracts\Auth\Guard');
 
         $auth->shouldReceive('guest')->times(4)->andReturn(false)
             ->shouldReceive('roles')->times(4)->andReturn(new Collection(['Admin']));
@@ -274,7 +274,7 @@ class AuthorizationTest extends TestCase
      */
     public function testCanMethodAsUser()
     {
-        $auth = m::mock('\Orchestra\Contracts\Auth\Guard');
+        $auth = m::mock('Orchestra\Contracts\Auth\Guard,Illuminate\Contracts\Auth\Guard');
 
         $auth->shouldReceive('guest')->times(2)->andReturn(false)
             ->shouldReceive('roles')->times(2)->andReturn(new Collection(['Admin', 'Staff']));
@@ -300,7 +300,7 @@ class AuthorizationTest extends TestCase
      */
     public function testCanMethodAsUserShouldNotBeAffectedByRoleOrder()
     {
-        $auth = m::mock('\Orchestra\Contracts\Auth\Guard');
+        $auth = m::mock('Orchestra\Contracts\Auth\Guard,Illuminate\Contracts\Auth\Guard');
 
         $auth->shouldReceive('guest')->times(2)->andReturn(false)
             ->shouldReceive('roles')->times(2)->andReturn(new Collection(['Staff', 'Admin']));
@@ -428,8 +428,8 @@ class AuthorizationTest extends TestCase
         $roles->setAccessible(true);
         $actions->setAccessible(true);
 
-        $this->assertInstanceOf('\Orchestra\Contracts\Memory\Provider', $memory->getValue($stub));
-        $this->assertInstanceOf('\Orchestra\Authorization\Fluent', $roles->getValue($stub));
+        $this->assertInstanceOf('Orchestra\Contracts\Memory\Provider', $memory->getValue($stub));
+        $this->assertInstanceOf('Orchestra\Authorization\Fluent', $roles->getValue($stub));
 
         $this->assertTrue($stub->roles()->has('guest'));
         $this->assertTrue($stub->roles()->has('admin'));
@@ -438,7 +438,7 @@ class AuthorizationTest extends TestCase
         $this->assertEquals(['guest', 'admin'], $roles->getValue($stub)->get());
         $this->assertEquals(['guest', 'admin'], $stub->roles()->get());
 
-        $this->assertInstanceOf('\Orchestra\Authorization\Fluent', $actions->getValue($stub));
+        $this->assertInstanceOf('Orchestra\Authorization\Fluent', $actions->getValue($stub));
 
         $this->assertTrue($stub->actions()->has('manage-user'));
         $this->assertTrue($stub->actions()->has('manage'));

@@ -4,7 +4,7 @@ namespace Orchestra\Authorization;
 
 use InvalidArgumentException;
 use Illuminate\Support\Collection;
-use Orchestra\Contracts\Auth\Guard;
+use Illuminate\Contracts\Auth\Guard;
 use Orchestra\Contracts\Authorization\Authorizable;
 
 trait Permission
@@ -192,7 +192,7 @@ trait Permission
     /**
      * Get the auth implementation.
      *
-     * @return \Orchestra\Contracts\Auth\Guard
+     * @return \Illuminate\Contracts\Auth\Guard
      */
     public function auth(): Guard
     {
@@ -229,7 +229,11 @@ trait Permission
         if (! \is_null($this->userRoles)) {
             return $this->userRoles;
         } elseif (! $this->auth->guest()) {
-            return $this->auth->roles();
+            if ($this->auth instanceof \Orchestra\Contracts\Auth\Guard) {
+                return $this->auth->roles();
+            }
+
+            return $this->auth->user()->getRoles();
         }
 
         return new Collection($this->roles->has('guest') ? ['guest'] : []);
