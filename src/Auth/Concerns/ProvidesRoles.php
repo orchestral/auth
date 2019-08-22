@@ -38,8 +38,6 @@ trait ProvidesRoles
             $roles = $this->getUserRolesFromEventDispatcher($user, $roles);
         }
 
-        $roles = new Collection($roles);
-
         $this->userRoles["{$userId}"] = $roles;
 
         return $roles;
