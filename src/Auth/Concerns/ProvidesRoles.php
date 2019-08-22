@@ -38,8 +38,6 @@ trait ProvidesRoles
             $roles = $this->getUserRolesFromEventDispatcher($user, $roles);
         }
 
-        $roles = new Collection($roles);
-
         $this->userRoles["{$userId}"] = $roles;
 
         return $roles;
@@ -60,10 +58,7 @@ trait ProvidesRoles
         // It possible that after event are all propagated we don't have a
         // roles for the user, in this case we should properly append "Guest"
         // user role to the current user.
-        if (\is_null($roles)) {
-            $roles = ['Guest'];
-        }
 
-        return new Collection($roles);
+        return new Collection($roles ?? ['Guest']);
     }
 }

@@ -12,6 +12,25 @@ class SessionGuard extends BaseGuard implements GuardContract
     use Concerns\HasRoles,
         Concerns\ProvidesRoles;
 
+
+
+    /**
+     * Setup roles event listener.
+     *
+     * @param  \Closure|string  $event
+     *
+     * @return void
+     *
+     * @deprecated v3.8.x and will be removed in v4.0.0
+     */
+    public function setup($event): void
+    {
+        $this->userRoles = [];
+
+        $this->events->forget('orchestra.auth: roles');
+        $this->events->listen('orchestra.auth: roles', $event);
+    }
+
     /**
      * {@inheritdoc}
      */
