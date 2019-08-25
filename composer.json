@@ -22,8 +22,8 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Orchestra\\Auth\\TestCase\\" : "tests/Auth/",
-            "Orchestra\\Authorization\\TestCase\\" : "tests/Authorization/"
+            "Orchestra\\Auth\\Tests\\" : "tests/Auth/",
+            "Orchestra\\Authorization\\Tests\\" : "tests/Authorization/"
         }
     },
     "require": {
@@ -43,7 +43,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "4.0-dev"
+            "dev-master": "5.0-dev"
         }
     },
     "config": {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Orchestra\Auth\TestCase\Unit\Passwords;
+namespace Orchestra\Auth\Tests\Unit\Passwords;
 
 use Mockery as m;
 use Illuminate\Support\Arr;

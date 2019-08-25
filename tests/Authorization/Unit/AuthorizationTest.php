@@ -1,6 +1,6 @@
 <?php
 
-namespace Orchestra\Authorization\TestCase\Unit;
+namespace Orchestra\Authorization\Tests\Unit;
 
 use Mockery as m;
 use Orchestra\Memory\Provider;
