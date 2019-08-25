@@ -28,15 +28,15 @@
     },
     "require": {
         "php": ">=7.2",
-        "illuminate/auth": "^6.0",
-        "orchestra/contracts": "^4.0",
-        "orchestra/memory": "^4.0",
-        "orchestra/support-core": "^4.0"
+        "illuminate/auth": "^7.0",
+        "orchestra/contracts": "^5.0",
+        "orchestra/memory": "^5.0",
+        "orchestra/support-core": "^5.0"
     },
     "require-dev": {
         "mockery/mockery": "^1.2",
-        "orchestra/model": "^4.0",
-        "orchestra/testbench": "^4.0"
+        "orchestra/model": "^5.0",
+        "orchestra/testbench": "^5.0"
     },
     "replace": {
         "orchestra/authorization": "self.version"
