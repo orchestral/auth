@@ -2,6 +2,20 @@
 
 This changelog references the relevant changes (bug and security fixes) done to `orchestra/auth`.
 
+## 3.8.2
+
+Released: 2019-08-26
+
+### Added
+
+* Added `Orchestra\Auth\Concerns\HasRoles`.
+* Added `Orchestra\Auth\Concerns\ProvidesRoles`.
+
+### Changes
+
+* Override `Orchestra\Auth\AuthManager::viaRequest()` to use `Orchestra\Auth\RequestGuard`.
+* `Orchestra\Authorization` should accepts `Illuminate\Contracts\Auth\Guard` and only check for `Orchestra\Contracts\Auth\Guard` if it's available.
+
 ## 3.8.1
 
 Released: 2019-08-09
