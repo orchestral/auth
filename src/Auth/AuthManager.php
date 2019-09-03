@@ -44,6 +44,7 @@ class AuthManager extends BaseManager
      *
      * @param  string  $driver
      * @param  callable  $callback
+     *
      * @return $this
      */
     public function viaRequest($driver, callable $callback)
@@ -56,7 +57,6 @@ class AuthManager extends BaseManager
             return $guard;
         });
     }
-
 
     /**
      * Create an instance of the Eloquent user provider.
