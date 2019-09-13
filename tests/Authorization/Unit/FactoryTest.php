@@ -3,8 +3,8 @@
 namespace Orchestra\Authorization\Tests\Unit;
 
 use Mockery as m;
-use PHPUnit\Framework\TestCase;
 use Orchestra\Authorization\Factory;
+use PHPUnit\Framework\TestCase;
 
 class FactoryTest extends TestCase
 {

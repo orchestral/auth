@@ -2,9 +2,9 @@
 
 namespace Orchestra\Auth\Passwords;
 
-use Illuminate\Contracts\Auth\UserProvider;
 use Illuminate\Auth\Passwords\PasswordBroker as Broker;
 use Illuminate\Auth\Passwords\TokenRepositoryInterface;
+use Illuminate\Contracts\Auth\UserProvider;
 
 class PasswordBroker extends Broker
 {

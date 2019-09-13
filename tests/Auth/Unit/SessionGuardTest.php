@@ -2,11 +2,11 @@
 
 namespace Orchestra\Auth\Tests\Unit;
 
-use Mockery as m;
-use PHPUnit\Framework\TestCase;
-use Orchestra\Auth\SessionGuard;
-use Illuminate\Support\Collection;
 use Illuminate\Auth\Events\Authenticated;
+use Illuminate\Support\Collection;
+use Mockery as m;
+use Orchestra\Auth\SessionGuard;
+use PHPUnit\Framework\TestCase;
 
 class SessionGuardTest extends TestCase
 {

@@ -2,10 +2,10 @@
 
 namespace Orchestra\Authorization\Tests\Unit;
 
-use Mockery as m;
-use PHPUnit\Framework\TestCase;
 use Illuminate\Support\Collection;
+use Mockery as m;
 use Orchestra\Authorization\Action;
+use PHPUnit\Framework\TestCase;
 
 class ActionTest extends TestCase
 {

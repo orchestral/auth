@@ -2,9 +2,9 @@
 
 namespace Orchestra\Auth;
 
-use Orchestra\Authorization\Policy;
-use Illuminate\Contracts\Container\Container;
 use Illuminate\Auth\AuthServiceProvider as ServiceProvider;
+use Illuminate\Contracts\Container\Container;
+use Orchestra\Authorization\Policy;
 use Orchestra\Contracts\Authorization\Factory as FactoryContract;
 
 class AuthServiceProvider extends ServiceProvider

@@ -3,8 +3,8 @@
 namespace Orchestra\Authorization\Tests\Unit;
 
 use Mockery as m;
-use PHPUnit\Framework\TestCase;
 use Orchestra\Authorization\Fluent;
+use PHPUnit\Framework\TestCase;
 
 class FluentTest extends TestCase
 {

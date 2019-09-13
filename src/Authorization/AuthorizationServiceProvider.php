@@ -2,9 +2,9 @@
 
 namespace Orchestra\Authorization;
 
-use Illuminate\Support\ServiceProvider;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Support\DeferrableProvider;
+use Illuminate\Support\ServiceProvider;
 
 class AuthorizationServiceProvider extends ServiceProvider implements DeferrableProvider
 {

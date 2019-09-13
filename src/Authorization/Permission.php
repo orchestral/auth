@@ -2,9 +2,9 @@
 
 namespace Orchestra\Authorization;
 
-use InvalidArgumentException;
-use Illuminate\Support\Collection;
 use Illuminate\Contracts\Auth\Guard;
+use Illuminate\Support\Collection;
+use InvalidArgumentException;
 use Orchestra\Contracts\Authorization\Authorizable;
 
 trait Permission

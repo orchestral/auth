@@ -2,8 +2,8 @@
 
 namespace Orchestra\Auth\Concerns;
 
-use Illuminate\Support\Collection;
 use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Support\Collection;
 
 trait ProvidesRoles
 {

@@ -3,9 +3,9 @@
 namespace Orchestra\Authorization;
 
 use Illuminate\Contracts\Auth\Guard;
-use Orchestra\Contracts\Memory\Provider;
-use Orchestra\Contracts\Authorization\Factory as FactoryContract;
 use Orchestra\Contracts\Authorization\Authorization as AuthorizationContract;
+use Orchestra\Contracts\Authorization\Factory as FactoryContract;
+use Orchestra\Contracts\Memory\Provider;
 
 class Factory implements FactoryContract
 {

@@ -2,10 +2,10 @@
 
 namespace Orchestra\Authorization;
 
-use InvalidArgumentException;
-use Orchestra\Support\Keyword;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Database\Eloquent\Model as Eloquent;
+use InvalidArgumentException;
+use Orchestra\Support\Keyword;
 
 abstract class Fluent
 {
