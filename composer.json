@@ -36,7 +36,7 @@
     "require-dev": {
         "mockery/mockery": "^1.2",
         "orchestra/model": "^4.0",
-        "orchestra/testbench": "^4.0"
+        "orchestra/testbench": "^4.0.1"
     },
     "replace": {
         "orchestra/authorization": "self.version"
