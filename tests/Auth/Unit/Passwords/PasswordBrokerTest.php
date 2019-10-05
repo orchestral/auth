@@ -2,12 +2,12 @@
 
 namespace Orchestra\Auth\Tests\Unit\Passwords;
 
-use Mockery as m;
-use Illuminate\Support\Arr;
-use PHPUnit\Framework\TestCase;
 use Illuminate\Container\Container;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Facade;
+use Mockery as m;
 use Orchestra\Auth\Passwords\PasswordBroker;
+use PHPUnit\Framework\TestCase;
 
 class PasswordBrokerTest extends TestCase
 {

@@ -2,13 +2,13 @@
 
 namespace Orchestra\Authorization\Tests\Unit;
 
+use Illuminate\Container\Container as IlluminateContainer;
+use Illuminate\Support\Collection;
 use Mockery as m;
+use Orchestra\Authorization\Authorization;
+use Orchestra\Memory\Handlers\Runtime;
 use Orchestra\Memory\Provider;
 use PHPUnit\Framework\TestCase;
-use Illuminate\Support\Collection;
-use Orchestra\Memory\Handlers\Runtime;
-use Orchestra\Authorization\Authorization;
-use Illuminate\Container\Container as IlluminateContainer;
 
 class AuthorizationTest extends TestCase
 {

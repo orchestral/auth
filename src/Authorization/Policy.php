@@ -3,8 +3,8 @@
 namespace Orchestra\Authorization;
 
 use Orchestra\Contracts\Authorization\Authorizable;
-use Orchestra\Contracts\Authorization\Factory as FactoryContract;
 use Orchestra\Contracts\Authorization\Authorization as AuthorizationContract;
+use Orchestra\Contracts\Authorization\Factory as FactoryContract;
 
 abstract class Policy
 {

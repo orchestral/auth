@@ -34,7 +34,7 @@
         "orchestra/support-core": "^5.0"
     },
     "require-dev": {
-        "mockery/mockery": "^1.2",
+        "mockery/mockery": "^1.2.3",
         "orchestra/model": "^5.0",
         "orchestra/testbench": "^5.0"
     },

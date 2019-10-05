@@ -2,8 +2,8 @@
 
 namespace Orchestra\Auth\Passwords;
 
-use InvalidArgumentException;
 use Illuminate\Auth\Passwords\PasswordBrokerManager as BaseManager;
+use InvalidArgumentException;
 
 class PasswordBrokerManager extends BaseManager
 {

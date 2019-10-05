@@ -2,8 +2,8 @@
 
 namespace Orchestra\Auth\Passwords;
 
-use Illuminate\Contracts\Container\Container;
 use Illuminate\Auth\Passwords\PasswordResetServiceProvider as ServiceProvider;
+use Illuminate\Contracts\Container\Container;
 
 class PasswordResetServiceProvider extends ServiceProvider
 {
