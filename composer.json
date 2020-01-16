@@ -41,11 +41,6 @@
     "replace": {
         "orchestra/authorization": "self.version"
     },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "5.0-dev"
-        }
-    },
     "config": {
         "sort-packages": true
     },

@@ -22,11 +22,6 @@
         "orchestra/memory": "^5.0",
         "orchestra/support-core": "^5.0"
     },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "5.0-dev"
-        }
-    },
     "support": {
         "issues": "https://github.com/orchestral/auth/issues"
     },
