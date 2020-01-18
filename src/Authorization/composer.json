@@ -18,9 +18,9 @@
     },
     "require": {
         "php": ">=7.2",
-        "orchestra/contracts": "^5.0",
-        "orchestra/memory": "^5.0",
-        "orchestra/support-core": "^5.0"
+        "orchestra/contracts": "dev-master",
+        "orchestra/memory": "dev-master",
+        "orchestra/support-core": "dev-master"
     },
     "support": {
         "issues": "https://github.com/orchestral/auth/issues"
