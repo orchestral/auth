@@ -17,13 +17,18 @@
         }
     },
     "require": {
-        "php": ">=7.2",
-        "orchestra/contracts": "dev-master",
-        "orchestra/memory": "dev-master",
-        "orchestra/support-core": "dev-master"
+        "php": ">=7.3",
+        "orchestra/contracts": "^6.0",
+        "orchestra/memory": "^6.0",
+        "orchestra/support-core": "^6.0"
     },
     "support": {
         "issues": "https://github.com/orchestral/auth/issues"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "6.0-dev"
+        }
     },
     "config": {
         "sort-packages": true
