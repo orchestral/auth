@@ -43,7 +43,6 @@ class AuthManager extends BaseManager
      * Register a new callback based request guard.
      *
      * @param  string  $driver
-     * @param  callable  $callback
      *
      * @return $this
      */

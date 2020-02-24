@@ -9,8 +9,6 @@ class PasswordResetServiceProvider extends ServiceProvider
 {
     /**
      * Register the password broker instance.
-     *
-     * @return void
      */
     protected function registerPasswordBroker(): void
     {

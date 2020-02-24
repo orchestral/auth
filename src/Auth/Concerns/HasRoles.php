@@ -8,8 +8,6 @@ trait HasRoles
      * Determine if current user has the given role.
      *
      * @param  string|array  $roles
-     *
-     * @return bool
      */
     public function is($roles): bool
     {
@@ -34,10 +32,6 @@ trait HasRoles
 
     /**
      * Determine if current user has any of the given role.
-     *
-     * @param  array  $roles
-     *
-     * @return bool
      */
     public function isAny(array $roles): bool
     {
@@ -64,8 +58,6 @@ trait HasRoles
      * Determine if current user does not has any of the given role.
      *
      * @param  string|array  $roles
-     *
-     * @return bool
      */
     public function isNot($roles): bool
     {
@@ -76,8 +68,6 @@ trait HasRoles
      * Determine if current user does not has any of the given role.
      *
      * @param  string|array  $roles
-     *
-     * @return bool
      */
     public function isNotAny($roles): bool
     {

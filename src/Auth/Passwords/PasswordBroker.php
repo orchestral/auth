@@ -18,8 +18,6 @@ class PasswordBroker extends Broker
     /**
      * Create a new password broker instance.
      *
-     * @param  \Illuminate\Auth\Passwords\TokenRepositoryInterface  $tokens
-     * @param  \Illuminate\Contracts\Auth\UserProvider  $users
      * @param  string  $provider
      */
     public function __construct(
@@ -34,10 +32,6 @@ class PasswordBroker extends Broker
 
     /**
      * Send a password reminder to a user.
-     *
-     * @param  array  $credentials
-     *
-     * @return string
      */
     public function sendResetLink(array $credentials): string
     {

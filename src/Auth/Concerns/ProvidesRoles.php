@@ -18,8 +18,6 @@ trait ProvidesRoles
      * Get the current user's roles of the application.
      *
      * If the user is a guest, empty array should be returned.
-     *
-     * @return \Illuminate\Support\Collection
      */
     public function roles(): Collection
     {
@@ -46,10 +44,7 @@ trait ProvidesRoles
     /**
      * Ger user roles from event dispatcher.
      *
-     * @param  \Illuminate\Contracts\Auth\Authenticatable  $user
      * @param  \Illuminate\Support\Collection|array  $roles
-     *
-     * @return \Illuminate\Support\Collection
      */
     protected function getUserRolesFromEventDispatcher(Authenticatable $user = null, $roles = []): Collection
     {

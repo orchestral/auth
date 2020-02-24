@@ -25,8 +25,6 @@ class Factory implements FactoryContract
 
     /**
      * Construct a new Environment.
-     *
-     * @param  \Orchestra\Contracts\Auth\Guard  $auth
      */
     public function __construct(Guard $auth)
     {
@@ -35,11 +33,6 @@ class Factory implements FactoryContract
 
     /**
      * Initiate a new ACL Container instance.
-     *
-     * @param  string|null  $name
-     * @param  \Orchestra\Contracts\Memory\Provider|null  $memory
-     *
-     * @return \Orchestra\Contracts\Authorization\Authorization
      */
     public function make(string $name = null, ?Provider $memory = null): AuthorizationContract
     {
@@ -55,10 +48,7 @@ class Factory implements FactoryContract
     /**
      * Register an ACL Container instance with Closure.
      *
-     * @param  string  $name
-     * @param  callable|null  $callback
-     *
-     * @return \Orchestra\Contracts\Authorization\Authorization
+     * @param  string|callable  $name
      */
     public function register($name, ?callable $callback = null): AuthorizationContract
     {
@@ -76,9 +66,6 @@ class Factory implements FactoryContract
 
     /**
      * Manipulate and synchronize roles.
-     *
-     * @param  string  $method
-     * @param  array  $parameters
      *
      * @return mixed
      */
@@ -112,8 +99,6 @@ class Factory implements FactoryContract
 
     /**
      * Get all ACL instances.
-     *
-     * @return array
      */
     public function all(): array
     {
@@ -122,10 +107,6 @@ class Factory implements FactoryContract
 
     /**
      * Get ACL instance by name.
-     *
-     * @param  string  $name
-     *
-     * @return \Orchestra\Contracts\Authorization\Authorization|null
      */
     public function get(string $name): ?AuthorizationContract
     {

@@ -36,8 +36,6 @@ abstract class Fluent
      * @param  \Illuminate\Database\Eloquent\Model|string  $key
      *
      * @throws \InvalidArgumentException
-     *
-     * @return bool
      */
     public function add($key): bool
     {
@@ -66,8 +64,6 @@ abstract class Fluent
      * Add multiple key to collection.
      *
      * @param  \Illuminate\Contracts\Support\Arrayable|array  $keys
-     *
-     * @return bool
      */
     public function attach($keys): bool
     {
@@ -86,8 +82,6 @@ abstract class Fluent
      * Remove multiple key to collection.
      *
      * @param  \Illuminate\Contracts\Support\Arrayable|array  $keys
-     *
-     * @return bool
      */
     public function detach($keys): bool
     {
@@ -106,8 +100,6 @@ abstract class Fluent
      * Check if an id is set in the collection.
      *
      * @param  \Orchestra\Support\Keyword|string  $id
-     *
-     * @return bool
      */
     public function exists($id): bool
     {
@@ -118,8 +110,6 @@ abstract class Fluent
      * Filter request.
      *
      * @param  string|array  $request
-     *
-     * @return array
      */
     public function filter($request): array
     {
@@ -138,8 +128,6 @@ abstract class Fluent
      * Find collection key from a name.
      *
      * @param  \Orchestra\Support\Keyword|string  $name
-     *
-     * @return int|null
      */
     public function findKey($name): ?int
     {
@@ -154,8 +142,6 @@ abstract class Fluent
 
     /**
      * Get the items.
-     *
-     * @return array
      */
     public function get(): array
     {
@@ -166,8 +152,6 @@ abstract class Fluent
      * Determine whether a key exists in collection.
      *
      * @param  \Orchestra\Support\Keyword|string  $key
-     *
-     * @return bool
      */
     public function has($key): bool
     {
@@ -182,8 +166,6 @@ abstract class Fluent
      * @param  \Orchestra\Support\Keyword|string|null  $key
      *
      * @throws \InvalidArgumentException
-     *
-     * @return bool
      */
     public function remove($key): bool
     {
@@ -205,8 +187,6 @@ abstract class Fluent
      *
      * @param  \Orchestra\Support\Keyword|string  $from
      * @param  \Orchestra\Support\Keyword|string  $to
-     *
-     * @return bool
      */
     public function rename($from, $to): bool
     {
@@ -225,8 +205,6 @@ abstract class Fluent
      * Get the ID from a key.
      *
      * @param  \Orchestra\Support\Keyword|string  $key
-     *
-     * @return int|null
      */
     public function search($key): ?int
     {
@@ -243,8 +221,6 @@ abstract class Fluent
      * Get keyword instance.
      *
      * @param  \Orchestra\Support\Keyword|string  $key
-     *
-     * @return \Orchestra\Support\Keyword
      */
     protected function getKeyword($key): Keyword
     {
