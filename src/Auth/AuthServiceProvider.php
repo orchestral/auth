@@ -37,8 +37,6 @@ class AuthServiceProvider extends ServiceProvider
 
     /**
      * Register the service provider for Auth.
-     *
-     * @return void
      */
     protected function registerAuthenticator(): void
     {
@@ -58,8 +56,6 @@ class AuthServiceProvider extends ServiceProvider
 
     /**
      * Register the Policy after resolving handler.
-     *
-     * @return void
      */
     protected function registerPolicyAfterResolvingHandler(): void
     {

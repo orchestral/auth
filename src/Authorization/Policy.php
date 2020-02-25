@@ -25,8 +25,6 @@ abstract class Policy
     /**
      * Set authorization driver.
      *
-     * @param  \Orchestra\Contracts\Authorization\Factory  $factory
-     *
      * @return $this
      */
     public function setAuthorization(FactoryContract $factory)
@@ -38,8 +36,6 @@ abstract class Policy
 
     /**
      * Get authorization driver.
-     *
-     * @return \Orchestra\Contracts\Authorization\Authorization
      */
     protected function getAuthorization(): AuthorizationContract
     {
@@ -48,11 +44,6 @@ abstract class Policy
 
     /**
      * Resolve if authorization can.
-     *
-     * @param  string  $action
-     * @param  \Orchestra\Contracts\Authorization\Authorizable|null  $user
-     *
-     * @return bool
      */
     protected function can(string $action, ?Authorizable $user = null): bool
     {
@@ -63,11 +54,6 @@ abstract class Policy
 
     /**
      * Resolve if authorization can if action exists.
-     *
-     * @param  string  $action
-     * @param  \Orchestra\Contracts\Authorization\Authorizable|null  $user
-     *
-     * @return bool
      */
     protected function canIf(string $action, ?Authorizable $user = null): bool
     {
@@ -78,8 +64,6 @@ abstract class Policy
 
     /**
      * Get authorization driver name.
-     *
-     * @return string
      */
     protected function getAuthorizationName(): string
     {

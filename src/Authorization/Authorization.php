@@ -25,9 +25,6 @@ class Authorization implements AuthorizationContract
 
     /**
      * Construct a new object.
-     *
-     * @param  string  $name
-     * @param  \Orchestra\Contracts\Memory\Provider|null  $memory
      */
     public function __construct(string $name, Provider $memory = null)
     {
@@ -43,8 +40,6 @@ class Authorization implements AuthorizationContract
     /**
      * Set authenticator.
      *
-     * @param  \Illuminate\Contracts\Auth\Guard  $auth
-     *
      * @return $this
      */
     public function setAuthenticator(Guard $auth)
@@ -57,8 +52,6 @@ class Authorization implements AuthorizationContract
     /**
      * Bind current ACL instance with a Memory instance.
      *
-     * @param  \Orchestra\Contracts\Memory\Provider  $memory
-     *
      * @throws \RuntimeException if $memory has been attached
      *
      * @return $this
@@ -66,9 +59,7 @@ class Authorization implements AuthorizationContract
     public function attach(Provider $memory = null)
     {
         if ($this->attached() && $memory !== $this->memory) {
-            throw new RuntimeException(
-                "Unable to assign multiple Orchestra\Memory instance."
-            );
+            throw new RuntimeException("Unable to assign multiple Orchestra\Memory instance.");
         }
 
         // since we already check instanceof Orchestra\Memory\Provider,
@@ -110,9 +101,8 @@ class Authorization implements AuthorizationContract
     /**
      * Assign single or multiple $roles + $actions to have access.
      *
-     * @param  string|array  $roles      A string or an array of roles
-     * @param  string|array  $actions    A string or an array of action name
-     * @param  bool          $allow
+     * @param  string|array  $roles
+     * @param  string|array  $actions
      *
      * @return $this
      */
@@ -127,11 +117,7 @@ class Authorization implements AuthorizationContract
      * Verify whether current user has sufficient roles to access the
      * actions based on available type of access.
      *
-     * @param  string  $action     A string of action name
-     *
      * @throws \InvalidArgumentException
-     *
-     * @return bool
      */
     public function can(string $action): bool
     {
@@ -141,10 +127,6 @@ class Authorization implements AuthorizationContract
     /**
      * Verify whether current user has sufficient roles to access the
      * actions based on available type of access if the action exist.
-     *
-     * @param  string  $action     A string of action name
-     *
-     * @return bool
      */
     public function canIf(string $action): bool
     {
@@ -162,12 +144,7 @@ class Authorization implements AuthorizationContract
      * Verify whether current user has sufficient roles to access the
      * actions based on available type of access.
      *
-     * @param  \Orchestra\Contracts\Authorization\Authorizable  $user
-     * @param  string  $action     A string of action name
-     *
      * @throws \InvalidArgumentException
-     *
-     * @return bool
      */
     public function canAs(Authorizable $user, string $action): bool
     {
@@ -183,11 +160,6 @@ class Authorization implements AuthorizationContract
     /**
      * Verify whether current user has sufficient roles to access the
      * actions based on available type of access if the action exist.
-     *
-     * @param  \Orchestra\Contracts\Authorization\Authorizable  $user
-     * @param  string  $action     A string of action name
-     *
-     * @return bool
      */
     public function canIfAs(Authorizable $user, string $action): bool
     {
@@ -204,12 +176,9 @@ class Authorization implements AuthorizationContract
      * Verify whether given roles has sufficient roles to access the
      * actions based on available type of access.
      *
-     * @param  string|array  $roles      A string or an array of roles
-     * @param  string        $action     A string of action name
+     * @param  string|array  $roles
      *
      * @throws \InvalidArgumentException
-     *
-     * @return bool
      */
     public function check($roles, string $action): bool
     {
@@ -220,8 +189,8 @@ class Authorization implements AuthorizationContract
      * Shorthand function to deny access for single or multiple
      * $roles and $actions.
      *
-     * @param  string|array  $roles      A string or an array of roles
-     * @param  string|array  $actions    A string or an array of action name
+     * @param  string|array  $roles
+     * @param  string|array  $actions
      *
      * @return $this
      */
@@ -254,11 +223,7 @@ class Authorization implements AuthorizationContract
     /**
      * Forward call to roles or actions.
      *
-     * @param  string  $type           'roles' or 'actions'
-     * @param  string  $operation
-     * @param  array   $parameters
-     *
-     * @return \Orchestra\Authorization\Fluent
+     * @return mixed
      */
     public function execute(string $type, string $operation, array $parameters = [])
     {
@@ -268,14 +233,11 @@ class Authorization implements AuthorizationContract
     /**
      * Magic method to mimic roles and actions manipulation.
      *
-     * @param  string  $method
-     * @param  array   $parameters
-     *
      * @return mixed
      */
     public function __call(string $method, array $parameters)
     {
-        list($type, $operation) = $this->resolveDynamicExecution($method);
+        [$type, $operation] = $this->resolveDynamicExecution($method);
 
         $response = $this->execute($type, $operation, $parameters);
 
@@ -290,11 +252,7 @@ class Authorization implements AuthorizationContract
      * Dynamically resolve operation name especially to resolve attach and
      * detach multiple actions or roles.
      *
-     * @param  string  $method
-     *
      * @throws \InvalidArgumentException
-     *
-     * @return array
      */
     protected function resolveDynamicExecution(string $method): array
     {
@@ -316,11 +274,6 @@ class Authorization implements AuthorizationContract
     /**
      * Dynamically resolve operation name especially when multiple
      * operation was used.
-     *
-     * @param  string  $operation
-     * @param  bool    $multiple
-     *
-     * @return string
      */
     protected function resolveOperationName(string $operation, bool $multiple = true): string
     {

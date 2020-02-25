@@ -32,8 +32,6 @@ class OrchestraAuthCreatePasswordRemindersTable extends Migration
 
     /**
      * Resolve table name.
-     *
-     * @return string
      */
     protected function tableNameForPasswordReset(): string
     {

@@ -48,12 +48,10 @@ trait Permission
      * Verify whether given roles has sufficient roles to access the
      * actions based on available type of access.
      *
-     * @param  string|array  $roles      A string or an array of roles
+     * @param  string|array  $roles
      * @param  string        $action     A string of action name
      *
      * @throws \InvalidArgumentException
-     *
-     * @return bool
      */
     public function checkAuthorization($roles, $action): bool
     {
@@ -86,13 +84,10 @@ trait Permission
     /**
      * Assign single or multiple $roles + $actions to have access.
      *
-     * @param  string|array  $roles      A string or an array of roles
-     * @param  string|array  $actions    A string or an array of action name
-     * @param  bool          $allow
+     * @param  string|array  $roles
+     * @param  string|array  $actions
      *
      * @throws \InvalidArgumentException
-     *
-     * @return void
      */
     public function setAuthorization($roles, $actions, bool $allow = true): void
     {
@@ -112,12 +107,8 @@ trait Permission
      * Grouped assign actions to have access.
      *
      * @param  string  $role
-     * @param  array   $actions
-     * @param  bool    $allow
      *
      * @throws \InvalidArgumentException
-     *
-     * @return bool
      */
     protected function groupedAssignAction($role, array $actions, bool $allow = true): bool
     {
@@ -135,11 +126,8 @@ trait Permission
     /**
      * Assign a key combination of $roles + $actions to have access.
      *
-     * @param  string  $role       A key or string representation of roles
-     * @param  string  $action     A key or string representation of action name
-     * @param  bool    $allow
-     *
-     * @return void
+     * @param  string|null  $role
+     * @param  string|null  $action
      */
     protected function assign(?string $role = null, ?string $action = null, bool $allow = true): void
     {
@@ -153,8 +141,6 @@ trait Permission
 
     /**
      * Assign user instance.
-     *
-     * @param  \Orchestra\Contracts\Authorization\Authorizable  $user
      *
      * @return $this
      */
@@ -181,8 +167,6 @@ trait Permission
 
     /**
      * Get the ACL collection.
-     *
-     * @return array
      */
     public function acl(): array
     {
@@ -191,8 +175,6 @@ trait Permission
 
     /**
      * Get the auth implementation.
-     *
-     * @return \Illuminate\Contracts\Auth\Guard
      */
     public function auth(): Guard
     {
@@ -221,8 +203,6 @@ trait Permission
 
     /**
      * Get all possible user roles.
-     *
-     * @return \Illuminate\Support\Collection
      */
     protected function getUserRoles(): Collection
     {
