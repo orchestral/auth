@@ -7,10 +7,17 @@ CURRENT_BRANCH="4.x"
 
 function split()
 {
-    SHA1=`./.github/workflows/splitsh-lite --prefix=$1`
+    SHA1=`splitsh-lite --prefix=$1`
     git push $2 "$SHA1:refs/heads/$CURRENT_BRANCH" -f
 }
 
+function remote()
+{
+    git remote add $1 $2 || true
+}
+
 git pull origin $CURRENT_BRANCH
+
+remote authorization git@github.com:orchestral/authorization.git
 
 split 'src/Authorization' authorization
