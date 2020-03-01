@@ -5,8 +5,6 @@ set -e
 CURRENT_BRANCH="5.x"
 COMPONENTS=("authorization")
 
-. bin/remote.conf;
-
 if (( "$#" != 1 ))
 then
     echo "Tag has to be provided"
@@ -25,8 +23,6 @@ fi
 # Tag Component
 git tag $VERSION
 git push origin --tags
-
-register_remotes()
 
 # Tag Components
 for REMOTE in "${COMPONENTS[@]}"
@@ -51,5 +47,3 @@ do
         git push origin --tags
     )
 done
-
-reset_remotes
