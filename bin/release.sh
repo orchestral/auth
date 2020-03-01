@@ -2,7 +2,8 @@
 
 set -e
 
-. bin/remote.conf;
+CURRENT_BRANCH="4.x"
+COMPONENTS=("authorization")
 
 if (( "$#" != 1 ))
 then
@@ -10,9 +11,6 @@ then
 
     exit 1
 fi
-
-CURRENT_BRANCH="4.x"
-COMPONENTS=("authorization")
 VERSION=$1
 
 # Always prepend with "v"
@@ -24,8 +22,6 @@ fi
 # Tag Component
 git tag $VERSION
 git push origin --tags
-
-register_remotes()
 
 # Tag Components
 for REMOTE in "${COMPONENTS[@]}"
@@ -50,5 +46,3 @@ do
         git push origin --tags
     )
 done
-
-reset_remotes

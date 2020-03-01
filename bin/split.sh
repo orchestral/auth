@@ -3,6 +3,8 @@
 set -e
 set -x
 
+CURRENT_BRANCH="4.x"
+
 . bin/remote.conf;
 
 function split()
@@ -11,7 +13,6 @@ function split()
     git push $2 "$SHA1:refs/heads/$CURRENT_BRANCH" -f
 }
 
-CURRENT_BRANCH="4.x"
 git pull origin $CURRENT_BRANCH
 
 register_remotes
