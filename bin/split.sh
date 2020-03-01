@@ -3,7 +3,7 @@
 set -e
 set -x
 
-CURRENT_BRANCH="4.x"
+. bin/remote.conf;
 
 function split()
 {
@@ -11,13 +11,11 @@ function split()
     git push $2 "$SHA1:refs/heads/$CURRENT_BRANCH" -f
 }
 
-function remote()
-{
-    git remote add $1 $2 || true
-}
-
+CURRENT_BRANCH="4.x"
 git pull origin $CURRENT_BRANCH
 
-remote authorization git@github.com:orchestral/authorization.git
+register_remotes
 
 split 'src/Authorization' authorization
+
+reset_remotes
