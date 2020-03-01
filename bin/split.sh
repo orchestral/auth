@@ -5,18 +5,26 @@ set -x
 
 CURRENT_BRANCH="5.x"
 
-. bin/remote.conf;
-
 function split()
 {
     SHA1=`splitsh-lite --prefix=$1`
     git push $2 "$SHA1:refs/heads/$CURRENT_BRANCH" -f
 }
 
+function add_remote()
+{
+    git remote add $1 $2 || true
+}
+
+function remove_remote()
+{
+    git remote remove $1 || true
+}
+
 git pull origin $CURRENT_BRANCH
 
-register_remotes
+add_remote authorization git@github.com:orchestral/authorization.git
 
 split 'src/Authorization' authorization
 
-reset_remotes
+remove_remote authorization
