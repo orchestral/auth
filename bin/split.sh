@@ -11,13 +11,20 @@ function split()
     git push $2 "$SHA1:refs/heads/$CURRENT_BRANCH" -f
 }
 
-function remote()
+function add_remote()
 {
     git remote add $1 $2 || true
 }
 
+function remove_remote()
+{
+    git remote remove $1 || true
+}
+
 git pull origin $CURRENT_BRANCH
 
-remote authorization git@github.com:orchestral/authorization.git
+add_remote authorization git@github.com:orchestral/authorization.git
 
 split 'src/Authorization' authorization
+
+remove_remote authorization

@@ -10,4 +10,4 @@ Authorization Component for Orchestra Platform
 
 To install through composer, run the following command from terminal:
 
-    composer require "orchestra/auth"
+    composer require "orchestra/authorization"

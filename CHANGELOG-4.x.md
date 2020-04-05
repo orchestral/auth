@@ -8,4 +8,4 @@ Released: 2019-09-03
 
 ### Changes
 
-* Update support for Laravel Framework v6.0.
+* Update support for Laravel Framework v6.

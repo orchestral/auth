@@ -2,6 +2,9 @@
 
 set -e
 
+CURRENT_BRANCH="master"
+COMPONENTS=("authorization")
+
 if (( "$#" != 1 ))
 then
     echo "Tag has to be provided"
@@ -9,7 +12,6 @@ then
     exit 1
 fi
 
-CURRENT_BRANCH="master"
 VERSION=$1
 
 # Always prepend with "v"
@@ -18,12 +20,12 @@ then
     VERSION="v$VERSION"
 fi
 
-# Tag Framework
+# Tag Component
 git tag $VERSION
 git push origin --tags
 
 # Tag Components
-for REMOTE in authorization
+for REMOTE in "${COMPONENTS[@]}"
 do
     echo ""
     echo ""
