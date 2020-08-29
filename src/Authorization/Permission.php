@@ -125,9 +125,6 @@ trait Permission
 
     /**
      * Assign a key combination of $roles + $actions to have access.
-     *
-     * @param  string|null  $role
-     * @param  string|null  $action
      */
     protected function assign(?string $role = null, ?string $action = null, bool $allow = true): void
     {

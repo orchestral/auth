@@ -47,7 +47,8 @@ class PasswordBrokerTest extends TestCase
 
         $user->shouldReceive('retrieveByCredentials')->once()
             ->with(['username' => 'user-foo'])->andReturn($user);
-        $reminders->shouldReceive('create')->once()->with($user)->andReturn('token');
+        $reminders->shouldReceive('recentlyCreatedToken')->once()->with($user)->andReturn(false)
+            ->shouldReceive('create')->once()->with($user)->andReturn('token');
         $user->shouldReceive('sendPasswordResetNotification')->once()->with('token', 'user');
 
         $this->assertEquals('passwords.sent', $stub->sendResetLink(['username' => 'user-foo']));
