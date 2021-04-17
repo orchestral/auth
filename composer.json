@@ -28,7 +28,7 @@
     },
     "require": {
         "php": "^7.3 || ^8.0",
-        "illuminate/auth": "^8.0",
+        "illuminate/auth": "^8.37",
         "orchestra/contracts": "^6.0",
         "orchestra/memory": "^6.0",
         "orchestra/support-core": "^6.0"
