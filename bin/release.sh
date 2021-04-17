@@ -2,7 +2,7 @@
 
 set -e
 
-CURRENT_BRANCH="master"
+CURRENT_BRANCH="6.x"
 COMPONENTS=("authorization")
 
 if (( "$#" != 1 ))
