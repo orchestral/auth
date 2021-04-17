@@ -5,7 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Schema;
 
-class OrchestraAuthCreatePasswordRemindersTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -40,4 +40,4 @@ class OrchestraAuthCreatePasswordRemindersTable extends Migration
             'auth.passwords.'.Config::get('auth.defaults.passwords').'.table', 'password_resets'
         );
     }
-}
+};
