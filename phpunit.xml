@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd"
+         xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
          backupGlobals="false"
          backupStaticAttributes="false"
          beStrictAboutTestsThatDoNotTestAnything="false"
@@ -18,8 +18,11 @@
     </include>
   </coverage>
   <testsuites>
-    <testsuite name="Orchestra\Auth Test Suite">
-      <directory suffix="Test.php">./tests/</directory>
+    <testsuite name="auth">
+      <directory suffix="Test.php">./tests/Auth/</directory>
+    </testsuite>
+    <testsuite name="authorization">
+      <directory suffix="Test.php">./tests/Authorization/</directory>
     </testsuite>
   </testsuites>
 </phpunit>
